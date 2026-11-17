@@ -39,5 +39,6 @@ function guidePanels(){
 TITLES.guide=['GUIDA 1–75','Guida ai livelli 1–75','Progressione, Metin, equipaggiamento, alchimia e attività da livello 1 a 75.'];
 sections.guide=guidePanels;
 state.guideLevelRange=state.guideLevelRange||'1-29';
+if(location.hash==='#guide'){state.route='guide';render();}
 document.querySelector('#panels')?.addEventListener('click',e=>{const btn=e.target.closest('[data-guide-level]');if(!btn)return;state.guideLevelRange=btn.dataset.guideLevel;render();});
 })();
