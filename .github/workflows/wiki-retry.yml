@@ -1,0 +1,29 @@
+name: Retry official Wiki pages rate-limited during import
+on:
+  push:
+    paths: ['.github/workflows/wiki-retry.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Recover rate-limited pages and missing original images
+        run: node scripts/mirror-wiki.mjs --scope=all --max-pages=5500 --max-assets=20000 --max-minutes=12
+      - name: Store verified recovered files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/wiki-pages public/wiki-original public/wiki-mirror-manifest.json public/wiki-index.generated.js public/wiki-tooltips.generated.js public/wiki-mirror-utilities.css
+          if ! git diff --cached --quiet; then
+            git commit -m "Recover official VERZUM Wiki pages and authentic media after temporary API limits"
+            git push origin HEAD:main
+          fi
