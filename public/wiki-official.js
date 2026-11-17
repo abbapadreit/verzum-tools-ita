@@ -66,7 +66,7 @@ function output(){
    else main='<div class="wiki-main"><div class="wk-doc wk-page"><p class="wk-p">Caricamento della pagina originale…</p></div></div>';
   }
  }
- return '<div class="vz-wiki wiki"><div class="wiki__grid"><button class="wk-drawer-btn" type="button" data-wk-drawer aria-expanded="false" aria-controls="wiki-side"><svg class="ic-line" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><span>Categorie</span></button>'+sideFor(path)+main+'</div><div class="wk-backdrop" data-wk-drawer-close hidden></div></div>';
+ return '<div class="vz-wiki wiki" data-wiki data-viewer="https://render.verzum.to" data-lang="it" data-msg-failed="Impossibile caricare il modello." data-msg-rendering="Rendering in corso…" data-model-hint="Trascina per ruotare, scorri per lo zoom, doppio clic per ripristinare."><div class="wiki__grid"><button class="wk-drawer-btn" type="button" data-wk-drawer aria-expanded="false" aria-controls="wiki-side"><svg class="ic-line" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><span>Categorie</span></button>'+sideFor(path)+main+'</div><div class="wk-backdrop" data-wk-drawer-close hidden></div></div>';
 }
 function officialPanels(){return [panel('wikiOfficial','Verzum Wiki',output(),12,'WIKI')]}
 sections.wiki=officialPanels;
