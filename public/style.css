@@ -30,3 +30,6 @@
 .skill-choice:hover{border-color:#d6b374;background:#3b2825}
 .skill-choice .game-icon,.skill-choice .icon-fallback{width:34px;height:34px;flex:none;object-fit:contain}
 .skill-choice small{font-size:11px;line-height:1.3}
+
+/* Ritratti delle classi recuperati dalle immagini PNG originali del pacchetto */
+.filter-chip .class-portrait{display:inline-block;width:19px;height:19px;object-fit:cover;vertical-align:middle;border-radius:50%;margin-right:6px}
