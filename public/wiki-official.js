@@ -21,6 +21,7 @@ function sideFor(path){
   markup=markup.replace('name="q" value=""','name="q" value="'+esc(q)+'"');
  }
  markup=markup.replace(/(<div class="wk-search__box">[\s\S]*?)(<\/div>)/,'$1<button type="button" data-vz-search-clear hidden aria-label="Cancella ricerca">×</button>$2');
+ if(path.startsWith('search/'))markup=markup.replace('data-vz-search-clear hidden','data-vz-search-clear');
  return markup;
 }
 function missingPage(path){
