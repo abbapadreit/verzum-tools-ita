@@ -30,7 +30,7 @@ function output(){
  const main=path===''?reference.home:path===GUIDE?
     (guideHtml||'<div class="wiki-main"><p class="wk-p">'+(loadError?'La guida originale non è disponibile in questa versione.':'Caricamento della guida originale…')+'</p></div>'):
     missingPage(path);
- return '<div class="vz-wiki wiki"><div class="wiki__grid">'+sideFor(path)+main+'</div></div>';
+ return '<div class="vz-wiki wiki"><div class="wiki__grid"><button class="wk-drawer-btn" type="button" data-wk-drawer aria-expanded="false" aria-controls="wiki-side"><svg class="ic-line" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><span>Categorie</span></button>'+sideFor(path)+main+'</div><div class="wk-backdrop" data-wk-drawer-close hidden></div></div>';
 }
 function officialPanels(){return [panel('wikiOfficial','Verzum Wiki',output(),12,'WIKI')]}
 sections.wiki=officialPanels;
@@ -70,6 +70,10 @@ host?.addEventListener('click',e=>{
   navigator.clipboard?.writeText(url).then(()=>{const node=btn.querySelector('span');if(node)node.textContent='Link copiato'}).catch(()=>{});
   return;
  }
+ const open=e.target.closest('[data-wk-drawer]');
+ const close=e.target.closest('[data-wk-drawer-close]');
+ if(open){e.preventDefault();inside.classList.add('is-drawer');open.setAttribute('aria-expanded','true');const bg=inside.querySelector('.wk-backdrop');if(bg)bg.hidden=false;return}
+ if(close){e.preventDefault();inside.classList.remove('is-drawer');const bg=inside.querySelector('.wk-backdrop');if(bg)bg.hidden=true;inside.querySelector('[data-wk-drawer]')?.setAttribute('aria-expanded','false');return}
  const searchButton=e.target.closest('.wk-search button[type="submit"]');
  if(searchButton){e.preventDefault();searchWiki(inside);}
 });
