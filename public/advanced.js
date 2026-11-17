@@ -51,6 +51,8 @@ async function importIconFiles(list){const files=[...(list||[])].filter(f=>/\.(p
 /* ZIP senza dipendenze remote: usato per la pubblicazione della configurazione autorizzata. */
 const MENU_STORAGE=ICON_STORAGE+'_menu';
 let menuIcons={...RELEASE.menuIcons};try{menuIcons={...menuIcons,...(JSON.parse(localStorage.getItem(MENU_STORAGE)||'{}')||{})}}catch(e){}
+// La barra di navigazione usa le vere icone PNG del pacchetto importato.
+if(window.VERZUM_PNG_MENU)menuIcons={...menuIcons,...window.VERZUM_PNG_MENU};
 const NAV_MAPPING={crafting:'upgrade',gaya:'gaya',pet:'pet',mount:'mount',costume:'costume',skills:'skills',passive:'passive',planner:'planner',prices:'prices'};
 function applyMenuIcons(){document.querySelectorAll('#navigation [data-nav]').forEach(b=>{const id=b.dataset.nav,uri=menuIcons[id];if(!validIcon(uri))return;const target=b.querySelector('.nav-ico');if(target)target.innerHTML=`<img class="menu-icon" src="${uri}" alt="">`})}
 function extractMenuIcons(source){for(const m of source.matchAll(/<a\b[^>]*href="#([^"]+)"[^>]*>\s*<img\s+src="(data:image\/(?:png|webp|jpeg);base64,[^"]+)"/gi)){const key=NAV_MAPPING[m[1]]||m[1];if(validIcon(m[2]))menuIcons[key]=m[2]}try{localStorage.setItem(MENU_STORAGE,JSON.stringify(menuIcons))}catch(e){}applyMenuIcons()}
