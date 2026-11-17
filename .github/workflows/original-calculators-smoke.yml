@@ -66,15 +66,24 @@ jobs:
           try{
             let frame=await open('gaya');
             if(await frame.locator('#v-gaya .panel').count()<3)throw Error('Original Gaya 3+ calculator panels missing');
+            await frame.locator('#v-gaya #gq').fill('50');
+            await frame.locator('#v-gaya #gq').press('Tab');
+            await frame.locator('#v-gaya [data-add="gaya"]').click();
+            const gayaSaved=await page.evaluate(()=>JSON.parse(localStorage.getItem('dt_plan')||'[]'));
+            if(!gayaSaved.some(x=>String(x.t||'').includes('50 Gaya')))throw Error('Gaya was not added to original planner');
             await page.screenshot({path:'/tmp/qa-gaya.png',fullPage:true});
             frame=await open('pet');
             if(await frame.locator('#v-pet [data-pf]').count()<3)throw Error('Original Pet guarantee controls missing');
+            await frame.locator('#v-pet [data-pf][data-fv="1"]').first().click();
+            if(await frame.locator('#v-pet [data-pf][data-fv="1"].on').count()<1)throw Error('Original Pet pity controls not interactive');
             await page.screenshot({path:'/tmp/qa-pet.png',fullPage:true});
             frame=await open('mount');
             if(await frame.locator('#v-mount .panel').count()<2)throw Error('Original mount panels missing');
             await page.screenshot({path:'/tmp/qa-mount.png',fullPage:true});
             frame=await open('costume');
             if(await frame.locator('#v-costume .panel').count()<2)throw Error('Original costumes cards missing');
+            await frame.locator('#v-costume [data-cosall="1"]').click();
+            if(await frame.locator('#v-costume .cc.on').count()!==12)throw Error('Original 12 costume selection failed');
             await page.screenshot({path:'/tmp/qa-costume.png',fullPage:true});
             frame=await open('skills');
             if(await frame.locator('#v-skills .panel').count()<2)throw Error('Original skills calculator missing');
@@ -89,6 +98,7 @@ jobs:
             if(await frame.locator('#v-crafting .panel').count()<2)throw Error('Original upgrade panels missing');
             frame=await open('planner');
             if(await frame.locator('#v-planner').count()!==1)throw Error('Original planner missing');
+            if(!(await frame.locator('#v-planner').innerText()).includes('Gaya'))throw Error('Gaya entry missing from original planner');
             // Compatibility with saved user configurations: old 6-demo costume list
             await page.goto(base,{waitUntil:'domcontentloaded'});
             await page.evaluate(()=>{
