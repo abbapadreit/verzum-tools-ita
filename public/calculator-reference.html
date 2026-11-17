@@ -388,7 +388,7 @@ function rCraft(){
   rows.forEach(r=>{h+=`<tr><td class="lv">${r.l}${r.evo?`<div class="note" style="margin:0;font-family:var(--fb);font-weight:500">→ ${esc(evoN)}</div>`:''}</td><td class="n pct ${pc(r.s.pct)}">${r.s.pct}%</td><td>${matIcons(r.s.mats)}</td><td class="n">${fmt(r.s.yang)}</td><td>${fb(r)}</td><td class="n lv">${fmt(r.s.yang*r.att+r.mv)}</td></tr>`});
   h+=`<tr class="tot"><td colspan="5">Total (${rows.reduce((a,r)=>a+r.att,0)} încercări)</td><td class="n">${fmt(y+mv(m).v)}</td></tr></table></div>
    <p class="note"><b>Cum se calculează:</b> la fiecare eșec plătești din nou yang-ul și materialele pasului, iar itemul rămâne la nivelul la care era. <b>Pity:</b> wiki-ul Verzum nu dă un pity (reușită garantată) pentru fierar, de aceea alegi tu câte eșecuri să iei în calcul. Pity există doar la tipul petului (vezi calculatorul Pet).</p>
-   </div><div class="panel" data-k="mats" data-w="8"><div class="ph">Materiale necesare</div>${matTable(m)}</div>`;
+   </div>`;
   mount('crafting',h);
   CUR={t:N(it.id),s:`+${S.from} → +${S.to}${S.evo?' + evoluție':''}${nf?` · ${nf} eșecuri`:''}`,ic:it.id,y,m};
 }
