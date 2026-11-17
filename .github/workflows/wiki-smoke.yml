@@ -43,6 +43,10 @@ jobs:
             await page.locator('.vz-wiki [data-tip="25040"]').first().hover();
             await page.locator('.vz-wiki-original-tip:not([hidden])').waitFor({timeout:10000});
             console.log('ORIGINAL HOVER:',(await page.locator('.vz-wiki-original-tip:not([hidden])').innerText()).slice(0,210));
+            const proxy=await page.evaluate(async()=>{const r=await fetch('/api/wiki/tip/25040');const j=await r.json();return {status:r.status,lines:j.tip?.lines?.length,ok:j.ok}});
+            console.log('PROXY BONUS 25040:',JSON.stringify(proxy));
+            await page.waitForFunction(()=>document.querySelector('.vz-wiki-original-tip:not([hidden]) .wk-tip__line')!==null,{timeout:12000});
+            console.log('AFTER ASYNC BONUS:',(await page.locator('.vz-wiki-original-tip:not([hidden])').innerText()).slice(0,500));
             await page.goto(base+'#wiki/guides/vz_level_1_75',{waitUntil:'domcontentloaded'});
             const panel='.vz-wiki .wk-vz--gear .wk-tabpanel.is-on';
             await page.locator(panel+' .wk-panel').first().waitFor({timeout:30000});
