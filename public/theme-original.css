@@ -307,3 +307,59 @@ td.num,th.num{font-variant-numeric:tabular-nums}
 @media(max-width:1050px){.weapon-hero{flex-wrap:wrap}.weapon-plan{margin-left:0}}
 @media(max-width:780px){.weapon-art{width:65px;height:67px}.weapon-title{font-size:22px}.weapon-plan{margin-left:auto}.weapon-meta .pill{font-size:11px;padding:3px 6px}
 #panels .filter-chip{padding:6px 9px;font-size:12px}#panels .fail-buttons button{min-width:25px}}
+
+
+/* GUIDA VISUALE VERZUM 1–75: icone ufficiali tramite immagini.verzum.to */
+.guide-source-line{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-bottom:13px;border-bottom:1px solid rgba(197,153,108,.27)}
+.guide-source-mark{font:700 13px "Rajdhani",sans-serif;letter-spacing:.15em;color:#c5996c}
+.guide-wiki-link{display:inline-flex;gap:5px;align-items:center;color:#f2dca4;font:700 13px "Rajdhani",sans-serif;text-decoration:none;border-bottom:1px solid rgba(197,153,108,.57)}
+.guide-wiki-link:hover{color:#fff1bd;border-color:#fff1bd}
+.guide-feature{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:18px}
+.guide-feature>div{min-width:0}
+.guide-feature .guide-item-grid{margin:0}
+.guide-chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.guide-chips span{padding:4px 9px;border-radius:100px;background:#110505;border:1px solid rgba(197,153,108,.3);color:#d8bc91;font:700 12px "Rajdhani",sans-serif}
+.guide-item-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:9px;margin:12px 0 20px;max-width:100%}
+.guide-item{display:flex;align-items:center;gap:9px;min-width:0;min-height:68px;padding:8px;background:linear-gradient(155deg,#240a0a,#110505);border:1px solid rgba(197,153,108,.28);border-radius:7px;text-decoration:none;color:#e6dccb;transition:border-color .12s ease,background .12s ease}
+.guide-item:hover,.guide-item:focus-visible{border-color:#dbac6e;background:linear-gradient(155deg,#361415,#170606);color:#fff1d4}
+.guide-item-thumb{flex:0 0 46px;width:46px;height:47px;display:grid;place-items:center;border:1px solid #592e26;border-radius:6px;background:radial-gradient(ellipse at 50% 45%,rgba(174,48,42,.27),#100404 75%)}
+.guide-item-thumb img{display:block;max-width:40px;max-height:40px;width:40px;height:40px;object-fit:contain;image-rendering:auto}
+.guide-item-label{display:block;min-width:0;font:700 12px/1.25 "Rajdhani",sans-serif;overflow-wrap:anywhere}
+.guide-item-grid>.guide-item{content-visibility:auto;contain-intrinsic-size:auto 68px}
+.guide-item.compact{min-height:54px}
+.guide-block-title{margin:19px 0 6px}
+.guide-block-title h3{font:700 22px/1.3 "Philosopher",Georgia,serif;color:#f2dca4;margin:0 0 4px}
+.guide-block-title p{margin:0;color:#baa992;font:500 13px/1.5 "Manrope",sans-serif}
+.guide-classes{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.guide-classes>.filter-chip{min-width:87px}
+.guide-gaya-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:11px;margin:12px 0}
+.guide-gaya-card{display:flex;align-items:center;gap:12px;background:#180707;border:1px solid rgba(197,153,108,.29);border-radius:8px;padding:10px}
+.guide-gaya-card>.guide-item{width:50%;flex:0 0 50%}
+.guide-gaya-card>div{min-width:0}
+.guide-gaya-card b{display:block;color:#f1d59c;font:700 20px "Philosopher",serif}
+.guide-gaya-card small{display:block;color:#c1ae9b;font:600 12px/1.4 "Rajdhani",sans-serif}
+.guide-hint{color:#c3b79e;background:#120707;border-left:3px solid #9b6a48;padding:10px 12px;font:500 13px/1.6 "Manrope",sans-serif;margin:14px 0}
+.guide-disclosure>div{padding:5px 9px 15px}
+.guide-disclosure>.guide-item-grid{margin:10px 0}
+.guide-disclosure[open]>summary{color:#ffdf9b}
+@media(max-width:1040px){
+ .guide-feature{grid-template-columns:1fr}
+ .guide-item-grid{grid-template-columns:repeat(auto-fill,minmax(125px,1fr))}
+}
+@media(max-width:780px){
+ .guide-source-line{align-items:flex-start}
+ .guide-item-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+ .guide-item{gap:7px;padding:7px;min-height:64px}
+ .guide-item-thumb{width:42px;height:44px;flex-basis:42px}
+ .guide-item-thumb img{width:38px;height:38px}
+ .guide-item-label{font-size:11px}
+ .guide-gaya-grid{grid-template-columns:1fr}
+ .guide-gaya-card>.guide-item{flex-basis:45%;width:45%}
+ .guide-block-title h3{font-size:20px}
+}
+@media(max-width:365px){
+ .guide-item-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .guide-item{flex-direction:column;justify-content:flex-start;align-items:center;text-align:center;min-height:103px}
+ .guide-item-label{font-size:11px}
+ .guide-gaya-card>.guide-item{flex-basis:45%;width:45%;flex-direction:row;min-height:76px;text-align:left}
+}
