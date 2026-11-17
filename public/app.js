@@ -219,16 +219,15 @@ $('#main').classList.toggle('wiki-mode',route==='wiki'||route==='guide');$('#mai
  // Conserviamo lo stesso iframe e cambiamo soltanto la vista (hash interno).
  const nativeTarget=window.VERZUM_NATIVE_CALCULATORS?.routes?.[route];
  const existingFrame=document.querySelector('iframe.native-calculator-frame');
- window.__nativeRouteDebug={route,nativeTarget,frame:!!existingFrame,editing:state.edit,bridge:!!window.VERZUM_NATIVE_CALCULATORS,frameData:existingFrame?.dataset?.nativeRoute||'',frameSrc:existingFrame?.getAttribute('src')||''};
  if(nativeTarget&&existingFrame&&!state.edit){
   if(existingFrame.dataset.nativeRoute!==route){
    existingFrame.dataset.nativeRoute=route;
    const url='calculator-reference.html#'+nativeTarget;
    try{
+    // Un cambio hash su una pagina gia' incorporata non deve ricaricare
+    // il documento, neppure se il suo evento load non e' ancora terminato.
     const child=existingFrame.contentWindow;
-    if(child&&existingFrame.contentDocument?.readyState==='complete'){
-     if(child.location.hash!=='#'+nativeTarget)child.location.hash='#'+nativeTarget;
-    }else existingFrame.setAttribute('src',url);
+    if(child&&child.location.hash!=='#'+nativeTarget)child.location.hash='#'+nativeTarget;
    }catch(_){existingFrame.setAttribute('src',url)}
   }
   save();
