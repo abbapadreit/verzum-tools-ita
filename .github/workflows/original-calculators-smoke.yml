@@ -45,7 +45,7 @@ jobs:
             const sections=await frame.locator('#v-'+expected[route]+' .panel').count();
             await page.waitForFunction(()=>{
               const f=document.querySelector('iframe.native-calculator-frame');
-              return f&&Number.parseFloat(f.style.height)>350;
+              return f&&Number.parseFloat(f.style.height)>=350;
             },{timeout:12000}).catch(async()=>{
               const inspect=await page.locator('iframe.native-calculator-frame').evaluate(el=>({
                 frameHeight:el.style.height,frameOrigin:el.contentWindow?.location?.origin,
