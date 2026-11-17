@@ -53,9 +53,17 @@ function seed(){
 }
 function getOriginalBonusLines(a){
  let raw=a?.getAttribute?.('data-tip-full')||'';
- if(!raw)raw=tooltipData.get(a?.getAttribute?.('data-tip'))||'';
+ const id=a?.getAttribute?.('data-tip');
+ if(!raw)raw=tooltipData.get(id)||'';
+ if(!raw)raw=window.VERZUM_WIKI_CRAWLED_TOOLTIPS?.[id]||'';
  if(!raw)return null;
  try{
+  // Static mirrored metadata remains HTML-escaped as in the original source.
+  if(raw.includes('&quot;')||raw.includes('&#39;')||raw.includes('&amp;')){
+   const decoder=document.createElement('textarea');
+   decoder.innerHTML=raw;
+   raw=decoder.value;
+  }
   const list=JSON.parse(raw);
   return Array.isArray(list)&&list.every(x=>x&&typeof x.text==='string')?list:null;
  }catch(e){return null}
