@@ -69,6 +69,65 @@ const IT={
  'Raritate':'Rarità','Selecție':'Selezione','Cumpărare':'Acquisto',
  'Pretul de piață':'Prezzo di mercato','Salvează':'Salva'
 };
+// Revisione terminologica delle schermate Gaya, Pet, Cavalcature, Costumi e Abilita'.
+Object.assign(IT,{
+ 'Piața Gaya':'Mercato Gaya','Calculator Gaya':'Calcolatore Gaya',
+ 'Fabricare Gaya':'Creazione Gaya','Câți Gaya vrei':'Quantità di Gaya',
+ 'Yang NPC total':'Yang NPC totali','lucioase + bucăți':'pietre + frammenti',
+ 'completează prețurile':'inserisci i prezzi',
+ 'Poți face cel mult 999 de bucăți odată în fereastra pieței.':
+  'Nella finestra del mercato puoi creare al massimo 999 unità per volta.',
+ 'Magazin permanent':'Negozio permanente','Magazin zilnic (oferta din wiki)':'Negozio giornaliero (offerte della Wiki)',
+ 'Obiect':'Oggetto','Cost în yang':'Costo in Yang','Preț piață':'Prezzo di mercato',
+ 'Sistemul de peți':'Sistema pet','Calculator Pet':'Calcolatore pet',
+ 'Nivel & evoluție':'Livello ed evoluzione','De la nivelul':'Dal livello',
+ 'Metine (aprox.)':'Metin (circa)','pentru EXP, cu petul invocat':'per EXP, con il pet evocato',
+ 'Materiale nivel':'Materiali di livello','Tipul petului':'Tipo di pet',
+ 'cu pity':'con garanzia','De la tipul':'Dal tipo',
+ 'Globuri (alegerea ta)':'Sfere (scelta personale)',
+ 'după eșecurile alese':'con i fallimenti selezionati',
+ 'Cel mai bun caz':'Scenario migliore','fără niciun eșec':'senza fallimenti',
+ 'Cel mai rău caz (pity)':'Scenario peggiore (garanzia)',
+ 'reușită garantată':'successo garantito','Glob':'Sfera',
+ 'Globuri':'Sfere','garantat':'garantito','Globuri necesare':'Sfere necessarie',
+ 'Abilități':'Abilità','nivel 0 = blocată':'livello 0 = bloccata',
+ 'Deblocare':'Sblocco','Sistemul de Mount':'Sistema cavalcature',
+ 'Calculator Mount':'Calcolatore cavalcature',
+ 'Medalii și evoluții pentru nivelurile 1–30, plus costul abilităților de mount.':
+  'Medaglie ed evoluzioni per i livelli 1–30, con i costi delle abilità delle cavalcature.',
+ 'Evoluții':'Evoluzioni','Deblochează':'Sblocca',
+ 'Bonus colecție aspecte':'Bonus della collezione costumi',
+ 'Colecție':'Collezione','Valoare atac (PvM)':'Valore attacco (PvM)',
+ '1 aspect':'1 costume','Aspecte de pet':'Costumi pet',
+ 'Selectează tot':'Seleziona tutti','Golește':'Svuota',
+ 'Bonusuri':'Bonus','Total pentru selecție':'Totale selezione',
+ 'Ce ai adăugat':'Elementi aggiunti','Copiază lista de materiale':'Copia elenco materiali',
+ 'Toate materialele':'Tutti i materiali',
+ 'Planificatorul e gol. Apasă „+ Planificator” în oricare calculator.':
+  'Il pianificatore è vuoto. Seleziona «+ Pianificatore» da un calcolatore.',
+ 'Pet nivel':'Livello pet','Pet tip':'Tipo pet',
+ 'Mount nivel':'Livello cavalcatura','nimic selectat':'nessuna selezione',
+ 'Upgrade iteme':'Potenziamento oggetti',
+ 'Pet, mount & costume':'Pet, cavalcature e costumi',
+ 'Preț salvat':'Prezzo salvato','Preț invalid':'Prezzo non valido',
+ 'Prețuri șterse':'Prezzi cancellati','Copiat!':'Copiato!',
+ 'Copiază manual':'Copia manualmente','Text invalid':'Testo non valido',
+ 'Calculator skill-uri':'Calcolatore abilità',
+ 'Calculator pasive':'Calcolatore abilità passive',
+ 'Sistem abilități':'Sistema abilità','Sistem pasive':'Sistema abilità passive',
+ 'Cărți de abilitate':'Libri abilità','Abilități pasive':'Abilità passive',
+ 'Pietre spirituale':'Pietre spirituali','Citiri':'Letture',
+ 'Așteptare':'Attesa','Cost estimat':'Costo stimato',
+ 'Echipament':'Equipaggiamento','Putere împotriva monștrilor':'Potenza contro mostri',
+ 'Șansă critică':'Possibilità di colpo critico',
+ 'Putere împotriva Metinelor':'Potenza contro Metin',
+ 'Putere împotriva semioamenilor':'Potenza contro mezziuomini',
+ 'Blocare corp la corp':'Blocco attacchi corpo a corpo',
+ 'Putere împotriva lui Razador și Nemere':'Potenza contro Razador e Nemere',
+ 'Putere magică și corp la corp':'Potenza magica e fisica',
+ 'Șansă de penetrare':'Possibilità di colpo trafiggente',
+ 'Putere împotriva boșilor':'Potenza contro boss'
+});
 const extraPatterns=[
  [/^(\d+) eșec(?:uri)?$/,'$1 fallimenti'],
  [/^Materiale pentru (\d+) Gaya$/,'Materiali per $1 Gaya'],
@@ -164,11 +223,19 @@ document.addEventListener('click',e=>{
  // Durante la ricerca le categorie con risultati restano temporaneamente aperte.
  rTiles();
 },true);
-const itIconNames=window.parent?.VERZUM_ITEM_L10N?.it||{};
-const italianNames=Object.assign({},itIconNames);
-const matNames=window.parent?.VERZUM_MATERIAL_L10N?.it||{};
-Object.assign(italianNames,matNames);
-if(typeof NL!=='undefined')NL.it={i:italianNames,m:matNames,a:[]};
+// I 147 nomi italiani e i materiali sono gia' verificati nel catalogo VERZUM.
+const parentRelease=window.parent?.VERZUM_RELEASE||{};
+const catalogNames=Object.fromEntries((parentRelease.catalog||[])
+ .filter(it=>it.id&&it.name).map(it=>[String(it.id),it.name]));
+const materialNames=Object.fromEntries(Object.entries(parentRelease.materialIds||{})
+ .map(([name,id])=>[String(id),name]));
+const matNames=Object.assign({},parentRelease.reference?.names||{},materialNames,
+ window.parent?.VERZUM_MATERIAL_L10N?.it||{});
+const italianNames=Object.assign({},matNames,catalogNames,window.parent?.VERZUM_ITEM_L10N?.it||{});
+if(typeof NL!=='undefined')NL.it={
+ i:italianNames,m:matNames,
+ a:(parentRelease.costumes||[]).map(item=>item.name)
+};
 window.addEventListener('message',e=>{
  if(e.origin!==location.origin||e.source!==parent)return;
  if(e.data?.type==='verzum-parent-language'&&['it','ro'].includes(e.data.language))
