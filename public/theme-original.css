@@ -284,3 +284,26 @@ td.num,th.num{font-variant-numeric:tabular-nums}
 .guide-brief-grid b{color:#f2dca4;font:700 16px var(--fu)}
 .guide-brief-grid p{font:500 12px/1.6 var(--fb);margin:8px 0 0}
 @media(max-width:780px){.guide-brief-grid{grid-template-columns:1fr}.guide-feature{padding:11px}.guide-disclosure summary{font-size:15px}}
+
+
+/* Raffinamenti 17/11: leggibilità e informazioni arma dal confronto a pari zoom */
+.weapon-hero{display:flex;align-items:center;gap:14px;margin:0 0 12px;min-width:0}
+.weapon-art{position:relative;isolation:isolate;flex:none;width:78px;height:79px;overflow:hidden;box-shadow:inset 0 0 19px rgba(140,26,20,.23),0 0 0 1px rgba(197,153,108,.08)}
+.weapon-art:before{content:"";position:absolute;inset:-12px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 55% 48%,rgba(213,54,43,.48) 0,rgba(115,26,24,.24) 44%,transparent 71%)}
+.weapon-art .game-icon.large{position:relative;width:63px;height:68px;object-fit:contain;filter:drop-shadow(0 0 3px rgba(224,89,69,.37))}
+.weapon-hero-details{min-width:0;flex:1}
+.weapon-title{font:700 clamp(22px,2.1vw,30px)/1.16 "Philosopher",Georgia,serif;color:#F2DCA4;margin:0 0 8px;overflow-wrap:anywhere}
+.weapon-meta{display:flex;align-items:center;flex-wrap:wrap;gap:5px}
+.weapon-meta .pill{font:600 12px/1.15 "Rajdhani",system-ui,sans-serif;padding:4px 8px}
+.weapon-plan{margin-left:auto;align-self:center;flex:none;font:700 13px "Rajdhani",sans-serif}
+#panels .stage-cell{font:700 14px/1.3 "Rajdhani",sans-serif;color:#F2DCA4;white-space:nowrap}
+#panels .badge-success{padding:4px 8px;min-height:27px;font-size:13px;line-height:19px;border-radius:4px}
+#panels .fail-buttons{gap:3px}
+#panels .fail-buttons button{min-width:26px;height:27px;font-size:13px;border-radius:5px}
+#panels .fail-buttons .fail-many{min-width:42px!important;width:42px!important;max-width:42px!important;min-height:27px!important;height:27px!important;font-size:13px!important}
+#panels .filter-chip{min-height:29px;padding:6px 11px;font-size:12px}
+#panels .filter-row{gap:6px}
+#panels .item-entry{min-height:54px}
+@media(max-width:1050px){.weapon-hero{flex-wrap:wrap}.weapon-plan{margin-left:0}}
+@media(max-width:780px){.weapon-art{width:65px;height:67px}.weapon-title{font-size:22px}.weapon-plan{margin-left:auto}.weapon-meta .pill{font-size:11px;padding:3px 6px}
+#panels .filter-chip{padding:6px 9px;font-size:12px}#panels .fail-buttons button{min-width:25px}}
