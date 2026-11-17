@@ -1,3 +1,11 @@
+/* Nasconde le barre decorative senza disattivare rotellina, touch o tastiera.
+   Valido per tutte le sezioni: sidebar, header, Wiki, calcolatori e dati. */
+html,body,.workspace,.sidebar,#main,#panels,.item-list,.table-scroll{
+ scrollbar-width:none;
+ -ms-overflow-style:none;
+}
+::-webkit-scrollbar{width:0!important;height:0!important;display:none!important}
+
 /* Native original calculator in VERZUM Tools shell */
 #main:has(.native-calculator-frame)>.welcome{display:none!important}
 #main:has(.native-calculator-frame) #edit-toolbar{display:none!important}

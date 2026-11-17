@@ -215,6 +215,25 @@ function render(){let route=state.route;if(TITLES[route]&&location.hash!==('#'+r
  document.querySelectorAll('[data-nav]').forEach(b=>{b.classList.toggle('selected',b.dataset.nav===route);b.setAttribute('aria-current',b.dataset.nav===route?'page':'false')});const panels=sections[route]();const layout=layoutsFor(route,panels);
  const n=document.querySelector('.notice');if(n){n.innerHTML=state.dataSource==='demo'?'<span>ⓘ</span><div><strong>Dati di esempio.</strong> Le percentuali e i prezzi iniziali sono dimostrativi. Importa dati verificati prima di usare i calcoli per decisioni di gioco.</div>':'<span>ⓘ</span><div><strong>Catalogo di riferimento (147 oggetti).</strong> Immagini PNG importate dal pacchetto fornito. Le percentuali e i materiali devono ancora essere verificati per VERZUM; i prezzi sono da impostare.</div>';}
 $('#main').classList.toggle('wiki-mode',route==='wiki'||route==='guide');$('#main').classList.toggle('editing',state.edit);$('#customize').textContent=state.edit?'✓ Fine personalizzazione':'✥ Personalizza';$('#edit-toolbar').hidden=!state.edit;
+ // Cambiare calcolatore non deve ricaricare 1,6 MB di interfaccia e immagini.
+ // Conserviamo lo stesso iframe e cambiamo soltanto la vista (hash interno).
+ const nativeTarget=window.VERZUM_NATIVE_CALCULATORS?.routes?.[route];
+ const existingFrame=document.querySelector('iframe.native-calculator-frame');
+ if(nativeTarget&&existingFrame&&!state.edit){
+  if(existingFrame.dataset.nativeRoute!==route){
+   existingFrame.dataset.nativeRoute=route;
+   const url='calculator-reference.html#'+nativeTarget;
+   try{
+    // Un cambio hash su una pagina gia' incorporata non deve ricaricare
+    // il documento, neppure se il suo evento load non e' ancora terminato.
+    const child=existingFrame.contentWindow;
+    if(child&&child.location.hash!=='#'+nativeTarget)child.location.hash='#'+nativeTarget;
+   }catch(_){existingFrame.setAttribute('src',url)}
+  }
+  save();
+  return;
+ }
+
  const phtml=panels.filter(p=>!layout[p.key].hidden).sort((a,b)=>layout[a.key].order-layout[b.key].order).map(p=>{const entry=layout[p.key],span=Math.min(12,Math.max(4,natural(entry.span,4,12)));const spanClass=span===12?'full':span>=8?'wide':span<=4?'narrow':'';return `<section class="panel ${spanClass}" data-panel="${esc(p.key)}" style="grid-column:span ${span}" aria-label="${esc(p.title)}"><div class="panel-edit"><button class="icon-btn" data-layout="left" data-panel-key="${esc(p.key)}" title="Sposta prima">←</button><button class="icon-btn" data-layout="right" data-panel-key="${esc(p.key)}" title="Sposta dopo">→</button><label class="hint">Larghezza <select data-layout="width" data-panel-key="${esc(p.key)}">${[4,6,8,12].map(n=>`<option value="${n}"${n===span?' selected':''}>${n}/12</option>`).join('')}</select></label><span class="spacer"></span><button class="icon-btn hide-panel" data-layout="hide" data-panel-key="${esc(p.key)}">Nascondi</button></div><div class="panel-header"><h2>${esc(p.title)}</h2><span class="tag">${esc(p.tag)}</span></div><div class="panel-content">${p.content}</div></section>`}).join('');
  const hidden=panels.filter(p=>layout[p.key].hidden);$('#panels').innerHTML=phtml+(state.edit&&hidden.length?`<div id="hidden-panel-list"><b>Finestre nascoste:</b> ${hidden.map(p=>`<button class="btn small outline" data-layout="show" data-panel-key="${esc(p.key)}">+ ${esc(p.title)}</button>`).join('')}</div>`:'');save();}
 function setByPath(path,value){const parts=path.split('.');let obj=state;for(let i=0;i<parts.length-1;i++){if(obj[parts[i]]===undefined)return;obj=obj[parts[i]];}const k=parts.at(-1);if(obj[k]===undefined && !(parts[0]==='range'&&['evolution','evolutionFails'].includes(k)) && parts[0]!=='newPrice' && parts[0]!=='newItem' && parts[0]!=='offer')return;obj[k]=value;}

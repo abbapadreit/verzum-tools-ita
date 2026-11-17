@@ -190,6 +190,15 @@
  };
  const table=Object.create(null);
  for(const [it,all] of Object.entries(translations))table[it]={en:all[0],ro:all[1],hu:all[2]};
+ // Dizionario ro/en → italiano condiviso anche con il calcolatore originale incorporato.
+ // Le categorie plurali della schermata Potenziamenti sono gestite separatamente.
+ window.VERZUM_RO_TO_IT=Object.fromEntries(Object.entries(translations).map(([it,values])=>[values[1],it]));
+ window.VERZUM_EN_TO_IT=Object.fromEntries(Object.entries(translations).map(([it,values])=>[values[0],it]));
+ function syncNativeLocale(){
+   const frame=document.querySelector('iframe.native-calculator-frame');
+   if(frame?.contentWindow)frame.contentWindow.postMessage({type:'verzum-parent-language',language:current},location.origin);
+ }
+
  let current=localStorage.getItem('verzum_lang')||'it';
  const queryLang=new URLSearchParams(location.search).get('lang');
  if(queryLang&&langs.some(l=>l.id===queryLang))current=queryLang;
@@ -263,7 +272,7 @@
   const button=e.target.closest('button[data-set-lang]');
   if(button){
    e.preventDefault();current=button.dataset.setLang;localStorage.setItem('verzum_lang',current);
-   renderLanguages();schedule();
+   renderLanguages();schedule();syncNativeLocale();
   }
   const toggle=e.target.closest('#menu-toggle');
   if(toggle){
@@ -275,6 +284,6 @@
    const toggleBtn=document.querySelector('#menu-toggle');if(toggleBtn)toggleBtn.setAttribute('aria-expanded','false');
   }
  });
- window.VERZUM_LOCALE={get lang(){return current},change(id){if(langs.some(l=>l.id===id)){current=id;localStorage.setItem('verzum_lang',id);renderLanguages();schedule();}}};
+ window.VERZUM_LOCALE={get lang(){return current},change(id){if(langs.some(l=>l.id===id)){current=id;localStorage.setItem('verzum_lang',id);renderLanguages();schedule();syncNativeLocale();}}};
  schedule();
 })();

@@ -26,6 +26,37 @@ for(const route of validRoutes){
  sections[route]=()=>[{key:'native-reference',span:12,title:'Calcolatore originale',tag:'VERZUM',content:iframeContent(route)}];
 }
 function activeFrame(){return document.querySelector('iframe.native-calculator-frame')}
+/* L'iframe è same-origin. Disattiviamo il suo scroll interno, non quello della pagina.
+   La dimensione del frame viene già sincronizzata da verzum-reference-height. */
+function fixEmbeddedScroll(frame){
+ if(!frame)return;
+ try{
+  const doc=frame.contentDocument;
+  if(!doc?.head||!doc.body)return;
+  if(!doc.getElementById('verzum-no-nested-scroll')){
+   const style=doc.createElement('style');
+   style.id='verzum-no-nested-scroll';
+   style.textContent='html{overflow-y:hidden!important;scrollbar-width:none!important;-ms-overflow-style:none!important}body{scrollbar-width:none!important}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}';
+   doc.head.appendChild(style);
+  }
+  if(!doc.getElementById('verzum-accordion-style')){
+   const link=doc.createElement('link');
+   link.id='verzum-accordion-style';link.rel='stylesheet';link.href='calculator-accordion-it.css';
+   doc.head.appendChild(link);
+  }
+  if(!doc.getElementById('verzum-accordion-script')){
+   const script=doc.createElement('script');
+   script.id='verzum-accordion-script';script.src='calculator-accordion-it.js';script.defer=true;
+   doc.body.appendChild(script);
+  }
+ }catch(_){/* Il frame va modificato soltanto se ospitato dalla stessa origine. */}
+}
+document.addEventListener('load',event=>{
+ if(event.target?.matches?.('iframe.native-calculator-frame'))fixEmbeddedScroll(event.target);
+},true);
+const initialFrame=activeFrame();
+if(initialFrame&&initialFrame.contentDocument?.readyState==='complete')fixEmbeddedScroll(initialFrame);
+
 let lastFrame=null;
 window.addEventListener('message',event=>{
  if(event.origin!==location.origin)return;
