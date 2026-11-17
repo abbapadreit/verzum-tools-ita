@@ -9,6 +9,23 @@ const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const color=x=>/^[a-f0-9]{6}$/i.test(String(x||''))?'#'+x:'#c2c2c2';
 let tip=null,activeAnchor=null,pinned=false;
 const tooltipData=new Map(),ambiguous=new Set();
+const originalApiRequests=new Map();
+function fetchOriginalItemTip(anchor){
+ const id=String(anchor?.getAttribute?.('data-tip')||'');
+ if(!/^\d{1,9}$/.test(id)||window.VERZUM_WIKI_API_TIPS?.[id])return;
+ if(originalApiRequests.has(id))return;
+ const promise=fetch('/api/wiki/tip/'+id,{headers:{Accept:'application/json'}})
+  .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
+  .then(data=>{
+   if(!data?.ok||!data.tip||String(data.tip.vnum)!==id||!Array.isArray(data.tip.lines))return;
+   window.VERZUM_WIKI_API_TIPS=window.VERZUM_WIKI_API_TIPS||{};
+   window.VERZUM_WIKI_API_TIPS[id]=data.tip;
+   if(activeAnchor?.getAttribute('data-tip')===id)showTip(activeAnchor);
+  })
+  .catch(()=>{});
+ originalApiRequests.set(id,promise);
+}
+
 function selectClass(tab){
  const group=tab?.closest?.('[data-wk-class-tabs]');
  if(!group||!tab.matches('[role="tab"][data-tab]'))return false;
@@ -121,6 +138,7 @@ function showTip(a,e){
  if(!a||!a.closest('.vz-wiki .wk-page'))return;
  seed();
  const html=buildTip(a);if(!html){hideTip();return}
+ if(!getOriginalBonusLines(a))fetchOriginalItemTip(a);
  const node=ensureTip();
  if(activeAnchor!==a)activeAnchor?.removeAttribute('aria-describedby');
  activeAnchor=a;node.innerHTML=html;node.hidden=false;
