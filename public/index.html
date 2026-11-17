@@ -5,6 +5,7 @@
   <meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#180b0d"><meta name="description" content="Strumenti italiani della gilda: potenziamento, Gaya, pet, cavalcature, costumi, abilità, pianificazione e prezzi. Progetto indipendente.">
   <title>VERZUM · Strumenti della gilda (ITA)</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="theme-original.css">
   <script src="release.js" defer></script>
   <script src="assets/real-icons-00.js" defer></script>
   <script src="assets/real-icons-01.js" defer></script>
@@ -19,12 +20,13 @@
   <script src="assets/extra-icons.js" defer></script>
   <script src="app.js" defer></script>
   <script src="advanced.js" defer></script>
+  <script src="i18n.js" defer></script>
 </head>
 <body>
 <div class="app">
   <aside class="sidebar" aria-label="Navigazione">
-    <div class="brand"><div class="emblem">V</div><div><strong>VERZUM</strong><small>STRUMENTI DELLA GILDA</small></div></div>
-    <div class="side-note">EDIZIONE ITALIANA · BOZZA DI COLLAUDO</div>
+    <div class="brand"><img class="brand-logo" src="assets/sidebar-logo.svg" alt="VERZUM" width="212" height="72"><button id="menu-toggle" class="menu-toggle" type="button" aria-label="Apri menu" aria-controls="navigation" aria-expanded="false">☰</button></div>
+    <div class="sidebar-languages" aria-label="Lingua">
     <nav id="navigation" class="menu" aria-label="Calcolatori">
       <button data-nav="upgrade" class="selected"><span class="nav-ico">⚒</span>Potenziamenti</button>
       <button data-nav="gaya"><span class="nav-ico">◆</span>Gaya</button>
@@ -37,15 +39,15 @@
       <button data-nav="prices"><span class="nav-ico">◈</span>Prezzi materiali</button>
       <button data-nav="catalog"><span class="nav-ico">⚙</span>Dati di calcolo</button>
     </nav>
-    <div class="side-footer">Progetto indipendente e non ufficiale.<br>I dati demo non sono le tariffe reali del server.</div>
+    
   </aside>
   <div class="workspace">
     <header class="topbar"><div class="crumb">GILDA <span>/</span> <strong id="section-label">POTENZIAMENTI</strong></div>
-      <div class="top-actions"><span class="lang-badge">ITALIANO</span><button class="btn outline" id="customize" type="button">✥ Personalizza</button><button class="btn" id="backup" type="button">Esporta configurazione</button></div>
+      <div class="top-actions"><div class="header-languages" aria-label="Lingua"></div><button class="btn outline" id="customize" type="button">✥ Personalizza</button><button class="btn" id="backup" type="button">Esporta configurazione</button></div>
     </header>
     <main id="main" class="content" tabindex="-1">
       <div class="welcome"><div class="eyebrow">STRUMENTI PER I MEMBRI DELLA GILDA</div><h1 id="page-title">Calcolatore potenziamenti</h1><p id="page-subtitle">Personalizza i valori, calcola materiali e costi e aggiungi il risultato al pianificatore.</p></div>
-      <div class="notice" role="status"><span aria-hidden="true">ⓘ</span><div><strong>Catalogo in verifica.</strong> Gli oggetti provengono da dati di riferimento da controllare: percentuali e materiali potrebbero non corrispondere a VERZUM. Le immagini vettoriali sono illustrazioni provvisorie, sostituibili con PNG autorizzati. Inserisci i prezzi aggiornati in «Dati di calcolo».</div></div>
+      
       <div id="edit-toolbar" class="edit-toolbar" hidden><div><b>Personalizzazione attiva</b> · riordina i pannelli, modifica la larghezza o nascondili.</div><div><button class="btn outline" id="reset-layout">Ripristina disposizione</button><button class="btn" id="finish-edit">Fine</button></div></div>
       <div id="panels" class="panels"></div>
     </main>
