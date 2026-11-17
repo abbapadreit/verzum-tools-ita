@@ -15,7 +15,7 @@ function loadWikiPage(path){
  fetch('wiki-pages/'+path+'.html',{cache:'force-cache'}).then(async response=>{
   if(!response.ok)throw new Error('HTTP '+response.status);
   const html=await response.text();
-  if(!html.startsWith('<div class="wiki-main"')||!html.includes('class="wk-head"'))throw new Error('Invalid mirrored Wiki HTML');
+  if(!html.startsWith('<div class="wiki-main"')||!/<header\b[^>]*class=["'][^"']*\bwk-head\b/i.test(html))throw new Error('Invalid mirrored Wiki HTML');
   savedPages.set(path,html);
  }).catch(()=>unavailablePages.add(path)).finally(()=>{
   pendingPages.delete(path);
