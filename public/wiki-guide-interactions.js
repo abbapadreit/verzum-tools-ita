@@ -56,7 +56,11 @@ function getOriginalBonusLines(a){
  const id=a?.getAttribute?.('data-tip');
  if(!raw)raw=tooltipData.get(id)||'';
  if(!raw)raw=window.VERZUM_WIKI_CRAWLED_TOOLTIPS?.[id]||'';
- if(!raw)return null;
+ if(!raw){
+  const official=window.VERZUM_WIKI_API_TIPS?.[id]?.lines;
+  return Array.isArray(official)&&official.every(x=>typeof x.text==='string')?official:null;
+ }
+
  try{
   // Static mirrored metadata remains HTML-escaped as in the original source.
   if(raw.includes('&quot;')||raw.includes('&#39;')||raw.includes('&amp;')){
@@ -69,7 +73,10 @@ function getOriginalBonusLines(a){
  }catch(e){return null}
 }
 function getIcon(a){
- const src=a.querySelector('img')?.getAttribute('src')||'';
+ const id=a.getAttribute('data-tip')||'';
+ const icon=a.querySelector('img')?.getAttribute('src')||'';
+ const authentic=window.VERZUM_WIKI_API_TIPS?.[id];
+ const src=icon||(authentic?.vnum&&String(authentic.vnum)===id?'wiki-original/items/'+id+'.png':'');
  if(!/^(wiki-original\/|https:\/\/images\.verzum\.to\/item\/\d+\.png$|data:image\/png;base64,)/.test(src))return '';
  return '<div class="wk-tip__icon"><img src="'+esc(src)+'" alt=""></div>';
 }
