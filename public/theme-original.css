@@ -264,3 +264,23 @@ td.num,th.num{font-variant-numeric:tabular-nums}
 .upgrade-kpis{margin:8px 0}
 @media(max-width:1050px){.upgrade-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:780px){.upgrade-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.fail-buttons button{min-width:21px}.material-token{width:26px;height:29px}}
+
+/* Guida 1–75: lettura ordinata e navigazione per fasce. */
+.guide-lede{color:#c3b79e;margin:2px 0 12px;font:600 14px/1.45 var(--fb)}
+.guide-levels{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.guide-levels button{font:700 15px var(--fu);min-width:67px}
+.guide-feature{background:linear-gradient(135deg,#2a0c0c,#140606);padding:14px 17px;border:1px solid rgba(197,153,108,.36);border-radius:8px}
+.guide-feature h3{font:700 23px var(--fh);color:#f2dca4;margin:8px 0}
+.guide-feature p,.guide-disclosure p{font:500 13px/1.65 var(--fb);color:#e6dccb;margin:7px 0}
+.guide-disclosure{border-bottom:1px solid rgba(197,153,108,.23);padding:0;background:rgba(10,3,3,.25)}
+.guide-disclosure summary{list-style:none;cursor:pointer;font:700 17px/1.3 var(--fu);padding:12px 5px;color:#f2dca4}
+.guide-disclosure summary::-webkit-details-marker{display:none}
+.guide-disclosure summary::before{content:'＋';font-weight:500;color:#c5996c;padding:0 10px 0 2px}
+.guide-disclosure[open] summary::before{content:'−'}
+.guide-disclosure summary span{display:inline-block;color:#c5996c;min-width:62px}
+.guide-disclosure>div{padding:0 17px 12px 28px}
+.guide-brief-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.guide-brief-grid>div{padding:12px;background:#170707;border:1px solid rgba(197,153,108,.25);border-radius:7px}
+.guide-brief-grid b{color:#f2dca4;font:700 16px var(--fu)}
+.guide-brief-grid p{font:500 12px/1.6 var(--fb);margin:8px 0 0}
+@media(max-width:780px){.guide-brief-grid{grid-template-columns:1fr}.guide-feature{padding:11px}.guide-disclosure summary{font-size:15px}}
