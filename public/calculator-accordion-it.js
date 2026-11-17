@@ -168,7 +168,7 @@ const itIconNames=window.parent?.VERZUM_ITEM_L10N?.it||{};
 const italianNames=Object.assign({},itIconNames);
 const matNames=window.parent?.VERZUM_MATERIAL_L10N?.it||{};
 Object.assign(italianNames,matNames);
-if(typeof NL!=='undefined')NL.it={i:italianNames,m:matNames};
+if(typeof NL!=='undefined')NL.it={i:italianNames,m:matNames,a:[]};
 window.addEventListener('message',e=>{
  if(e.origin!==location.origin||e.source!==parent)return;
  if(e.data?.type==='verzum-parent-language'&&['it','ro'].includes(e.data.language))
