@@ -170,6 +170,8 @@ function viewSearch(input){
  if(!input)return;
  const q=input.value.trim(),ctx=stateInput(input);
  if(!ctx.scope)return;
+ const clear=ctx.form?.querySelector('[data-vz-search-clear]');
+ if(clear)clear.hidden=!q;
  owner=input;
  const drop=initBox();
  active=-1;
