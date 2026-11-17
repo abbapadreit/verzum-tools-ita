@@ -25,3 +25,41 @@ jobs:
           command -v google-chrome || true
           command -v chromium || true
           command -v chromium-browser || true
+
+      - name: Test actual UI navigation, class tabs and original tooltip hover
+        shell: bash
+        run: |
+          npm install --no-save --silent playwright-core@latest
+          node --input-type=module <<'JS'
+          import {chromium} from 'playwright-core';
+          const browser=await chromium.launch({headless:true,executablePath:'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
+          const page=await browser.newPage({viewport:{width:1420,height:910}});
+          page.on('pageerror',e=>console.error('BROWSER JS ERROR',e.message));
+          const base='https://verzum-tools-ita.pages.dev/';
+          try{
+            await page.goto(base+'#wiki/metins/metin_low',{waitUntil:'domcontentloaded'});
+            await page.locator('.vz-wiki .wk-row').first().waitFor({timeout:30000});
+            console.log('METIN ROWS:',await page.locator('.vz-wiki .wk-row').count());
+            await page.locator('.vz-wiki [data-tip="25040"]').first().hover();
+            await page.locator('.vz-wiki-original-tip:not([hidden])').waitFor({timeout:10000});
+            console.log('ORIGINAL HOVER:',(await page.locator('.vz-wiki-original-tip:not([hidden])').innerText()).slice(0,210));
+            await page.goto(base+'#wiki/guides/vz_level_1_75',{waitUntil:'domcontentloaded'});
+            const panel='.vz-wiki .wk-vz--gear .wk-tabpanel.is-on';
+            await page.locator(panel+' .wk-panel').first().waitFor({timeout:30000});
+            console.log('DEFAULT CLASS PANELS:',await page.locator(panel+' .wk-panel').count());
+            if(await page.locator(panel+' .wk-panel').count()!==2)throw Error('Expected two gear panels');
+            for(const cls of ['Ninja','Sura','Sciamano','Guerriero']){
+              await page.locator('.vz-wiki .wk-vz--gear [role="tab"]').filter({hasText:cls}).first().click();
+              const visible=await page.locator(panel+' .wk-panel').count();
+              console.log('CLASS',cls,'panels',visible);
+              if(visible!==2)throw Error('Incorrect panels for '+cls);
+            }
+            await page.goto(base+'#wiki/equipment/weapons',{waitUntil:'domcontentloaded'});
+            await page.locator('.vz-wiki .wk-eqrow').first().waitFor({timeout:25000});
+            console.log('WEAPON ROWS:',await page.locator('.vz-wiki .wk-eqrow').count());
+            await page.goto(base+'#wiki/item/290',{waitUntil:'domcontentloaded'});
+            await page.locator('.vz-wiki .wiki-main .wk-head').first().waitFor({timeout:25000});
+            console.log('ITEM PAGE:',await page.locator('.vz-wiki .wiki-main .wk-head').first().innerText());
+            console.log('BROWSER SMOKE TEST PASSED');
+          }finally{await browser.close()}
+          JS
