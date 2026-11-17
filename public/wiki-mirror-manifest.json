@@ -1,0 +1,2756 @@
+{
+  "version": 2,
+  "generated": "2026-11-17T18:56:32.515Z",
+  "pages": {
+    "equipment/bracelet": {
+      "bytes": 64612,
+      "title": "Bracciale",
+      "at": "2026-11-17T18:56:14.328Z"
+    },
+    "equipment/armor": {
+      "bytes": 94166,
+      "title": "Armatura",
+      "at": "2026-11-17T18:56:14.341Z"
+    },
+    "equipment/earrings": {
+      "bytes": 64601,
+      "title": "Orecchini",
+      "at": "2026-11-17T18:56:14.343Z"
+    },
+    "equipment/helmet": {
+      "bytes": 44414,
+      "title": "Elmo",
+      "at": "2026-11-17T18:56:14.384Z"
+    },
+    "equipment/shield": {
+      "bytes": 84286,
+      "title": "Scudo",
+      "at": "2026-11-17T18:56:14.425Z"
+    },
+    "equipment/necklace": {
+      "bytes": 63237,
+      "title": "Collana",
+      "at": "2026-11-17T18:56:14.479Z"
+    },
+    "equipment/weapons": {
+      "bytes": 53287,
+      "title": "Armi",
+      "at": "2026-11-17T18:56:14.511Z"
+    },
+    "equipment/belts": {
+      "bytes": 31570,
+      "title": "Cinture",
+      "at": "2026-11-17T18:56:14.512Z"
+    },
+    "chests/chest_open_boss": {
+      "bytes": 21460,
+      "title": "Scrigni dei boss del mondo aperto",
+      "at": "2026-11-17T18:56:14.603Z"
+    },
+    "equipment/shoes": {
+      "bytes": 39416,
+      "title": "Scarpe",
+      "at": "2026-11-17T18:56:14.632Z"
+    },
+    "chests/chest_dungeon_boss": {
+      "bytes": 55259,
+      "title": "Scrigni dei boss dei dungeon",
+      "at": "2026-11-17T18:56:14.642Z"
+    },
+    "equipment/talisman": {
+      "bytes": 208299,
+      "title": "Talismano",
+      "at": "2026-11-17T18:56:14.680Z"
+    },
+    "chests/chest_event": {
+      "bytes": 47649,
+      "title": "Scrigni degli eventi",
+      "at": "2026-11-17T18:56:14.688Z"
+    },
+    "chests/chest_clam_pearl": {
+      "bytes": 5492,
+      "title": "Scrigni di conchiglie e perle",
+      "at": "2026-11-17T18:56:14.724Z"
+    },
+    "chests/chest_other": {
+      "bytes": 42398,
+      "title": "Altri scrigni",
+      "at": "2026-11-17T18:56:14.780Z"
+    },
+    "items/item_upgrade": {
+      "bytes": 10123,
+      "title": "Oggetti di potenziamento",
+      "at": "2026-11-17T18:56:14.784Z"
+    },
+    "items/item_boost_items": {
+      "bytes": 7229,
+      "title": "Oggetti boost",
+      "at": "2026-11-17T18:56:14.814Z"
+    },
+    "items/item_tokens": {
+      "bytes": 3855,
+      "title": "Gettoni",
+      "at": "2026-11-17T18:56:14.831Z"
+    },
+    "chests/chest_itemshop": {
+      "bytes": 5822,
+      "title": "Pacchetti dell'Item Shop",
+      "at": "2026-11-17T18:56:14.832Z"
+    },
+    "costumes/weapon": {
+      "bytes": 27566,
+      "title": "Armi",
+      "at": "2026-11-17T18:56:14.921Z"
+    },
+    "items/item_fish": {
+      "bytes": 5684,
+      "title": "Pesci",
+      "at": "2026-11-17T18:56:14.940Z"
+    },
+    "items/item_boost_potions": {
+      "bytes": 7806,
+      "title": "Pozioni boost",
+      "at": "2026-11-17T18:56:14.946Z"
+    },
+    "costumes/armor": {
+      "bytes": 30416,
+      "title": "Armature",
+      "at": "2026-11-17T18:56:14.987Z"
+    },
+    "costumes/pet": {
+      "bytes": 5880,
+      "title": "Animali",
+      "at": "2026-11-17T18:56:14.998Z"
+    },
+    "costumes/hair": {
+      "bytes": 30677,
+      "title": "Acconciature",
+      "at": "2026-11-17T18:56:15.008Z"
+    },
+    "costumes/mount": {
+      "bytes": 8106,
+      "title": "Cavalcature",
+      "at": "2026-11-17T18:56:15.050Z"
+    },
+    "metins/metin_low": {
+      "bytes": 19313,
+      "title": "Pietre Metin di campo (basse)",
+      "at": "2026-11-17T18:56:15.104Z"
+    },
+    "metins/metin_high": {
+      "bytes": 15348,
+      "title": "Pietre Metin di campo (alte)",
+      "at": "2026-11-17T18:56:15.157Z"
+    },
+    "metins/metin_advanced": {
+      "bytes": 13679,
+      "title": "Pietre Metin di campo (avanzate)",
+      "at": "2026-11-17T18:56:15.159Z"
+    },
+    "metins/metin_crystals": {
+      "bytes": 23698,
+      "title": "Cristalli Verzum",
+      "at": "2026-11-17T18:56:15.164Z"
+    },
+    "metins/metin_legendary": {
+      "bytes": 27252,
+      "title": "Pietre Metin leggendarie",
+      "at": "2026-11-17T18:56:15.183Z"
+    },
+    "metins/metin_medium": {
+      "bytes": 16705,
+      "title": "Pietre Metin di campo (medie)",
+      "at": "2026-11-17T18:56:15.205Z"
+    },
+    "metins/metin_dungeon": {
+      "bytes": 55497,
+      "title": "Pietre Metin dei dungeon",
+      "at": "2026-11-17T18:56:15.264Z"
+    },
+    "bosses/boss_tier1": {
+      "bytes": 8006,
+      "title": "Boss di livello 1",
+      "at": "2026-11-17T18:56:15.297Z"
+    },
+    "bosses/boss_tier2": {
+      "bytes": 18892,
+      "title": "Boss di livello 2",
+      "at": "2026-11-17T18:56:15.309Z"
+    },
+    "bosses/boss_tier3": {
+      "bytes": 15849,
+      "title": "Boss di livello 3",
+      "at": "2026-11-17T18:56:15.325Z"
+    },
+    "bosses/boss_beginner": {
+      "bytes": 31960,
+      "title": "Boss per principianti",
+      "at": "2026-11-17T18:56:15.398Z"
+    },
+    "bosses/boss_tier4": {
+      "bytes": 71997,
+      "title": "Boss di livello 4",
+      "at": "2026-11-17T18:56:15.407Z"
+    },
+    "bosses/boss_dungeon_mini": {
+      "bytes": 13458,
+      "title": "Miniboss dei dungeon",
+      "at": "2026-11-17T18:56:15.424Z"
+    },
+    "bosses/boss_dungeon": {
+      "bytes": 49039,
+      "title": "Boss dei dungeon",
+      "at": "2026-11-17T18:56:15.455Z"
+    },
+    "dungeons/orc": {
+      "bytes": 133900,
+      "title": "Orco",
+      "at": "2026-11-17T18:56:15.511Z"
+    },
+    "dungeons/monkey": {
+      "bytes": 121291,
+      "title": "Scimmia",
+      "at": "2026-11-17T18:56:15.522Z"
+    },
+    "dungeons/demon_tower": {
+      "bytes": 193900,
+      "title": "Torre dei Demoni",
+      "at": "2026-11-17T18:56:15.636Z"
+    },
+    "dungeons/spider": {
+      "bytes": 170628,
+      "title": "Ragno",
+      "at": "2026-11-17T18:56:15.668Z"
+    },
+    "dungeons/esoteric": {
+      "bytes": 135305,
+      "title": "Esoterico",
+      "at": "2026-11-17T18:56:15.725Z"
+    },
+    "dungeons/dragon": {
+      "bytes": 207407,
+      "title": "Drago",
+      "at": "2026-11-17T18:56:15.743Z"
+    },
+    "dungeons/azrael": {
+      "bytes": 211410,
+      "title": "Azrael",
+      "at": "2026-11-17T18:56:15.768Z"
+    },
+    "dungeons/triad": {
+      "bytes": 209377,
+      "title": "Morte Blu",
+      "at": "2026-11-17T18:56:15.789Z"
+    },
+    "dungeons/triton": {
+      "bytes": 210782,
+      "title": "Triton",
+      "at": "2026-11-17T18:56:15.854Z"
+    },
+    "dungeons/gnoll": {
+      "bytes": 210833,
+      "title": "Gnoll",
+      "at": "2026-11-17T18:56:15.876Z"
+    },
+    "dungeons/nemere": {
+      "bytes": 218658,
+      "title": "Nemere",
+      "at": "2026-11-17T18:56:15.951Z"
+    },
+    "systems/mount": {
+      "bytes": 100446,
+      "title": "Sistema cavalcature",
+      "at": "2026-11-17T18:56:15.973Z"
+    },
+    "systems/pet": {
+      "bytes": 137054,
+      "title": "Sistema dei pet",
+      "at": "2026-11-17T18:56:15.981Z"
+    },
+    "systems/biology": {
+      "bytes": 28550,
+      "title": "Biologo",
+      "at": "2026-11-17T18:56:16.024Z"
+    },
+    "dungeons/razador": {
+      "bytes": 218575,
+      "title": "Razador",
+      "at": "2026-11-17T18:56:16.056Z"
+    },
+    "systems/alchemy": {
+      "bytes": 56038,
+      "title": "Alchimia delle Pietre del drago",
+      "at": "2026-11-17T18:56:16.074Z"
+    },
+    "systems/boosters": {
+      "bytes": 31169,
+      "title": "Booster",
+      "at": "2026-11-17T18:56:16.118Z"
+    },
+    "systems/skills": {
+      "bytes": 56062,
+      "title": "Abilità",
+      "at": "2026-11-17T18:56:16.121Z"
+    },
+    "systems/buffi_system": {
+      "bytes": 53595,
+      "title": "Buffi",
+      "at": "2026-11-17T18:56:16.156Z"
+    },
+    "systems/passive_skills": {
+      "bytes": 65758,
+      "title": "Abilità passive",
+      "at": "2026-11-17T18:56:16.159Z"
+    },
+    "systems/rank": {
+      "bytes": 7422,
+      "title": "Sistema dei ranghi",
+      "at": "2026-11-17T18:56:16.207Z"
+    },
+    "systems/switchbot": {
+      "bytes": 16391,
+      "title": "Switchbot",
+      "at": "2026-11-17T18:56:16.255Z"
+    },
+    "systems/bonus_system": {
+      "bytes": 109682,
+      "title": "Sistema dei bonus",
+      "at": "2026-11-17T18:56:16.262Z"
+    },
+    "systems/sash": {
+      "bytes": 16947,
+      "title": "Sistema delle stole",
+      "at": "2026-11-17T18:56:16.263Z"
+    },
+    "systems/mining_system": {
+      "bytes": 27947,
+      "title": "Estrazione mineraria",
+      "at": "2026-11-17T18:56:16.308Z"
+    },
+    "systems/auto_skill_reader": {
+      "bytes": 7557,
+      "title": "Lettore automatico di abilità",
+      "at": "2026-11-17T18:56:16.349Z"
+    },
+    "systems/guild_system": {
+      "bytes": 63200,
+      "title": "Sistema delle gilde",
+      "at": "2026-11-17T18:56:16.412Z"
+    },
+    "systems/mission_board": {
+      "bytes": 120935,
+      "title": "Bacheca delle missioni",
+      "at": "2026-11-17T18:56:16.428Z"
+    },
+    "systems/casual": {
+      "bytes": 5831,
+      "title": "Sistema Casual",
+      "at": "2026-11-17T18:56:16.455Z"
+    },
+    "systems/talisman_system": {
+      "bytes": 59863,
+      "title": "Sistema dei talismani",
+      "at": "2026-11-17T18:56:16.467Z"
+    },
+    "systems/crystals": {
+      "bytes": 20021,
+      "title": "Cristalli Verzum",
+      "at": "2026-11-17T18:56:16.488Z"
+    },
+    "systems/fishing_system": {
+      "bytes": 47984,
+      "title": "Pesca",
+      "at": "2026-11-17T18:56:16.524Z"
+    },
+    "systems/teleport": {
+      "bytes": 6303,
+      "title": "Sistema di teletrasporto",
+      "at": "2026-11-17T18:56:16.534Z"
+    },
+    "systems/battlepass_system": {
+      "bytes": 36188,
+      "title": "Battlepass",
+      "at": "2026-11-17T18:56:16.580Z"
+    },
+    "systems/level_guide": {
+      "bytes": 18404,
+      "title": "Guida ai livelli",
+      "at": "2026-11-17T18:56:16.627Z"
+    },
+    "events/vz_mount_drop": {
+      "bytes": 3367,
+      "title": "Evento drop dell'aspetto della cavalcatura",
+      "at": "2026-11-17T18:56:16.651Z"
+    },
+    "systems/invasion": {
+      "bytes": 27983,
+      "title": "Invasione",
+      "at": "2026-11-17T18:56:16.666Z"
+    },
+    "guides/vz_level_1_75": {
+      "bytes": 186255,
+      "title": "Guida ai livelli 1–75",
+      "at": "2026-11-17T18:56:16.672Z"
+    },
+    "events/jinryong_event": {
+      "bytes": 19157,
+      "title": "Evento Jinryong",
+      "at": "2026-11-17T18:56:16.700Z"
+    },
+    "systems/gaya_system": {
+      "bytes": 23270,
+      "title": "Sistema Gaya",
+      "at": "2026-11-17T18:56:16.747Z"
+    },
+    "events/vz_scorched_earth": {
+      "bytes": 14643,
+      "title": "Evento Terra bruciata",
+      "at": "2026-11-17T18:56:16.802Z"
+    }
+  },
+  "assets": {
+    "wiki-original/items/100042.png": {
+      "bytes": 2443
+    },
+    "wiki-original/items/27987.png": {
+      "bytes": 1930
+    },
+    "wiki-original/items/100041.png": {
+      "bytes": 2427
+    },
+    "wiki-original/items/14140.png": {
+      "bytes": 1320
+    },
+    "wiki-original/items/14200.png": {
+      "bytes": 1283
+    },
+    "wiki-original/assets/5258621bfec0/img/class/sura_m.png": {
+      "bytes": 6233
+    },
+    "wiki-original/assets/5258621bfec0/img/class/assassin_w.png": {
+      "bytes": 6279
+    },
+    "wiki-original/assets/5258621bfec0/img/class/shaman_w.png": {
+      "bytes": 6105
+    },
+    "wiki-original/items/14040.png": {
+      "bytes": 1105
+    },
+    "wiki-original/items/100043.png": {
+      "bytes": 2416
+    },
+    "wiki-original/items/30059.png": {
+      "bytes": 1031
+    },
+    "wiki-original/items/30194.png": {
+      "bytes": 1854
+    },
+    "wiki-original/items/27992.png": {
+      "bytes": 1293
+    },
+    "wiki-original/items/27994.png": {
+      "bytes": 1293
+    },
+    "wiki-original/items/30196.png": {
+      "bytes": 2523
+    },
+    "wiki-original/assets/5258621bfec0/img/class/warrior_m.png": {
+      "bytes": 6123
+    },
+    "wiki-original/items/27993.png": {
+      "bytes": 1298
+    },
+    "wiki-original/items/100094.png": {
+      "bytes": 2540
+    },
+    "wiki-original/items/30051.png": {
+      "bytes": 1548
+    },
+    "wiki-original/items/70079.png": {
+      "bytes": 1047
+    },
+    "wiki-original/items/30518.png": {
+      "bytes": 2088
+    },
+    "wiki-original/items/70031.png": {
+      "bytes": 2045
+    },
+    "wiki-original/items/100044.png": {
+      "bytes": 2472
+    },
+    "wiki-original/items/30193.png": {
+      "bytes": 2105
+    },
+    "wiki-original/items/14560.png": {
+      "bytes": 2107
+    },
+    "wiki-original/items/14220.png": {
+      "bytes": 2138
+    },
+    "wiki-original/items/30610.png": {
+      "bytes": 1943
+    },
+    "wiki-original/items/14540.png": {
+      "bytes": 2112
+    },
+    "wiki-original/items/70080.png": {
+      "bytes": 2320
+    },
+    "wiki-original/items/11220.png": {
+      "bytes": 4650
+    },
+    "wiki-original/items/30524.png": {
+      "bytes": 2721
+    },
+    "wiki-original/items/27656.png": {
+      "bytes": 1316
+    },
+    "wiki-original/items/11210.png": {
+      "bytes": 5049
+    },
+    "wiki-original/items/30525.png": {
+      "bytes": 2827
+    },
+    "wiki-original/items/11240.png": {
+      "bytes": 4256
+    },
+    "wiki-original/items/11200.png": {
+      "bytes": 3900
+    },
+    "wiki-original/items/14240.png": {
+      "bytes": 2155
+    },
+    "wiki-original/items/11250.png": {
+      "bytes": 4483
+    },
+    "wiki-original/items/11290.png": {
+      "bytes": 4456
+    },
+    "wiki-original/items/11230.png": {
+      "bytes": 4364
+    },
+    "wiki-original/items/11280.png": {
+      "bytes": 4920
+    },
+    "wiki-original/items/12100.png": {
+      "bytes": 4844
+    },
+    "wiki-original/items/11270.png": {
+      "bytes": 4858
+    },
+    "wiki-original/items/11260.png": {
+      "bytes": 4973
+    },
+    "wiki-original/items/12010.png": {
+      "bytes": 5626
+    },
+    "wiki-original/items/12140.png": {
+      "bytes": 4439
+    },
+    "wiki-original/items/20000.png": {
+      "bytes": 5373
+    },
+    "wiki-original/items/17540.png": {
+      "bytes": 1415
+    },
+    "wiki-original/items/17100.png": {
+      "bytes": 806
+    },
+    "wiki-original/items/17200.png": {
+      "bytes": 940
+    },
+    "wiki-original/items/12220.png": {
+      "bytes": 1488
+    },
+    "wiki-original/items/17220.png": {
+      "bytes": 1621
+    },
+    "wiki-original/items/17020.png": {
+      "bytes": 748
+    },
+    "wiki-original/items/17240.png": {
+      "bytes": 1649
+    },
+    "wiki-original/items/17560.png": {
+      "bytes": 1377
+    },
+    "wiki-original/items/13020.png": {
+      "bytes": 2067
+    },
+    "wiki-original/items/13040.png": {
+      "bytes": 2142
+    },
+    "wiki-original/items/12240.png": {
+      "bytes": 1695
+    },
+    "wiki-original/items/12280.png": {
+      "bytes": 1997
+    },
+    "wiki-original/items/12260.png": {
+      "bytes": 1887
+    },
+    "wiki-original/items/13060.png": {
+      "bytes": 1918
+    },
+    "wiki-original/items/13100.png": {
+      "bytes": 1446
+    },
+    "wiki-original/items/13140.png": {
+      "bytes": 2623
+    },
+    "wiki-original/items/12900.png": {
+      "bytes": 1892
+    },
+    "wiki-original/items/13080.png": {
+      "bytes": 1661
+    },
+    "wiki-original/items/13210.png": {
+      "bytes": 2691
+    },
+    "wiki-original/items/13120.png": {
+      "bytes": 1606
+    },
+    "wiki-original/items/13240.png": {
+      "bytes": 2702
+    },
+    "wiki-original/items/16560.png": {
+      "bytes": 1873
+    },
+    "wiki-original/items/16200.png": {
+      "bytes": 1467
+    },
+    "wiki-original/items/16020.png": {
+      "bytes": 1255
+    },
+    "wiki-original/items/16540.png": {
+      "bytes": 1845
+    },
+    "wiki-original/items/16240.png": {
+      "bytes": 1883
+    },
+    "wiki-original/items/16220.png": {
+      "bytes": 1878
+    },
+    "wiki-original/items/3130.png": {
+      "bytes": 2892
+    },
+    "wiki-original/items/16040.png": {
+      "bytes": 1396
+    },
+    "wiki-original/items/3210.png": {
+      "bytes": 3117
+    },
+    "wiki-original/items/290.png": {
+      "bytes": 1774
+    },
+    "wiki-original/items/3160.png": {
+      "bytes": 3116
+    },
+    "wiki-original/items/140.png": {
+      "bytes": 2176
+    },
+    "wiki-original/items/180.png": {
+      "bytes": 2568
+    },
+    "wiki-original/items/270.png": {
+      "bytes": 2056
+    },
+    "wiki-original/items/18080.png": {
+      "bytes": 2705
+    },
+    "wiki-original/items/71001.png": {
+      "bytes": 2116
+    },
+    "wiki-original/items/71094.png": {
+      "bytes": 1978
+    },
+    "wiki-original/items/18070.png": {
+      "bytes": 2272
+    },
+    "wiki-original/items/100082.png": {
+      "bytes": 2382
+    },
+    "wiki-original/items/18000.png": {
+      "bytes": 2420
+    },
+    "wiki-original/items/71151.png": {
+      "bytes": 2448
+    },
+    "wiki-original/items/100004.png": {
+      "bytes": 1117
+    },
+    "wiki-original/items/58687.png": {
+      "bytes": 1893
+    },
+    "wiki-original/items/100010.png": {
+      "bytes": 2039
+    },
+    "wiki-original/items/100003.png": {
+      "bytes": 2095
+    },
+    "wiki-original/items/50513.png": {
+      "bytes": 1653
+    },
+    "wiki-original/items/50252.png": {
+      "bytes": 2000
+    },
+    "wiki-original/items/80003.png": {
+      "bytes": 1465
+    },
+    "wiki-original/items/25040.png": {
+      "bytes": 2103
+    },
+    "wiki-original/items/70102.png": {
+      "bytes": 1557
+    },
+    "wiki-original/items/71084.png": {
+      "bytes": 2156
+    },
+    "wiki-original/items/100083.png": {
+      "bytes": 2351
+    },
+    "wiki-original/items/100084.png": {
+      "bytes": 2356
+    },
+    "wiki-original/items/50926.png": {
+      "bytes": 2007
+    },
+    "wiki-original/items/100090.png": {
+      "bytes": 2595
+    },
+    "wiki-original/items/80004.png": {
+      "bytes": 2028
+    },
+    "wiki-original/items/80005.png": {
+      "bytes": 1373
+    },
+    "wiki-original/items/72062.png": {
+      "bytes": 3050
+    },
+    "wiki-original/items/80019.png": {
+      "bytes": 2114
+    },
+    "wiki-original/items/100085.png": {
+      "bytes": 2407
+    },
+    "wiki-original/items/100086.png": {
+      "bytes": 2372
+    },
+    "wiki-original/items/33031.png": {
+      "bytes": 2649
+    },
+    "wiki-original/items/71086.png": {
+      "bytes": 1998
+    },
+    "wiki-original/items/80006.png": {
+      "bytes": 1767
+    },
+    "wiki-original/items/80007.png": {
+      "bytes": 2094
+    },
+    "wiki-original/items/100700.png": {
+      "bytes": 3374
+    },
+    "wiki-original/items/100005.png": {
+      "bytes": 1547
+    },
+    "wiki-original/items/71162.png": {
+      "bytes": 2551
+    },
+    "wiki-original/items/50050.png": {
+      "bytes": 2127
+    },
+    "wiki-original/items/15060.png": {
+      "bytes": 1494
+    },
+    "wiki-original/items/15220.png": {
+      "bytes": 1425
+    },
+    "wiki-original/items/100070.png": {
+      "bytes": 2533
+    },
+    "wiki-original/items/15430.png": {
+      "bytes": 1967
+    },
+    "wiki-original/items/15040.png": {
+      "bytes": 1473
+    },
+    "wiki-original/items/72347.png": {
+      "bytes": 3167
+    },
+    "wiki-original/items/70064.png": {
+      "bytes": 2360
+    },
+    "wiki-original/items/15200.png": {
+      "bytes": 1487
+    },
+    "wiki-original/items/100097.png": {
+      "bytes": 2725
+    },
+    "wiki-original/items/100072.png": {
+      "bytes": 2656
+    },
+    "wiki-original/items/71035.png": {
+      "bytes": 1059
+    },
+    "wiki-original/items/100071.png": {
+      "bytes": 2546
+    },
+    "wiki-original/items/71025.png": {
+      "bytes": 2949
+    },
+    "wiki-original/items/100300.png": {
+      "bytes": 1523
+    },
+    "wiki-original/items/100073.png": {
+      "bytes": 2582
+    },
+    "wiki-original/items/100076.png": {
+      "bytes": 2503
+    },
+    "wiki-original/items/100098.png": {
+      "bytes": 2604
+    },
+    "wiki-original/items/70077.png": {
+      "bytes": 1193
+    },
+    "wiki-original/items/100077.png": {
+      "bytes": 2412
+    },
+    "wiki-original/items/85001.png": {
+      "bytes": 1844
+    },
+    "wiki-original/items/100075.png": {
+      "bytes": 2319
+    },
+    "wiki-original/items/50259.png": {
+      "bytes": 2643
+    },
+    "wiki-original/items/100074.png": {
+      "bytes": 2373
+    },
+    "wiki-original/items/100095.png": {
+      "bytes": 2072
+    },
+    "wiki-original/items/51506.png": {
+      "bytes": 2712
+    },
+    "wiki-original/items/85002.png": {
+      "bytes": 2473
+    },
+    "wiki-original/items/70078.png": {
+      "bytes": 1179
+    },
+    "wiki-original/items/100078.png": {
+      "bytes": 3281
+    },
+    "wiki-original/items/72343.png": {
+      "bytes": 3250
+    },
+    "wiki-original/items/100099.png": {
+      "bytes": 2532
+    },
+    "wiki-original/items/70074.png": {
+      "bytes": 1766
+    },
+    "wiki-original/items/100079.png": {
+      "bytes": 3296
+    },
+    "wiki-original/items/100081.png": {
+      "bytes": 2823
+    },
+    "wiki-original/items/40501.png": {
+      "bytes": 3087
+    },
+    "wiki-original/items/100080.png": {
+      "bytes": 2821
+    },
+    "wiki-original/items/71224.png": {
+      "bytes": 2690
+    },
+    "wiki-original/items/40502.png": {
+      "bytes": 1057
+    },
+    "wiki-original/items/71225.png": {
+      "bytes": 2725
+    },
+    "wiki-original/items/9600.png": {
+      "bytes": 1859
+    },
+    "wiki-original/items/57004.png": {
+      "bytes": 3079
+    },
+    "wiki-original/items/10520.png": {
+      "bytes": 2309
+    },
+    "wiki-original/items/9830.png": {
+      "bytes": 1929
+    },
+    "wiki-original/items/100006.png": {
+      "bytes": 2334
+    },
+    "wiki-original/items/10750.png": {
+      "bytes": 1970
+    },
+    "wiki-original/items/10290.png": {
+      "bytes": 2150
+    },
+    "wiki-original/items/100008.png": {
+      "bytes": 2373
+    },
+    "wiki-original/items/70086.png": {
+      "bytes": 2847
+    },
+    "wiki-original/items/57008.png": {
+      "bytes": 2178
+    },
+    "wiki-original/items/100007.png": {
+      "bytes": 2365
+    },
+    "wiki-original/items/57005.png": {
+      "bytes": 3071
+    },
+    "wiki-original/items/57009.png": {
+      "bytes": 2356
+    },
+    "wiki-original/items/100400.png": {
+      "bytes": 2536
+    },
+    "wiki-original/items/10060.png": {
+      "bytes": 2186
+    },
+    "wiki-original/items/57006.png": {
+      "bytes": 3055
+    },
+    "wiki-original/items/25041.png": {
+      "bytes": 2101
+    },
+    "wiki-original/items/57007.png": {
+      "bytes": 3019
+    },
+    "wiki-original/items/57012.png": {
+      "bytes": 2389
+    },
+    "wiki-original/items/57010.png": {
+      "bytes": 2355
+    },
+    "wiki-original/items/100057.png": {
+      "bytes": 2755
+    },
+    "wiki-original/items/57011.png": {
+      "bytes": 2366
+    },
+    "wiki-original/items/100022.png": {
+      "bytes": 2307
+    },
+    "wiki-original/items/57023.png": {
+      "bytes": 2560
+    },
+    "wiki-original/items/57024.png": {
+      "bytes": 2584
+    },
+    "wiki-original/items/100025.png": {
+      "bytes": 2288
+    },
+    "wiki-original/items/57025.png": {
+      "bytes": 2516
+    },
+    "wiki-original/items/57026.png": {
+      "bytes": 2379
+    },
+    "wiki-original/items/50351.png": {
+      "bytes": 2397
+    },
+    "wiki-original/items/50350.png": {
+      "bytes": 2086
+    },
+    "wiki-original/items/100058.png": {
+      "bytes": 2845
+    },
+    "wiki-original/items/27657.png": {
+      "bytes": 2743
+    },
+    "wiki-original/items/100024.png": {
+      "bytes": 2349
+    },
+    "wiki-original/items/100500.png": {
+      "bytes": 2944
+    },
+    "wiki-original/items/100059.png": {
+      "bytes": 2641
+    },
+    "wiki-original/items/100023.png": {
+      "bytes": 2290
+    },
+    "wiki-original/items/27990.png": {
+      "bytes": 1532
+    },
+    "wiki-original/items/100026.png": {
+      "bytes": 2293
+    },
+    "wiki-original/items/100102.png": {
+      "bytes": 1766
+    },
+    "wiki-original/items/27652.png": {
+      "bytes": 1316
+    },
+    "wiki-original/items/100021.png": {
+      "bytes": 2397
+    },
+    "wiki-original/items/100103.png": {
+      "bytes": 1656
+    },
+    "wiki-original/items/100115.png": {
+      "bytes": 1517
+    },
+    "wiki-original/items/100128.png": {
+      "bytes": 2604
+    },
+    "wiki-original/items/27651.png": {
+      "bytes": 1318
+    },
+    "wiki-original/items/50825.png": {
+      "bytes": 1660
+    },
+    "wiki-original/items/27653.png": {
+      "bytes": 1255
+    },
+    "wiki-original/items/100139.png": {
+      "bytes": 1168
+    },
+    "wiki-original/items/100150.png": {
+      "bytes": 2033
+    },
+    "wiki-original/items/50823.png": {
+      "bytes": 1649
+    },
+    "wiki-original/items/50826.png": {
+      "bytes": 1715
+    },
+    "wiki-original/items/50822.png": {
+      "bytes": 1704
+    },
+    "wiki-original/items/50824.png": {
+      "bytes": 1704
+    },
+    "wiki-original/items/50190.png": {
+      "bytes": 2626
+    },
+    "wiki-original/items/71153.png": {
+      "bytes": 1914
+    },
+    "wiki-original/items/100056.png": {
+      "bytes": 2728
+    },
+    "wiki-original/items/27876.png": {
+      "bytes": 1603
+    },
+    "wiki-original/items/27872.png": {
+      "bytes": 1250
+    },
+    "wiki-original/items/100153.png": {
+      "bytes": 1809
+    },
+    "wiki-original/items/27881.png": {
+      "bytes": 2747
+    },
+    "wiki-original/items/70039.png": {
+      "bytes": 2100
+    },
+    "wiki-original/items/100152.png": {
+      "bytes": 1860
+    },
+    "wiki-original/items/27870.png": {
+      "bytes": 929
+    },
+    "wiki-original/items/100151.png": {
+      "bytes": 1821
+    },
+    "wiki-original/items/71087.png": {
+      "bytes": 2341
+    },
+    "wiki-original/items/27868.png": {
+      "bytes": 1190
+    },
+    "wiki-original/items/70075.png": {
+      "bytes": 2163
+    },
+    "wiki-original/items/39007.png": {
+      "bytes": 2100
+    },
+    "wiki-original/items/70085.png": {
+      "bytes": 3037
+    },
+    "wiki-original/items/50191.png": {
+      "bytes": 2626
+    },
+    "wiki-original/items/120000.png": {
+      "bytes": 2765
+    },
+    "wiki-original/items/130000.png": {
+      "bytes": 2776
+    },
+    "wiki-original/items/110000.png": {
+      "bytes": 2778
+    },
+    "wiki-original/items/150000.png": {
+      "bytes": 2772
+    },
+    "wiki-original/items/160000.png": {
+      "bytes": 2283
+    },
+    "wiki-original/items/27880.png": {
+      "bytes": 2706
+    },
+    "wiki-original/items/114000.png": {
+      "bytes": 2689
+    },
+    "wiki-original/items/124000.png": {
+      "bytes": 2677
+    },
+    "wiki-original/items/140000.png": {
+      "bytes": 2757
+    },
+    "wiki-original/items/134000.png": {
+      "bytes": 2687
+    },
+    "wiki-original/items/154000.png": {
+      "bytes": 2678
+    },
+    "wiki-original/items/125000.png": {
+      "bytes": 3156
+    },
+    "wiki-original/items/115000.png": {
+      "bytes": 3178
+    },
+    "wiki-original/items/135000.png": {
+      "bytes": 3180
+    },
+    "wiki-original/items/144000.png": {
+      "bytes": 2670
+    },
+    "wiki-original/items/155000.png": {
+      "bytes": 3149
+    },
+    "wiki-original/items/55003.png": {
+      "bytes": 2562
+    },
+    "wiki-original/items/164000.png": {
+      "bytes": 2158
+    },
+    "wiki-original/items/71135.png": {
+      "bytes": 2353
+    },
+    "wiki-original/items/100096.png": {
+      "bytes": 2093
+    },
+    "wiki-original/items/210601.png": {
+      "bytes": 1751
+    },
+    "wiki-original/items/71202.png": {
+      "bytes": 1813
+    },
+    "wiki-original/items/145000.png": {
+      "bytes": 3161
+    },
+    "wiki-original/items/165000.png": {
+      "bytes": 3142
+    },
+    "wiki-original/items/210600.png": {
+      "bytes": 1471
+    },
+    "wiki-original/items/55005.png": {
+      "bytes": 2492
+    },
+    "wiki-original/items/55004.png": {
+      "bytes": 2588
+    },
+    "wiki-original/items/210602.png": {
+      "bytes": 719
+    },
+    "wiki-original/items/30703.png": {
+      "bytes": 2251
+    },
+    "wiki-original/items/30706.png": {
+      "bytes": 2165
+    },
+    "wiki-original/items/100140.png": {
+      "bytes": 1766
+    },
+    "wiki-original/items/100141.png": {
+      "bytes": 1656
+    },
+    "wiki-original/items/210611.png": {
+      "bytes": 1923
+    },
+    "wiki-original/items/58530.png": {
+      "bytes": 2783
+    },
+    "wiki-original/items/210612.png": {
+      "bytes": 2157
+    },
+    "wiki-original/items/236101.png": {
+      "bytes": 2775
+    },
+    "wiki-original/items/100119.png": {
+      "bytes": 2726
+    },
+    "wiki-original/items/236102.png": {
+      "bytes": 2464
+    },
+    "wiki-original/items/100120.png": {
+      "bytes": 2834
+    },
+    "wiki-original/items/210613.png": {
+      "bytes": 2910
+    },
+    "wiki-original/items/100122.png": {
+      "bytes": 2835
+    },
+    "wiki-original/items/260005.png": {
+      "bytes": 2948
+    },
+    "wiki-original/items/100121.png": {
+      "bytes": 2863
+    },
+    "wiki-original/items/260006.png": {
+      "bytes": 2655
+    },
+    "wiki-original/items/100123.png": {
+      "bytes": 2769
+    },
+    "wiki-original/items/260007.png": {
+      "bytes": 2659
+    },
+    "wiki-original/items/70436.png": {
+      "bytes": 2405
+    },
+    "wiki-original/items/100124.png": {
+      "bytes": 2868
+    },
+    "wiki-original/items/236103.png": {
+      "bytes": 2736
+    },
+    "wiki-original/items/27878.png": {
+      "bytes": 1367
+    },
+    "wiki-original/items/232201.png": {
+      "bytes": 1781
+    },
+    "wiki-original/items/100166.png": {
+      "bytes": 2598
+    },
+    "wiki-original/items/232202.png": {
+      "bytes": 1470
+    },
+    "wiki-original/items/100167.png": {
+      "bytes": 2546
+    },
+    "wiki-original/items/232204.png": {
+      "bytes": 1823
+    },
+    "wiki-original/items/232208.png": {
+      "bytes": 1893
+    },
+    "wiki-original/items/27882.png": {
+      "bytes": 2966
+    },
+    "wiki-original/items/232214.png": {
+      "bytes": 3082
+    },
+    "wiki-original/items/232210.png": {
+      "bytes": 1910
+    },
+    "wiki-original/items/232221.png": {
+      "bytes": 2991
+    },
+    "wiki-original/items/100105.png": {
+      "bytes": 2229
+    },
+    "wiki-original/items/232213.png": {
+      "bytes": 2870
+    },
+    "wiki-original/items/27891.png": {
+      "bytes": 2882
+    },
+    "wiki-original/items/232212.png": {
+      "bytes": 2795
+    },
+    "wiki-original/items/202173.png": {
+      "bytes": 2280
+    },
+    "wiki-original/items/100107.png": {
+      "bytes": 2302
+    },
+    "wiki-original/items/100106.png": {
+      "bytes": 2553
+    },
+    "wiki-original/items/100109.png": {
+      "bytes": 1773
+    },
+    "wiki-original/items/27887.png": {
+      "bytes": 3197
+    },
+    "wiki-original/items/100111.png": {
+      "bytes": 1950
+    },
+    "wiki-original/items/100110.png": {
+      "bytes": 2102
+    },
+    "wiki-original/items/202172.png": {
+      "bytes": 2530
+    },
+    "wiki-original/items/100108.png": {
+      "bytes": 2220
+    },
+    "wiki-original/items/202171.png": {
+      "bytes": 2201
+    },
+    "wiki-original/items/202174.png": {
+      "bytes": 1677
+    },
+    "wiki-original/items/202175.png": {
+      "bytes": 2050
+    },
+    "wiki-original/items/100104.png": {
+      "bytes": 2234
+    },
+    "wiki-original/items/227071.png": {
+      "bytes": 2055
+    },
+    "wiki-original/items/227070.png": {
+      "bytes": 1965
+    },
+    "wiki-original/items/227062.png": {
+      "bytes": 1922
+    },
+    "wiki-original/items/227063.png": {
+      "bytes": 1942
+    },
+    "wiki-original/items/227064.png": {
+      "bytes": 1906
+    },
+    "wiki-original/items/100112.png": {
+      "bytes": 2033
+    },
+    "wiki-original/items/227065.png": {
+      "bytes": 1935
+    },
+    "wiki-original/items/100009.png": {
+      "bytes": 1238
+    },
+    "wiki-original/items/227067.png": {
+      "bytes": 1957
+    },
+    "wiki-original/items/100011.png": {
+      "bytes": 2271
+    },
+    "wiki-original/items/58686.png": {
+      "bytes": 1367
+    },
+    "wiki-original/items/58688.png": {
+      "bytes": 1559
+    },
+    "wiki-original/items/100031.png": {
+      "bytes": 2351
+    },
+    "wiki-original/items/100034.png": {
+      "bytes": 2311
+    },
+    "wiki-original/items/100016.png": {
+      "bytes": 2222
+    },
+    "wiki-original/items/100013.png": {
+      "bytes": 2300
+    },
+    "wiki-original/items/100032.png": {
+      "bytes": 2432
+    },
+    "wiki-original/items/100012.png": {
+      "bytes": 2248
+    },
+    "wiki-original/items/100173.png": {
+      "bytes": 2358
+    },
+    "wiki-original/items/100014.png": {
+      "bytes": 2270
+    },
+    "wiki-original/items/100052.png": {
+      "bytes": 2743
+    },
+    "wiki-original/items/100051.png": {
+      "bytes": 2579
+    },
+    "wiki-original/items/100053.png": {
+      "bytes": 2628
+    },
+    "wiki-original/items/100033.png": {
+      "bytes": 2336
+    },
+    "wiki-original/items/100093.png": {
+      "bytes": 2694
+    },
+    "wiki-original/items/100054.png": {
+      "bytes": 2614
+    },
+    "wiki-original/items/70076.png": {
+      "bytes": 2969
+    },
+    "wiki-original/img/ui/wiki/boss_guide/slot.png": {
+      "bytes": 6334
+    },
+    "wiki-original/items/227066.png": {
+      "bytes": 1914
+    },
+    "wiki-original/items/71284.png": {
+      "bytes": 3128
+    },
+    "wiki-original/items/100015.png": {
+      "bytes": 2212
+    },
+    "wiki-original/items/11259.png": {
+      "bytes": 4483
+    },
+    "wiki-original/img/ui/skill/warrior/geomgyeong_02.png": {
+      "bytes": 1659
+    },
+    "wiki-original/items/11459.png": {
+      "bytes": 4990
+    },
+    "wiki-original/items/11659.png": {
+      "bytes": 5414
+    },
+    "wiki-original/img/ui/skill/shaman/jeungryeok_02.png": {
+      "bytes": 1641
+    },
+    "wiki-original/img/ui/skill/shaman/gicheon_02.png": {
+      "bytes": 2046
+    },
+    "wiki-original/img/ui/skill/shaman/hosin_02.png": {
+      "bytes": 1931
+    },
+    "wiki-original/img/ui/skill/warrior/jeongwi_02.png": {
+      "bytes": 1545
+    },
+    "wiki-original/items/11859.png": {
+      "bytes": 4785
+    },
+    "wiki-original/img/ui/skill/shaman/kwaesok_02.png": {
+      "bytes": 1659
+    },
+    "wiki-original/img/ui/companion/skill/penetration.png": {
+      "bytes": 2767
+    },
+    "wiki-original/img/ui/companion/skill/monster.png": {
+      "bytes": 2912
+    },
+    "wiki-original/img/ui/companion/skill/monster_power_v2.png": {
+      "bytes": 2968
+    },
+    "wiki-original/items/12229.png": {
+      "bytes": 1488
+    },
+    "wiki-original/items/13029.png": {
+      "bytes": 2067
+    },
+    "wiki-original/items/14049.png": {
+      "bytes": 1105
+    },
+    "wiki-original/items/17029.png": {
+      "bytes": 748
+    },
+    "wiki-original/items/11639.png": {
+      "bytes": 5490
+    },
+    "wiki-original/items/11239.png": {
+      "bytes": 4364
+    },
+    "wiki-original/items/12369.png": {
+      "bytes": 1248
+    },
+    "wiki-original/items/12509.png": {
+      "bytes": 1776
+    },
+    "wiki-original/items/11839.png": {
+      "bytes": 4518
+    },
+    "wiki-original/items/11439.png": {
+      "bytes": 5132
+    },
+    "wiki-original/items/12649.png": {
+      "bytes": 1623
+    },
+    "wiki-original/items/11289.png": {
+      "bytes": 4920
+    },
+    "wiki-original/items/13149.png": {
+      "bytes": 2623
+    },
+    "wiki-original/items/12269.png": {
+      "bytes": 1887
+    },
+    "wiki-original/items/17209.png": {
+      "bytes": 940
+    },
+    "wiki-original/items/16049.png": {
+      "bytes": 1396
+    },
+    "wiki-original/items/100154.png": {
+      "bytes": 1834
+    },
+    "wiki-original/items/15069.png": {
+      "bytes": 1494
+    },
+    "wiki-original/items/18009.png": {
+      "bytes": 2420
+    },
+    "wiki-original/img/ui/skill/warrior/jeongwi_01.png": {
+      "bytes": 2028
+    },
+    "wiki-original/items/10295.png": {
+      "bytes": 2150
+    },
+    "wiki-original/items/11489.png": {
+      "bytes": 4987
+    },
+    "wiki-original/items/11889.png": {
+      "bytes": 5333
+    },
+    "wiki-original/items/11689.png": {
+      "bytes": 5496
+    },
+    "wiki-original/items/12539.png": {
+      "bytes": 1982
+    },
+    "wiki-original/items/12399.png": {
+      "bytes": 1930
+    },
+    "wiki-original/items/12679.png": {
+      "bytes": 1650
+    },
+    "wiki-original/items/14209.png": {
+      "bytes": 1283
+    },
+    "wiki-original/img/ui/wiki/boss_guide/talisamns2.png": {
+      "bytes": 51165
+    },
+    "wiki-original/img/ui/skill/warrior/jeongwi_03.png": {
+      "bytes": 1399
+    },
+    "wiki-original/img/ui/skill/shaman/gicheon_03.png": {
+      "bytes": 1637
+    },
+    "wiki-original/img/ui/skill/warrior/geomgyeong_03.png": {
+      "bytes": 1416
+    },
+    "wiki-original/img/ui/skill/shaman/hosin_03.png": {
+      "bytes": 1659
+    },
+    "wiki-original/img/ui/skill/shaman/jeungryeok_03.png": {
+      "bytes": 1464
+    },
+    "wiki-original/img/ui/skill/common/support/chultong.png": {
+      "bytes": 1736
+    },
+    "wiki-original/img/ui/skill/common/guild/him.png": {
+      "bytes": 1965
+    },
+    "wiki-original/items/11669.png": {
+      "bytes": 5573
+    },
+    "wiki-original/items/11269.png": {
+      "bytes": 4973
+    },
+    "wiki-original/img/ui/skill/common/support/jeunghyul.png": {
+      "bytes": 1940
+    },
+    "wiki-original/items/11869.png": {
+      "bytes": 5291
+    },
+    "wiki-original/img/ui/companion/skill/critical.png": {
+      "bytes": 2767
+    },
+    "wiki-original/img/ui/skill/common/support/tongsol.png": {
+      "bytes": 1840
+    },
+    "wiki-original/items/100156.png": {
+      "bytes": 1850
+    },
+    "wiki-original/img/ui/companion/skill/boss.png": {
+      "bytes": 2989
+    },
+    "wiki-original/items/11299.png": {
+      "bytes": 4456
+    },
+    "wiki-original/items/13219.png": {
+      "bytes": 2691
+    },
+    "wiki-original/items/17229.png": {
+      "bytes": 1621
+    },
+    "wiki-original/items/3169.png": {
+      "bytes": 3116
+    },
+    "wiki-original/items/16229.png": {
+      "bytes": 1878
+    },
+    "wiki-original/items/14229.png": {
+      "bytes": 2138
+    },
+    "wiki-original/items/9840.png": {
+      "bytes": 1929
+    },
+    "wiki-original/items/85004.png": {
+      "bytes": 2436
+    },
+    "wiki-original/items/11469.png": {
+      "bytes": 4973
+    },
+    "wiki-original/items/9610.png": {
+      "bytes": 1859
+    },
+    "wiki-original/items/15439.png": {
+      "bytes": 1967
+    },
+    "wiki-original/items/10300.png": {
+      "bytes": 2150
+    },
+    "wiki-original/items/10765.png": {
+      "bytes": 1970
+    },
+    "wiki-original/items/11499.png": {
+      "bytes": 4270
+    },
+    "wiki-original/items/1139.png": {
+      "bytes": 889
+    },
+    "wiki-original/items/10070.png": {
+      "bytes": 2186
+    },
+    "wiki-original/items/189.png": {
+      "bytes": 2568
+    },
+    "wiki-original/items/10530.png": {
+      "bytes": 2309
+    },
+    "wiki-original/items/11699.png": {
+      "bytes": 4318
+    },
+    "wiki-original/items/11899.png": {
+      "bytes": 4891
+    },
+    "wiki-original/items/5129.png": {
+      "bytes": 1108
+    },
+    "wiki-original/items/155240.png": {
+      "bytes": 3062
+    },
+    "wiki-original/items/125140.png": {
+      "bytes": 3197
+    },
+    "wiki-original/items/135140.png": {
+      "bytes": 3203
+    },
+    "wiki-original/items/165140.png": {
+      "bytes": 3184
+    },
+    "wiki-original/items/100155.png": {
+      "bytes": 1811
+    },
+    "wiki-original/items/145140.png": {
+      "bytes": 3154
+    },
+    "wiki-original/items/9835.png": {
+      "bytes": 1929
+    },
+    "wiki-original/items/9605.png": {
+      "bytes": 1859
+    },
+    "wiki-original/items/10065.png": {
+      "bytes": 2186
+    },
+    "wiki-original/items/115140.png": {
+      "bytes": 3212
+    },
+    "wiki-original/items/10525.png": {
+      "bytes": 2309
+    },
+    "wiki-original/items/10755.png": {
+      "bytes": 1970
+    },
+    "wiki-original/items/145040.png": {
+      "bytes": 3161
+    },
+    "wiki-original/items/155040.png": {
+      "bytes": 3149
+    },
+    "wiki-original/items/115040.png": {
+      "bytes": 3178
+    },
+    "wiki-original/items/10305.png": {
+      "bytes": 2150
+    },
+    "wiki-original/img/ui/skill/shaman/kwaesok_03.png": {
+      "bytes": 1261
+    },
+    "wiki-original/items/135040.png": {
+      "bytes": 3180
+    },
+    "wiki-original/items/100157.png": {
+      "bytes": 1870
+    },
+    "wiki-original/items/155140.png": {
+      "bytes": 3206
+    },
+    "wiki-original/items/165240.png": {
+      "bytes": 3001
+    },
+    "wiki-original/items/100159.png": {
+      "bytes": 1868
+    },
+    "wiki-original/items/10760.png": {
+      "bytes": 1970
+    },
+    "wiki-original/items/12019.png": {
+      "bytes": 5626
+    },
+    "wiki-original/items/12289.png": {
+      "bytes": 1997
+    },
+    "wiki-original/items/9850.png": {
+      "bytes": 1929
+    },
+    "wiki-original/items/10075.png": {
+      "bytes": 2186
+    },
+    "wiki-original/items/10535.png": {
+      "bytes": 2309
+    },
+    "wiki-original/items/12029.png": {
+      "bytes": 5232
+    },
+    "wiki-original/items/18089.png": {
+      "bytes": 2705
+    },
+    "wiki-original/items/9615.png": {
+      "bytes": 1859
+    },
+    "wiki-original/items/12409.png": {
+      "bytes": 1984
+    },
+    "wiki-original/items/12549.png": {
+      "bytes": 2016
+    },
+    "wiki-original/items/12049.png": {
+      "bytes": 4775
+    },
+    "wiki-original/items/12039.png": {
+      "bytes": 5157
+    },
+    "wiki-original/items/12689.png": {
+      "bytes": 1733
+    },
+    "wiki-original/items/125350.png": {
+      "bytes": 3208
+    },
+    "wiki-original/items/155350.png": {
+      "bytes": 3218
+    },
+    "wiki-original/items/115460.png": {
+      "bytes": 3335
+    },
+    "wiki-original/items/135350.png": {
+      "bytes": 3232
+    },
+    "wiki-original/items/145350.png": {
+      "bytes": 3244
+    },
+    "wiki-original/items/165350.png": {
+      "bytes": 3282
+    },
+    "wiki-original/items/100158.png": {
+      "bytes": 1863
+    },
+    "wiki-original/items/9845.png": {
+      "bytes": 1929
+    },
+    "wiki-original/items/10080.png": {
+      "bytes": 2186
+    },
+    "wiki-original/items/100161.png": {
+      "bytes": 1853
+    },
+    "wiki-original/items/13249.png": {
+      "bytes": 2702
+    },
+    "wiki-original/items/155460.png": {
+      "bytes": 3311
+    },
+    "wiki-original/items/17249.png": {
+      "bytes": 1649
+    },
+    "wiki-original/items/14249.png": {
+      "bytes": 2155
+    },
+    "wiki-original/items/20009.png": {
+      "bytes": 5373
+    },
+    "wiki-original/items/115350.png": {
+      "bytes": 3301
+    },
+    "wiki-original/img/ui/companion/skill/elements.png": {
+      "bytes": 2793
+    },
+    "wiki-original/items/16249.png": {
+      "bytes": 1883
+    },
+    "wiki-original/items/9625.png": {
+      "bytes": 1859
+    },
+    "wiki-original/items/9855.png": {
+      "bytes": 1929
+    },
+    "wiki-original/items/10085.png": {
+      "bytes": 2186
+    },
+    "wiki-original/items/20509.png": {
+      "bytes": 5564
+    },
+    "wiki-original/items/20259.png": {
+      "bytes": 4838
+    },
+    "wiki-original/items/20759.png": {
+      "bytes": 5330
+    },
+    "wiki-original/items/125460.png": {
+      "bytes": 3303
+    },
+    "wiki-original/items/10545.png": {
+      "bytes": 2309
+    },
+    "wiki-original/items/135460.png": {
+      "bytes": 3328
+    },
+    "wiki-original/items/10775.png": {
+      "bytes": 1970
+    },
+    "wiki-original/img/ui/key_buttons/p.png": {
+      "bytes": 777
+    },
+    "wiki-original/items/165460.png": {
+      "bytes": 3297
+    },
+    "wiki-original/items/10315.png": {
+      "bytes": 2150
+    },
+    "wiki-original/items/56000.png": {
+      "bytes": 2647
+    },
+    "wiki-original/items/100092.png": {
+      "bytes": 2684
+    },
+    "wiki-original/items/100091.png": {
+      "bytes": 2699
+    },
+    "wiki-original/items/145460.png": {
+      "bytes": 3254
+    },
+    "wiki-original/img/ui/companion/skill/fire_ice_power.png": {
+      "bytes": 2922
+    },
+    "wiki-original/img/ui/companion/skill/magic_melee.png": {
+      "bytes": 2661
+    },
+    "wiki-original/img/ui/companion/skill/critical_damage.png": {
+      "bytes": 2610
+    },
+    "wiki-original/img/ui/key_buttons/r_click12.png": {
+      "bytes": 1329
+    },
+    "wiki-original/items/55001.png": {
+      "bytes": 2067
+    },
+    "wiki-original/img/ui/companion/skill/demihuman_defense.png": {
+      "bytes": 3005
+    },
+    "wiki-original/items/55040.png": {
+      "bytes": 2343
+    },
+    "wiki-original/img/ui/wiki/hero/horse.png": {
+      "bytes": 291968
+    },
+    "wiki-original/items/55100.png": {
+      "bytes": 3227
+    },
+    "wiki-original/img/ui/key_buttons/l_click12.png": {
+      "bytes": 1323
+    },
+    "wiki-original/img/ui/companion/skin_preview_13.png": {
+      "bytes": 11513
+    },
+    "wiki-original/img/ui/wiki/hero/pet_system.png": {
+      "bytes": 299308
+    },
+    "wiki-original/img/ui/companion/skill/demihuman.png": {
+      "bytes": 3075
+    },
+    "wiki-original/img/ui/companion/skill/dodge.png": {
+      "bytes": 3065
+    },
+    "wiki-original/img/ui/companion/skin_preview_02.png": {
+      "bytes": 9816
+    },
+    "wiki-original/img/ui/companion/skin_preview_10.png": {
+      "bytes": 12318
+    },
+    "wiki-original/img/ui/companion/skin_preview_03.png": {
+      "bytes": 11338
+    },
+    "wiki-original/img/ui/companion/skill/metin.png": {
+      "bytes": 2730
+    },
+    "wiki-original/img/ui/companion/skin_preview_11.png": {
+      "bytes": 12983
+    },
+    "wiki-original/img/ui/companion/skin_preview_04.png": {
+      "bytes": 12418
+    },
+    "wiki-original/img/ui/companion/skin_preview_08.png": {
+      "bytes": 11750
+    },
+    "wiki-original/img/ui/companion/skin_preview_15.png": {
+      "bytes": 12692
+    },
+    "wiki-original/img/ui/companion/skin_preview_05.png": {
+      "bytes": 9983
+    },
+    "wiki-original/img/ui/companion/skin_preview_14.png": {
+      "bytes": 12480
+    },
+    "wiki-original/img/ui/companion/skin_preview_07.png": {
+      "bytes": 12567
+    },
+    "wiki-original/img/ui/companion/skin_preview_06.png": {
+      "bytes": 10814
+    },
+    "wiki-original/items/30047.png": {
+      "bytes": 1745
+    },
+    "wiki-original/items/30050.png": {
+      "bytes": 924
+    },
+    "wiki-original/items/30015.png": {
+      "bytes": 1842
+    },
+    "wiki-original/items/30006.png": {
+      "bytes": 1320
+    },
+    "wiki-original/img/ui/wiki/hero/biology.png": {
+      "bytes": 279937
+    },
+    "wiki-original/items/30165.png": {
+      "bytes": 1264
+    },
+    "wiki-original/img/ui/key_buttons/f6.png": {
+      "bytes": 781
+    },
+    "wiki-original/items/30167.png": {
+      "bytes": 2069
+    },
+    "wiki-original/items/30168.png": {
+      "bytes": 2520
+    },
+    "wiki-original/items/100113.png": {
+      "bytes": 2208
+    },
+    "wiki-original/items/30166.png": {
+      "bytes": 1914
+    },
+    "wiki-original/items/30251.png": {
+      "bytes": 1719
+    },
+    "wiki-original/items/100114.png": {
+      "bytes": 2448
+    },
+    "wiki-original/items/30252.png": {
+      "bytes": 1554
+    },
+    "wiki-original/items/100160.png": {
+      "bytes": 1781
+    },
+    "wiki-original/items/40503.png": {
+      "bytes": 3082
+    },
+    "wiki-original/items/40504.png": {
+      "bytes": 3079
+    },
+    "wiki-original/items/30270.png": {
+      "bytes": 2905
+    },
+    "wiki-original/items/115240.png": {
+      "bytes": 3087
+    },
+    "wiki-original/items/125040.png": {
+      "bytes": 3156
+    },
+    "wiki-original/items/145240.png": {
+      "bytes": 3055
+    },
+    "wiki-original/items/135240.png": {
+      "bytes": 3060
+    },
+    "wiki-original/items/165040.png": {
+      "bytes": 3142
+    },
+    "wiki-original/items/125240.png": {
+      "bytes": 3040
+    },
+    "wiki-original/items/121000.png": {
+      "bytes": 2364
+    },
+    "wiki-original/items/123000.png": {
+      "bytes": 2602
+    },
+    "wiki-original/items/125100.png": {
+      "bytes": 3197
+    },
+    "wiki-original/items/125300.png": {
+      "bytes": 3208
+    },
+    "wiki-original/items/122000.png": {
+      "bytes": 2808
+    },
+    "wiki-original/items/125200.png": {
+      "bytes": 3040
+    },
+    "wiki-original/items/70071.png": {
+      "bytes": 2041
+    },
+    "wiki-original/items/125400.png": {
+      "bytes": 3303
+    },
+    "wiki-original/items/100001.png": {
+      "bytes": 1532
+    },
+    "wiki-original/items/70072.png": {
+      "bytes": 1922
+    },
+    "wiki-original/img/ui/wiki/hero/alchemy.png": {
+      "bytes": 252296
+    },
+    "wiki-original/items/70073.png": {
+      "bytes": 1912
+    },
+    "wiki-original/img/ui/key_buttons/v.png": {
+      "bytes": 2637
+    },
+    "wiki-original/img/ui/skill/warrior/samyeon_01.png": {
+      "bytes": 1843
+    },
+    "wiki-original/img/ui/skill/warrior/palbang_01.png": {
+      "bytes": 2143
+    },
+    "wiki-original/img/ui/key_buttons/ctrl.png": {
+      "bytes": 4203
+    },
+    "wiki-original/img/ui/wiki/hero/magic_items.png": {
+      "bytes": 242470
+    },
+    "wiki-original/img/ui/skill/warrior/geomgyeong_01.png": {
+      "bytes": 1781
+    },
+    "wiki-original/img/ui/skill/warrior/tanhwan_01.png": {
+      "bytes": 1884
+    },
+    "wiki-original/img/ui/wiki/hero/active_skills.png": {
+      "bytes": 389095
+    },
+    "wiki-original/img/ui/wiki/hero/buffi_system.png": {
+      "bytes": 307479
+    },
+    "wiki-original/img/ui/skill/warrior/gihyeol_01.png": {
+      "bytes": 2051
+    },
+    "wiki-original/img/ui/skill/warrior/gyeoksan_01.png": {
+      "bytes": 1727
+    },
+    "wiki-original/img/ui/skill/warrior/cheongeun_01.png": {
+      "bytes": 1727
+    },
+    "wiki-original/img/ui/skill/warrior/gigongcham_01.png": {
+      "bytes": 1838
+    },
+    "wiki-original/img/ui/skill/warrior/daejin_01.png": {
+      "bytes": 1569
+    },
+    "wiki-original/img/ui/skill/warrior/geompung_01.png": {
+      "bytes": 1910
+    },
+    "wiki-original/items/50494.png": {
+      "bytes": 1667
+    },
+    "wiki-original/img/images/buffi_costume.png": {
+      "bytes": 63936
+    },
+    "wiki-original/items/50510.png": {
+      "bytes": 1651
+    },
+    "wiki-original/img/ui/skill/warrior/noegeom_01.png": {
+      "bytes": 1838
+    },
+    "wiki-original/items/50496.png": {
+      "bytes": 1667
+    },
+    "wiki-original/items/50511.png": {
+      "bytes": 1651
+    },
+    "wiki-original/items/70435.png": {
+      "bytes": 2718
+    },
+    "wiki-original/items/39516.png": {
+      "bytes": 2643
+    },
+    "wiki-original/items/50341.png": {
+      "bytes": 4725
+    },
+    "wiki-original/items/50342.png": {
+      "bytes": 4720
+    },
+    "wiki-original/items/50343.png": {
+      "bytes": 4655
+    },
+    "wiki-original/items/50345.png": {
+      "bytes": 4723
+    },
+    "wiki-original/items/50344.png": {
+      "bytes": 4720
+    },
+    "wiki-original/items/50346.png": {
+      "bytes": 4671
+    },
+    "wiki-original/items/50348.png": {
+      "bytes": 4832
+    },
+    "wiki-original/items/50349.png": {
+      "bytes": 4811
+    },
+    "wiki-original/items/50301.png": {
+      "bytes": 1706
+    },
+    "wiki-original/items/50302.png": {
+      "bytes": 1652
+    },
+    "wiki-original/items/50303.png": {
+      "bytes": 1711
+    },
+    "wiki-original/items/50347.png": {
+      "bytes": 4836
+    },
+    "wiki-original/img/ui/wiki/hero/passive_skills.png": {
+      "bytes": 313711
+    },
+    "wiki-original/img/ui/skill/warrior/gihyeol_03.png": {
+      "bytes": 1704
+    },
+    "wiki-original/img/ui/skill/warrior/palbang_03.png": {
+      "bytes": 2022
+    },
+    "wiki-original/img/ui/skill/warrior/gigongcham_03.png": {
+      "bytes": 1500
+    },
+    "wiki-original/img/ui/skill/warrior/gyeoksan_03.png": {
+      "bytes": 1251
+    },
+    "wiki-original/img/ui/skill/warrior/samyeon_03.png": {
+      "bytes": 1695
+    },
+    "wiki-original/img/ui/skill/warrior/tanhwan_03.png": {
+      "bytes": 1637
+    },
+    "wiki-original/img/ui/skill/warrior/daejin_03.png": {
+      "bytes": 1156
+    },
+    "wiki-original/img/ui/wiki/hero/switchbot.png": {
+      "bytes": 334334
+    },
+    "wiki-original/items/229371.png": {
+      "bytes": 1839
+    },
+    "wiki-original/items/229370.png": {
+      "bytes": 1845
+    },
+    "wiki-original/items/71285.png": {
+      "bytes": 3046
+    },
+    "wiki-original/items/70081.png": {
+      "bytes": 2993
+    },
+    "wiki-original/img/ui/skill/warrior/cheongeun_03.png": {
+      "bytes": 1282
+    },
+    "wiki-original/img/ui/skill/warrior/geompung_03.png": {
+      "bytes": 1519
+    },
+    "wiki-original/items/70082.png": {
+      "bytes": 3142
+    },
+    "wiki-original/img/ui/skill/warrior/noegeom_03.png": {
+      "bytes": 1566
+    },
+    "wiki-original/items/70084.png": {
+      "bytes": 2875
+    },
+    "wiki-original/items/85005.png": {
+      "bytes": 1762
+    },
+    "wiki-original/items/85006.png": {
+      "bytes": 2279
+    },
+    "wiki-original/items/70083.png": {
+      "bytes": 3026
+    },
+    "wiki-original/items/85007.png": {
+      "bytes": 2752
+    },
+    "wiki-original/items/85008.png": {
+      "bytes": 2835
+    },
+    "wiki-original/items/85011.png": {
+      "bytes": 1785
+    },
+    "wiki-original/items/85012.png": {
+      "bytes": 1913
+    },
+    "wiki-original/img/ui/wiki/hero/rank.png": {
+      "bytes": 364254
+    },
+    "wiki-original/items/85014.png": {
+      "bytes": 2682
+    },
+    "wiki-original/img/ui/wiki/hero/sash.png": {
+      "bytes": 342198
+    },
+    "wiki-original/items/85013.png": {
+      "bytes": 2253
+    },
+    "wiki-original/items/85015.png": {
+      "bytes": 1854
+    },
+    "wiki-original/items/85016.png": {
+      "bytes": 1785
+    },
+    "wiki-original/items/2179.png": {
+      "bytes": 2769
+    },
+    "wiki-original/items/85017.png": {
+      "bytes": 2330
+    },
+    "wiki-original/items/232231.png": {
+      "bytes": 2365
+    },
+    "wiki-original/items/29101.png": {
+      "bytes": 1741
+    },
+    "wiki-original/img/ui/wiki/hero/bonus_system.png": {
+      "bytes": 322336
+    },
+    "wiki-original/items/85018.png": {
+      "bytes": 2439
+    },
+    "wiki-original/items/50600.png": {
+      "bytes": 1670
+    },
+    "wiki-original/items/29104.png": {
+      "bytes": 1741
+    },
+    "wiki-original/items/233041.png": {
+      "bytes": 2385
+    },
+    "wiki-original/img/images/sash_upgrade.png": {
+      "bytes": 94722
+    },
+    "wiki-original/img/ui/wiki/src/base.png": {
+      "bytes": 975
+    },
+    "wiki-original/items/29103.png": {
+      "bytes": 1741
+    },
+    "wiki-original/items/29105.png": {
+      "bytes": 1741
+    },
+    "wiki-original/img/images/sash_absorb.png": {
+      "bytes": 95903
+    },
+    "wiki-original/items/29106.png": {
+      "bytes": 1741
+    },
+    "wiki-original/img/ui/wiki/src/npc_guild.png": {
+      "bytes": 967
+    },
+    "wiki-original/items/29102.png": {
+      "bytes": 1741
+    },
+    "wiki-original/items/29107.png": {
+      "bytes": 1741
+    },
+    "wiki-original/img/ui/wiki/hero/mining_system.png": {
+      "bytes": 229301
+    },
+    "wiki-original/items/29108.png": {
+      "bytes": 1741
+    },
+    "wiki-original/items/29109.png": {
+      "bytes": 1741
+    },
+    "wiki-original/img/ui/wiki/hero/guild_system.png": {
+      "bytes": 390861
+    },
+    "wiki-original/items/29110.png": {
+      "bytes": 1741
+    },
+    "wiki-original/img/ui/guild_verzum/skill/effect_icon/monster_0.png": {
+      "bytes": 7209
+    },
+    "wiki-original/img/ui/guild_verzum/skill/effect_icon/boss_0.png": {
+      "bytes": 7107
+    },
+    "wiki-original/img/ui/skill/common/support/mining.png": {
+      "bytes": 1870
+    },
+    "wiki-original/img/ui/guild_verzum/skill/effect_icon/crit_0.png": {
+      "bytes": 6596
+    },
+    "wiki-original/img/ui/guild_verzum/main/coin_gold.png": {
+      "bytes": 934
+    },
+    "wiki-original/img/ui/guild_verzum/skill/effect_icon/stone_0.png": {
+      "bytes": 7093
+    },
+    "wiki-original/img/ui/guild_verzum/shop/silver.png": {
+      "bytes": 695
+    },
+    "wiki-original/img/images/auto_skill_reader.png": {
+      "bytes": 82224
+    },
+    "wiki-original/img/ui/wiki/hero/auto_skill_reader.png": {
+      "bytes": 277760
+    },
+    "wiki-original/img/ui/guild_verzum/skill/effect_icon/element_0.png": {
+      "bytes": 7047
+    },
+    "wiki-original/img/ui/guild_verzum/skill/effect_icon/dungeon_0.png": {
+      "bytes": 6883
+    },
+    "wiki-original/img/ui/guild_verzum/quest/1star_select.png": {
+      "bytes": 1177
+    },
+    "wiki-original/items/235007.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/235015.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/235003.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/235011.png": {
+      "bytes": 1896
+    },
+    "wiki-original/img/ui/guild_verzum/quest/2star_select.png": {
+      "bytes": 1222
+    },
+    "wiki-original/items/235019.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/235023.png": {
+      "bytes": 1896
+    },
+    "wiki-original/img/ui/guild_verzum/quest/3star_select.png": {
+      "bytes": 1231
+    },
+    "wiki-original/items/235004.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/235012.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/235020.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/235024.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/235008.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/235001.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/233407.png": {
+      "bytes": 1900
+    },
+    "wiki-original/items/233408.png": {
+      "bytes": 1955
+    },
+    "wiki-original/items/233401.png": {
+      "bytes": 1458
+    },
+    "wiki-original/items/235005.png": {
+      "bytes": 1896
+    },
+    "wiki-original/img/ui/wiki/hero/mission_board.png": {
+      "bytes": 361423
+    },
+    "wiki-original/items/233403.png": {
+      "bytes": 1444
+    },
+    "wiki-original/items/235009.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/235013.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/235021.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/235017.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/235006.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/235016.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/235010.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/235002.png": {
+      "bytes": 1896
+    },
+    "wiki-original/img/images/casual_eye.png": {
+      "bytes": 18130
+    },
+    "wiki-original/img/ui/wiki/hero/casual.png": {
+      "bytes": 264119
+    },
+    "wiki-original/items/235014.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/235018.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/235022.png": {
+      "bytes": 1896
+    },
+    "wiki-original/items/211101.png": {
+      "bytes": 2444
+    },
+    "wiki-original/items/233405.png": {
+      "bytes": 1403
+    },
+    "wiki-original/items/100017.png": {
+      "bytes": 2221
+    },
+    "wiki-original/items/100027.png": {
+      "bytes": 2288
+    },
+    "wiki-original/items/100018.png": {
+      "bytes": 2268
+    },
+    "wiki-original/items/100028.png": {
+      "bytes": 2297
+    },
+    "wiki-original/img/ui/key_buttons/c.png": {
+      "bytes": 2645
+    },
+    "wiki-original/items/100060.png": {
+      "bytes": 2732
+    },
+    "wiki-original/items/100055.png": {
+      "bytes": 2577
+    },
+    "wiki-original/items/100029.png": {
+      "bytes": 2360
+    },
+    "wiki-original/items/232236.png": {
+      "bytes": 2233
+    },
+    "wiki-original/items/100019.png": {
+      "bytes": 2274
+    },
+    "wiki-original/items/100127.png": {
+      "bytes": 1474
+    },
+    "wiki-original/items/232240.png": {
+      "bytes": 2355
+    },
+    "wiki-original/img/ui/wiki/hero/talisman_system.png": {
+      "bytes": 232470
+    },
+    "wiki-original/items/232244.png": {
+      "bytes": 2355
+    },
+    "wiki-original/items/232232.png": {
+      "bytes": 2215
+    },
+    "wiki-original/items/232247.png": {
+      "bytes": 2355
+    },
+    "wiki-original/img/ui/wiki/hero/crystals.png": {
+      "bytes": 255081
+    },
+    "wiki-original/img/ui/7epmvblf23__dia_affect.png": {
+      "bytes": 2445
+    },
+    "wiki-original/items/232241.png": {
+      "bytes": 2355
+    },
+    "wiki-original/items/232245.png": {
+      "bytes": 2355
+    },
+    "wiki-original/items/232243.png": {
+      "bytes": 2355
+    },
+    "wiki-original/img/ui/wiki/src/event.png": {
+      "bytes": 3525
+    },
+    "wiki-original/items/232242.png": {
+      "bytes": 2355
+    },
+    "wiki-original/items/232246.png": {
+      "bytes": 2355
+    },
+    "wiki-original/items/232249.png": {
+      "bytes": 2355
+    },
+    "wiki-original/items/22010.png": {
+      "bytes": 1614
+    },
+    "wiki-original/items/232248.png": {
+      "bytes": 2355
+    },
+    "wiki-original/items/70007.png": {
+      "bytes": 2383
+    },
+    "wiki-original/img/ui/skill/common/support/fishing.png": {
+      "bytes": 1808
+    },
+    "wiki-original/items/100136.png": {
+      "bytes": 1978
+    },
+    "wiki-original/items/71021.png": {
+      "bytes": 1633
+    },
+    "wiki-original/img/ui/wiki/hero/fishing_system.png": {
+      "bytes": 258939
+    },
+    "wiki-original/items/39502.png": {
+      "bytes": 2428
+    },
+    "wiki-original/items/100135.png": {
+      "bytes": 2168
+    },
+    "wiki-original/img/ui/key_buttons/shift.png": {
+      "bytes": 3644
+    },
+    "wiki-original/img/ui/key_buttons/x.png": {
+      "bytes": 822
+    },
+    "wiki-original/items/58301.png": {
+      "bytes": 2748
+    },
+    "wiki-original/items/25042.png": {
+      "bytes": 3201
+    },
+    "wiki-original/items/100137.png": {
+      "bytes": 2587
+    },
+    "wiki-original/items/50256.png": {
+      "bytes": 1772
+    },
+    "wiki-original/items/58302.png": {
+      "bytes": 2749
+    },
+    "wiki-original/items/50257.png": {
+      "bytes": 1872
+    },
+    "wiki-original/items/50258.png": {
+      "bytes": 2251
+    },
+    "wiki-original/items/39512.png": {
+      "bytes": 2641
+    },
+    "wiki-original/img/ui/wiki/hero/vz_mount_drop.png": {
+      "bytes": 466204
+    },
+    "wiki-original/img/ui/key_buttons/w.png": {
+      "bytes": 716
+    },
+    "wiki-original/img/ui/wiki/hero/teleport.png": {
+      "bytes": 435441
+    },
+    "wiki-original/img/ui/key_buttons/h.png": {
+      "bytes": 704
+    },
+    "wiki-original/items/58303.png": {
+      "bytes": 2679
+    },
+    "wiki-original/img/ui/key_buttons/u.png": {
+      "bytes": 699
+    },
+    "wiki-original/img/ui/wiki/hero/battlepass_system.png": {
+      "bytes": 367595
+    },
+    "wiki-original/items/202156.png": {
+      "bytes": 3234
+    },
+    "wiki-original/items/57003.png": {
+      "bytes": 2309
+    },
+    "wiki-original/items/57000.png": {
+      "bytes": 2190
+    },
+    "wiki-original/items/57002.png": {
+      "bytes": 2238
+    },
+    "wiki-original/items/57001.png": {
+      "bytes": 2227
+    },
+    "wiki-original/items/50934.png": {
+      "bytes": 3099
+    },
+    "wiki-original/items/39064.png": {
+      "bytes": 1838
+    },
+    "wiki-original/img/ui/wiki/hero/level_guide.png": {
+      "bytes": 324733
+    },
+    "wiki-original/items/39511.png": {
+      "bytes": 2665
+    },
+    "wiki-original/items/57021.png": {
+      "bytes": 2898
+    },
+    "wiki-original/img/ui/gaya/gaya_ico.png": {
+      "bytes": 501
+    },
+    "wiki-original/items/71544.png": {
+      "bytes": 2750
+    },
+    "wiki-original/items/57022.png": {
+      "bytes": 2768
+    },
+    "wiki-original/items/57020.png": {
+      "bytes": 2771
+    },
+    "wiki-original/img/ui/wiki/hero/invasion.png": {
+      "bytes": 323542
+    },
+    "wiki-original/img/ui/wiki/hero/gaya_system.png": {
+      "bytes": 327096
+    },
+    "wiki-original/img/ui/wiki/hero/jinryong_event.png": {
+      "bytes": 366837
+    },
+    "wiki-original/img/ui/wiki/hero/vz_scorched_earth.png": {
+      "bytes": 361621
+    }
+  },
+  "failures": {},
+  "primary": [
+    "equipment/weapons",
+    "equipment/armor",
+    "equipment/helmet",
+    "equipment/shield",
+    "equipment/earrings",
+    "equipment/bracelet",
+    "equipment/necklace",
+    "equipment/shoes",
+    "equipment/belts",
+    "equipment/talisman",
+    "chests/chest_open_boss",
+    "chests/chest_dungeon_boss",
+    "chests/chest_clam_pearl",
+    "chests/chest_event",
+    "chests/chest_other",
+    "chests/chest_itemshop",
+    "items/item_upgrade",
+    "items/item_tokens",
+    "items/item_boost_items",
+    "items/item_boost_potions",
+    "items/item_fish",
+    "costumes/weapon",
+    "costumes/armor",
+    "costumes/hair",
+    "costumes/pet",
+    "costumes/mount",
+    "metins/metin_low",
+    "metins/metin_advanced",
+    "metins/metin_medium",
+    "metins/metin_high",
+    "metins/metin_crystals",
+    "metins/metin_legendary",
+    "metins/metin_dungeon",
+    "bosses/boss_beginner",
+    "bosses/boss_tier1",
+    "bosses/boss_tier2",
+    "bosses/boss_tier3",
+    "bosses/boss_tier4",
+    "bosses/boss_dungeon_mini",
+    "bosses/boss_dungeon",
+    "dungeons/monkey",
+    "dungeons/orc",
+    "dungeons/esoteric",
+    "dungeons/spider",
+    "dungeons/demon_tower",
+    "dungeons/azrael",
+    "dungeons/dragon",
+    "dungeons/triad",
+    "dungeons/gnoll",
+    "dungeons/triton",
+    "dungeons/razador",
+    "dungeons/nemere",
+    "systems/pet",
+    "systems/mount",
+    "systems/biology",
+    "systems/alchemy",
+    "systems/skills",
+    "systems/passive_skills",
+    "systems/boosters",
+    "systems/buffi_system",
+    "systems/sash",
+    "systems/rank",
+    "systems/switchbot",
+    "systems/bonus_system",
+    "systems/fishing_system",
+    "systems/mining_system",
+    "systems/auto_skill_reader",
+    "systems/mission_board",
+    "systems/talisman_system",
+    "systems/guild_system",
+    "systems/casual",
+    "systems/crystals",
+    "systems/teleport",
+    "systems/battlepass_system",
+    "systems/level_guide",
+    "systems/gaya_system",
+    "guides/vz_level_1_75",
+    "systems/invasion",
+    "events/vz_mount_drop",
+    "events/jinryong_event",
+    "events/vz_scorched_earth"
+  ],
+  "counts": {
+    "pages": 81,
+    "primaryCompleted": 81,
+    "primaryTotal": 81,
+    "images": 749,
+    "tooltipIds": 108,
+    "indexedItems": 1474,
+    "indexedPages": 81,
+    "errors": 0,
+    "unfinished": 0,
+    "scope": "primary"
+  }
+}
