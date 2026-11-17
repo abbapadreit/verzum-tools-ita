@@ -12,6 +12,7 @@ from html import escape, unescape
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit, unquote, quote
+from urllib.request import Request, urlopen
 import hashlib
 import json
 import re
@@ -114,8 +115,39 @@ class Sanitizer(HTMLParser):
         self.out.append('<'+tag+attr+'>')
         if tag not in VOID: self.open.append(tag)
     def import_image(self,url: str) -> str | None:
-        if not url or url.startswith(('http:','https:','//','data:')): return None
-        src=unquote(urlsplit(url).path)
+        if not url or url.startswith(('data:','//')): return None
+        parts=urlsplit(url)
+        # Solo immagini originali verificabili, mai sostituti grafici generati.
+        if parts.scheme in {'http','https'}:
+            if parts.scheme!='https': return None
+            host=parts.hostname or ''
+            path=unquote(parts.path)
+            is_icon=host=='images.verzum.to' and bool(re.fullmatch(r'/item/[0-9]+[.]png',path))
+            is_wiki_image=host=='wiki.verzum.to' and path.startswith(('/img/','/assets/'))
+            if not (is_icon or is_wiki_image): return None
+            original='https://'+host+path
+            basename=path.rsplit('/',1)[-1]
+            ext=Path(basename).suffix.lower()
+            if ext not in IMG_TYPES:return None
+            # Salva i bytes originali, senza ridimensionare, ricolorare o ricreare.
+            try:
+                req=Request(original,headers={'User-Agent':'VERZUM-Wiki-Import/1.0'})
+                with urlopen(req,timeout=12) as resp:
+                    mime=resp.headers.get('content-type','').lower().split(';')[0]
+                    if not mime.startswith('image/'):raise ValueError('Risposta non immagine')
+                    data=resp.read(8_000_001)
+                if not data or len(data)>8_000_000:raise ValueError('Immagine troppo grande')
+                if ext=='.png' and not data.startswith(b'\x89PNG\r\n\x1a\n'):raise ValueError('PNG non valido')
+                if ext=='.webp' and not (data.startswith(b'RIFF') and data[8:12]==b'WEBP'):raise ValueError('WebP non valido')
+                hashname=hashlib.sha256(data).hexdigest()[:20]+ext
+                DEST.mkdir(parents=True,exist_ok=True)
+                target=DEST/hashname
+                if not target.exists():target.write_bytes(data)
+                return 'wiki-assets/'+hashname
+            except (OSError,ValueError):
+                # Se il download fallisce conserva solo URL originale esplicitamente verificato.
+                return original
+        src=unquote(parts.path)
         if src.startswith('/'): candidate=self.root/src.lstrip('/')
         else: candidate=self.page.parent/src
         try:
