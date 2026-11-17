@@ -89,6 +89,10 @@ for(const record of mirrorIndex.pages||[]){
  if(!record||!record.path||!record.title)continue;
  addPage(record.path,record.title,record.group||'Wiki','');
 }
+/* Read original Italian item names from the official tooltip API. */
+for(const [id,tooltip] of Object.entries(window.VERZUM_WIKI_API_TIPS||{})){
+ if(tooltip&&tooltip.name&&String(tooltip.vnum)===String(id))addItem(id,tooltip.name,15,'Oggetti Wiki');
+}
 const records=[...items.values(),...pages.values()];
 const collator=new Intl.Collator('it',{sensitivity:'base',numeric:true});
 function score(rec,query,exact){
@@ -127,7 +131,7 @@ function search(q,exact=false,limit=Infinity){
 function imageFor(rec){
  if(rec.type==='page')return rec.icon||'';
  const id=rec.id;
- if(verifiedIconIds.has(id))return 'wiki-original/items/'+id+'.png';
+ if(verifiedIconIds.has(id)||window.VERZUM_WIKI_API_TIPS?.[id])return 'wiki-original/items/'+id+'.png';
  if(/^\d+$/.test(id)&&mirrorIndex.items?.some(x=>x.id===id))return 'wiki-original/items/'+id+'.png';
  const icon=window.VERZUM_PNG_ICONS?.[id];
  if(typeof icon==='string'&&icon.startsWith('data:image/'))return icon;
