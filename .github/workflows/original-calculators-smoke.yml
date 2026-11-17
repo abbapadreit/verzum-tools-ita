@@ -1,0 +1,139 @@
+name: Test faithful original calculator integration
+on:
+  push:
+    branches: [main, fix-all-calculator-legacy-and-gaya]
+    paths:
+      - '.github/workflows/original-calculators-smoke.yml'
+      - 'public/calculator-reference.html'
+      - 'public/calculator-original-bridge.js'
+      - 'public/calculator-original-bridge.css'
+      - 'public/app.js'
+      - 'public/index.html'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Start site and install test browser driver
+        run: |
+          python3 -m http.server 8765 --directory public >/tmp/calculator-server.log 2>&1 &
+          npm install --no-save --silent playwright-core@latest
+          curl -fsS http://127.0.0.1:8765/calculator-reference.html >/dev/null
+      - name: Verify original screenshots' exact sections and controls
+        shell: bash
+        run: |
+          node --input-type=module <<'JS'
+          import {chromium} from 'playwright-core';
+          const browser=await chromium.launch({headless:true,executablePath:'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
+          const page=await browser.newPage({viewport:{width:1420,height:900},deviceScaleFactor:1});
+          const errors=[];
+          page.on('pageerror',e=>errors.push('outer: '+e.message));
+          const base='http://127.0.0.1:8765/';
+          const expected={upgrade:'crafting',gaya:'gaya',pet:'pet',mount:'mount',costume:'costume',skills:'skills',passive:'passive',planner:'planner',prices:'prices'};
+          async function open(route){
+            await page.goto(base+'#'+route,{waitUntil:'domcontentloaded',timeout:30000});
+            const frame=page.frameLocator('iframe.native-calculator-frame');
+            await frame.locator('#v-'+expected[route]+'.view.on').waitFor({timeout:24000});
+            const h=await frame.locator('#v-'+expected[route]+' .hero h1').innerText();
+            const sections=await frame.locator('#v-'+expected[route]+' .panel').count();
+            await page.waitForFunction(()=>{
+              const f=document.querySelector('iframe.native-calculator-frame');
+              return f&&Number.parseFloat(f.style.height)>=350;
+            },{timeout:12000}).catch(async()=>{
+              const inspect=await page.locator('iframe.native-calculator-frame').evaluate(el=>({
+                frameHeight:el.style.height,frameOrigin:el.contentWindow?.location?.origin,
+                source:el.contentWindow?.location?.href,
+                view:el.contentWindow?.document?.querySelector('main .view.on')?.id,
+                bodyHeight:el.contentWindow?.document?.body?.scrollHeight
+              }));
+              console.log('BRIDGE DIAGNOSTIC',JSON.stringify(inspect));
+              throw Error('Frame height synchronization timeout '+route);
+            });
+            const height=Number((await page.locator('iframe.native-calculator-frame').getAttribute('style')||'').match(/height:\s*(\d+)px/)?.[1]||0);
+            console.log('REFERENCE',route,'hero:',h,'panels:',sections,'height:',height);
+            if(route!=='planner'&&sections===0)throw Error('Original section not rendered '+route);
+            if(height<320)throw Error('Original section iframe height not synced '+route);
+            if(await page.locator('#panels>.panel[data-panel="native-reference"]').count()!==1)throw Error('Old partial calculator shown '+route);
+            return frame;
+          }
+          try{
+            let frame=await open('gaya');
+            if(await frame.locator('#v-gaya .panel').count()<3)throw Error('Original Gaya 3+ calculator panels missing');
+            await frame.locator('#v-gaya #gq').fill('50');
+            await frame.locator('#v-gaya #gq').press('Tab');
+            await frame.locator('#v-gaya [data-add="gaya"]').click();
+            const gayaSaved=await page.evaluate(()=>JSON.parse(localStorage.getItem('dt_plan')||'[]'));
+            if(!gayaSaved.some(x=>String(x.t||'').includes('50 Gaya')))throw Error('Gaya was not added to original planner');
+            await page.screenshot({path:'/tmp/qa-gaya.png',fullPage:true});
+            frame=await open('pet');
+            if(await frame.locator('#v-pet [data-pf]').count()<3)throw Error('Original Pet guarantee controls missing');
+            await frame.locator('#v-pet [data-pf][data-fv="1"]').first().click();
+            if(await frame.locator('#v-pet [data-pf][data-fv="1"].on').count()<1)throw Error('Original Pet pity controls not interactive');
+            await page.screenshot({path:'/tmp/qa-pet.png',fullPage:true});
+            frame=await open('mount');
+            if(await frame.locator('#v-mount .panel').count()<2)throw Error('Original mount panels missing');
+            await page.screenshot({path:'/tmp/qa-mount.png',fullPage:true});
+            frame=await open('costume');
+            if(await frame.locator('#v-costume .panel').count()<2)throw Error('Original costumes cards missing');
+            await frame.locator('#v-costume [data-cosall="1"]').click();
+            if(await frame.locator('#v-costume .cc.on').count()!==12)throw Error('Original 12 costume selection failed');
+            await page.screenshot({path:'/tmp/qa-costume.png',fullPage:true});
+            frame=await open('skills');
+            if(await frame.locator('#v-skills .panel').count()<2)throw Error('Original skills calculator missing');
+            await page.screenshot({path:'/tmp/qa-skills.png',fullPage:true});
+            frame=await open('passive');
+            if(await frame.locator('#v-passive .panel').count()<2)throw Error('Original passive calculator missing');
+            await page.screenshot({path:'/tmp/qa-passive.png',fullPage:true});
+            frame=await open('prices');
+            if(await frame.locator('#v-prices input').count()<20)throw Error('Original price list inputs absent');
+            await page.screenshot({path:'/tmp/qa-prices.png',fullPage:true});
+            frame=await open('upgrade');
+            if(await frame.locator('#v-crafting .panel').count()<2)throw Error('Original upgrade panels missing');
+            frame=await open('planner');
+            if(await frame.locator('#v-planner').count()!==1)throw Error('Original planner missing');
+            if(!(await frame.locator('#v-planner').innerText()).includes('Gaya'))throw Error('Gaya entry missing from original planner');
+            // Compatibility with saved user configurations: old 6-demo costume list
+            await page.goto(base,{waitUntil:'domcontentloaded'});
+            await page.evaluate(()=>{
+              const key='verzum_gilda_italiano_autonomo_v02';
+              const existing=JSON.parse(localStorage.getItem(key));
+              existing.reference={names:{},sys:{}};
+              existing.costumes=existing.costumes.slice(0,6);
+              existing.dataSource='demo';
+              existing.prices={'Pietra demo':321001};
+              existing.layout={pet:{'petSummary':{order:0,span:8,hidden:true}}};
+              existing.planner=[{name:'Progetto personale',materials:{},yang:0}];
+              localStorage.setItem(key,JSON.stringify(existing));
+              localStorage.setItem('verzum_calculator_reference_migration_v3','no');
+            });
+            // La migrazione avviene all'avvio di una nuova sessione, non a caldo
+            // mentre la precedente pagina mantiene lo stato JavaScript in memoria.
+            await page.reload({waitUntil:'domcontentloaded'});
+            frame=await open('pet');
+            const migrated=await page.evaluate(()=>{
+              const data=JSON.parse(localStorage.getItem('verzum_gilda_italiano_autonomo_v02'));
+              return {costumes:data.costumes.length,hasPet:!!data.reference?.sys?.pet,hasGaya:!!data.reference?.sys?.gaya,preservedPrice:data.prices?.['Pietra demo'],plannerCount:data.planner?.length};
+            });
+            console.log('MIGRATION',JSON.stringify(migrated));
+            if(!migrated.hasPet||!migrated.hasGaya||migrated.costumes!==12||migrated.preservedPrice!==321001||migrated.plannerCount!==1)throw Error('Legacy user data migration broken');
+            await page.goto(base+'#wiki',{waitUntil:'domcontentloaded'});
+            await page.locator('.vz-wiki .wk-search__input').waitFor({timeout:15000});
+            console.log('WIKI UNAFFECTED');
+            if(errors.length)throw Error('Runtime exceptions: '+errors.slice(0,8).join(' | '));
+            console.log('NATIVE ORIGINAL CALCULATORS ALL PASS');
+          }finally{await browser.close()}
+          JS
+      - name: Save visual verification screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: faithful-calculator-screens
+          path: /tmp/qa-*.png
+          if-no-files-found: ignore

@@ -1,0 +1,20 @@
+/* Native original calculator in VERZUM Tools shell */
+#main:has(.native-calculator-frame)>.welcome{display:none!important}
+#main:has(.native-calculator-frame) #edit-toolbar{display:none!important}
+#main:has(.native-calculator-frame) #panels{display:block!important;max-width:none!important;overflow:visible!important}
+#main:has(.native-calculator-frame) .panel[data-panel="native-reference"]{
+ background:transparent!important;border:0!important;box-shadow:none!important;
+ padding:0!important;margin:0!important;width:100%!important;min-width:0!important;
+ display:block!important;grid-column:1/-1!important;overflow:visible!important;
+}
+#main:has(.native-calculator-frame) .panel[data-panel="native-reference"]>.panel-edit,
+#main:has(.native-calculator-frame) .panel[data-panel="native-reference"]>.panel-header{display:none!important}
+#main:has(.native-calculator-frame) .panel[data-panel="native-reference"]>.panel-content{padding:0!important;margin:0!important;overflow:visible!important;background:transparent!important}
+#main:has(.native-calculator-frame) iframe.native-calculator-frame{
+ width:100%;display:block;height:750px;border:0;background:transparent;
+ max-width:100%;overflow:hidden;vertical-align:top;
+}
+@media(max-width:850px){
+ #main:has(.native-calculator-frame){padding-left:0!important;padding-right:0!important}
+ #main:has(.native-calculator-frame) iframe.native-calculator-frame{width:100%;min-height:500px}
+}

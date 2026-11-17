@@ -40,6 +40,61 @@ if(RELEASE.version==='0.4.0'&&state.dataSource!=='demo'){
  }
 }
 
+/* Aggiornamento non distruttivo v3:
+   le vecchie configurazioni localStorage importavano i soli dati demo e
+   non includevano reference.sys, perciò i nuovi calcolatori non venivano attivati.
+   Conserviamo listini personalizzati, layout e pianificatore e aggiorniamo
+   esclusivamente i dati di gioco dalla release originale VERZUM.
+ */
+if(RELEASE.reference?.sys?.pet&&RELEASE.reference?.sys?.mount){
+ const oldReference=state.reference&&typeof state.reference==='object'?state.reference:{};
+ state.reference={
+  ...oldReference,...RELEASE.reference,
+  names:{...(oldReference.names||{}),...(RELEASE.reference.names||{})},
+  sys:{...(oldReference.sys||{}),...RELEASE.reference.sys}
+ };
+ state.materialIds={...(RELEASE.materialIds||{}),...(state.materialIds||{})};
+ if((state.dataSource==='demo'||!Array.isArray(state.catalog)||!state.catalog.length)&&RELEASE.catalog?.length){
+  state.catalog=clone(RELEASE.catalog);
+  state.activeItem=state.catalog[0]?.id||state.activeItem;
+  state.dataSource='importato';
+ }
+ const oldGaya=state.gaya||{};
+ const official=RELEASE.reference.sys.gaya;
+ if(official?.mats?.length===2){
+  const oldOffers=Array.isArray(oldGaya.offers)?oldGaya.offers:[];
+  const newerOffers=[...(official.perm||[]),...(official.daily||[])];
+  const stale=oldOffers.length<newerOffers.length||oldOffers.some(o=>/demo|dimostrativ/i.test(String(o.name||'')));
+  if(stale){
+   state.gaya={...oldGaya,
+    quantity:Math.max(1,Number(oldGaya.quantity)||100),
+    ingredientA:state.reference.names[official.mats[0][0]]||official.mats[0][0],
+    quantityA:official.mats[0][1],
+    ingredientB:state.reference.names[official.mats[1][0]]||official.mats[1][0],
+    quantityB:official.mats[1][1],
+    npc:official.yang,
+    offers:[...(official.perm||[]).map(([id,q,g])=>({name:String(state.reference.names[id]||id),itemId:id,itemQty:q,gaya:g,market:0,type:'Sempre'})),
+            ...(official.daily||[]).map(([id,q,g])=>({name:String(state.reference.names[id]||id),itemId:id,itemQty:q,gaya:g,market:0,type:'Giornaliera'}))]
+   };
+  }
+ }
+ const realCostumes=RELEASE.reference.sys.pet?.asp||[];
+ if(realCostumes.length===12&&(!Array.isArray(state.costumes)||state.costumes.length<12||state.costumes.some(x=>/demo/i.test(String(x.name||'')))))
+  state.costumes=realCostumes.map((x,i)=>({
+   id:'skin-'+i,name:x.n,bonus:x.b,materials:Object.fromEntries((x.m||[]).map(([id,n])=>[state.reference.names[id]||id,n])),
+   yang:x.y
+  }));
+ // Once only: old hidden layout entries must not hide the newly imported panels.
+ const flag='verzum_calculator_reference_migration_v3';
+ let applied=false;try{applied=localStorage.getItem(flag)==='yes'}catch(e){}
+ if(!applied){
+  for(const route of ['pet','mount','costume','skills','passive','prices','gaya']){
+   const layout=state.layout?.[route];if(!layout||typeof layout!=='object')continue;
+   for(const [key,entry] of Object.entries(layout))if(key.startsWith('oc-')&&entry&&typeof entry==='object')entry.hidden=false;
+  }
+  try{localStorage.setItem(flag,'yes')}catch(e){}
+ }
+}
 state.filters=state.filters||{class:'all',category:'all'};
 state.range.fails=state.range.fails||{};
 state.edit=false;if(!TITLES[state.route])state.route='upgrade';
