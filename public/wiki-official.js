@@ -27,8 +27,11 @@ function missingPage(path){
 }
 function output(){
  const path=getPath();
+ const searchApi=window.VERZUM_WIKI_SEARCH;
  const main=path===''?reference.home:path===GUIDE?
     (guideHtml||'<div class="wiki-main"><p class="wk-p">'+(loadError?'La guida originale non è disponibile in questa versione.':'Caricamento della guida originale…')+'</p></div>'):
+    path.startsWith('search/')||path==='search'?(searchApi?.renderPage(path)||missingPage(path)):
+    path.startsWith('item/')?(searchApi?.renderItemPage(path.slice(5))||missingPage(path)):
     missingPage(path);
  return '<div class="vz-wiki wiki"><div class="wiki__grid"><button class="wk-drawer-btn" type="button" data-wk-drawer aria-expanded="false" aria-controls="wiki-side"><svg class="ic-line" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><span>Categorie</span></button>'+sideFor(path)+main+'</div><div class="wk-backdrop" data-wk-drawer-close hidden></div></div>';
 }
@@ -74,36 +77,7 @@ host?.addEventListener('click',e=>{
  const close=e.target.closest('[data-wk-drawer-close]');
  if(open){e.preventDefault();inside.classList.add('is-drawer');open.setAttribute('aria-expanded','true');const bg=inside.querySelector('.wk-backdrop');if(bg)bg.hidden=false;return}
  if(close){e.preventDefault();inside.classList.remove('is-drawer');const bg=inside.querySelector('.wk-backdrop');if(bg)bg.hidden=true;inside.querySelector('[data-wk-drawer]')?.setAttribute('aria-expanded','false');return}
- const searchButton=e.target.closest('.wk-search button[type="submit"]');
- if(searchButton){e.preventDefault();searchWiki(inside);}
 });
-host?.addEventListener('submit',e=>{
- if(!e.target.matches('.vz-wiki .wk-search'))return;
- e.preventDefault();
- searchWiki(e.target.closest('.vz-wiki'));
-});
-host?.addEventListener('input',e=>{
- if(!e.target.matches('.vz-wiki .wk-search__input'))return;
- const input=e.target,kw=input.value.trim().toLocaleLowerCase('it');
- const side=input.closest('.wiki-side');
- if(!side)return;
- side.querySelectorAll('.wk-subs a').forEach(a=>{a.hidden=!!kw&&!a.textContent.toLocaleLowerCase('it').includes(kw)});
- side.querySelectorAll('.wk-cat').forEach(d=>{
-  const found=Array.from(d.querySelectorAll('.wk-subs a')).some(a=>!a.hidden);
-  d.hidden=!!kw&&!found;
-  if(kw&&found)d.open=true;
- });
-});
-function searchWiki(scope){
- const input=scope.querySelector('.wk-search__input');
- const q=input?.value.trim();
- if(!q){input?.focus();return}
- const anchors=Array.from(scope.querySelectorAll('.wk-subs a'));
- const exact=anchors.find(a=>a.textContent.toLocaleLowerCase('it')===q.toLocaleLowerCase('it'));
- if(exact){location.hash=exact.getAttribute('href');return}
- const first=anchors.find(a=>!a.hidden);
- if(first)location.hash=first.getAttribute('href');
-}
 if(state.route==='wiki'||state.route==='guide')render();
 window.VERZUM_WIKI_OFFICIAL={get loaded(){return !!guideHtml},guide:GUIDE,sidebarCategories:10};
 })();
