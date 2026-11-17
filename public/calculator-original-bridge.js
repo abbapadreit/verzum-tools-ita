@@ -26,6 +26,25 @@ for(const route of validRoutes){
  sections[route]=()=>[{key:'native-reference',span:12,title:'Calcolatore originale',tag:'VERZUM',content:iframeContent(route)}];
 }
 function activeFrame(){return document.querySelector('iframe.native-calculator-frame')}
+/* L'iframe è same-origin. Disattiviamo il suo scroll interno, non quello della pagina.
+   La dimensione del frame viene già sincronizzata da verzum-reference-height. */
+function fixEmbeddedScroll(frame){
+ if(!frame)return;
+ try{
+  const doc=frame.contentDocument;
+  if(!doc?.head||doc.getElementById('verzum-no-nested-scroll'))return;
+  const style=doc.createElement('style');
+  style.id='verzum-no-nested-scroll';
+  style.textContent='html{overflow-y:hidden!important;scrollbar-width:none!important;-ms-overflow-style:none!important}body{scrollbar-width:none!important}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}';
+  doc.head.appendChild(style);
+ }catch(_){/* Il frame va modificato soltanto se ospitato dalla stessa origine. */}
+}
+document.addEventListener('load',event=>{
+ if(event.target?.matches?.('iframe.native-calculator-frame'))fixEmbeddedScroll(event.target);
+},true);
+const initialFrame=activeFrame();
+if(initialFrame&&initialFrame.contentDocument?.readyState==='complete')fixEmbeddedScroll(initialFrame);
+
 let lastFrame=null;
 window.addEventListener('message',event=>{
  if(event.origin!==location.origin)return;
