@@ -38,7 +38,7 @@ const save=()=>{try{localStorage.setItem(STORAGE,JSON.stringify(state));}catch(e
 let toastTimer;function toast(s){const e=$('#toast');e.textContent=s;e.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>e.classList.remove('visible'),3000)}
 const price=n=>Math.max(0,num(state.prices[n]));
 const validIcon=(uri)=>typeof uri==='string'&&(/^data:image\/(?:png|webp|jpeg);base64,[A-Za-z0-9+/=]+$/.test(uri));
-const iconFor=(id,sym='◇',klass='small')=>{const v=itemIcons[String(id)];return validIcon(v)?`<img class="game-icon ${klass}" loading="lazy" decoding="async" src="${v}" alt="">`:`<span class="icon-fallback">${esc(sym)}</span>`};
+const iconFor=(id,sym='◇',klass='small')=>{const v=itemIcons[String(id)];if(validIcon(v))return `<img class="game-icon ${klass}" loading="lazy" decoding="async" src="${v}" alt="">`;const art=window.VERZUM_ART_ICON?.(String(id));return art?`<img class="game-icon ${klass} art-icon" loading="lazy" decoding="async" src="${art}" alt="Illustrazione di riferimento">`:`<span class="icon-fallback">${esc(sym)}</span>`};
 const countIcons=()=>Object.keys(itemIcons).filter(k=>validIcon(itemIcons[k])).length;
 const categorySymbol={Arma:'⚔',Armatura:'♜',Elmo:'♟',Scudo:'⬡',Orecchini:'✣',Bracciale:'◈',Collana:'◇',Scarpe:'♧',Cintura:'▧',Talismano:'☀'};
 const addM=(m,n,qty)=>{if(!n||!num(qty))return;m[n]=(m[n]||0)+num(qty)};
