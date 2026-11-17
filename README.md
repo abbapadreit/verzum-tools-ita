@@ -2,7 +2,7 @@
 
 Sito web indipendente, in italiano, distribuibile con **Cloudflare Pages + GitHub**.
 
-> **Stato:** prototipo v0.2, non la replica completa di Dumanu.Tools. Alcuni dati sono di esempio e non sono validati per il gioco. Le immagini del progetto di riferimento non vengono ridistribuite senza autorizzazione.
+> **Stato:** sviluppo v0.4, non ancora replica completa di Dumanu.Tools. Catalogo con 147 equipaggiamenti e immagini PNG del pacchetto fornito, ma prezzi, materiali e percentuali da verificare sul server.
 
 ## Struttura del repository
 
@@ -22,7 +22,7 @@ Sito web indipendente, in italiano, distribuibile con **Cloudflare Pages + GitHu
 
 Il sito include **147 equipaggiamenti**, con nomi italiani e passaggi numerici estratti come dati di gioco da fonti pubbliche di riferimento. **Non sono stati convalidati per la versione corrente di VERZUM**: prezzi, materiali e probabilità possono differire.
 
-Le icone mostrate automaticamente sono **illustrazioni SVG originali e provvisorie**, generate dal progetto; **non sono gli sprite ufficiali** e non contengono immagini copiate da Dumanu.Tools o dal client di Metin2. È possibile caricare un set PNG/WebP autorizzato nella sezione «Dati di calcolo», usando gli ID degli item: queste icone prevalgono sui disegni provvisori. La pubblicazione di un pacchetto di immagini autentiche richiede una verifica dei diritti.
+Le icone ora sono le **PNG estratte dall'archivio `VERZUM_TUTTE_LE_IMMAGINI_PNG.zip` fornito dall'utente**: 266 PNG distinti per oggetti/materiali, più nove icone di menu. Le risorse provengono dal sito Dumanu.Tools/Metin2 e i diritti sui singoli file restano ai rispettivi titolari. Il progetto utilizza una matrice che associa 322 ID agli sprite estratti; i duplicati sono condivisi senza copiarne più volte i dati. Le immagini di fantasia precedenti sono state eliminate. Verificare i diritti di redistribuzione prima di condividere pubblicamente il sito.
 
 ## Avvio locale
 
