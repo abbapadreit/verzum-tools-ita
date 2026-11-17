@@ -171,7 +171,7 @@ Object.assign(italianNames,matNames);
 if(typeof NL!=='undefined')NL.it={i:italianNames,m:matNames};
 window.addEventListener('message',e=>{
  if(e.origin!==location.origin||e.source!==parent)return;
- if(e.data?.type==='verzum-parent-language'&&['it','ro','en','hu'].includes(e.data.language))
+ if(e.data?.type==='verzum-parent-language'&&['it','ro'].includes(e.data.language))
   setLang(e.data.language);
 });
 rFilters();
