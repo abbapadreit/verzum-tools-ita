@@ -110,10 +110,25 @@ jobs:
             if(scrollbars.outer!=='none'||scrollbars.inner!=='none'||scrollbars.innerOverflow!=='hidden')
               throw Error('Redundant scrollbar not hidden: '+JSON.stringify(scrollbars));
             const persistence='persistent-calculator-document';
-            await frame.locator('#v-gaya').evaluate((token)=>{window.__routeIdentity=token},persistence);
+            const before=await frame.locator('#v-gaya').evaluate((token)=>{
+              window.__routeIdentity=token;
+              return {url:location.href,hash:location.hash,doc:document.readyState,token:window.__routeIdentity,ts:performance.timeOrigin};
+            },persistence);
+            await page.evaluate(()=>{document.querySelector('iframe').__outerIdentity='same-element'});
             await page.locator('#navigation [data-nav="pet"]').click();
             await frame.locator('#v-pet.view.on').waitFor({timeout:14000});
-            if(await frame.locator('#v-pet').evaluate(()=>window.__routeIdentity)!==persistence)
+            const after=await frame.locator('#v-pet').evaluate(()=>({
+              url:location.href,hash:location.hash,doc:document.readyState,token:window.__routeIdentity,ts:performance.timeOrigin
+            }));
+            const parentView=await page.evaluate(()=>({
+              nodeToken:document.querySelector('iframe').__outerIdentity,
+              src:document.querySelector('iframe').getAttribute('src'),
+              route:document.querySelector('iframe').dataset.nativeRoute,
+              debug:window.__nativeRouteDebug,
+              mainCount:document.querySelectorAll('iframe.native-calculator-frame').length
+            }));
+            console.log('PERSISTENCE_DIAGNOSTIC',JSON.stringify({before,after,parentView}));
+            if(after.token!==persistence)
               throw Error('Calculator iframe reloaded on Gaya to Pet navigation');
             await page.locator('#navigation [data-nav="gaya"]').click();
             await frame.locator('#v-gaya.view.on').waitFor({timeout:14000});
