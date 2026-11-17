@@ -67,6 +67,8 @@ jobs:
             await page.goto(base+'#wiki/item/290',{waitUntil:'domcontentloaded'});
             await page.locator('.vz-wiki .wiki-main .wk-head').first().waitFor({timeout:25000});
             console.log('ITEM PAGE:',await page.locator('.vz-wiki .wiki-main .wk-head').first().innerText());
+            await page.locator('.vz-wiki .wk-itempage .wk-rf__table').waitFor({timeout:12000});
+            console.log('ORIGINAL ITEM TABLE:',await page.locator('.vz-wiki .wk-itempage .wk-rf__lv').count());
             const pages=[
               ['equipment/weapons','Spada'],['chests/chest_open_boss','Baule'],
               ['items/item_upgrade','Oggetti'],['costumes/armor','Costumi'],
@@ -76,9 +78,14 @@ jobs:
             ];
             for(const [slug,label] of pages){
               await page.goto(base+'#wiki/'+slug,{waitUntil:'domcontentloaded'});
-              await page.waitForFunction(()=>document.querySelector('.vz-wiki .wiki-main .wk-head__title'),{timeout:18000});
-              const title=(await page.locator('.vz-wiki .wk-head__title').first().innerText()).trim();
+              await page.waitForFunction(()=>{
+                const w=document.querySelector('.vz-wiki .wiki-main');
+                return !!w&&(w.querySelector('.wk-head__title')||w.querySelector('.wk-mobpage .wk-namebar__name'));
+              },{timeout:18000});
+              await page.waitForFunction(()=>!!document.querySelector('.vz-wiki .wk-doc.wk-page'),{timeout:18000});
+              const title=(await page.locator('.vz-wiki .wiki-main .wk-head__title, .vz-wiki .wk-mobpage .wk-namebar__name').first().innerText()).trim();
               if(!title||title.includes('non ancora')||title.includes('trasferita'))throw Error('Missing original Wiki page '+slug+' -> '+title);
+              if(slug.startsWith('mob/')&&await page.locator('.vz-wiki .wk-mobpage').count()!==1)throw Error('Mob detail page is not original');
               console.log('REAL WIKI PAGE:',slug,':',title);
             }
             await page.goto(base+'#wiki',{waitUntil:'domcontentloaded'});
