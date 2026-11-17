@@ -1,0 +1,44 @@
+/* Pannello sinistro Potenziamenti: categorie compatte a fisarmonica. */
+#v-crafting #catTabs{display:none!important}
+#v-crafting #tiles.list{
+ max-height:none!important;min-height:0!important;overflow:visible!important;
+ padding:0!important;margin:14px 0 0!important;
+}
+#v-crafting .vz-accordion-group{
+ border:1px solid rgba(197,153,108,.29);
+ border-radius:7px;overflow:hidden;margin:0 0 8px;
+ background:linear-gradient(105deg,rgba(50,25,21,.72),rgba(20,6,6,.74));
+}
+#v-crafting .vz-accordion-trigger{
+ display:flex;align-items:center;gap:10px;width:100%;min-height:44px;
+ padding:9px 11px;border:0;background:transparent;color:#f2dca4;
+ text-align:left;cursor:pointer;font-family:var(--fu,'Rajdhani',sans-serif);
+ font-size:15px;font-weight:700;letter-spacing:.4px;
+}
+#v-crafting .vz-accordion-trigger:hover,
+#v-crafting .vz-accordion-trigger[aria-expanded="true"]{
+ background:linear-gradient(90deg,rgba(142,52,55,.25),rgba(142,52,55,.06));
+}
+#v-crafting .vz-accordion-trigger:focus-visible{outline:2px solid #E3B98A;outline-offset:-3px}
+#v-crafting .vz-accordion-symbol{
+ display:grid;place-items:center;flex:none;
+ width:25px;height:25px;border-radius:4px;border:1px solid #C5996C;
+ color:#E3B98A;font-family:system-ui,sans-serif;font-size:19px;font-weight:500;line-height:1;
+}
+#v-crafting .vz-accordion-trigger[aria-expanded="true"] .vz-accordion-symbol{
+ background:rgba(197,153,108,.18);color:#fff9ec
+}
+#v-crafting .vz-accordion-label{flex:1;min-width:0}
+#v-crafting .vz-accordion-count{
+ min-width:28px;padding:2px 6px;text-align:center;
+ border-radius:12px;border:1px solid rgba(197,153,108,.24);
+ color:#b7a08f;font-size:12px;font-weight:600;
+}
+#v-crafting .vz-accordion-body{padding:5px 4px 8px;border-top:1px solid rgba(197,153,108,.16)}
+#v-crafting .vz-accordion-body[hidden]{display:none!important}
+#v-crafting .vz-accordion-body .it{padding:7px 9px;min-width:0}
+#v-crafting .vz-accordion-body .it .nm{overflow-wrap:anywhere}
+@media(max-width:700px){
+ #v-crafting .vz-accordion-trigger{min-height:48px;font-size:16px}
+ #v-crafting .vz-accordion-symbol{width:29px;height:29px}
+}
