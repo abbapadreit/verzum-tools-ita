@@ -3,8 +3,8 @@ import {execFileSync} from 'node:child_process';
 import assert from 'node:assert/strict';
 const base=new URL('../public/',import.meta.url);
 const read=p=>readFileSync(new URL(p,base),'utf8');
-const html=read('index.html'),app=read('app.js'),theme=read('theme-original.css'),guide=read('guide.js'),wiki=read('wiki.js');
-const files=['style.css','theme-original.css','wiki.css','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','item-translations.js','i18n.js','assets/icon-index.js','assets/extra-icons.js','robots.txt','assets/sidebar-logo.svg',...['it','en','ro','hu'].map(s=>'assets/flags/'+s+'.svg'),...Array.from({length:9},(_,i)=>'assets/real-icons-'+String(i).padStart(2,'0')+'.js')];
+const html=read('index.html'),app=read('app.js'),theme=read('theme-original.css'),guide=read('guide.js'),wiki=read('wiki.js'),official=read('wiki-official-guide.html'),originalHome=read('wiki-official-home.js');
+const files=['style.css','theme-original.css','wiki.css','wiki-official.css','wiki-official-override.css','wiki-official-home.js','wiki-official.js','wiki-official-guide.html','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','item-translations.js','i18n.js','assets/icon-index.js','assets/extra-icons.js','robots.txt','assets/sidebar-logo.svg',...['it','en','ro','hu'].map(s=>'assets/flags/'+s+'.svg'),...Array.from({length:9},(_,i)=>'assets/real-icons-'+String(i).padStart(2,'0')+'.js')];
 for(const f of files){
  const u=new URL(f,base);assert.ok(existsSync(u),'Risorsa mancante: '+f);
  if(f.endsWith('.js'))execFileSync(process.execPath,['--check',u.pathname]);
@@ -42,4 +42,20 @@ assert.ok(!guide.includes('wiki-icon-fallback')&&!wiki.includes('wiki-icon-fallb
 assert.ok(!guide.includes('Number(raw)-Number(raw)%10')&&!wiki.includes('Number(id)-Number(id)%10'),'Nessuna approssimazione ID icone');
 assert.ok(guide.includes("href=(path)=>'#wiki'")&&wiki.includes("href=\"#wiki/"),'Collegamenti interni');
 assert.ok(html.includes('data-nav="wiki"'),'Menu Wiki interna');
-console.log('OK: '+files.length+' risorse, 12 sezioni, 147 oggetti, 44 evoluzioni, Wiki interna, icone originali per ID esatto, lingue, responsive.');
+
+const originalCategories=['equipment','chests','items','costumes','metins','bosses','dungeons','systems','guides','events'];
+const originalBanners=['pvm_banner','premium_banner','faq_banner'];
+const originalIllustrations=['hero/vz_level_1_75','vzdg_gear_panel','boss_guide/boosters'];
+const originalIds='50187 50188 50203 28550 28555 50189 3219 11279 12249 13049 14149 17109 16029 15049 85003 71143 100138 100142 100131 100130 100129 100132 100133 100134 1179 11479 12389 299 11679 12529 5119 11879 12669 124040 134040 144040 154040 114040 164040 50821'.split(' ');
+for(const cat of originalCategories)assert.ok(existsSync(new URL('wiki-original/assets/5258621bfec0/img/wiki/cat/'+cat+'.png',base)),'Icona categoria originale mancante: '+cat);
+for(const img of originalBanners)assert.ok(existsSync(new URL('wiki-original/img/ui/wiki/main_page/'+img+'.png',base)),'Banner originale mancante: '+img);
+for(const img of originalIllustrations)assert.ok(existsSync(new URL('wiki-original/img/ui/wiki/'+img+'.png',base)),'Illustrazione originale mancante: '+img);
+for(const id of originalIds)assert.ok(existsSync(new URL('wiki-original/items/'+id+'.png',base)),'Icona originale item mancante: '+id);
+assert.ok(originalHome.includes('wiki-original/img/ui/wiki/main_page/pvm_banner.png'),'Homepage originale senza immagini locali');
+assert.ok(originalHome.includes('wiki-original/assets/5258621bfec0/img/wiki/cat/equipment.png'),'Sidebar originale senza icone locali');
+for(const n of [1,2,3,4,5,6,7,8,9])assert.ok(official.includes('id="s'+n+'"'),'Sezione guida originale mancante: '+n);
+assert.equal(new Set([...official.matchAll(/(?:wiki-original\/items\/|https:\/\/images\.verzum\.to\/item\/)(\d+)\.png/g)].map(m=>m[1])).size,59,'Tutti i 59 ID originali della guida');
+assert.ok(!/href="https:\/\/wiki\.verzum\.to\/it\//.test(official),'Link esterni non riscritti nella guida');
+assert.ok(html.includes('wiki-official.js')&&html.includes('wiki-official.css'),'Interfaccia originale Wiki non collegata');
+assert.ok(app.includes("classList.toggle('wiki-mode'"),'Modalità Wiki isolata non configurata');
+console.log('OK: '+files.length+' risorse, 12 sezioni, 147 oggetti, 44 evoluzioni, struttura Wiki originale, 16 PNG grafici e 40 icone item autentiche, lingue, responsive.');
