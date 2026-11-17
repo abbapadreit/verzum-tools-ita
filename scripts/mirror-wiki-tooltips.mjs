@@ -12,14 +12,17 @@ const idxraw=await readFile(join(base,'wiki-index.generated.js'),'utf8');
 const currentIndex=JSON.parse(idxraw.slice(idxraw.indexOf('=')+1).trim().replace(/;\s*$/,''));
 const ids=[...new Set((currentIndex.items||[]).map(x=>String(x.id)).filter(x=>/^\d{1,9}$/.test(x)))].slice(0,10000);
 let saved={};try{const raw=await readFile(out,'utf8');saved=JSON.parse(raw.slice(raw.indexOf('=')+1).replace(/;\s*$/,''))}catch(e){}
-const failures={},started=Date.now(),deadline=Date.now()+16*60*1000;
+const failures={},started=Date.now(),deadline=Date.now()+24*60*1000;
+let coolingUntil=0;
 let completed=0,images=0,bad=0;
 async function request(url,asset=false){
  let error;
  for(let i=0;i<3;i++){
   try{
    const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),15000);
+   if(coolingUntil>Date.now())await delay(coolingUntil-Date.now());
    let r;try{r=await fetch(url,{headers:{'User-Agent':'Mozilla/5.0','Accept':asset?'image/png,image/*;q=0.8':'application/json','X-Requested-With':'verzum'},signal:ctrl.signal})}finally{clearTimeout(timer)}
+   if(r.status===429){const after=Number(r.headers.get('retry-after'));coolingUntil=Math.max(coolingUntil,Date.now()+Math.max(8000,Number.isFinite(after)&&after>0?Math.min(after*1000,70000):20000));}
    if(!r.ok)throw new Error('HTTP '+r.status);
    if(asset){
     const bytes=Buffer.from(await r.arrayBuffer());
@@ -29,7 +32,7 @@ async function request(url,asset=false){
    const x=await r.json();
    if(!x?.ok||!x.tip||!Array.isArray(x.tip.lines)||!x.tip.lines.length)throw new Error('Missing verified tip');
    return x;
-  }catch(e){error=e;if(i<2)await delay((i+1)*380)}
+  }catch(e){error=e;if(i<2)await delay(String(error?.message||'').includes('429')?6000*(i+1):(i+1)*480)}
  }
  throw error;
 }
@@ -53,7 +56,7 @@ async function fetchTip(id){
   }
  }catch(e){bad++;failures[id]=String(e.message||e)}
 }
-let next=0;const workers=Array.from({length:9},async()=>{while(next<ids.length&&Date.now()<deadline){const id=ids[next++];await fetchTip(id)}});
+let next=0;const workers=Array.from({length:3},async()=>{while(next<ids.length&&Date.now()<deadline){const id=ids[next++];await fetchTip(id);await delay(500)}});
 await Promise.all(workers);
 await writeFile(out,'/* Original item tooltip API responses, preserved with exact item ID. */\nwindow.VERZUM_WIKI_API_TIPS='+JSON.stringify(saved)+';\n','utf8');
 const report={indexedItems:ids.length,completeTips:Object.keys(saved).length,newTips:completed,iconFilesAdded:images,failed:bad,errors:failures,generated:new Date().toISOString()};
