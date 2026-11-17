@@ -1,0 +1,25 @@
+name: Inspect official Wiki interactive resources
+on:
+  push:
+    paths: ['.github/workflows/wiki-resource-inspect.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect resource URLs for model, tooltip and search
+        shell: bash
+        run: |
+          curl -fsSL -A 'Mozilla/5.0' https://wiki.verzum.to/it/metins/metin_low > /tmp/verzum-original.html
+          python3 - <<'PY'
+          import re,html
+          src=open('/tmp/verzum-original.html').read()
+          print('PAGE SIZE',len(src))
+          for tag in re.findall(r'<(?:script|link)\b[^>]*>',src,re.I):
+              if 'src=' in tag or 'href=' in tag: print(tag[:400])
+          for m in re.finditer(r'\b(?:data-model|data-vnum|data-model-url|data-tooltip-api|model-viewer|three|\.glb|\.gltf|tooltip)\b',src,re.I):
+              print('CONTEXT',src[max(0,m.start()-95):m.start()+120].replace('\n',' ')[:220])
+              if m.start()>45000: break
+          PY
