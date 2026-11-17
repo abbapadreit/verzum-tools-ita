@@ -3,16 +3,16 @@ import {execFileSync} from 'node:child_process';
 import assert from 'node:assert/strict';
 const base=new URL('../public/',import.meta.url);
 const read=p=>readFileSync(new URL(p,base),'utf8');
-const html=read('index.html'),app=read('app.js'),theme=read('theme-original.css');
-const files=['style.css','theme-original.css','app.js','advanced.js','release.js','item-translations.js','i18n.js','assets/icon-index.js','assets/extra-icons.js','robots.txt','assets/sidebar-logo.svg',...['it','en','ro','hu'].map(s=>'assets/flags/'+s+'.svg'),...Array.from({length:9},(_,i)=>'assets/real-icons-'+String(i).padStart(2,'0')+'.js')];
+const html=read('index.html'),app=read('app.js'),theme=read('theme-original.css'),guide=read('guide.js'),wiki=read('wiki.js');
+const files=['style.css','theme-original.css','wiki.css','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','item-translations.js','i18n.js','assets/icon-index.js','assets/extra-icons.js','robots.txt','assets/sidebar-logo.svg',...['it','en','ro','hu'].map(s=>'assets/flags/'+s+'.svg'),...Array.from({length:9},(_,i)=>'assets/real-icons-'+String(i).padStart(2,'0')+'.js')];
 for(const f of files){
  const u=new URL(f,base);assert.ok(existsSync(u),'Risorsa mancante: '+f);
  if(f.endsWith('.js'))execFileSync(process.execPath,['--check',u.pathname]);
 }
-for(const link of ['style.css','theme-original.css','app.js','advanced.js','release.js','i18n.js','item-translations.js']){
+for(const link of ['style.css','theme-original.css','wiki.css','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','i18n.js','item-translations.js']){
  assert.ok(html.includes(link),'Manca collegamento HTML '+link);
 }
-for(const p of ['upgrade','gaya','pet','mount','costume','skills','passive','planner','prices','catalog']){
+for(const p of ['upgrade','gaya','pet','mount','costume','skills','passive','planner','prices','catalog','guide','wiki']){
  assert.ok(html.includes('data-nav="'+p+'"'),'Manca sezione '+p);
 }
 const dat=JSON.parse(read('release.js').split('window.VERZUM_RELEASE=')[1].trim().replace(/;$/,''));
@@ -37,4 +37,9 @@ assert.ok(html.includes('menu-toggle'),'Menu mobile');
 assert.ok(!html.includes('class="notice"')&&!html.includes('side-footer'),'Avvisi pubblici non rimossi');
 assert.ok(app.includes('range.evolution'),'Evoluzione non collegata');
 assert.ok(app.includes('p.fails?.[i]'),'Pity pet non separato');
-console.log('OK: '+files.length+' risorse, 10 sezioni, 147 oggetti, 44 evoluzioni, Gaya, pet, mount, costumi, palette, lingue, responsive.');
+assert.ok(guide.includes('https://images.verzum.to/item/')&&wiki.includes('https://images.verzum.to/item/'),'icone originarie URL ufficiale');
+assert.ok(!guide.includes('wiki-icon-fallback')&&!wiki.includes('wiki-icon-fallback'),'Nessuna icona artificiale');
+assert.ok(!guide.includes('Number(raw)-Number(raw)%10')&&!wiki.includes('Number(id)-Number(id)%10'),'Nessuna approssimazione ID icone');
+assert.ok(guide.includes("href=(path)=>'#wiki'")&&wiki.includes("href=\"#wiki/"),'Collegamenti interni');
+assert.ok(html.includes('data-nav="wiki"'),'Menu Wiki interna');
+console.log('OK: '+files.length+' risorse, 12 sezioni, 147 oggetti, 44 evoluzioni, Wiki interna, icone originali per ID esatto, lingue, responsive.');
