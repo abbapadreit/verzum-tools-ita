@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated": "2026-11-17T19:07:29.483Z",
+  "generated": "2026-11-17T19:14:48.062Z",
   "pages": {
     "equipment/bracelet": {
       "bytes": 64612,
@@ -12846,6 +12846,1416 @@
       "bytes": 4581,
       "title": "Incanta oggetto verde",
       "at": "2026-11-17T19:04:30.316Z"
+    },
+    "item/12149": {
+      "bytes": 19482,
+      "title": "Corazza d'Acciaio Nero (PvP) Lv. 75",
+      "at": "2026-11-17T19:11:23.829Z"
+    },
+    "item/12014": {
+      "bytes": 23619,
+      "title": "Corazza d'Acciaio Blu Lv. 82",
+      "at": "2026-11-17T19:11:23.830Z"
+    },
+    "item/12011": {
+      "bytes": 23619,
+      "title": "Corazza d'Acciaio Blu Lv. 80",
+      "at": "2026-11-17T19:11:23.850Z"
+    },
+    "item/12012": {
+      "bytes": 23619,
+      "title": "Corazza d'Acciaio Blu Lv. 80",
+      "at": "2026-11-17T19:11:23.923Z"
+    },
+    "item/12016": {
+      "bytes": 23619,
+      "title": "Corazza d'Acciaio Blu Lv. 84",
+      "at": "2026-11-17T19:11:23.946Z"
+    },
+    "item/12015": {
+      "bytes": 23619,
+      "title": "Corazza d'Acciaio Blu Lv. 84",
+      "at": "2026-11-17T19:11:23.968Z"
+    },
+    "item/12013": {
+      "bytes": 23619,
+      "title": "Corazza d'Acciaio Blu Lv. 82",
+      "at": "2026-11-17T19:11:24.012Z"
+    },
+    "item/12017": {
+      "bytes": 23619,
+      "title": "Corazza d'Acciaio Blu Lv. 86",
+      "at": "2026-11-17T19:11:24.014Z"
+    },
+    "item/12019": {
+      "bytes": 23619,
+      "title": "Corazza d'Acciaio Blu Lv. 90",
+      "at": "2026-11-17T19:11:24.103Z"
+    },
+    "item/20000": {
+      "bytes": 23605,
+      "title": "Corazza Corno Diavolo Lv. 90",
+      "at": "2026-11-17T19:11:24.112Z"
+    },
+    "item/12018": {
+      "bytes": 23619,
+      "title": "Corazza d'Acciaio Blu Lv. 88",
+      "at": "2026-11-17T19:11:24.121Z"
+    },
+    "item/20002": {
+      "bytes": 23605,
+      "title": "Corazza Corno Diavolo Lv. 94",
+      "at": "2026-11-17T19:11:24.157Z"
+    },
+    "item/20001": {
+      "bytes": 23605,
+      "title": "Corazza Corno Diavolo Lv. 92",
+      "at": "2026-11-17T19:11:24.247Z"
+    },
+    "item/20004": {
+      "bytes": 23605,
+      "title": "Corazza Corno Diavolo Lv. 98",
+      "at": "2026-11-17T19:11:24.254Z"
+    },
+    "item/20003": {
+      "bytes": 23605,
+      "title": "Corazza Corno Diavolo Lv. 96",
+      "at": "2026-11-17T19:11:24.268Z"
+    },
+    "item/20005": {
+      "bytes": 23606,
+      "title": "Corazza Corno Diavolo Lv. 100",
+      "at": "2026-11-17T19:11:24.313Z"
+    },
+    "item/20006": {
+      "bytes": 23606,
+      "title": "Corazza Corno Diavolo Lv. 102",
+      "at": "2026-11-17T19:11:24.314Z"
+    },
+    "item/20008": {
+      "bytes": 23606,
+      "title": "Corazza Corno Diavolo Lv. 104",
+      "at": "2026-11-17T19:11:24.371Z"
+    },
+    "item/20009": {
+      "bytes": 23606,
+      "title": "Corazza Corno Diavolo Lv. 105",
+      "at": "2026-11-17T19:11:24.386Z"
+    },
+    "item/20007": {
+      "bytes": 23606,
+      "title": "Corazza Corno Diavolo Lv. 104",
+      "at": "2026-11-17T19:11:24.477Z"
+    },
+    "equipment/earrings/ninja": {
+      "bytes": 64607,
+      "title": "Orecchini",
+      "at": "2026-11-17T19:11:24.481Z"
+    },
+    "equipment/earrings/shaman": {
+      "bytes": 64608,
+      "title": "Orecchini",
+      "at": "2026-11-17T19:11:24.495Z"
+    },
+    "item/17020": {
+      "bytes": 15336,
+      "title": "Orecchini di rameLv. 8",
+      "at": "2026-11-17T19:11:24.525Z"
+    },
+    "equipment/earrings/sura": {
+      "bytes": 64606,
+      "title": "Orecchini",
+      "at": "2026-11-17T19:11:24.534Z"
+    },
+    "item/17021": {
+      "bytes": 15336,
+      "title": "Orecchini di rameLv. 8",
+      "at": "2026-11-17T19:11:24.624Z"
+    },
+    "item/17023": {
+      "bytes": 15336,
+      "title": "Orecchini di rameLv. 8",
+      "at": "2026-11-17T19:11:24.635Z"
+    },
+    "item/17024": {
+      "bytes": 15336,
+      "title": "Orecchini di rameLv. 8",
+      "at": "2026-11-17T19:11:24.662Z"
+    },
+    "item/17022": {
+      "bytes": 15336,
+      "title": "Orecchini di rameLv. 8",
+      "at": "2026-11-17T19:11:24.669Z"
+    },
+    "item/17025": {
+      "bytes": 15336,
+      "title": "Orecchini di rameLv. 8",
+      "at": "2026-11-17T19:11:24.726Z"
+    },
+    "item/17027": {
+      "bytes": 15336,
+      "title": "Orecchini di rameLv. 8",
+      "at": "2026-11-17T19:11:24.766Z"
+    },
+    "item/17026": {
+      "bytes": 15336,
+      "title": "Orecchini di rameLv. 8",
+      "at": "2026-11-17T19:11:24.789Z"
+    },
+    "item/17028": {
+      "bytes": 15336,
+      "title": "Orecchini di rameLv. 8",
+      "at": "2026-11-17T19:11:24.792Z"
+    },
+    "item/17029": {
+      "bytes": 14516,
+      "title": "Orecchini di rameLv. 8",
+      "at": "2026-11-17T19:11:24.888Z"
+    },
+    "item/17103": {
+      "bytes": 16945,
+      "title": "Orecchini d'EbanoLv. 33",
+      "at": "2026-11-17T19:11:24.913Z"
+    },
+    "item/17100": {
+      "bytes": 16945,
+      "title": "Orecchini d'EbanoLv. 33",
+      "at": "2026-11-17T19:11:24.914Z"
+    },
+    "item/17101": {
+      "bytes": 16945,
+      "title": "Orecchini d'EbanoLv. 33",
+      "at": "2026-11-17T19:11:24.914Z"
+    },
+    "item/17102": {
+      "bytes": 16945,
+      "title": "Orecchini d'EbanoLv. 33",
+      "at": "2026-11-17T19:11:24.929Z"
+    },
+    "item/17107": {
+      "bytes": 16945,
+      "title": "Orecchini d'EbanoLv. 33",
+      "at": "2026-11-17T19:11:25.031Z"
+    },
+    "item/17105": {
+      "bytes": 16945,
+      "title": "Orecchini d'EbanoLv. 33",
+      "at": "2026-11-17T19:11:25.064Z"
+    },
+    "item/17106": {
+      "bytes": 16945,
+      "title": "Orecchini d'EbanoLv. 33",
+      "at": "2026-11-17T19:11:25.072Z"
+    },
+    "item/17108": {
+      "bytes": 16945,
+      "title": "Orecchini d'EbanoLv. 33",
+      "at": "2026-11-17T19:11:25.084Z"
+    },
+    "item/17104": {
+      "bytes": 16945,
+      "title": "Orecchini d'EbanoLv. 33",
+      "at": "2026-11-17T19:11:25.090Z"
+    },
+    "item/17109": {
+      "bytes": 16125,
+      "title": "Orecchini d'EbanoLv. 33",
+      "at": "2026-11-17T19:11:25.145Z"
+    },
+    "item/17200": {
+      "bytes": 21803,
+      "title": "Orec. Lacrime di CieloLv. 54",
+      "at": "2026-11-17T19:11:25.182Z"
+    },
+    "item/17202": {
+      "bytes": 21803,
+      "title": "Orec. Lacrime di CieloLv. 54",
+      "at": "2026-11-17T19:11:25.226Z"
+    },
+    "item/17201": {
+      "bytes": 21803,
+      "title": "Orec. Lacrime di CieloLv. 54",
+      "at": "2026-11-17T19:11:25.234Z"
+    },
+    "item/17204": {
+      "bytes": 21803,
+      "title": "Orec. Lacrime di CieloLv. 54",
+      "at": "2026-11-17T19:11:25.262Z"
+    },
+    "item/17203": {
+      "bytes": 21803,
+      "title": "Orec. Lacrime di CieloLv. 54",
+      "at": "2026-11-17T19:11:25.285Z"
+    },
+    "item/17205": {
+      "bytes": 21803,
+      "title": "Orec. Lacrime di CieloLv. 54",
+      "at": "2026-11-17T19:11:25.304Z"
+    },
+    "item/17206": {
+      "bytes": 21803,
+      "title": "Orec. Lacrime di CieloLv. 54",
+      "at": "2026-11-17T19:11:25.370Z"
+    },
+    "item/17208": {
+      "bytes": 21803,
+      "title": "Orec. Lacrime di CieloLv. 54",
+      "at": "2026-11-17T19:11:25.380Z"
+    },
+    "item/17207": {
+      "bytes": 21803,
+      "title": "Orec. Lacrime di CieloLv. 54",
+      "at": "2026-11-17T19:11:25.417Z"
+    },
+    "item/17220": {
+      "bytes": 24510,
+      "title": "Orecchini Crist. AnimeLv. 75",
+      "at": "2026-11-17T19:11:25.455Z"
+    },
+    "item/3138": {
+      "bytes": 20767,
+      "title": "PartigianoLv. 65",
+      "at": "2026-11-17T19:11:25.501Z"
+    },
+    "item/17209": {
+      "bytes": 21803,
+      "title": "Orec. Lacrime di CieloLv. 54",
+      "at": "2026-11-17T19:11:25.514Z"
+    },
+    "item/17540": {
+      "bytes": 20518,
+      "title": "Orecchini con SmeraldiLv. 55",
+      "at": "2026-11-17T19:11:25.516Z"
+    },
+    "item/3200": {
+      "bytes": 20547,
+      "title": "Spada Dio DragoLv. 80",
+      "at": "2026-11-17T19:11:25.592Z"
+    },
+    "item/3139": {
+      "bytes": 20767,
+      "title": "PartigianoLv. 65",
+      "at": "2026-11-17T19:11:25.606Z"
+    },
+    "item/3160": {
+      "bytes": 21002,
+      "title": "Spada del RancoreLv. 75",
+      "at": "2026-11-17T19:11:25.614Z"
+    },
+    "item/3162": {
+      "bytes": 21002,
+      "title": "Spada del RancoreLv. 75",
+      "at": "2026-11-17T19:11:25.672Z"
+    },
+    "item/3161": {
+      "bytes": 21002,
+      "title": "Spada del RancoreLv. 75",
+      "at": "2026-11-17T19:11:25.710Z"
+    },
+    "item/3163": {
+      "bytes": 21002,
+      "title": "Spada del RancoreLv. 75",
+      "at": "2026-11-17T19:11:25.713Z"
+    },
+    "item/3165": {
+      "bytes": 21002,
+      "title": "Spada del RancoreLv. 75",
+      "at": "2026-11-17T19:11:25.751Z"
+    },
+    "item/3164": {
+      "bytes": 21002,
+      "title": "Spada del RancoreLv. 75",
+      "at": "2026-11-17T19:11:25.774Z"
+    },
+    "item/3167": {
+      "bytes": 21002,
+      "title": "Spada del RancoreLv. 75",
+      "at": "2026-11-17T19:11:25.829Z"
+    },
+    "item/3166": {
+      "bytes": 21002,
+      "title": "Spada del RancoreLv. 75",
+      "at": "2026-11-17T19:11:25.830Z"
+    },
+    "item/3169": {
+      "bytes": 20182,
+      "title": "Spada del RancoreLv. 75",
+      "at": "2026-11-17T19:11:25.872Z"
+    },
+    "item/3168": {
+      "bytes": 21002,
+      "title": "Spada del RancoreLv. 75",
+      "at": "2026-11-17T19:11:25.933Z"
+    },
+    "equipment/belts/ninja": {
+      "bytes": 31576,
+      "title": "Cinture",
+      "at": "2026-11-17T19:11:25.938Z"
+    },
+    "equipment/belts/sura": {
+      "bytes": 31575,
+      "title": "Cinture",
+      "at": "2026-11-17T19:11:25.947Z"
+    },
+    "equipment/belts/shaman": {
+      "bytes": 31577,
+      "title": "Cinture",
+      "at": "2026-11-17T19:11:25.984Z"
+    },
+    "item/18000": {
+      "bytes": 13938,
+      "title": "Cintura in tessutoLv. 55",
+      "at": "2026-11-17T19:11:26.041Z"
+    },
+    "item/18003": {
+      "bytes": 13938,
+      "title": "Cintura in tessutoLv. 55",
+      "at": "2026-11-17T19:11:26.076Z"
+    },
+    "item/18002": {
+      "bytes": 13938,
+      "title": "Cintura in tessutoLv. 55",
+      "at": "2026-11-17T19:11:26.108Z"
+    },
+    "item/18004": {
+      "bytes": 13938,
+      "title": "Cintura in tessutoLv. 55",
+      "at": "2026-11-17T19:11:26.126Z"
+    },
+    "item/18001": {
+      "bytes": 13938,
+      "title": "Cintura in tessutoLv. 55",
+      "at": "2026-11-17T19:11:26.166Z"
+    },
+    "item/18005": {
+      "bytes": 13938,
+      "title": "Cintura in tessutoLv. 55",
+      "at": "2026-11-17T19:11:26.191Z"
+    },
+    "item/18006": {
+      "bytes": 13938,
+      "title": "Cintura in tessutoLv. 55",
+      "at": "2026-11-17T19:11:26.198Z"
+    },
+    "item/18007": {
+      "bytes": 13938,
+      "title": "Cintura in tessutoLv. 55",
+      "at": "2026-11-17T19:11:26.272Z"
+    },
+    "item/18008": {
+      "bytes": 13938,
+      "title": "Cintura in tessutoLv. 55",
+      "at": "2026-11-17T19:11:26.278Z"
+    },
+    "item/18080": {
+      "bytes": 15622,
+      "title": "Cintura di animeLv. 90",
+      "at": "2026-11-17T19:11:26.305Z"
+    },
+    "item/18070": {
+      "bytes": 9956,
+      "title": "Cintura orso grandeLv. 55",
+      "at": "2026-11-17T19:11:26.313Z"
+    },
+    "item/18009": {
+      "bytes": 13938,
+      "title": "Cintura in tessutoLv. 55",
+      "at": "2026-11-17T19:11:26.351Z"
+    },
+    "item/18072": {
+      "bytes": 9956,
+      "title": "Cintura orso grandeLv. 55",
+      "at": "2026-11-17T19:11:26.417Z"
+    },
+    "item/18073": {
+      "bytes": 9956,
+      "title": "Cintura orso grandeLv. 55",
+      "at": "2026-11-17T19:11:26.418Z"
+    },
+    "item/18071": {
+      "bytes": 9956,
+      "title": "Cintura orso grandeLv. 55",
+      "at": "2026-11-17T19:11:26.434Z"
+    },
+    "item/18074": {
+      "bytes": 9956,
+      "title": "Cintura orso grandeLv. 55",
+      "at": "2026-11-17T19:11:26.455Z"
+    },
+    "item/18077": {
+      "bytes": 9956,
+      "title": "Cintura orso grandeLv. 55",
+      "at": "2026-11-17T19:11:26.533Z"
+    },
+    "item/18075": {
+      "bytes": 9956,
+      "title": "Cintura orso grandeLv. 55",
+      "at": "2026-11-17T19:11:26.554Z"
+    },
+    "item/18076": {
+      "bytes": 9956,
+      "title": "Cintura orso grandeLv. 55",
+      "at": "2026-11-17T19:11:26.556Z"
+    },
+    "item/18079": {
+      "bytes": 9956,
+      "title": "Cintura orso grandeLv. 55",
+      "at": "2026-11-17T19:11:26.572Z"
+    },
+    "item/18078": {
+      "bytes": 9956,
+      "title": "Cintura orso grandeLv. 55",
+      "at": "2026-11-17T19:11:26.595Z"
+    },
+    "item/18081": {
+      "bytes": 15622,
+      "title": "Cintura di animeLv. 90",
+      "at": "2026-11-17T19:11:26.662Z"
+    },
+    "item/18084": {
+      "bytes": 15622,
+      "title": "Cintura di animeLv. 90",
+      "at": "2026-11-17T19:11:26.689Z"
+    },
+    "item/18083": {
+      "bytes": 15622,
+      "title": "Cintura di animeLv. 90",
+      "at": "2026-11-17T19:11:26.697Z"
+    },
+    "item/18085": {
+      "bytes": 15622,
+      "title": "Cintura di animeLv. 90",
+      "at": "2026-11-17T19:11:26.753Z"
+    },
+    "item/18082": {
+      "bytes": 15622,
+      "title": "Cintura di animeLv. 90",
+      "at": "2026-11-17T19:11:26.766Z"
+    },
+    "item/18086": {
+      "bytes": 15622,
+      "title": "Cintura di animeLv. 90",
+      "at": "2026-11-17T19:11:26.778Z"
+    },
+    "item/18087": {
+      "bytes": 15622,
+      "title": "Cintura di animeLv. 90",
+      "at": "2026-11-17T19:11:26.805Z"
+    },
+    "item/18088": {
+      "bytes": 15622,
+      "title": "Cintura di animeLv. 90",
+      "at": "2026-11-17T19:11:26.843Z"
+    },
+    "chest/100083": {
+      "bytes": 6388,
+      "title": "Scrigno della Luce",
+      "at": "2026-11-17T19:11:26.890Z"
+    },
+    "item/18089": {
+      "bytes": 15622,
+      "title": "Cintura di animeLv. 90",
+      "at": "2026-11-17T19:11:26.912Z"
+    },
+    "item/50513": {
+      "bytes": 5451,
+      "title": "Pietra delle Anime",
+      "at": "2026-11-17T19:11:26.920Z"
+    },
+    "chest/100082": {
+      "bytes": 5829,
+      "title": "Scrigno della Natura",
+      "at": "2026-11-17T19:11:26.946Z"
+    },
+    "item/100005": {
+      "bytes": 5041,
+      "title": "Pietra delle Anime (Frammento)",
+      "at": "2026-11-17T19:11:26.982Z"
+    },
+    "chest/100084": {
+      "bytes": 7458,
+      "title": "Scrigno delle Bestie",
+      "at": "2026-11-17T19:11:27.002Z"
+    },
+    "chest/50187": {
+      "bytes": 6093,
+      "title": "Baule Apprendista I",
+      "at": "2026-11-17T19:11:27.037Z"
+    },
+    "chest/100097": {
+      "bytes": 4647,
+      "title": "Baule di Perle",
+      "at": "2026-11-17T19:11:27.093Z"
+    },
+    "chest/50188": {
+      "bytes": 8899,
+      "title": "Baule Apprendista II",
+      "at": "2026-11-17T19:11:27.133Z"
+    },
+    "chest/50203": {
+      "bytes": 10515,
+      "title": "Baule Apprendista III",
+      "at": "2026-11-17T19:11:27.135Z"
+    },
+    "chest/50190": {
+      "bytes": 6631,
+      "title": "Baule Apprendista V",
+      "at": "2026-11-17T19:11:27.152Z"
+    },
+    "chest/50189": {
+      "bytes": 9229,
+      "title": "Baule Apprendista IV",
+      "at": "2026-11-17T19:11:27.171Z"
+    },
+    "chest/50252": {
+      "bytes": 13954,
+      "title": "Cor draconis",
+      "at": "2026-11-17T19:11:27.278Z"
+    },
+    "item/124000": {
+      "bytes": 4772,
+      "title": "Rubino legg. del drago",
+      "at": "2026-11-17T19:11:27.287Z"
+    },
+    "chest/50191": {
+      "bytes": 6917,
+      "title": "Baule Apprendista VI",
+      "at": "2026-11-17T19:11:27.289Z"
+    },
+    "item/114000": {
+      "bytes": 4819,
+      "title": "Diamante legg. d. drago",
+      "at": "2026-11-17T19:11:27.295Z"
+    },
+    "chest/50259": {
+      "bytes": 5858,
+      "title": "Cor draconis (leggend.)",
+      "at": "2026-11-17T19:11:27.339Z"
+    },
+    "item/144000": {
+      "bytes": 4809,
+      "title": "Zaffiro drago leggendario",
+      "at": "2026-11-17T19:11:27.403Z"
+    },
+    "item/164000": {
+      "bytes": 4770,
+      "title": "Onice leggend. del drago",
+      "at": "2026-11-17T19:11:27.411Z"
+    },
+    "item/134000": {
+      "bytes": 4770,
+      "title": "Giada legg. del drago",
+      "at": "2026-11-17T19:11:27.418Z"
+    },
+    "item/154000": {
+      "bytes": 4744,
+      "title": "Granato legg. del drago",
+      "at": "2026-11-17T19:11:27.445Z"
+    },
+    "item/125000": {
+      "bytes": 4936,
+      "title": "Rubino mitico del drago",
+      "at": "2026-11-17T19:11:27.526Z"
+    },
+    "item/115000": {
+      "bytes": 4986,
+      "title": "Diamante mitico d. drago",
+      "at": "2026-11-17T19:11:27.543Z"
+    },
+    "chest/51506": {
+      "bytes": 6913,
+      "title": "Cor draconis (mistico)",
+      "at": "2026-11-17T19:11:27.550Z"
+    },
+    "item/135000": {
+      "bytes": 4934,
+      "title": "Giada mitica del drago",
+      "at": "2026-11-17T19:11:27.556Z"
+    },
+    "item/145000": {
+      "bytes": 4965,
+      "title": "Zaffiro mitico del drago",
+      "at": "2026-11-17T19:11:27.630Z"
+    },
+    "item/155000": {
+      "bytes": 4910,
+      "title": "Granato mitico del drago",
+      "at": "2026-11-17T19:11:27.644Z"
+    },
+    "item/165000": {
+      "bytes": 4932,
+      "title": "Onice mitica del drago",
+      "at": "2026-11-17T19:11:27.655Z"
+    },
+    "item/71135": {
+      "bytes": 2771,
+      "title": "Anello di luna crescente",
+      "at": "2026-11-17T19:11:27.696Z"
+    },
+    "item/71202": {
+      "bytes": 2731,
+      "title": "Amuleto Nazar",
+      "at": "2026-11-17T19:11:27.758Z"
+    },
+    "item/100142": {
+      "bytes": 2531,
+      "title": "Amuleto Nazar (Gaya)",
+      "at": "2026-11-17T19:11:27.768Z"
+    },
+    "item/100138": {
+      "bytes": 2571,
+      "title": "Anello di luna crescente (Gaya)",
+      "at": "2026-11-17T19:11:27.784Z"
+    },
+    "item/71143": {
+      "bytes": 2547,
+      "title": "Anello della gioia",
+      "at": "2026-11-17T19:11:27.785Z"
+    },
+    "item/210602": {
+      "bytes": 2778,
+      "title": "Collana dell'Amore",
+      "at": "2026-11-17T19:11:27.840Z"
+    },
+    "item/210600": {
+      "bytes": 2784,
+      "title": "Bracciale dell'Amore",
+      "at": "2026-11-17T19:11:27.885Z"
+    },
+    "item/210601": {
+      "bytes": 2790,
+      "title": "Bracciale dell'Armonia",
+      "at": "2026-11-17T19:11:27.898Z"
+    },
+    "item/100131": {
+      "bytes": 2573,
+      "title": "Collana dell'Amore (Gaya)",
+      "at": "2026-11-17T19:11:27.939Z"
+    },
+    "item/100129": {
+      "bytes": 2579,
+      "title": "Bracciale dell'Amore (Gaya)",
+      "at": "2026-11-17T19:11:27.980Z"
+    },
+    "item/210612": {
+      "bytes": 9494,
+      "title": "Booster Acconciatura",
+      "at": "2026-11-17T19:11:28.012Z"
+    },
+    "item/210611": {
+      "bytes": 9439,
+      "title": "Booster Arma",
+      "at": "2026-11-17T19:11:28.016Z"
+    },
+    "item/100130": {
+      "bytes": 2585,
+      "title": "Bracciale dell'Armonia (Gaya)",
+      "at": "2026-11-17T19:11:28.018Z"
+    },
+    "item/210613": {
+      "bytes": 8446,
+      "title": "Booster Costume",
+      "at": "2026-11-17T19:11:28.099Z"
+    },
+    "item/100132": {
+      "bytes": 8501,
+      "title": "Booster Arma (Bronzo)",
+      "at": "2026-11-17T19:11:28.120Z"
+    },
+    "item/100133": {
+      "bytes": 8580,
+      "title": "Booster Acconciatura (Bronzo)",
+      "at": "2026-11-17T19:11:28.127Z"
+    },
+    "item/100134": {
+      "bytes": 7541,
+      "title": "Booster Costume (Bronzo)",
+      "at": "2026-11-17T19:11:28.130Z"
+    },
+    "item/100141": {
+      "bytes": 2819,
+      "title": "Anello dell'esperienza (Permanente)",
+      "at": "2026-11-17T19:11:28.200Z"
+    },
+    "item/58530": {
+      "bytes": 2751,
+      "title": "Accesso VIP",
+      "at": "2026-11-17T19:11:28.243Z"
+    },
+    "item/30703": {
+      "bytes": 2784,
+      "title": "Pet rinominare",
+      "at": "2026-11-17T19:11:28.258Z"
+    },
+    "item/30706": {
+      "bytes": 2800,
+      "title": "Mount rinominare",
+      "at": "2026-11-17T19:11:28.276Z"
+    },
+    "item/100140": {
+      "bytes": 2806,
+      "title": "Guanti del ladro (Permanenti)",
+      "at": "2026-11-17T19:11:28.289Z"
+    },
+    "item/144040": {
+      "bytes": 4598,
+      "title": "Zaffiro drago leggendario",
+      "at": "2026-11-17T19:11:28.406Z"
+    },
+    "item/70076": {
+      "bytes": 13525,
+      "title": "Anima del Talismano",
+      "at": "2026-11-17T19:11:28.406Z"
+    },
+    "item/11659": {
+      "bytes": 14340,
+      "title": "Corazza MisticaLv. 42",
+      "at": "2026-11-17T19:11:28.432Z"
+    },
+    "item/124040": {
+      "bytes": 4561,
+      "title": "Rubino legg. del drago",
+      "at": "2026-11-17T19:11:28.450Z"
+    },
+    "item/134040": {
+      "bytes": 4559,
+      "title": "Giada legg. del drago",
+      "at": "2026-11-17T19:11:28.472Z"
+    },
+    "mob/21557": {
+      "bytes": 3284,
+      "title": "MountLv. 1",
+      "at": "2026-11-17T19:11:33.885Z"
+    },
+    "mob/20504": {
+      "bytes": 3317,
+      "title": "Negozio di GayaLv. 70",
+      "at": "2026-11-17T19:11:33.898Z"
+    },
+    "item/50934": {
+      "bytes": 2462,
+      "title": "Sacca Gaya",
+      "at": "2026-11-17T19:11:33.998Z"
+    },
+    "mob/20561": {
+      "bytes": 3278,
+      "title": "SolLv. 1",
+      "at": "2026-11-17T19:11:34.015Z"
+    },
+    "item/39064": {
+      "bytes": 2595,
+      "title": "Ampliam. Negozio di Gaya",
+      "at": "2026-11-17T19:11:34.065Z"
+    },
+    "item/11600": {
+      "bytes": 15323,
+      "title": "Corazza Requiem",
+      "at": "2026-11-17T19:11:34.078Z"
+    },
+    "item/11602": {
+      "bytes": 15323,
+      "title": "Corazza Requiem",
+      "at": "2026-11-17T19:11:34.133Z"
+    },
+    "item/11601": {
+      "bytes": 15323,
+      "title": "Corazza Requiem",
+      "at": "2026-11-17T19:11:34.138Z"
+    },
+    "item/11603": {
+      "bytes": 15323,
+      "title": "Corazza Requiem",
+      "at": "2026-11-17T19:11:34.227Z"
+    },
+    "item/11605": {
+      "bytes": 15323,
+      "title": "Corazza Requiem",
+      "at": "2026-11-17T19:11:34.250Z"
+    },
+    "item/11604": {
+      "bytes": 15323,
+      "title": "Corazza Requiem",
+      "at": "2026-11-17T19:11:34.266Z"
+    },
+    "item/11606": {
+      "bytes": 15323,
+      "title": "Corazza Requiem",
+      "at": "2026-11-17T19:11:34.280Z"
+    },
+    "item/11608": {
+      "bytes": 15323,
+      "title": "Corazza Requiem",
+      "at": "2026-11-17T19:11:34.369Z"
+    },
+    "item/11607": {
+      "bytes": 15323,
+      "title": "Corazza Requiem",
+      "at": "2026-11-17T19:11:34.383Z"
+    },
+    "item/11610": {
+      "bytes": 15376,
+      "title": "Corazza burrascosaLv. 9",
+      "at": "2026-11-17T19:11:34.420Z"
+    },
+    "item/11609": {
+      "bytes": 14503,
+      "title": "Corazza Requiem",
+      "at": "2026-11-17T19:11:34.456Z"
+    },
+    "item/11611": {
+      "bytes": 15376,
+      "title": "Corazza burrascosaLv. 9",
+      "at": "2026-11-17T19:11:34.501Z"
+    },
+    "item/11612": {
+      "bytes": 15376,
+      "title": "Corazza burrascosaLv. 9",
+      "at": "2026-11-17T19:11:34.543Z"
+    },
+    "item/11613": {
+      "bytes": 15376,
+      "title": "Corazza burrascosaLv. 9",
+      "at": "2026-11-17T19:11:34.560Z"
+    },
+    "item/11615": {
+      "bytes": 15376,
+      "title": "Corazza burrascosaLv. 9",
+      "at": "2026-11-17T19:11:34.625Z"
+    },
+    "item/11614": {
+      "bytes": 15376,
+      "title": "Corazza burrascosaLv. 9",
+      "at": "2026-11-17T19:11:34.643Z"
+    },
+    "item/11617": {
+      "bytes": 15376,
+      "title": "Corazza burrascosaLv. 9",
+      "at": "2026-11-17T19:11:34.719Z"
+    },
+    "item/11616": {
+      "bytes": 15376,
+      "title": "Corazza burrascosaLv. 9",
+      "at": "2026-11-17T19:11:34.720Z"
+    },
+    "item/11618": {
+      "bytes": 15376,
+      "title": "Corazza burrascosaLv. 9",
+      "at": "2026-11-17T19:11:34.744Z"
+    },
+    "item/11619": {
+      "bytes": 14556,
+      "title": "Corazza burrascosaLv. 9",
+      "at": "2026-11-17T19:11:34.831Z"
+    },
+    "item/11620": {
+      "bytes": 15393,
+      "title": "Corazza della SfortunaLv. 18",
+      "at": "2026-11-17T19:11:34.863Z"
+    },
+    "item/11622": {
+      "bytes": 15393,
+      "title": "Corazza della SfortunaLv. 18",
+      "at": "2026-11-17T19:11:34.863Z"
+    },
+    "item/11621": {
+      "bytes": 15393,
+      "title": "Corazza della SfortunaLv. 18",
+      "at": "2026-11-17T19:11:34.880Z"
+    },
+    "item/11624": {
+      "bytes": 15393,
+      "title": "Corazza della SfortunaLv. 18",
+      "at": "2026-11-17T19:11:34.982Z"
+    },
+    "item/11625": {
+      "bytes": 15393,
+      "title": "Corazza della SfortunaLv. 18",
+      "at": "2026-11-17T19:11:35.008Z"
+    },
+    "item/11623": {
+      "bytes": 15393,
+      "title": "Corazza della SfortunaLv. 18",
+      "at": "2026-11-17T19:11:35.028Z"
+    },
+    "item/11626": {
+      "bytes": 15393,
+      "title": "Corazza della SfortunaLv. 18",
+      "at": "2026-11-17T19:11:35.039Z"
+    },
+    "item/11627": {
+      "bytes": 15393,
+      "title": "Corazza della SfortunaLv. 18",
+      "at": "2026-11-17T19:11:35.101Z"
+    },
+    "item/11628": {
+      "bytes": 15393,
+      "title": "Corazza della SfortunaLv. 18",
+      "at": "2026-11-17T19:11:35.151Z"
+    },
+    "item/11630": {
+      "bytes": 15389,
+      "title": "Corazza dello SpiritoLv. 26",
+      "at": "2026-11-17T19:11:35.209Z"
+    },
+    "item/11629": {
+      "bytes": 14573,
+      "title": "Corazza della SfortunaLv. 18",
+      "at": "2026-11-17T19:11:35.219Z"
+    },
+    "item/11631": {
+      "bytes": 15389,
+      "title": "Corazza dello SpiritoLv. 26",
+      "at": "2026-11-17T19:11:35.222Z"
+    },
+    "item/11632": {
+      "bytes": 15389,
+      "title": "Corazza dello SpiritoLv. 26",
+      "at": "2026-11-17T19:11:35.294Z"
+    },
+    "item/11635": {
+      "bytes": 15389,
+      "title": "Corazza dello SpiritoLv. 26",
+      "at": "2026-11-17T19:11:35.340Z"
+    },
+    "item/11634": {
+      "bytes": 15389,
+      "title": "Corazza dello SpiritoLv. 26",
+      "at": "2026-11-17T19:11:35.406Z"
+    },
+    "item/11633": {
+      "bytes": 15389,
+      "title": "Corazza dello SpiritoLv. 26",
+      "at": "2026-11-17T19:11:35.415Z"
+    },
+    "item/11636": {
+      "bytes": 15389,
+      "title": "Corazza dello SpiritoLv. 26",
+      "at": "2026-11-17T19:11:35.435Z"
+    },
+    "item/11637": {
+      "bytes": 15389,
+      "title": "Corazza dello SpiritoLv. 26",
+      "at": "2026-11-17T19:11:35.456Z"
+    },
+    "item/11642": {
+      "bytes": 15369,
+      "title": "Corazza Yin YangLv. 34",
+      "at": "2026-11-17T19:11:35.583Z"
+    },
+    "item/11641": {
+      "bytes": 15369,
+      "title": "Corazza Yin YangLv. 34",
+      "at": "2026-11-17T19:11:35.586Z"
+    },
+    "item/11640": {
+      "bytes": 15369,
+      "title": "Corazza Yin YangLv. 34",
+      "at": "2026-11-17T19:11:35.588Z"
+    },
+    "item/11638": {
+      "bytes": 15389,
+      "title": "Corazza dello SpiritoLv. 26",
+      "at": "2026-11-17T19:11:35.600Z"
+    },
+    "item/11643": {
+      "bytes": 15369,
+      "title": "Corazza Yin YangLv. 34",
+      "at": "2026-11-17T19:11:35.712Z"
+    },
+    "item/11644": {
+      "bytes": 15369,
+      "title": "Corazza Yin YangLv. 34",
+      "at": "2026-11-17T19:11:35.733Z"
+    },
+    "item/11645": {
+      "bytes": 15369,
+      "title": "Corazza Yin YangLv. 34",
+      "at": "2026-11-17T19:11:35.755Z"
+    },
+    "item/11646": {
+      "bytes": 15369,
+      "title": "Corazza Yin YangLv. 34",
+      "at": "2026-11-17T19:11:35.788Z"
+    },
+    "item/11647": {
+      "bytes": 15369,
+      "title": "Corazza Yin YangLv. 34",
+      "at": "2026-11-17T19:11:35.831Z"
+    },
+    "item/11648": {
+      "bytes": 15369,
+      "title": "Corazza Yin YangLv. 34",
+      "at": "2026-11-17T19:11:35.873Z"
+    },
+    "item/11649": {
+      "bytes": 14549,
+      "title": "Corazza Yin YangLv. 34",
+      "at": "2026-11-17T19:11:35.914Z"
+    },
+    "item/11651": {
+      "bytes": 15160,
+      "title": "Corazza MisticaLv. 42",
+      "at": "2026-11-17T19:11:35.949Z"
+    },
+    "item/11650": {
+      "bytes": 15160,
+      "title": "Corazza MisticaLv. 42",
+      "at": "2026-11-17T19:11:35.975Z"
+    },
+    "item/11652": {
+      "bytes": 15160,
+      "title": "Corazza MisticaLv. 42",
+      "at": "2026-11-17T19:11:36.014Z"
+    },
+    "item/11654": {
+      "bytes": 15160,
+      "title": "Corazza MisticaLv. 42",
+      "at": "2026-11-17T19:11:36.069Z"
+    },
+    "item/11653": {
+      "bytes": 15160,
+      "title": "Corazza MisticaLv. 42",
+      "at": "2026-11-17T19:11:36.100Z"
+    },
+    "item/11656": {
+      "bytes": 15160,
+      "title": "Corazza MisticaLv. 42",
+      "at": "2026-11-17T19:11:36.155Z"
+    },
+    "item/11657": {
+      "bytes": 15160,
+      "title": "Corazza MisticaLv. 42",
+      "at": "2026-11-17T19:11:36.190Z"
+    },
+    "item/11655": {
+      "bytes": 15160,
+      "title": "Corazza MisticaLv. 42",
+      "at": "2026-11-17T19:11:36.192Z"
+    },
+    "item/11658": {
+      "bytes": 15160,
+      "title": "Corazza MisticaLv. 42",
+      "at": "2026-11-17T19:11:36.268Z"
+    },
+    "item/11660": {
+      "bytes": 16773,
+      "title": "Corazza della NebbiaLv. 48",
+      "at": "2026-11-17T19:11:36.298Z"
+    },
+    "item/11492": {
+      "bytes": 21409,
+      "title": "Abito del Vento OscuroLv. 66",
+      "at": "2026-11-17T19:11:36.307Z"
+    },
+    "item/11493": {
+      "bytes": 21409,
+      "title": "Abito del Vento OscuroLv. 67",
+      "at": "2026-11-17T19:11:36.383Z"
+    },
+    "item/11497": {
+      "bytes": 21409,
+      "title": "Abito del Vento OscuroLv. 69",
+      "at": "2026-11-17T19:11:36.425Z"
+    },
+    "item/11494": {
+      "bytes": 21409,
+      "title": "Abito del Vento OscuroLv. 67",
+      "at": "2026-11-17T19:11:36.432Z"
+    },
+    "item/11496": {
+      "bytes": 21409,
+      "title": "Abito del Vento OscuroLv. 68",
+      "at": "2026-11-17T19:11:36.441Z"
+    },
+    "item/12020": {
+      "bytes": 23599,
+      "title": "Vestito Blu del Drago Lv. 80",
+      "at": "2026-11-17T19:11:36.556Z"
+    },
+    "item/11498": {
+      "bytes": 21409,
+      "title": "Abito del Vento OscuroLv. 69",
+      "at": "2026-11-17T19:11:36.575Z"
+    },
+    "item/11495": {
+      "bytes": 21409,
+      "title": "Abito del Vento OscuroLv. 68",
+      "at": "2026-11-17T19:11:36.600Z"
+    },
+    "item/12022": {
+      "bytes": 23599,
+      "title": "Vestito Blu del Drago Lv. 80",
+      "at": "2026-11-17T19:11:36.601Z"
+    },
+    "item/12021": {
+      "bytes": 23599,
+      "title": "Vestito Blu del Drago Lv. 80",
+      "at": "2026-11-17T19:11:36.608Z"
+    },
+    "item/12023": {
+      "bytes": 23599,
+      "title": "Vestito Blu del Drago Lv. 82",
+      "at": "2026-11-17T19:11:36.675Z"
+    },
+    "item/12026": {
+      "bytes": 23599,
+      "title": "Vestito Blu del Drago Lv. 84",
+      "at": "2026-11-17T19:11:36.718Z"
+    },
+    "item/12025": {
+      "bytes": 23599,
+      "title": "Vestito Blu del Drago Lv. 84",
+      "at": "2026-11-17T19:11:36.744Z"
+    },
+    "item/12027": {
+      "bytes": 23599,
+      "title": "Vestito Blu del Drago Lv. 86",
+      "at": "2026-11-17T19:11:36.770Z"
+    },
+    "item/12024": {
+      "bytes": 23599,
+      "title": "Vestito Blu del Drago Lv. 82",
+      "at": "2026-11-17T19:11:36.772Z"
+    },
+    "item/12028": {
+      "bytes": 23599,
+      "title": "Vestito Blu del Drago Lv. 88",
+      "at": "2026-11-17T19:11:36.795Z"
+    },
+    "item/20250": {
+      "bytes": 23593,
+      "title": "Abito Cavalcadraghi Lv. 90",
+      "at": "2026-11-17T19:11:36.834Z"
+    },
+    "item/20251": {
+      "bytes": 23593,
+      "title": "Abito Cavalcadraghi Lv. 92",
+      "at": "2026-11-17T19:11:36.887Z"
+    },
+    "item/20254": {
+      "bytes": 23593,
+      "title": "Abito Cavalcadraghi Lv. 98",
+      "at": "2026-11-17T19:11:36.918Z"
+    },
+    "item/20252": {
+      "bytes": 23593,
+      "title": "Abito Cavalcadraghi Lv. 94",
+      "at": "2026-11-17T19:11:36.932Z"
+    },
+    "item/20255": {
+      "bytes": 23594,
+      "title": "Abito Cavalcadraghi Lv. 100",
+      "at": "2026-11-17T19:11:36.958Z"
+    },
+    "item/20253": {
+      "bytes": 23593,
+      "title": "Abito Cavalcadraghi Lv. 96",
+      "at": "2026-11-17T19:11:36.965Z"
+    },
+    "item/20256": {
+      "bytes": 23594,
+      "title": "Abito Cavalcadraghi Lv. 102",
+      "at": "2026-11-17T19:11:37.029Z"
+    },
+    "item/20257": {
+      "bytes": 23594,
+      "title": "Abito Cavalcadraghi Lv. 104",
+      "at": "2026-11-17T19:11:37.037Z"
+    },
+    "item/12360": {
+      "bytes": 15395,
+      "title": "Cappuccio di catenaLv. 21",
+      "at": "2026-11-17T19:11:37.076Z"
+    },
+    "item/20258": {
+      "bytes": 23594,
+      "title": "Abito Cavalcadraghi Lv. 104",
+      "at": "2026-11-17T19:11:37.117Z"
+    },
+    "item/12361": {
+      "bytes": 15395,
+      "title": "Cappuccio di catenaLv. 21",
+      "at": "2026-11-17T19:11:37.154Z"
+    },
+    "item/12363": {
+      "bytes": 15395,
+      "title": "Cappuccio di catenaLv. 21",
+      "at": "2026-11-17T19:11:37.154Z"
+    },
+    "item/12362": {
+      "bytes": 15395,
+      "title": "Cappuccio di catenaLv. 21",
+      "at": "2026-11-17T19:11:37.169Z"
+    },
+    "item/12364": {
+      "bytes": 15395,
+      "title": "Cappuccio di catenaLv. 21",
+      "at": "2026-11-17T19:11:37.198Z"
+    },
+    "item/12366": {
+      "bytes": 15395,
+      "title": "Cappuccio di catenaLv. 21",
+      "at": "2026-11-17T19:11:37.274Z"
+    },
+    "item/12365": {
+      "bytes": 15395,
+      "title": "Cappuccio di catenaLv. 21",
+      "at": "2026-11-17T19:11:37.280Z"
+    },
+    "item/12380": {
+      "bytes": 20464,
+      "title": "Cappuccio d'AcciaioLv. 41",
+      "at": "2026-11-17T19:11:37.316Z"
+    },
+    "item/12367": {
+      "bytes": 15395,
+      "title": "Cappuccio di catenaLv. 21",
+      "at": "2026-11-17T19:11:37.345Z"
+    },
+    "item/12381": {
+      "bytes": 20464,
+      "title": "Cappuccio d'AcciaioLv. 41",
+      "at": "2026-11-17T19:11:37.394Z"
+    },
+    "item/12368": {
+      "bytes": 15395,
+      "title": "Cappuccio di catenaLv. 21",
+      "at": "2026-11-17T19:11:37.406Z"
+    },
+    "item/12383": {
+      "bytes": 20464,
+      "title": "Cappuccio d'AcciaioLv. 41",
+      "at": "2026-11-17T19:11:37.437Z"
+    },
+    "item/12382": {
+      "bytes": 20464,
+      "title": "Cappuccio d'AcciaioLv. 41",
+      "at": "2026-11-17T19:11:37.443Z"
+    },
+    "item/12385": {
+      "bytes": 20464,
+      "title": "Cappuccio d'AcciaioLv. 41",
+      "at": "2026-11-17T19:11:37.511Z"
+    },
+    "item/12384": {
+      "bytes": 20464,
+      "title": "Cappuccio d'AcciaioLv. 41",
+      "at": "2026-11-17T19:11:37.538Z"
+    },
+    "item/12386": {
+      "bytes": 20464,
+      "title": "Cappuccio d'AcciaioLv. 41",
+      "at": "2026-11-17T19:11:37.549Z"
+    },
+    "item/12387": {
+      "bytes": 20464,
+      "title": "Cappuccio d'AcciaioLv. 41",
+      "at": "2026-11-17T19:11:37.555Z"
+    },
+    "item/12388": {
+      "bytes": 20464,
+      "title": "Cappuccio d'AcciaioLv. 41",
+      "at": "2026-11-17T19:11:37.613Z"
+    },
+    "item/12390": {
+      "bytes": 21962,
+      "title": "Cappuccio dell'Orco Lv. 60",
+      "at": "2026-11-17T19:11:37.628Z"
+    },
+    "item/12912": {
+      "bytes": 18581,
+      "title": "Cappuccio dell'Orco (PvP) Lv. 55",
+      "at": "2026-11-17T19:11:37.672Z"
+    },
+    "item/12911": {
+      "bytes": 18581,
+      "title": "Cappuccio dell'Orco (PvP) Lv. 55",
+      "at": "2026-11-17T19:11:37.690Z"
+    },
+    "item/12910": {
+      "bytes": 18581,
+      "title": "Cappuccio dell'Orco (PvP) Lv. 55",
+      "at": "2026-11-17T19:11:37.731Z"
+    },
+    "item/12914": {
+      "bytes": 18581,
+      "title": "Cappuccio dell'Orco (PvP) Lv. 55",
+      "at": "2026-11-17T19:11:37.749Z"
+    },
+    "item/12396": {
+      "bytes": 21962,
+      "title": "Cappuccio dell'Orco Lv. 60",
+      "at": "2026-11-17T19:12:25.307Z"
+    },
+    "item/12397": {
+      "bytes": 21962,
+      "title": "Cappuccio dell'Orco Lv. 60",
+      "at": "2026-11-17T19:12:25.408Z"
+    },
+    "item/12916": {
+      "bytes": 18581,
+      "title": "Cappuccio dell'Orco (PvP) Lv. 55",
+      "at": "2026-11-17T19:12:25.425Z"
+    },
+    "item/12398": {
+      "bytes": 21962,
+      "title": "Cappuccio dell'Orco Lv. 60",
+      "at": "2026-11-17T19:12:25.480Z"
+    },
+    "item/12918": {
+      "bytes": 18581,
+      "title": "Cappuccio dell'Orco (PvP) Lv. 55",
+      "at": "2026-11-17T19:12:25.543Z"
+    },
+    "item/12917": {
+      "bytes": 18581,
+      "title": "Cappuccio dell'Orco (PvP) Lv. 55",
+      "at": "2026-11-17T19:12:25.549Z"
+    },
+    "item/12400": {
+      "bytes": 24220,
+      "title": "Cappuccio del Ragno Lv. 80",
+      "at": "2026-11-17T19:12:25.588Z"
+    },
+    "item/12919": {
+      "bytes": 17761,
+      "title": "Cappuccio dell'Orco (PvP) Lv. 55",
+      "at": "2026-11-17T19:12:25.636Z"
+    },
+    "item/12915": {
+      "bytes": 18581,
+      "title": "Cappuccio dell'Orco (PvP) Lv. 55",
+      "at": "2026-11-17T19:12:25.839Z"
+    },
+    "item/12394": {
+      "bytes": 21962,
+      "title": "Cappuccio dell'Orco Lv. 60",
+      "at": "2026-11-17T19:12:25.962Z"
+    },
+    "item/12395": {
+      "bytes": 21962,
+      "title": "Cappuccio dell'Orco Lv. 60",
+      "at": "2026-11-17T19:12:25.962Z"
+    },
+    "item/12391": {
+      "bytes": 21962,
+      "title": "Cappuccio dell'Orco Lv. 60",
+      "at": "2026-11-17T19:12:25.962Z"
+    },
+    "item/12392": {
+      "bytes": 21962,
+      "title": "Cappuccio dell'Orco Lv. 60",
+      "at": "2026-11-17T19:12:25.989Z"
+    },
+    "item/12393": {
+      "bytes": 21962,
+      "title": "Cappuccio dell'Orco Lv. 60",
+      "at": "2026-11-17T19:12:26.008Z"
+    },
+    "item/12913": {
+      "bytes": 18581,
+      "title": "Cappuccio dell'Orco (PvP) Lv. 55",
+      "at": "2026-11-17T19:12:26.079Z"
     }
   },
   "assets": {
@@ -19064,164 +20474,564 @@
     },
     "wiki-original/items/279.png": {
       "bytes": 2056
+    },
+    "wiki-original/items/12149.png": {
+      "bytes": 4439
+    },
+    "wiki-original/items/12014.png": {
+      "bytes": 5626
+    },
+    "wiki-original/items/12011.png": {
+      "bytes": 5626
+    },
+    "wiki-original/items/12016.png": {
+      "bytes": 5626
+    },
+    "wiki-original/items/12012.png": {
+      "bytes": 5626
+    },
+    "wiki-original/items/12015.png": {
+      "bytes": 5626
+    },
+    "wiki-original/items/12013.png": {
+      "bytes": 5626
+    },
+    "wiki-original/items/12017.png": {
+      "bytes": 5626
+    },
+    "wiki-original/items/20002.png": {
+      "bytes": 5373
+    },
+    "wiki-original/items/12018.png": {
+      "bytes": 5626
+    },
+    "wiki-original/items/20001.png": {
+      "bytes": 5373
+    },
+    "wiki-original/items/20003.png": {
+      "bytes": 5373
+    },
+    "wiki-original/items/20004.png": {
+      "bytes": 5373
+    },
+    "wiki-original/items/20006.png": {
+      "bytes": 5373
+    },
+    "wiki-original/items/20008.png": {
+      "bytes": 5373
+    },
+    "wiki-original/items/20005.png": {
+      "bytes": 5373
+    },
+    "wiki-original/items/17021.png": {
+      "bytes": 748
+    },
+    "wiki-original/items/20007.png": {
+      "bytes": 5373
+    },
+    "wiki-original/items/17023.png": {
+      "bytes": 748
+    },
+    "wiki-original/items/17022.png": {
+      "bytes": 748
+    },
+    "wiki-original/items/17024.png": {
+      "bytes": 748
+    },
+    "wiki-original/items/17026.png": {
+      "bytes": 748
+    },
+    "wiki-original/items/17027.png": {
+      "bytes": 748
+    },
+    "wiki-original/items/17025.png": {
+      "bytes": 748
+    },
+    "wiki-original/items/17102.png": {
+      "bytes": 806
+    },
+    "wiki-original/items/17101.png": {
+      "bytes": 806
+    },
+    "wiki-original/items/17028.png": {
+      "bytes": 748
+    },
+    "wiki-original/items/17107.png": {
+      "bytes": 806
+    },
+    "wiki-original/items/17105.png": {
+      "bytes": 806
+    },
+    "wiki-original/items/17106.png": {
+      "bytes": 806
+    },
+    "wiki-original/items/17103.png": {
+      "bytes": 806
+    },
+    "wiki-original/items/17108.png": {
+      "bytes": 806
+    },
+    "wiki-original/items/17202.png": {
+      "bytes": 940
+    },
+    "wiki-original/items/17104.png": {
+      "bytes": 806
+    },
+    "wiki-original/items/17204.png": {
+      "bytes": 940
+    },
+    "wiki-original/items/17201.png": {
+      "bytes": 940
+    },
+    "wiki-original/items/17205.png": {
+      "bytes": 940
+    },
+    "wiki-original/items/17203.png": {
+      "bytes": 940
+    },
+    "wiki-original/items/17208.png": {
+      "bytes": 940
+    },
+    "wiki-original/items/17207.png": {
+      "bytes": 940
+    },
+    "wiki-original/items/17206.png": {
+      "bytes": 940
+    },
+    "wiki-original/items/3139.png": {
+      "bytes": 2892
+    },
+    "wiki-original/items/3138.png": {
+      "bytes": 2892
+    },
+    "wiki-original/items/3200.png": {
+      "bytes": 3445
+    },
+    "wiki-original/items/3162.png": {
+      "bytes": 3116
+    },
+    "wiki-original/items/3163.png": {
+      "bytes": 3116
+    },
+    "wiki-original/items/3165.png": {
+      "bytes": 3116
+    },
+    "wiki-original/items/3161.png": {
+      "bytes": 3116
+    },
+    "wiki-original/items/3164.png": {
+      "bytes": 3116
+    },
+    "wiki-original/items/3167.png": {
+      "bytes": 3116
+    },
+    "wiki-original/items/3166.png": {
+      "bytes": 3116
+    },
+    "wiki-original/items/3168.png": {
+      "bytes": 3116
+    },
+    "wiki-original/items/18003.png": {
+      "bytes": 2420
+    },
+    "wiki-original/items/18001.png": {
+      "bytes": 2420
+    },
+    "wiki-original/items/18002.png": {
+      "bytes": 2420
+    },
+    "wiki-original/items/18004.png": {
+      "bytes": 2420
+    },
+    "wiki-original/items/18006.png": {
+      "bytes": 2420
+    },
+    "wiki-original/items/18072.png": {
+      "bytes": 2272
+    },
+    "wiki-original/items/18073.png": {
+      "bytes": 2272
+    },
+    "wiki-original/items/18007.png": {
+      "bytes": 2420
+    },
+    "wiki-original/items/18071.png": {
+      "bytes": 2272
+    },
+    "wiki-original/items/18075.png": {
+      "bytes": 2272
+    },
+    "wiki-original/items/18074.png": {
+      "bytes": 2272
+    },
+    "wiki-original/items/18077.png": {
+      "bytes": 2272
+    },
+    "wiki-original/items/18008.png": {
+      "bytes": 2420
+    },
+    "wiki-original/items/18005.png": {
+      "bytes": 2420
+    },
+    "wiki-original/items/18076.png": {
+      "bytes": 2272
+    },
+    "wiki-original/items/18081.png": {
+      "bytes": 2705
+    },
+    "wiki-original/items/18084.png": {
+      "bytes": 2705
+    },
+    "wiki-original/items/18083.png": {
+      "bytes": 2705
+    },
+    "wiki-original/items/18079.png": {
+      "bytes": 2272
+    },
+    "wiki-original/items/18078.png": {
+      "bytes": 2272
+    },
+    "wiki-original/items/18085.png": {
+      "bytes": 2705
+    },
+    "wiki-original/items/18087.png": {
+      "bytes": 2705
+    },
+    "wiki-original/items/18082.png": {
+      "bytes": 2705
+    },
+    "wiki-original/items/18086.png": {
+      "bytes": 2705
+    },
+    "wiki-original/items/18088.png": {
+      "bytes": 2705
+    },
+    "wiki-original/items/11603.png": {
+      "bytes": 5263
+    },
+    "wiki-original/items/11601.png": {
+      "bytes": 5263
+    },
+    "wiki-original/items/11604.png": {
+      "bytes": 5263
+    },
+    "wiki-original/items/11605.png": {
+      "bytes": 5263
+    },
+    "wiki-original/items/11606.png": {
+      "bytes": 5263
+    },
+    "wiki-original/items/11602.png": {
+      "bytes": 5263
+    },
+    "wiki-original/items/11608.png": {
+      "bytes": 5263
+    },
+    "wiki-original/items/11607.png": {
+      "bytes": 5263
+    },
+    "wiki-original/items/11612.png": {
+      "bytes": 5194
+    },
+    "wiki-original/items/11609.png": {
+      "bytes": 5263
+    },
+    "wiki-original/items/11614.png": {
+      "bytes": 5194
+    },
+    "wiki-original/items/11613.png": {
+      "bytes": 5194
+    },
+    "wiki-original/items/11611.png": {
+      "bytes": 5194
+    },
+    "wiki-original/items/11615.png": {
+      "bytes": 5194
+    },
+    "wiki-original/items/11618.png": {
+      "bytes": 5194
+    },
+    "wiki-original/items/11616.png": {
+      "bytes": 5194
+    },
+    "wiki-original/items/11617.png": {
+      "bytes": 5194
+    },
+    "wiki-original/items/11622.png": {
+      "bytes": 5092
+    },
+    "wiki-original/items/11623.png": {
+      "bytes": 5092
+    },
+    "wiki-original/items/11621.png": {
+      "bytes": 5092
+    },
+    "wiki-original/items/11625.png": {
+      "bytes": 5092
+    },
+    "wiki-original/items/11626.png": {
+      "bytes": 5092
+    },
+    "wiki-original/items/11619.png": {
+      "bytes": 5194
+    },
+    "wiki-original/items/11624.png": {
+      "bytes": 5092
+    },
+    "wiki-original/items/11628.png": {
+      "bytes": 5092
+    },
+    "wiki-original/items/11627.png": {
+      "bytes": 5092
+    },
+    "wiki-original/items/11629.png": {
+      "bytes": 5092
+    },
+    "wiki-original/items/11636.png": {
+      "bytes": 5490
+    },
+    "wiki-original/items/11631.png": {
+      "bytes": 5490
+    },
+    "wiki-original/items/11635.png": {
+      "bytes": 5490
+    },
+    "wiki-original/items/11632.png": {
+      "bytes": 5490
+    },
+    "wiki-original/items/11634.png": {
+      "bytes": 5490
+    },
+    "wiki-original/items/11642.png": {
+      "bytes": 5284
+    },
+    "wiki-original/items/11633.png": {
+      "bytes": 5490
+    },
+    "wiki-original/items/11637.png": {
+      "bytes": 5490
+    },
+    "wiki-original/items/11641.png": {
+      "bytes": 5284
+    },
+    "wiki-original/items/11643.png": {
+      "bytes": 5284
+    },
+    "wiki-original/items/11646.png": {
+      "bytes": 5284
+    },
+    "wiki-original/items/11638.png": {
+      "bytes": 5490
+    },
+    "wiki-original/items/11644.png": {
+      "bytes": 5284
+    },
+    "wiki-original/items/11649.png": {
+      "bytes": 5284
+    },
+    "wiki-original/items/11647.png": {
+      "bytes": 5284
+    },
+    "wiki-original/items/11652.png": {
+      "bytes": 5414
+    },
+    "wiki-original/items/11648.png": {
+      "bytes": 5284
+    },
+    "wiki-original/items/11651.png": {
+      "bytes": 5414
+    },
+    "wiki-original/items/11654.png": {
+      "bytes": 5414
+    },
+    "wiki-original/items/11656.png": {
+      "bytes": 5414
+    },
+    "wiki-original/items/11653.png": {
+      "bytes": 5414
+    },
+    "wiki-original/items/11655.png": {
+      "bytes": 5414
+    },
+    "wiki-original/items/11645.png": {
+      "bytes": 5284
+    },
+    "wiki-original/items/11492.png": {
+      "bytes": 4270
+    },
+    "wiki-original/items/11497.png": {
+      "bytes": 4270
+    },
+    "wiki-original/items/11658.png": {
+      "bytes": 5414
+    },
+    "wiki-original/items/11493.png": {
+      "bytes": 4270
+    },
+    "wiki-original/items/11657.png": {
+      "bytes": 5414
+    },
+    "wiki-original/items/11496.png": {
+      "bytes": 4270
+    },
+    "wiki-original/items/11494.png": {
+      "bytes": 4270
+    },
+    "wiki-original/items/12022.png": {
+      "bytes": 5232
+    },
+    "wiki-original/items/11495.png": {
+      "bytes": 4270
+    },
+    "wiki-original/items/11498.png": {
+      "bytes": 4270
+    },
+    "wiki-original/items/12025.png": {
+      "bytes": 5232
+    },
+    "wiki-original/items/12021.png": {
+      "bytes": 5232
+    },
+    "wiki-original/items/12027.png": {
+      "bytes": 5232
+    },
+    "wiki-original/items/12026.png": {
+      "bytes": 5232
+    },
+    "wiki-original/items/12024.png": {
+      "bytes": 5232
+    },
+    "wiki-original/items/12023.png": {
+      "bytes": 5232
+    },
+    "wiki-original/items/20254.png": {
+      "bytes": 4838
+    },
+    "wiki-original/items/12028.png": {
+      "bytes": 5232
+    },
+    "wiki-original/items/20251.png": {
+      "bytes": 4838
+    },
+    "wiki-original/items/20256.png": {
+      "bytes": 4838
+    },
+    "wiki-original/items/20252.png": {
+      "bytes": 4838
+    },
+    "wiki-original/items/20255.png": {
+      "bytes": 4838
+    },
+    "wiki-original/items/20257.png": {
+      "bytes": 4838
+    },
+    "wiki-original/items/20258.png": {
+      "bytes": 4838
+    },
+    "wiki-original/items/20253.png": {
+      "bytes": 4838
+    },
+    "wiki-original/items/12361.png": {
+      "bytes": 1248
+    },
+    "wiki-original/items/12362.png": {
+      "bytes": 1248
+    },
+    "wiki-original/items/12367.png": {
+      "bytes": 1248
+    },
+    "wiki-original/items/12363.png": {
+      "bytes": 1248
+    },
+    "wiki-original/items/12364.png": {
+      "bytes": 1248
+    },
+    "wiki-original/items/12383.png": {
+      "bytes": 1435
+    },
+    "wiki-original/items/12365.png": {
+      "bytes": 1248
+    },
+    "wiki-original/items/12366.png": {
+      "bytes": 1248
+    },
+    "wiki-original/items/12368.png": {
+      "bytes": 1248
+    },
+    "wiki-original/items/12382.png": {
+      "bytes": 1435
+    },
+    "wiki-original/items/12381.png": {
+      "bytes": 1435
+    },
+    "wiki-original/items/12386.png": {
+      "bytes": 1435
+    },
+    "wiki-original/items/12384.png": {
+      "bytes": 1435
+    },
+    "wiki-original/items/12385.png": {
+      "bytes": 1435
+    },
+    "wiki-original/items/12388.png": {
+      "bytes": 1435
+    },
+    "wiki-original/items/12911.png": {
+      "bytes": 1968
+    },
+    "wiki-original/items/12912.png": {
+      "bytes": 1968
+    },
+    "wiki-original/items/12387.png": {
+      "bytes": 1435
+    },
+    "wiki-original/items/12396.png": {
+      "bytes": 1930
+    },
+    "wiki-original/items/12397.png": {
+      "bytes": 1930
+    },
+    "wiki-original/items/12914.png": {
+      "bytes": 1968
+    },
+    "wiki-original/items/12918.png": {
+      "bytes": 1968
+    },
+    "wiki-original/items/12916.png": {
+      "bytes": 1968
+    },
+    "wiki-original/items/12398.png": {
+      "bytes": 1930
+    },
+    "wiki-original/items/12917.png": {
+      "bytes": 1968
+    },
+    "wiki-original/items/12919.png": {
+      "bytes": 1968
+    },
+    "wiki-original/items/12915.png": {
+      "bytes": 1968
+    },
+    "wiki-original/items/12391.png": {
+      "bytes": 1930
+    },
+    "wiki-original/items/12394.png": {
+      "bytes": 1930
+    },
+    "wiki-original/items/12392.png": {
+      "bytes": 1930
+    },
+    "wiki-original/items/12393.png": {
+      "bytes": 1930
+    },
+    "wiki-original/items/12913.png": {
+      "bytes": 1968
+    },
+    "wiki-original/items/12395.png": {
+      "bytes": 1930
     }
   },
   "failures": {
-    "item/12149": "HTTP 429",
-    "item/12014": "HTTP 429",
-    "item/12012": "HTTP 429",
-    "item/12011": "HTTP 429",
-    "item/12013": "HTTP 429",
-    "item/12015": "HTTP 429",
-    "item/12018": "HTTP 429",
-    "item/12017": "HTTP 429",
-    "item/12019": "HTTP 429",
-    "item/12016": "HTTP 429",
-    "item/20000": "HTTP 429",
-    "item/20001": "HTTP 429",
-    "item/20002": "HTTP 429",
-    "item/20004": "HTTP 429",
-    "item/20003": "HTTP 429",
-    "item/20005": "HTTP 429",
-    "item/20007": "HTTP 429",
-    "item/20006": "HTTP 429",
-    "item/20008": "HTTP 429",
-    "item/20009": "HTTP 429",
-    "equipment/earrings/ninja": "HTTP 429",
-    "equipment/earrings/sura": "HTTP 429",
-    "equipment/earrings/shaman": "HTTP 429",
-    "item/17020": "HTTP 429",
-    "item/17021": "HTTP 429",
-    "item/17022": "HTTP 429",
-    "item/17023": "HTTP 429",
-    "item/17025": "HTTP 429",
-    "item/17024": "HTTP 429",
-    "item/17026": "HTTP 429",
-    "item/17027": "HTTP 429",
-    "item/17028": "HTTP 429",
-    "item/17029": "HTTP 429",
-    "item/17101": "HTTP 429",
-    "item/17100": "HTTP 429",
-    "item/17102": "HTTP 429",
-    "item/17103": "HTTP 429",
-    "item/17104": "HTTP 429",
-    "item/17106": "HTTP 429",
-    "item/17105": "HTTP 429",
-    "item/17108": "HTTP 429",
-    "item/17107": "HTTP 429",
-    "item/17109": "HTTP 429",
-    "item/17200": "HTTP 429",
-    "item/17201": "HTTP 429",
-    "item/17202": "HTTP 429",
-    "item/17203": "HTTP 429",
-    "item/17204": "HTTP 429",
-    "item/17206": "HTTP 429",
-    "item/17205": "HTTP 429",
-    "item/17207": "HTTP 429",
-    "item/17208": "HTTP 429",
-    "item/17220": "HTTP 429",
-    "item/17209": "HTTP 429",
-    "item/17540": "HTTP 429",
-    "item/3138": "HTTP 429",
-    "item/3200": "HTTP 429",
-    "item/3139": "HTTP 429",
-    "item/3160": "HTTP 429",
-    "item/3161": "HTTP 429",
-    "item/3162": "HTTP 429",
-    "item/3163": "HTTP 429",
-    "item/3166": "HTTP 429",
-    "item/3164": "HTTP 429",
-    "item/3165": "HTTP 429",
-    "item/3167": "HTTP 429",
-    "item/3168": "HTTP 429",
-    "item/3169": "HTTP 429",
-    "equipment/belts/ninja": "HTTP 429",
-    "equipment/belts/shaman": "HTTP 429",
-    "item/18000": "HTTP 429",
-    "equipment/belts/sura": "HTTP 429",
-    "item/18001": "HTTP 429",
-    "item/18002": "HTTP 429",
-    "item/18003": "HTTP 429",
-    "item/18005": "HTTP 429",
-    "item/18004": "HTTP 429",
-    "item/18006": "HTTP 429",
-    "item/18007": "HTTP 429",
-    "item/18008": "HTTP 429",
-    "item/18009": "HTTP 429",
-    "item/18070": "HTTP 429",
-    "item/18080": "HTTP 429",
-    "item/18071": "HTTP 429",
-    "item/18072": "HTTP 429",
-    "item/18075": "HTTP 429",
-    "item/18073": "HTTP 429",
-    "item/18074": "HTTP 429",
-    "item/18076": "HTTP 429",
-    "item/18077": "HTTP 429",
-    "item/18078": "HTTP 429",
-    "item/18079": "HTTP 429",
-    "item/18081": "HTTP 429",
-    "item/18082": "HTTP 429",
-    "item/18083": "HTTP 429",
-    "item/18084": "HTTP 429",
-    "item/18085": "HTTP 429",
-    "item/18086": "HTTP 429",
-    "item/18087": "HTTP 429",
-    "item/18088": "HTTP 429",
-    "item/18089": "HTTP 429",
-    "chest/100082": "HTTP 429",
-    "chest/100083": "HTTP 429",
-    "item/50513": "HTTP 429",
-    "item/100005": "HTTP 429",
-    "chest/100084": "HTTP 429",
-    "chest/100097": "HTTP 429",
-    "chest/50187": "HTTP 429",
-    "chest/50188": "HTTP 429",
-    "chest/50203": "HTTP 429",
-    "chest/50189": "HTTP 429",
-    "chest/50190": "HTTP 429",
-    "chest/50191": "HTTP 429",
-    "chest/50252": "HTTP 429",
-    "chest/50259": "HTTP 429",
-    "item/114000": "HTTP 429",
-    "item/124000": "HTTP 429",
-    "item/134000": "HTTP 429",
-    "item/144000": "HTTP 429",
-    "item/154000": "HTTP 429",
-    "item/164000": "HTTP 429",
-    "chest/51506": "HTTP 429",
-    "item/115000": "HTTP 429",
-    "item/125000": "HTTP 429",
-    "item/135000": "HTTP 429",
-    "item/145000": "HTTP 429",
-    "item/155000": "HTTP 429",
-    "item/165000": "HTTP 429",
-    "item/71143": "HTTP 429",
-    "item/71135": "HTTP 429",
-    "item/100138": "HTTP 429",
-    "item/71202": "HTTP 429",
-    "item/100142": "HTTP 429",
-    "item/210602": "HTTP 429",
-    "item/210601": "HTTP 429",
-    "item/100131": "HTTP 429",
-    "item/210600": "HTTP 429",
-    "item/100130": "HTTP 429",
-    "item/100129": "HTTP 429",
-    "item/210611": "HTTP 429",
-    "item/210612": "HTTP 429",
-    "item/210613": "HTTP 429",
-    "item/100132": "HTTP 429",
-    "item/100133": "HTTP 429",
-    "item/100134": "HTTP 429",
-    "item/100141": "HTTP 429",
-    "item/100140": "HTTP 429",
-    "item/30703": "HTTP 429",
-    "item/30706": "HTTP 429",
-    "item/58530": "HTTP 429",
-    "item/70076": "HTTP 429",
-    "item/11659": "HTTP 429",
-    "item/124040": "HTTP 429",
-    "item/134040": "HTTP 429",
-    "item/144040": "HTTP 429",
     "item/100017": "HTTP 404",
     "item/100027": "HTTP 404",
     "item/100018": "HTTP 404",
@@ -19230,136 +21040,9 @@
     "item/100029": "HTTP 404",
     "item/100055": "HTTP 404",
     "item/100060": "HTTP 404",
-    "item/50256": "HTTP 429",
-    "item/50258": "HTTP 429",
-    "item/50257": "HTTP 429",
-    "mob/21557": "HTTP 429",
-    "mob/20504": "HTTP 429",
-    "item/50934": "HTTP 429",
-    "item/39064": "HTTP 429",
-    "mob/20561": "HTTP 429",
-    "item/11600": "HTTP 429",
-    "item/11601": "HTTP 429",
-    "item/11602": "HTTP 429",
-    "item/11603": "HTTP 429",
-    "item/11604": "HTTP 429",
-    "item/11605": "HTTP 429",
-    "item/11606": "HTTP 429",
-    "item/11607": "HTTP 429",
-    "item/11608": "HTTP 429",
-    "item/11609": "HTTP 429",
-    "item/11610": "HTTP 429",
-    "item/11611": "HTTP 429",
-    "item/11612": "HTTP 429",
-    "item/11613": "HTTP 429",
-    "item/11614": "HTTP 429",
-    "item/11615": "HTTP 429",
-    "item/11616": "HTTP 429",
-    "item/11617": "HTTP 429",
-    "item/11619": "HTTP 429",
-    "item/11618": "HTTP 429",
-    "item/11621": "HTTP 429",
-    "item/11620": "HTTP 429",
-    "item/11622": "HTTP 429",
-    "item/11625": "HTTP 429",
-    "item/11624": "HTTP 429",
-    "item/11623": "HTTP 429",
-    "item/11626": "HTTP 429",
-    "item/11627": "HTTP 429",
-    "item/11628": "HTTP 429",
-    "item/11629": "HTTP 429",
-    "item/11631": "HTTP 429",
-    "item/11630": "HTTP 429",
-    "item/11632": "HTTP 429",
-    "item/11633": "HTTP 429",
-    "item/11634": "HTTP 429",
-    "item/11636": "HTTP 429",
-    "item/11635": "HTTP 429",
-    "item/11637": "HTTP 429",
-    "item/11638": "HTTP 429",
-    "item/11640": "HTTP 429",
-    "item/11642": "HTTP 429",
-    "item/11641": "HTTP 429",
-    "item/11643": "HTTP 429",
-    "item/11644": "HTTP 429",
-    "item/11645": "HTTP 429",
-    "item/11647": "HTTP 429",
-    "item/11646": "HTTP 429",
-    "item/11648": "HTTP 429",
-    "item/11649": "HTTP 429",
-    "item/11650": "HTTP 429",
-    "item/11651": "HTTP 429",
-    "item/11652": "HTTP 429",
-    "item/11653": "HTTP 429",
-    "item/11654": "HTTP 429",
-    "item/11655": "HTTP 429",
-    "item/11656": "HTTP 429",
-    "item/11657": "HTTP 429",
-    "item/11658": "HTTP 429",
-    "item/11660": "HTTP 429",
-    "item/11492": "HTTP 429",
-    "item/11493": "HTTP 429",
-    "item/11495": "HTTP 429",
-    "item/11496": "HTTP 429",
-    "item/11494": "HTTP 429",
-    "item/11497": "HTTP 429",
-    "item/11498": "HTTP 429",
-    "item/12020": "HTTP 429",
-    "item/12022": "HTTP 429",
-    "item/12021": "HTTP 429",
-    "item/12023": "HTTP 429",
-    "item/12024": "HTTP 429",
-    "item/12025": "HTTP 429",
-    "item/12027": "HTTP 429",
-    "item/12028": "HTTP 429",
-    "item/20251": "HTTP 429",
-    "item/20253": "HTTP 429",
-    "item/20252": "HTTP 429",
-    "item/20254": "HTTP 429",
-    "item/20256": "HTTP 429",
-    "item/20255": "HTTP 429",
-    "item/12026": "HTTP 429",
-    "item/20257": "HTTP 429",
-    "item/20250": "HTTP 429",
-    "item/20258": "HTTP 429",
-    "item/12360": "HTTP 429",
-    "item/12361": "HTTP 429",
-    "item/12362": "HTTP 429",
-    "item/12363": "HTTP 429",
-    "item/12365": "HTTP 429",
-    "item/12366": "HTTP 429",
-    "item/12367": "HTTP 429",
-    "item/12364": "HTTP 429",
-    "item/12368": "HTTP 429",
-    "item/12380": "HTTP 429",
-    "item/12382": "HTTP 429",
-    "item/12383": "HTTP 429",
-    "item/12384": "HTTP 429",
-    "item/12381": "HTTP 429",
-    "item/12385": "HTTP 429",
-    "item/12387": "HTTP 429",
-    "item/12388": "HTTP 429",
-    "item/12386": "HTTP 429",
-    "item/12390": "HTTP 429",
-    "item/12910": "HTTP 429",
-    "item/12912": "HTTP 429",
-    "item/12913": "HTTP 429",
-    "item/12914": "HTTP 429",
-    "item/12911": "HTTP 429",
-    "item/12915": "HTTP 429",
-    "item/12916": "HTTP 429",
-    "item/12917": "HTTP 429",
-    "item/12918": "HTTP 429",
-    "item/12919": "HTTP 429",
-    "item/12391": "HTTP 429",
-    "item/12392": "HTTP 429",
-    "item/12394": "HTTP 429",
-    "item/12393": "HTTP 429",
-    "item/12395": "HTTP 429",
-    "item/12396": "HTTP 429",
-    "item/12400": "HTTP 429",
-    "item/12397": "HTTP 429",
-    "item/12398": "HTTP 429",
+    "item/50256": "HTTP 404",
+    "item/50258": "HTTP 404",
+    "item/50257": "HTTP 404",
     "item/100167": "HTTP 429",
     "item/100166": "HTTP 429",
     "item/256132": "HTTP 429",
@@ -19382,7 +21065,7 @@
     "item/257909": "HTTP 429",
     "item/257910": "HTTP 429",
     "item/258204": "HTTP 429",
-    "item/258215": "fetch failed",
+    "item/258215": "HTTP 429",
     "item/258216": "HTTP 429",
     "item/258227": "HTTP 429",
     "item/258228": "HTTP 429",
@@ -19409,7 +21092,16 @@
     "item/258360": "HTTP 429",
     "item/258359": "HTTP 429",
     "item/258371": "HTTP 429",
-    "item/258372": "HTTP 429"
+    "item/258372": "HTTP 429",
+    "item/3201": "HTTP 429",
+    "item/3202": "HTTP 429",
+    "item/3203": "HTTP 429",
+    "item/3205": "HTTP 429",
+    "item/3204": "HTTP 429",
+    "item/3206": "HTTP 429",
+    "item/3207": "HTTP 429",
+    "item/3208": "HTTP 429",
+    "item/3209": "HTTP 429"
   },
   "primary": [
     "equipment/weapons",
@@ -19495,14 +21187,14 @@
     "events/vz_scorched_earth"
   ],
   "counts": {
-    "pages": 2569,
+    "pages": 2851,
     "primaryCompleted": 81,
     "primaryTotal": 81,
-    "images": 2072,
+    "images": 2257,
     "tooltipIds": 108,
-    "indexedItems": 2599,
-    "indexedPages": 2569,
-    "errors": 1039,
+    "indexedItems": 2609,
+    "indexedPages": 2851,
+    "errors": 487,
     "unfinished": 0,
     "scope": "all"
   }
