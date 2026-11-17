@@ -19,6 +19,7 @@ function guidePanels(){
  const metinTable=table(['#','Metin','Livello'],metins.map((m,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc2(m[0])+'</td><td>'+esc2(m[1])+'</td></tr>'));
  const farm='<p>Le schermate indicano come momenti consigliati per fermarsi a raccogliere materiali <b>il livello 55</b> e <b>il livello 75</b>. La sequenza è un riferimento di progressione, non un obbligo.</p>'+metinTable;
  const equip='<div class="guide-brief-grid"><div><b>Abilità PvM</b><p>Porta l’abilità principale verso G1 e migliora gradualmente le secondarie.</p></div><div><b>Equipaggiamento</b><p>Pietre +3 fino al dungeon dei Ragni e +4 verso il Mietitore; per Azrael si consigliano Pietre +5 mirate.</p></div><div><b>Bonus-obiettivo al 55</b><p>HP 16.000 · Resistenza fuoco 70% · Forte contro Animali 80% · Critico 80–90%.</p></div></div>';
+ const upgrade55='<div class="guide-brief-grid"><div><b>Abilità e Buff</b><p>Abilità PvM principale intorno a G1. Per i Buff: Benedizione G1, Aiuto del Drago G1, Attacco+ M5 e Rapidità M1 dove disponibili.</p></div><div><b>Famiglio</b><p>Almeno livello 40, preferibilmente tipo 3, abilità contro i mostri 5/10; poi verso livello 60 e abilità contro i Metin.</p></div><div><b>Cavalcatura e biologo</b><p>Prima evoluzione e livello 11 della cavalcatura; abilità contro mostri 10/10. Completa il biologo 30, 40 e 50 e prosegui al 60.</p></div></div>';
  const alchemy='<p>Per la fase dei dungeon la guida propone un <b>set di alchimia leggendaria opaca +4</b>. Affina i bonus in funzione del dungeon e della classe. Dal 75, prepara gradualmente il set mitico opaco indicato dalla wiki.</p>';
  const gaya='<p>Gli oggetti del negozio Gaya fisso sono utili per i potenziamenti iniziali. Tra quelli mostrati nella guida:</p>'+table(['Oggetto','Prezzo Gaya','Bonus'],[['Bracciale dell’Amore',35,'Forte contro mostri +2%'],['Bracciale dell’Armonia',35,'Forte contro Pietre Metin +2%'],['Collana dell’Amore',35,'Forte contro boss +2%']].map(x=>'<tr><td>'+x[0]+'</td><td>'+x[1]+'</td><td>'+x[2]+'</td></tr>'))+'<p class="hint">Il prezzo di mercato in Yang va inserito nel calcolatore Gaya.</p>';
  const daily='<p>Durante il farming controlla i <b>Guanti del Ladro</b>, la durata residua e gli oggetti di ricambio. Usa il pesce appropriato alla classe (forza, intelligenza o destrezza). Dal livello 45, la guida suggerisce anche le rugiade.</p><p><b>Scorciatoie:</b> Wiki con H o W · Inventario speciale con U · Famiglio/cavalcatura con P · Lettura automatica abilità con Ctrl + clic.</p>';
@@ -29,7 +30,7 @@ function guidePanels(){
   panel('guideFarming','Ordine di farming dei Metin',farm,12,'METIN'),
   panel('guideEquipment','Equipaggiamento per livello 55',equip,12,'EQUIPAGGIAMENTO'),
   panel('guideAlchemy','Alchimia leggendaria opaca +4',alchemy,6,'ALCHIMIA'),
-  panel('guideUpgrade','Potenziamenti per livello 55',equip,6,'POTENZIAMENTO'),
+  panel('guideUpgrade','Potenziamenti per livello 55',upgrade55,6,'POTENZIAMENTO'),
   panel('guideGaya','Negozio Gaya fisso',gaya,12,'GAYA'),
   panel('guideDaily','Sistemi e attività quotidiane',daily,6,'ATTIVITÀ'),
   panel('guideCrystal','Evocazione dei cristalli Verzum',crystal,6,'CRISTALLI')
