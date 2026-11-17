@@ -89,6 +89,10 @@ jobs:
             if(await page.locator('[data-ocx-passive]').count()!==4)throw Error('Four passive skills missing');
             await page.locator('[data-ocx-mode="craft"]').click();
             await page.locator('[data-ocx-passive="2"]').click();
+            await page.locator('[data-ocx-set="passive.helper"]').selectOption('pages');
+            const helperMats=await page.locator('.panel[data-panel="oc-passive-materials"]').innerText();
+            if(!helperMats.includes('Pagina'))throw Error('Original passive support recipe not recalculated');
+            await page.locator('[data-ocx-set="passive.helper"]').selectOption('cit');
             if(await page.locator('.panel[data-panel="oc-passive-effects"] tbody tr').count()<4)throw Error('Passive bonuses missing');
             await page.screenshot({path:'/tmp/passive-parity.png',fullPage:true});
             await open('prices');
