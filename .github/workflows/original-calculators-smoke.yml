@@ -1,11 +1,12 @@
 name: Test faithful original calculator integration
 on:
   push:
-    branches: [main, fix-all-calculator-legacy-and-gaya]
+    branches: [main, fix-all-calculator-legacy-and-gaya, fix-scrollbar-fluidity-20261117]
     paths:
       - '.github/workflows/original-calculators-smoke.yml'
       - 'public/calculator-reference.html'
       - 'public/calculator-original-bridge.js'
+      - 'public/calculator-original-bridge.css'
       - 'public/calculator-original-bridge.css'
       - 'public/app.js'
       - 'public/index.html'
@@ -65,6 +66,30 @@ jobs:
           }
           try{
             let frame=await open('gaya');
+            // Navigazione SPA: nessun nuovo documento iframe e nessuna scrollbar nidificata.
+            await page.waitForFunction(()=>{
+              const f=document.querySelector('iframe.native-calculator-frame');
+              return !!f?.contentDocument?.getElementById('verzum-no-nested-scroll');
+            },null,{timeout:15000});
+            const scrollbars=await page.locator('iframe.native-calculator-frame').evaluate(frame=>({
+              outer:getComputedStyle(document.documentElement).scrollbarWidth,
+              inner:getComputedStyle(frame.contentDocument.documentElement).scrollbarWidth,
+              innerOverflow:getComputedStyle(frame.contentDocument.documentElement).overflowY
+            }));
+            if(scrollbars.outer!=='none'||scrollbars.inner!=='none'||scrollbars.innerOverflow!=='hidden')
+              throw Error('Redundant scrollbar not hidden: '+JSON.stringify(scrollbars));
+            const persistence='persistent-calculator-document';
+            await frame.locator('#v-gaya').evaluate((token)=>{window.__routeIdentity=token},persistence);
+            await page.locator('#navigation [data-nav="pet"]').click();
+            await frame.locator('#v-pet.view.on').waitFor({timeout:14000});
+            if(await frame.locator('#v-pet').evaluate(()=>window.__routeIdentity)!==persistence)
+              throw Error('Calculator iframe reloaded on Gaya to Pet navigation');
+            await page.locator('#navigation [data-nav="gaya"]').click();
+            await frame.locator('#v-gaya.view.on').waitFor({timeout:14000});
+            if(await frame.locator('#v-gaya').evaluate(()=>window.__routeIdentity)!==persistence)
+              throw Error('Calculator iframe reloaded on Pet to Gaya navigation');
+            console.log('SCROLLBARS HIDDEN AND CALCULATOR FRAME PERSISTENT');
+
             if(await frame.locator('#v-gaya .panel').count()<3)throw Error('Original Gaya 3+ calculator panels missing');
             await frame.locator('#v-gaya #gq').fill('50');
             await frame.locator('#v-gaya #gq').press('Tab');
