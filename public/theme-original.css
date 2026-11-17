@@ -243,3 +243,24 @@ td.num,th.num{font-variant-numeric:tabular-nums}
  .table-scroll{overflow-x:auto}
 }
 @media(max-width:380px){.fields{grid-template-columns:minmax(0,1fr)}}
+
+/* Potenziamento: tabella del riferimento, icone autentiche e risultati compatti. */
+.upgrade-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+.upgrade-kpis .kpi:nth-child(2) em{color:#e58d93}
+.upgrade-kpis .kpi.total-green strong{color:#9fcf8a}
+.upgrade-kpis .kpi strong{font-size:23px}
+.material-token-row{display:flex;align-items:center;flex-wrap:wrap;gap:3px;min-width:90px}
+.material-token{display:inline-flex;align-items:center;justify-content:center;position:relative;width:28px;height:31px;border:1px solid #3e1c16;background:#080303;border-radius:4px;flex:none}
+.material-token img{width:26px!important;height:27px!important;object-fit:contain}
+.material-token b{position:absolute;right:-1px;bottom:-2px;font:700 10px var(--fu);text-shadow:1px 1px 1px #000;color:#f2dca4;background:rgba(10,3,3,.8);padding:0 2px;border-radius:2px}
+.stage-cell,.stage-cost{color:#f2dca4;font-weight:700;white-space:nowrap}
+.stage-prob{color:#edc97d;font-weight:700;text-align:right}
+.stage-prob.success{color:#9fcf8a}
+.fail-buttons{display:flex;align-items:center;gap:2px;flex-wrap:nowrap}
+.fail-buttons button{padding:0 4px;min-width:23px;height:23px;border:1px solid #513022;background:#080303;color:#aa9a87;border-radius:5px;font:700 12px var(--fu)}
+.fail-buttons button:hover{border-color:#c5996c;color:#f2dca4}
+.fail-buttons button.selected{background:#a7d18e;color:#092009;border-color:#a7d18e}
+.fail-buttons .fail-many{font:700 12px var(--fu);min-width:34px!important;width:35px!important;max-width:35px!important;min-height:23px!important;height:23px!important;padding:0 2px!important;text-align:center}
+.upgrade-kpis{margin:8px 0}
+@media(max-width:1050px){.upgrade-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:780px){.upgrade-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.fail-buttons button{min-width:21px}.material-token{width:26px;height:29px}}
