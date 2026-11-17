@@ -13,8 +13,11 @@ const originalApiRequests=new Map();
 function fetchOriginalItemTip(anchor){
  const id=String(anchor?.getAttribute?.('data-tip')||'');
  if(!/^\d{1,9}$/.test(id)||window.VERZUM_WIKI_API_TIPS?.[id])return;
- if(originalApiRequests.has(id))return;
- const promise=fetch('/api/wiki/tip/'+id,{headers:{Accept:'application/json'}})
+ const prior=originalApiRequests.get(id);
+ if(prior&&(prior.pending||Date.now()-prior.lastAttempt<60000))return;
+ const state={pending:true,lastAttempt:Date.now()};
+ originalApiRequests.set(id,state);
+ fetch('/api/wiki/tip/'+id,{headers:{Accept:'application/json'}})
   .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
   .then(data=>{
    if(!data?.ok||!data.tip||String(data.tip.vnum)!==id||!Array.isArray(data.tip.lines))return;
@@ -22,8 +25,8 @@ function fetchOriginalItemTip(anchor){
    window.VERZUM_WIKI_API_TIPS[id]=data.tip;
    if(activeAnchor?.getAttribute('data-tip')===id)showTip(activeAnchor);
   })
-  .catch(()=>{});
- originalApiRequests.set(id,promise);
+  .catch(()=>{})
+  .finally(()=>{state.pending=false;state.lastAttempt=Date.now()});
 }
 
 function selectClass(tab){
