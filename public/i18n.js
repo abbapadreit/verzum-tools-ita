@@ -189,6 +189,8 @@
  const table=Object.create(null);
  for(const [it,all] of Object.entries(translations))table[it]={en:all[0],ro:all[1],hu:all[2]};
  let current=localStorage.getItem('verzum_lang')||'it';
+ const queryLang=new URLSearchParams(location.search).get('lang');
+ if(queryLang&&langs.some(l=>l.id===queryLang))current=queryLang;
  if(!langs.some(l=>l.id===current))current='it';
  const originals=new WeakMap();
  const origAttr=new WeakMap();
