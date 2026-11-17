@@ -4,8 +4,7 @@
  */
 (function(){
 'use strict';
-const W='https://wiki.verzum.to/it/';
-const IMG='https://images.verzum.to/item/';
+/* Ogni collegamento della guida resta interno alla piattaforma. */
 const items={
 '50187':'Baule Apprendista I','50188':'Baule Apprendista II','50203':'Baule Apprendista III','50189':'Baule Apprendista IV',
 '28550':'Pietra del Mostro +5','28555':'Pietra dell’attacco +5',
@@ -55,25 +54,24 @@ const metins=[
  ['Metin Jeon-Un','90','8027']
 ];
 const escapeHtml=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
-const href=(path)=>W+path;
-const wikiLink=(path,label)=>'<a class="guide-wiki-link" href="'+href(path)+'" target="_blank" rel="noopener noreferrer">'+escapeHtml(label)+'</a>';
+const href=(path)=>'#wiki'+(path?'/'+encodeURI(String(path).replace(/^\/+/,'')):'');
+const wikiLink=(path,label)=>'<a class="guide-wiki-link" href="'+href(path)+'">'+escapeHtml(label)+'</a>';
 function icon(id,compact=false){
- const label=items[id]||('Oggetto '+id);
- // Asset ufficiale via URL pubblico documentato dalla Wiki: non alterare ID, nome, né file.
- return '<a class="guide-item '+(compact?'compact':'')+'" href="'+href('item/'+id)+'" target="_blank" rel="noopener noreferrer" title="'+escapeHtml(label)+' · scheda Wiki" aria-label="'+escapeHtml(label)+'">'
- +'<span class="guide-item-thumb"><img src="'+IMG+id+'.png" width="40" height="40" alt="'+escapeHtml(label)+'" loading="lazy" decoding="async"></span>'
- +'<span class="guide-item-label">'+escapeHtml(label)+'</span>'
- +'</a>';
+ const label=items[id]||('Oggetto '+id),icons=window.VERZUM_PNG_ICONS||{},raw=String(id);
+ const local=icons[raw]||(/^\d+$/.test(raw)?icons[String(Number(raw)-Number(raw)%10)]:'')||'';
+ const thumb=local?'<img src="'+local+'" width="40" height="40" alt="" loading="lazy" decoding="async">':'<span class="wiki-icon-fallback">◆</span>';
+ return '<a class="guide-item '+(compact?'compact':'')+'" href="'+href('item/'+id)+'" title="'+escapeHtml(label)+' · scheda interna" aria-label="'+escapeHtml(label)+'">'
+ +'<span class="guide-item-thumb">'+thumb+'</span><span class="guide-item-label">'+escapeHtml(label)+'</span></a>';
 }
 const grid=(ids)=>'<div class="guide-item-grid">'+ids.map(id=>icon(id)).join('')+'</div>';
 const titleBlock=(heading,sub)=>'<div class="guide-block-title"><h3>'+heading+'</h3>'+(sub?'<p>'+sub+'</p>':'')+'</div>';
 function guidePanels(){
  const active=levelSteps.find(x=>x.id===state.guideLevelRange)||levelSteps[0];
  const cls=equipment[state.guideClass]?state.guideClass:'Guerriero';
- const top='<div class="guide-source-line"><span class="guide-source-mark">VERZUM 1–75</span>'+wikiLink('guides/vz_level_1_75','Guida ufficiale 1–75')+wikiLink('','Apri tutta la Wiki VERZUM')+'</div>'
+ const top='<div class="guide-source-line"><span class="guide-source-mark">VERZUM 1–75</span>'+wikiLink('guides/vz_level_1_75','Approfondisci la guida')+wikiLink('','Biblioteca interna VERZUM')+'</div>'
  +'<p class="guide-lede">Un percorso visivo per scegliere l’equipaggiamento, pianificare i potenziamenti e riconoscere gli oggetti da utilizzare. Seleziona la fascia di livello o la tua classe.</p>';
  const levels='<div class="guide-levels" role="group" aria-label="Fasce di livello">'+levelSteps.map(x=>'<button type="button" class="filter-chip '+(x.id===active.id?'active':'')+'" data-guide-level="'+x.id+'">'+x.id+'</button>').join('')+'</div>'
- +'<div class="guide-feature"><div><span class="pill">Livelli '+active.id+'</span><h3>'+escapeHtml(active.title)+'</h3><p>'+escapeHtml(active.p)+'</p><div class="guide-chips">'+active.chips.map(x=>'<span>'+escapeHtml(x)+'</span>').join('')+'</div>'+wikiLink(active.link,'Approfondisci sulla Wiki')+'</div>'+(active.item.length?grid(active.item):'')+'</div>';
+ +'<div class="guide-feature"><div><span class="pill">Livelli '+active.id+'</span><h3>'+escapeHtml(active.title)+'</h3><p>'+escapeHtml(active.p)+'</p><div class="guide-chips">'+active.chips.map(x=>'<span>'+escapeHtml(x)+'</span>').join('')+'</div>'+wikiLink(active.link,'Apri scheda interna')+'</div>'+(active.item.length?grid(active.item):'')+'</div>';
  const allLevels=levelSteps.map(x=>'<details class="guide-disclosure" '+(x.id===active.id?'open':'')+'><summary><span>'+x.id+'</span> '+escapeHtml(x.title)+'</summary><div><p>'+escapeHtml(x.p)+'</p>'+ (x.item.length?grid(x.item):'')+wikiLink(x.link,'Vai al sistema o dungeon')+'</div></details>').join('');
  const metinTable=table(['#','Metin','Livello'],metins.map((a,i)=>'<tr><td>'+(i+1)+'</td><td>'+wikiLink('mob/'+a[2],a[0])+'</td><td>'+a[1]+'</td></tr>'));
  const metinContent='<p>Ordine indicativo per il farming: i numeri rappresentano il livello del Metin, non l’accesso minimo del personaggio.</p>'+metinTable;
@@ -83,7 +81,7 @@ function guidePanels(){
  +titleBlock('Accessori Gaya e booster','Oggetti complementari elencati nella guida ufficiale')+grid(boosters)
  +'<p class="guide-hint">Pietre +3 per i Ragni, +4 verso il Mietitore. Per Azrael sono consigliate Pietra del Mostro +5 nell’arma e Pietra dell’attacco +5 nell’armatura.</p>'+grid(['28550','28555']);
  const alchemyContent='<p>Profilo consigliato per l’equipaggiamento da dungeon: sei pietre del drago leggendarie opache potenziate a +4.</p>'+grid(alchemy)
- +'<p class="guide-hint">Controlla i bonus per rubino, giada, granato e gli altri pezzi in base alla classe e al dungeon.</p>'+wikiLink('systems/alchemy','Scheda ufficiale dell’alchimia');
+ +'<p class="guide-hint">Controlla i bonus per rubino, giada, granato e gli altri pezzi in base alla classe e al dungeon.</p>'+wikiLink('systems/alchemy','Alchimia');
  const upgradeContent=titleBlock('Rugiade','Potenziamenti temporanei che accompagnano il set da farming')+grid(dew)
  +titleBlock('Pozioni e booster Bronzo','Supporto a danni, difesa, colpi critici, perforanti e velocità')+grid(bronze)
  +titleBlock('Pesci per bonus di combattimento','Scegli quelli utili alle statistiche della tua classe')+grid(fish)
@@ -91,7 +89,7 @@ function guidePanels(){
  +titleBlock('Esempio arma alternativa','Arco per chi usa un personaggio Ninja a distanza')+grid(['2179']);
  const gayaContent='<p>Nel negozio Gaya fisso puoi investire in accessori utili già nella fase iniziale. I prezzi indicati sono quelli riportati nella guida ufficiale.</p>'
  +'<div class="guide-gaya-grid">'+gaya.map(x=>'<div class="guide-gaya-card">'+icon(x.id)+'<div><b>'+x.p+' Gaya</b><small>'+escapeHtml(x.b)+'</small></div></div>').join('')+'</div>'
- +wikiLink('systems/gaya_system','Funzionamento del sistema Gaya');
+ +wikiLink('systems/gaya_system','Sistema Gaya');
  const dailyContent=titleBlock('Bauli Apprendista','Apri i bauli al livello corrispondente')+grid(['50187','50188','50203','50189'])
  +titleBlock('Farming e consumabili','Verifica la durata dei Guanti del Ladro e conserva un ricambio')+grid(['100102'])
  +'<div class="guide-brief-grid"><div><b>Missioni</b><p>Segui la bacheca delle missioni e gli obiettivi della guida ai livelli.</p></div><div><b>Eventi</b><p>Controlla il calendario degli eventi e combina gli obiettivi con il farming.</p></div><div><b>Battlepass</b><p>Avanza nei compiti disponibili senza sprecare i materiali più difficili da trovare.</p></div></div>';
@@ -100,7 +98,7 @@ function guidePanels(){
  +table(['Cristallo','Livello','Scheda'],[
  ['Invidia','35','mob/22524'],['Anima','40','mob/22525'],['Diavolo','55','mob/22526']
  ].map(x=>'<tr><td>'+x[0]+'</td><td>'+x[1]+'</td><td>'+wikiLink(x[2],'Cristallo evocato')+'</td></tr>'))
- +wikiLink('systems/crystals','Sistema ufficiale dei cristalli');
+ +wikiLink('systems/crystals','Sistema dei cristalli');
  return [
  panel('guideOverview','Guida visuale livelli 1–75',top+levels,12,'PERCORSO'),
  panel('guideLevels','Progressi per fascia di livello',allLevels,12,'LIVELLI'),
@@ -123,5 +121,5 @@ document.querySelector('#panels')?.addEventListener('click',e=>{
  if(level){state.guideLevelRange=level.dataset.guideLevel;render();return}
  if(cls){state.guideClass=cls.dataset.guideClass;render()}
 });
-window.VERZUM_GUIDE_VISUAL={source:W+'guides/vz_level_1_75',imageCount:Object.keys(items).length,classes:Object.keys(equipment)};
+window.VERZUM_GUIDE_VISUAL={source:'#wiki/guides/vz_level_1_75',imageCount:Object.keys(items).length,classes:Object.keys(equipment),items,equipment,levelSteps,metins};
 })();
