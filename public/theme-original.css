@@ -146,3 +146,100 @@ footer{border-top:1px solid rgba(233,207,148,.12);color:#8f8672}
  .panel-header h2{font-size:18px}
 }
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition-duration:0s!important;animation:none!important}}
+
+/* 0.5 — tipografia e densità confrontate con il riferimento */
+:root{--fh:'Philosopher',Georgia,serif;--fu:'Rajdhani','Manrope',sans-serif;--fb:'Manrope',system-ui,sans-serif}
+body{font-family:var(--fb);font-size:12.5px;line-height:1.42}
+.menu button,.filter-chip,.field,.pill,.btn,.topbar,.kpi,.scenario-row,th,td,.item-entry,.lang-btn{font-family:var(--fu);font-weight:600}
+.menu button{font-size:15px;padding:7px 9px;min-height:33px;gap:7px}
+.nav-ico{font-size:18px;width:22px}
+.topbar{min-height:54px;padding:8px 17px;gap:9px}
+.top-actions{gap:7px}
+.top-actions .btn{font-size:12px;min-height:31px;padding:6px 10px}
+.lang-btn{min-height:28px;padding:3px 5px}
+.content{max-width:1540px;padding:21px 19px 46px}
+.welcome{margin-bottom:13px}
+.welcome h1{font-family:var(--fh);font-size:32px;font-weight:700;margin:4px 0 5px;line-height:1.15}
+.welcome p{font-size:12px;line-height:1.48}
+.eyebrow{font-family:var(--fu);font-size:11px;letter-spacing:2px}
+.panels{gap:12px}
+.panel{padding:14px 15px;background:var(--panel-bg);border:1px solid rgba(197,153,108,.34);border-radius:10px}
+.panel-header{padding-bottom:8px;margin-bottom:11px;border-bottom:none}
+.panel-header h2{font:700 21px/1.15 var(--fh)}
+.panel-header .tag{font:700 10px var(--fu)}
+.field{gap:3px;font-size:11px}
+.fields{gap:8px;margin:8px 0}
+.field input,.field select,.field textarea,select.control,input.control,textarea.control{min-height:30px;padding:4px 8px;border-radius:5px;font-family:var(--fu);font-size:13px}
+.item-list{max-height:min(63vh,620px);min-height:260px;gap:2px}
+.item-entry{min-height:47px;padding:5px 6px;gap:7px;background:transparent;border:1px solid transparent}
+.item-entry .tile-ico{width:37px;height:38px;border-color:#4a1b17}
+.item-entry .tile-ico img{max-width:31px;max-height:35px}
+.item-entry b{font-size:14px}
+.item-entry small{font-size:11px}
+.filter-title{margin:7px 0 4px;font-family:var(--fu);font-size:11px}
+.filter-row{gap:4px;margin:0 0 6px}
+.filter-chip{font-size:13px;padding:3px 8px;min-height:26px;border-radius:16px}
+.kpis{gap:7px;margin:9px 0}
+.kpi{padding:10px 9px;min-height:66px;background:#160606;border:1px solid #4b1c17}
+.kpi small{font:700 10px/1.2 var(--fu);letter-spacing:.7px;text-transform:uppercase;color:#b5a089}
+.kpi strong{font:700 21px/1.15 var(--fu);margin:2px 0 0;color:#f2dca4}
+.kpi em{font:11px/1.22 var(--fu);margin-top:1px}
+.item-hero-icon{min-width:62px;min-height:62px;border-radius:7px}
+.game-icon.large{width:56px;height:57px}
+.scenario-row{margin:8px 0;gap:5px;font-size:11px}
+.scenario-row .filter-chip{font-size:12px;padding:3px 8px}
+table{font-family:var(--fu);font-size:13px;line-height:1.25}
+th{font-size:11px;padding:7px 5px;letter-spacing:.6px;text-transform:uppercase}
+td{padding:5px;border-bottom:1px solid rgba(233,207,148,.11)}
+td.num,th.num{font-variant-numeric:tabular-nums}
+.qty-input{width:58px!important;min-width:58px!important}
+.material-pict .game-icon.small{height:25px;width:25px}
+.badge-success{display:inline-block;padding:2px 6px;background:#2a3a1b;color:#b5dfa4;border-radius:4px;font:700 12px var(--fu)}
+.missing-prices{color:#e8a5a5;font:600 11px var(--fu)}
+.brand{padding:3px 0 8px;gap:5px;min-height:55px}
+.brand-logo{width:min(100%,172px);height:auto;max-height:86px;object-fit:contain}
+.sidebar{padding:12px 9px}
+.sidebar-languages{padding:5px 2px 8px;margin-bottom:8px}
+.sidebar .lang-btn{font-size:10px}
+.menu-toggle{display:inline-flex;align-items:center;justify-content:center;position:relative;width:32px;height:32px;border:1px solid #6a3227;background:#170909;color:#ebcf91;font-size:17px;flex:none;margin-left:auto;border-radius:5px}
+.menu-toggle:hover{background:#2a0c0c;border-color:#c5996c}
+.app{grid-template-columns:217px minmax(0,1fr);transition:none}
+.app.sidebar-collapsed{grid-template-columns:58px minmax(0,1fr)}
+.app.sidebar-collapsed .sidebar{padding:10px 5px}
+.app.sidebar-collapsed .brand{justify-content:center}
+.app.sidebar-collapsed .brand-logo{display:none}
+.app.sidebar-collapsed .menu-toggle{margin:0;width:37px;height:37px}
+.app.sidebar-collapsed .sidebar-languages{display:none}
+.app.sidebar-collapsed .menu button{font-size:0;justify-content:center;padding:7px 0;min-height:39px;gap:0}
+.app.sidebar-collapsed .menu button .nav-ico{font-size:21px;width:auto}
+.app.sidebar-collapsed .menu button .counter{display:none}
+.app.sidebar-collapsed .menu-icon{width:25px;height:25px}
+.app.sidebar-collapsed .menu button.selected{box-shadow:inset 2px 0 0 #c5996c}
+.app.sidebar-collapsed .sidebar{min-height:100vh}
+@media(max-width:1140px) and (min-width:781px){
+ .app:not(.sidebar-collapsed){grid-template-columns:190px minmax(0,1fr)}
+ .content{padding:15px 12px}
+ .panel{padding:11px}
+}
+@media(max-width:780px){
+ .app,.app.sidebar-collapsed{display:block}
+ .sidebar,.app.sidebar-collapsed .sidebar{padding:7px 10px;min-height:0}
+ .brand,.app.sidebar-collapsed .brand{min-height:48px;justify-content:space-between}
+ .brand-logo,.app.sidebar-collapsed .brand-logo{display:block;width:min(183px,56vw)}
+ .menu-toggle,.app.sidebar-collapsed .menu-toggle{width:40px;height:38px;margin-left:auto}
+ .sidebar-languages,.app.sidebar-collapsed .sidebar-languages{display:block}
+ .app.sidebar-collapsed .menu button{font-size:13px;justify-content:flex-start;padding:8px}
+ .app.sidebar-collapsed .menu button .nav-ico{font-size:18px;width:22px}
+ .topbar{padding:8px 11px}
+ .content{padding:13px 9px 33px}
+ .panels{gap:9px}
+ .panel{padding:11px}
+ .panel-header h2{font-size:19px}
+ .welcome h1{font-size:clamp(24px,6vw,31px)}
+ .item-list{min-height:130px;max-height:340px}
+ .field{font-size:12px}
+ .fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .kpi strong{font-size:18px}
+ .table-scroll{overflow-x:auto}
+}
+@media(max-width:380px){.fields{grid-template-columns:minmax(0,1fr)}}
