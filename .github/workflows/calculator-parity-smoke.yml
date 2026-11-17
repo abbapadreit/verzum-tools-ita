@@ -4,6 +4,11 @@ on:
     branches: [calculator-parity-qa]
     paths:
       - '.github/workflows/calculator-parity-smoke.yml'
+      - 'public/calculator-parity.js'
+      - 'public/calculator-parity-extended.js'
+      - 'public/calculator-parity.css'
+      - 'public/calculator-skills-data.js'
+      - 'public/index.html'
   workflow_dispatch:
 permissions:
   contents: read
