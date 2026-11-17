@@ -1,7 +1,7 @@
 name: Test faithful original calculator integration
 on:
   push:
-    branches: [main, fix-all-calculator-legacy-and-gaya, fix-scrollbar-fluidity-20261117]
+    branches: [main, fix-all-calculator-legacy-and-gaya, fix-scrollbar-fluidity-20261117, audit-full-moon-materials-20261117]
     paths:
       - '.github/workflows/original-calculators-smoke.yml'
       - 'public/calculator-reference.html'
@@ -83,6 +83,26 @@ jobs:
               throw Error('Weapons category did not expand');
             if(await frame.locator('#vz-accordion-weapons .it').count()<2)
               throw Error('Weapons category has no item details');
+            // Regression: Luna Piena (+0 → +9) non richiede alcun materiale,
+            // Tritone li richiede e tornando alla Luna Piena non devono restare icone.
+            const selectItem=async (id,name)=>{
+              const item=frame.locator('#vz-accordion-weapons [data-id="'+id+'"]');
+              await item.click();
+              const title=await frame.locator('#v-crafting .panel[data-k="calc"] .ihead h2').innerText();
+              if(!title.includes(name))throw Error('Wrong item shown: expected '+name+', got '+title);
+            };
+            await selectItem('290','Spada della Luna Piena');
+            let numberOfMats=await frame.locator('#v-crafting .panel[data-k="mats"] .mrow').count();
+            const emptyText=(await frame.locator('#v-crafting .panel[data-k="mats"]').innerText()).trim();
+            if(numberOfMats!==0||!emptyText.includes('Non sono necessari materiali'))
+              throw Error('Spada della Luna Piena wrongly shows materials: '+JSON.stringify({numberOfMats,emptyText}));
+            await selectItem('270','Spada di Tritone');
+            numberOfMats=await frame.locator('#v-crafting .panel[data-k="mats"] .mrow').count();
+            if(numberOfMats<9)throw Error('Spada di Tritone should show upgrade material rows, got '+numberOfMats);
+            await selectItem('290','Spada della Luna Piena');
+            numberOfMats=await frame.locator('#v-crafting .panel[data-k="mats"] .mrow').count();
+            if(numberOfMats!==0)throw Error('Stale Tritone material rows persist after choosing Luna Piena');
+            console.log('LUNA PIENA ZERO MATERIALS, TRITONE MATERIALS, BACK TO LUNA PIENA ZERO: PASS');
             const translatedItems=await frame.locator('#vz-accordion-weapons .nm').allInnerTexts();
             if(!translatedItems.includes('Spada della Luna Piena'))
               throw Error('Italian game item names not loaded from verified catalogue');
