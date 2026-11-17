@@ -18,6 +18,12 @@ Sito web indipendente, in italiano, distribuibile con **Cloudflare Pages + GitHu
 - **Build:** sito statico, nessun comando; directory di output `public`
 - Ogni aggiornamento a `main` attiva un nuovo deployment. Il vecchio sito `verzumtools.pages.dev` resta separato.
 
+## Catalogo e immagini — versione 0.3
+
+Il sito include **147 equipaggiamenti**, con nomi italiani e passaggi numerici estratti come dati di gioco da fonti pubbliche di riferimento. **Non sono stati convalidati per la versione corrente di VERZUM**: prezzi, materiali e probabilità possono differire.
+
+Le icone mostrate automaticamente sono **illustrazioni SVG originali e provvisorie**, generate dal progetto; **non sono gli sprite ufficiali** e non contengono immagini copiate da Dumanu.Tools o dal client di Metin2. È possibile caricare un set PNG/WebP autorizzato nella sezione «Dati di calcolo», usando gli ID degli item: queste icone prevalgono sui disegni provvisori. La pubblicazione di un pacchetto di immagini autentiche richiede una verifica dei diritti.
+
 ## Avvio locale
 
 Apri `public/index.html` nel browser, oppure avvia dalla cartella del repository un server HTTP locale: `python -m http.server 8080 --directory public`, poi visita `http://localhost:8080`.
