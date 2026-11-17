@@ -1,14 +1,16 @@
 name: Mirror original VERZUM item tooltip API
 on:
   push:
-    paths: ['.github/workflows/wiki-tooltips.yml']
+    branches: [main]
+    paths:
+      - 'scripts/mirror-wiki-tooltips.mjs'
   workflow_dispatch:
 permissions:
   contents: write
 jobs:
   copy-original-tooltips:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 34
     steps:
       - uses: actions/checkout@v4
         with:
