@@ -1,0 +1,24 @@
+name: Inspect original Wiki module graph
+on:
+  push:
+    paths: ['.github/workflows/wiki-core-inspect.yml']
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get core wiki module dependencies
+        run: |
+          python3 - <<'PY'
+          import requests,re
+          prefix='https://wiki.verzum.to/assets/5258621bfec0/js/'
+          for name in ['wiki-model.js','wiki-tip.js','wiki-search.js','wiki-blocks.js']:
+            r=requests.get(prefix+name,timeout=20)
+            s=r.text
+            print('\n====',name,'HTTP',r.status_code,'CHARS',len(s),'====')
+            print('CONTENT',s[:4100])
+            imports=re.findall(r'from[\s]*["\']([^"\']+)["\']|import["\']([^"\']+)["\']',s)
+            print('IMPORTS',imports[:30])
+            print('API FRAGMENTS',[s[max(0,m.start()-65):m.start()+155] for m in list(re.finditer(r'\/api\/|data-tip|data-model|\.webp|\.png|createTurntable',s))[:15]])
+          PY
