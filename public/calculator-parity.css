@@ -1,0 +1,151 @@
+/* VERZUM TOOLS — high-fidelity calculator presentation.
+   Isolato ai pannelli oc-: le pagine della Wiki e gli altri tool restano inalterati.
+   Identità cromatica e tipografica del calcolatore di riferimento. */
+#main:not(.wiki-mode) .panel[data-panel^="oc-"]{
+ background:linear-gradient(180deg,#260909 0%,#160706 100%);
+ border:1px solid rgba(197,153,108,.35);
+ border-radius:11px;
+ padding:0;box-shadow:0 14px 34px rgba(0,0,0,.30);min-width:0;
+}
+#main:not(.wiki-mode) .panel[data-panel^="oc-"]>.panel-header{display:none}
+#main:not(.wiki-mode) .panel[data-panel^="oc-"]>.panel-content{padding:13px 15px 14px;background:none;min-width:0}
+#main:not(.wiki-mode) .panel[data-panel^="oc-"] .oc-inner-heading{
+ color:#f3d79e;font:700 17px/1.35 "Philosopher",Georgia,serif;
+ letter-spacing:0;margin:0 0 10px;
+}
+#main:not(.wiki-mode) .oc-titleline{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 0 9px}
+#main:not(.wiki-mode) .oc-titleline .oc-inner-heading{margin:0}
+#main:not(.wiki-mode) .oc-flexline{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:7px 0 10px}
+#main:not(.wiki-mode) .oc-controlrow{display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap;flex:1}
+#main:not(.wiki-mode) .oc-controlrow label,
+#main:not(.wiki-mode) .oc-form>label,
+#main:not(.wiki-mode) .oc-shortlabel{display:flex;flex-direction:column;gap:5px;font:700 10px "Rajdhani",sans-serif;letter-spacing:.09em;color:#c79f6a}
+#main:not(.wiki-mode) .oc-controlrow select,
+#main:not(.wiki-mode) .oc-form select{
+ min-width:72px;max-width:135px;height:34px;border:1px solid #6c482e;color:#ffe0a3;border-radius:6px;background:#130707;
+ font:700 13px "Rajdhani",sans-serif;padding:4px 6px;
+}
+#main:not(.wiki-mode) .oc-controlrow select:focus,
+#main:not(.wiki-mode) .oc-price:focus,
+#main:not(.wiki-mode) .oc-shortnum:focus{outline:2px solid rgba(227,185,138,.68);outline-offset:1px}
+#main:not(.wiki-mode) .oc-add{
+ background:linear-gradient(180deg,#fffae3 0%,#eac68a 54%,#bf884a 100%);
+ color:#26120b;border:1px solid #e2b16c;border-radius:6px;padding:8px 12px;
+ font:800 12px "Rajdhani",sans-serif;letter-spacing:.025em;white-space:nowrap;
+ margin-left:auto;min-height:33px;
+}
+#main:not(.wiki-mode) .oc-add:hover{filter:brightness(1.09)}
+#main:not(.wiki-mode) .oc-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:11px 0 13px}
+#main:not(.wiki-mode) .oc-stat{
+ border:1px solid rgba(197,153,108,.24);border-radius:7px;
+ background:#110506;padding:7px 9px;min-height:64px;display:flex;flex-direction:column;gap:2px;
+}
+#main:not(.wiki-mode) .oc-stat small{font:700 9px/1.2 "Rajdhani",sans-serif;letter-spacing:.12em;color:#d7aa79;text-transform:uppercase}
+#main:not(.wiki-mode) .oc-stat strong{color:#e5c981;font:800 21px/1.1 "Rajdhani",sans-serif;overflow-wrap:anywhere}
+#main:not(.wiki-mode) .oc-stat strong.oc-green{color:#91cf85}
+#main:not(.wiki-mode) .oc-stat em{color:#a88b67;font:500 10px "Manrope",sans-serif;font-style:normal}
+#main:not(.wiki-mode) .oc-scroll{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;max-width:100%}
+#main:not(.wiki-mode) .panel[data-panel^="oc-"] table{width:100%;border-collapse:collapse;background:transparent;font:500 12px/1.4 "Manrope",sans-serif}
+#main:not(.wiki-mode) .panel[data-panel^="oc-"] table th{white-space:normal;background:none;border-bottom:1px solid rgba(197,153,108,.47);padding:9px 6px;color:#c39869;font:700 10px "Rajdhani",sans-serif;letter-spacing:.11em;text-align:left}
+#main:not(.wiki-mode) .panel[data-panel^="oc-"] table td{padding:6px;border-bottom:1px solid rgba(197,153,108,.20);color:#dfc9b3;vertical-align:middle}
+#main:not(.wiki-mode) .panel[data-panel^="oc-"] table td.oc-gold,
+#main:not(.wiki-mode) .panel[data-panel^="oc-"] table .oc-gold{color:#f0c27e;font-weight:750}
+#main:not(.wiki-mode) .panel[data-panel^="oc-"] table .oc-num{text-align:right;white-space:nowrap;font:700 12px "Rajdhani",sans-serif}
+#main:not(.wiki-mode) .panel[data-panel^="oc-"] .oc-faint{opacity:.48}
+#main:not(.wiki-mode) .oc-mats{display:flex;align-items:center;gap:3px;flex-wrap:wrap;min-height:28px}
+#main:not(.wiki-mode) .oc-mat-chip{
+ display:inline-flex;align-items:center;justify-content:center;position:relative;vertical-align:middle;
+ width:28px;height:29px;flex:none;border:1px solid rgba(197,153,108,.24);border-radius:4px;
+ background:linear-gradient(130deg,#231815,#0b0808);color:#e8c88f;
+}
+#main:not(.wiki-mode) .oc-mat-chip img.oc-img{display:block;width:25px;height:25px;object-fit:contain}
+#main:not(.wiki-mode) .oc-mat-chip b{position:absolute;bottom:-1px;right:1px;color:#fffaf1;text-shadow:0 1px 3px #000;font:800 10px "Rajdhani",sans-serif;pointer-events:none}
+#main:not(.wiki-mode) .oc-icon-missing{display:block;width:23px;height:23px}
+#main:not(.wiki-mode) .oc-material{display:flex;align-items:center;gap:7px;text-align:left;min-width:120px}
+#main:not(.wiki-mode) .oc-material>span:last-child{min-width:0;overflow-wrap:break-word}
+#main:not(.wiki-mode) .oc-materials{max-width:100%}
+#main:not(.wiki-mode) .oc-materials .oc-scroll table{font-size:11px}
+#main:not(.wiki-mode) .oc-price{height:26px;max-width:90px;min-width:60px;width:100%;border:1px solid #5f462b;border-radius:5px;background:#100707;color:#f0d7b1;font:600 11px "Rajdhani",sans-serif;text-align:right;padding:3px 7px}
+#main:not(.wiki-mode) .oc-price::placeholder{color:#8c7366}
+#main:not(.wiki-mode) .oc-value{text-align:right;white-space:nowrap;color:#d9b879}
+#main:not(.wiki-mode) .oc-value.oc-missing{color:#dc7474;font:600 10px "Rajdhani",sans-serif}
+#main:not(.wiki-mode) .oc-total td{color:#f4c277!important;font-weight:800;text-align:right}
+#main:not(.wiki-mode) .oc-total td:first-child{text-align:left}
+#main:not(.wiki-mode) .oc-note{font:500 11px/1.6 "Manrope",sans-serif;color:#a98b61;margin:10px 0 0;max-width:100%}
+#main:not(.wiki-mode) .oc-green{color:#8bc987!important}
+#main:not(.wiki-mode) .oc-chips{display:flex;gap:3px;align-items:center;flex-wrap:wrap}
+#main:not(.wiki-mode) .oc-chip{
+ border:1px solid rgba(197,153,108,.38);border-radius:6px;background:#0d0606;
+ min-width:22px;min-height:23px;color:#dba774;padding:2px 5px;font:700 11px "Rajdhani",sans-serif;
+}
+#main:not(.wiki-mode) .oc-chip.on{color:#0a1409;background:#9ad188;border-color:#9ad188}
+#main:not(.wiki-mode) .oc-chip:hover{border-color:#f1d5a3}
+#main:not(.wiki-mode) .oc-skill-layout{display:grid;grid-template-columns:minmax(145px,220px) minmax(0,1fr);gap:12px}
+#main:not(.wiki-mode) .oc-skill-picker,.oc-picker{display:flex;flex-direction:column;gap:6px}
+#main:not(.wiki-mode) .oc-skill,
+#main:not(.wiki-mode) .oc-pick{
+ border:1px solid rgba(197,153,108,.33);background:#130808;
+ color:#e2c8aa;padding:8px 10px;border-radius:7px;text-align:left;min-height:45px;cursor:pointer;
+ display:flex;align-items:center;gap:9px;
+}
+#main:not(.wiki-mode) .oc-skill{flex-direction:column;align-items:flex-start;gap:3px}
+#main:not(.wiki-mode) .oc-skill.on,#main:not(.wiki-mode) .oc-pick.on{background:#332019;border-color:#c39965}
+#main:not(.wiki-mode) .oc-skill strong,#main:not(.wiki-mode) .oc-pick strong{font:700 14px "Philosopher",serif;color:#e6c18b}
+#main:not(.wiki-mode) .oc-skill small,#main:not(.wiki-mode) .oc-pick small{font:500 11px "Manrope",sans-serif;color:#ac977e}
+#main:not(.wiki-mode) .oc-pick img.oc-img{width:32px;height:32px;object-fit:contain;flex:none}
+#main:not(.wiki-mode) .oc-pickbar{display:flex;gap:5px;flex-wrap:wrap;margin:6px 0 10px}
+#main:not(.wiki-mode) .oc-select{
+ border:1px solid #5f3c2d;border-radius:25px;padding:6px 9px;font:700 12px "Rajdhani",sans-serif;
+ background:#120708;color:#e5c29a;
+}
+#main:not(.wiki-mode) .oc-select.on{background:#63422d;border-color:#d4a76b;color:#fff3d3}
+#main:not(.wiki-mode) .oc-skill-title{display:flex;align-items:center;gap:11px;margin-bottom:12px;color:#f7d38c;font:700 18px "Philosopher",serif}
+#main:not(.wiki-mode) .oc-skill-title img.oc-img{width:33px;height:33px;object-fit:contain}
+#main:not(.wiki-mode) .oc-form{align-items:flex-end;gap:12px;margin-bottom:11px}
+#main:not(.wiki-mode) .oc-checkbox{display:flex!important;flex-direction:row!important;align-items:center;gap:6px!important;color:#e0c3a7!important;font:500 11px "Manrope",sans-serif!important;letter-spacing:0!important}
+#main:not(.wiki-mode) .oc-checkbox input{accent-color:#a5ca84;width:14px;height:14px;margin:0}
+#main:not(.wiki-mode) .oc-shortnum{width:72px;height:28px;border:1px solid #785b37;border-radius:5px;text-align:center;color:#f3d49d;background:#100606}
+#main:not(.wiki-mode) .oc-seg{display:flex;gap:3px}
+#main:not(.wiki-mode) .oc-seg button{border:1px solid #755838;border-radius:5px;background:#160b08;color:#e9bf8c;padding:7px 9px;font:700 12px "Rajdhani",sans-serif}
+#main:not(.wiki-mode) .oc-seg button.on{background:#9bd08e;color:#1b2114}
+#main:not(.wiki-mode) .oc-effect-table{min-width:530px}
+#main:not(.wiki-mode) .oc-effect-table th:first-child{min-width:128px}
+#main:not(.wiki-mode) .oc-effect-table .oc-num{white-space:nowrap}
+#main:not(.wiki-mode) .oc-eff-group{margin-bottom:17px}
+#main:not(.wiki-mode) .oc-costume-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#main:not(.wiki-mode) .oc-costume{
+ display:flex;flex-direction:column;align-items:flex-start;text-align:left;position:relative;
+ gap:7px;min-height:154px;padding:12px 10px;border:1px solid rgba(197,153,108,.38);
+ border-radius:8px;background:linear-gradient(150deg,#260c0b,#110607);color:#e6c6aa;
+}
+#main:not(.wiki-mode) .oc-costume.on{border-color:#eac68b;background:#3a1b15;box-shadow:inset 0 0 0 1px rgba(228,191,127,.35)}
+#main:not(.wiki-mode) .oc-costume strong{font:700 15px "Philosopher",serif;color:#f2d19b}
+#main:not(.wiki-mode) .oc-costume small{font:500 10px "Manrope",sans-serif;color:#e0ba8b}
+#main:not(.wiki-mode) .oc-costume>.oc-mats{margin-top:auto}
+#main:not(.wiki-mode) .oc-costume>b{color:#ffd5a1;font:800 13px "Rajdhani",sans-serif}
+#main:not(.wiki-mode) .oc-corner{position:absolute;right:7px;top:7px;width:17px;height:17px;border:1px solid #6d4834;border-radius:3px;color:#addc94;text-align:center}
+#main:not(.wiki-mode) .oc-actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:8px 0}
+#main:not(.wiki-mode) .oc-actions>small{color:#ae9678}
+#main:not(.wiki-mode) .oc-actions .btn{font:800 11px "Rajdhani",sans-serif;padding:7px 10px;min-height:26px}
+#main:not(.wiki-mode) .oc-share-label{display:flex;flex-direction:column;gap:8px;color:#e0bd8e;font:700 13px "Philosopher",serif}
+#main:not(.wiki-mode) .oc-share-label textarea{display:block;width:100%;min-height:150px;background:#120606;border:1px solid #745137;border-radius:7px;padding:12px;color:#f8d7b9;font:500 12px/1.4 monospace;resize:vertical}
+#main:not(.wiki-mode) .oc-group th{background:#351b12!important;color:#f0bf82!important;font:700 12px "Philosopher",serif!important}
+@media(max-width:1060px){
+ #main:not(.wiki-mode) .oc-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #main:not(.wiki-mode) .oc-skill-layout{grid-template-columns:1fr}
+ #main:not(.wiki-mode) .oc-skill-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ #main:not(.wiki-mode) .oc-costume-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:740px){
+ #main:not(.wiki-mode) .panel[data-panel^="oc-"]{grid-column:1/-1!important}
+ #main:not(.wiki-mode) .oc-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #main:not(.wiki-mode) .oc-costume-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #main:not(.wiki-mode) .oc-flexline>.oc-controlrow{width:100%}
+ #main:not(.wiki-mode) .oc-add{margin-left:0}
+}
+@media(max-width:430px){
+ #main:not(.wiki-mode) .oc-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #main:not(.wiki-mode) .oc-costume-grid{grid-template-columns:1fr}
+ #main:not(.wiki-mode) .oc-skill-picker{grid-template-columns:1fr}
+ #main:not(.wiki-mode) .oc-material{min-width:105px}
+}
