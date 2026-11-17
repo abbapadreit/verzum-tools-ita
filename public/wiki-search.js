@@ -75,6 +75,9 @@ function score(rec,query,exact){
  for(const alias of rec.aliases){
   const a=normalize(alias);
   if(!a)continue;
+  // I nomi in rumeno presenti nei dati del vecchio calcolatore non devono
+  // creare falsi positivi italiani (es. "Carte" non e' un risultato per "arte").
+  if(/^carte(?:a|:)/.test(a)&&!a.startsWith(q)&&!exact)continue;
   if(exact){
    if(a===q)best=Math.max(best,200);
    continue;
