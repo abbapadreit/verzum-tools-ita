@@ -9,6 +9,7 @@ const {P,saveP,icon,badge,matsIcons,materialTable,totalMat,added,merge,matName,p
 const skillLevel=['M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','G1','G2','G3','G4','G5','G6','G7','G8','G9','G10','P'];
 const classLabels={warrior:'Guerriero',ninja:'Ninja',sura:'Sura',shaman:'Sciamano'};
 const passiveLabels=['Comando','Guerriero coraggioso','Guerriero del Dio Drago','Campione dei dungeon'];
+if(!P.passive.helper)P.passive.helper='buy';
 const bookRecipe={
  M:[['100006',1],['100010',35]],
  G:[['100007',1],['100010',50],['71001',1],['71094',1]],
@@ -89,7 +90,7 @@ function skillsMain(){
  '<div class="oc-scroll"><table><thead><tr><th>LIVELLO</th><th>LETTURE RIUSCITE</th><th>FALLIMENTI / PIETRE USATE</th><th>LETTURE</th><th>USATI</th></tr></thead><tbody>'+lines+'</tbody></table></div>'+
  '<p class="oc-note">Maestro: da 1 lettura a M1 a 10 letture a M10. Gran Maestro: ogni livello richiede una promozione con Pietra delle Anime. Le percentuali esatte non sono riportate dalla fonte.</p>';
  const eff=effectTable({t:d.skill.t,l:d.skill.l},'EFFETTO');
- return [cPanel('skill-pick','Scegli abilità',pick,4),cPanel('skill-calc',className(d.skill),main,8),
+ return [cPanel('skill-pick','Scegli abilità',titleRow('Scegli abilità')+pick,4),cPanel('skill-calc',className(d.skill),main,8),
  cPanel('skill-effects','Effetti abilità',titleRow('Effetti della skill')+eff,7),
  cPanel('skill-materials','Materiali necessari',materialTable(d.m,'Materiali necessari'),5)];
 }
@@ -114,8 +115,16 @@ function passiveData(){
  const nm=(groups[0].reads+(k.concentrated?0:groups[0].fail))+(groups[1].reads+(k.concentrated?0:groups[1].fail));
  const ccN=(k.concentrated?nm:0)+groups[2].reads;
  const exN=k.exorcism&&totalReads>1?totalReads-1:0;
- if(ccN)added(m,passive.cc,ccN);
- if(exN)added(m,passive.ex,exN);
+ const helperAdd=(id,quantity)=>{
+   if(!quantity)return;
+   if(!['50350','50351'].includes(id)||!['pages','n25','cit'].includes(k.helper)){added(m,id,quantity);return}
+   if(k.helper==='pages'){added(m,'100010',75*quantity);return}
+   const normal=id==='50350'?'71094':'71001';
+   if(k.helper==='n25'){added(m,normal,quantity);added(m,'100010',25*quantity)}
+   if(k.helper==='cit'){added(m,normal,quantity);added(m,'100042',quantity)}
+ };
+ helperAdd(passive.cc,ccN);
+ helperAdd(passive.ex,exN);
  return {index,passive,from,to,m,records,totalReads,wait:k.exorcism?0:wait,ccN,exN};
 }
 function passiveMain(){
@@ -125,6 +134,9 @@ function passiveMain(){
  const lv=Array.from({length:41},(_,i)=>PLV(i));
  const ctr=selectLevels('passive',d.from,d.to,lv)+
  '<label>LIBRI<div class="oc-seg"><button data-ocx-mode="buy" class="'+(k.mode!=='craft'?'on':'')+'">Acquistati</button><button data-ocx-mode="craft" class="'+(k.mode==='craft'?'on':'')+'">Creati</button></div></label>'+
+ (d.passive.cc==='50350'?'<label>SUPPORTI<select data-ocx-set="passive.helper">'+[
+ ['buy','Acquistati'],['pages','75 pagine'],['n25','Normale + 25 pagine'],['cit','Normale + Citrino']
+ ].map(x=>'<option value="'+x[0]+'"'+(k.helper===x[0]?' selected':'')+'>'+x[1]+'</option>').join('')+'</select></label>':'')+
  '<label class="oc-checkbox"><input type="checkbox" data-ocx-check="passive.concentrated" '+(k.concentrated?'checked':'')+'> Lettura concentrata</label>'+
  '<label class="oc-checkbox"><input type="checkbox" data-ocx-check="passive.exorcism" '+(k.exorcism?'checked':'')+'> Papiro (senza attesa)</label>'+addButton('ocx-passive');
  const rows=d.records.map(({g,fail,tries})=>'<tr><td class="oc-gold">'+h(g.label)+'</td><td class="oc-num">'+nfmt(g.reads)+'</td><td><input class="oc-shortnum" type="number" min="0" data-ocx-passive-fail="'+g.key+'" value="'+fail+'"'+(k.concentrated||g.key==='G'?' disabled':'')+'></td><td class="oc-gold oc-num">'+nfmt(tries)+'</td><td>'+matsIcons(k.mode==='craft'?bookRecipe[g.recipe].map(([id,q])=>[id,q*tries]):[[g.book,tries]])+'</td></tr>').join('');
@@ -134,7 +146,7 @@ function passiveMain(){
  '<div class="oc-scroll"><table><thead><tr><th>GRADO</th><th>LETTURE RIUSCITE</th><th>FALLIMENTI</th><th>LETTURE</th><th>USATI</th></tr></thead><tbody>'+rows+extras+'</tbody></table></div>'+
  '<p class="oc-note">Normale: una lettura riuscita per livello. Maestro: M1=1 fino a M10=10. Gran Maestro: G1=11 fino a G10=20. Attesa indicata nella fonte: 2 ore, al Gran Maestro 4 ore.</p>';
  const effect=(d.passive.t||[]).map(t=>'<div class="oc-eff-group">'+(t.cap?titleRow(t.cap.en||t.cap.ro):'')+effectTable({r:t.r,h:t.h,l:t.l},'BONUS')+'</div>').join('');
- return [cPanel('passive-pick','Scegli abilità',choose,4),cPanel('passive-calc',passiveLabels[d.index],calc,8),
+ return [cPanel('passive-pick','Scegli abilità',titleRow('Scegli abilità')+choose,4),cPanel('passive-calc',passiveLabels[d.index],calc,8),
  cPanel('passive-effects','Bonus',effect,7),cPanel('passive-materials','Materiali necessari',materialTable(d.m,'Materiali necessari'),5)];
 }
 function priceGroups(){
@@ -174,7 +186,7 @@ function pricesMain(){
  const shares='<p class="oc-note">I prezzi sono memorizzati localmente nel browser. Esporta o importa un listino JSON.</p>'+
  '<label class="oc-share-label">CONFIGURAZIONE PREZZI<textarea id="ocx-prices-json" rows="8" placeholder="Incolla un JSON con i nomi e i prezzi dei materiali"></textarea></label>'+
  '<div class="oc-actions"><button class="btn small" data-ocx-price-action="copy">COPIA</button><button class="btn small" data-ocx-price-action="import">IMPORTA</button><button class="btn small" data-ocx-price-action="clear">CANCELLA TUTTO</button></div>';
- return [cPanel('price-list','Prezzi materiali',list,7),cPanel('price-share','Salva / condividi',shares,5)];
+ return [cPanel('price-list','Prezzi materiali',titleRow('Prezzi materiali')+list,7),cPanel('price-share','Salva / condividi',titleRow('Salva / condividi')+shares,5)];
 }
 function planExtra(kind){
  let rec;
@@ -188,7 +200,7 @@ function planExtra(kind){
 function setParam(path,value){
  const [type,key]=path.split('.');
  if(!P[type]||!(key in P[type]))return;
- if(['class','mode'].includes(key))P[type][key]=value;
+ if(['class','mode','helper'].includes(key))P[type][key]=value;
  else if(['concentrated','exorcism'].includes(key))P[type][key]=!!value;
  else P[type][key]=Math.max(0,Number(value)||0);
  if(P[type].to<=P[type].from)P[type].to=P[type].from+1;
@@ -230,4 +242,6 @@ sections.skills=skillsMain;
 sections.passive=passiveMain;
 sections.prices=pricesMain;
 window.VERZUM_CALCULATOR_EXT={skillData,passiveData,priceGroups,bookRecipe};
+/* app.js renders once before deferred modules override sections: refresh the active calculator. */
+if(['pet','mount','costume','skills','passive','prices'].includes(state.route))render();
 })();

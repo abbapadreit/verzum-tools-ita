@@ -1,0 +1,123 @@
+name: Calculator source parity browser test
+on:
+  push:
+    branches: [main, calculator-parity-qa]
+    paths:
+      - '.github/workflows/calculator-parity-smoke.yml'
+      - 'public/calculator-parity.js'
+      - 'public/calculator-parity-extended.js'
+      - 'public/calculator-parity.css'
+      - 'public/calculator-skills-data.js'
+      - 'public/index.html'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Start local WEB server and Chrome
+        run: |
+          python3 -m http.server 8765 --directory public >/tmp/verzum-browser-server.log 2>&1 &
+          echo $! > /tmp/verzum-server.pid
+          npm install --no-save --silent playwright-core@latest
+          curl -fsS http://127.0.0.1:8765/ >/dev/null
+      - name: Verify every calculator, interactions, persistence and source data
+        shell: bash
+        run: |
+          node --input-type=module <<'JS'
+          import {chromium} from 'playwright-core';
+          const browser=await chromium.launch({headless:true,executablePath:'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
+          const page=await browser.newPage({viewport:{width:1360,height:900}});
+          const faults=[];
+          page.on('pageerror',e=>faults.push(e.message));
+          page.on('response',r=>{if(r.status()>=400)console.log('HTTP_ERR',r.status(),r.url())});
+          page.on('console',m=>{if(m.type()==='error'&&!/fonts.googleapis|blocked|net::ERR|favicon/i.test(m.text()))console.log('CONSOLE ERROR',m.text())});
+          const base='http://127.0.0.1:8765/';
+          const open=async route=>{
+            await page.goto(base+'#'+route,{waitUntil:'domcontentloaded'});
+            try{await page.locator('.panel[data-panel^="oc-"]').first().waitFor({timeout:6000})}
+            catch(err){
+              console.error('DIAGNOSTIC',JSON.stringify(await page.evaluate(()=>({
+                hash:location.hash,panels:document.querySelector('#panels')?.innerText.slice(0,800),
+                calculator:!!window.VERZUM_CALCULATOR_PARITY,
+                extended:!!window.VERZUM_CALCULATOR_EXT,
+                release:!!window.VERZUM_RELEASE?.reference?.sys?.pet,
+                skills:!!window.VERZUM_SKILL_REFERENCE,
+                scripts:[...document.scripts].map(x=>x.getAttribute('src')).filter(x=>x?.includes('calculator'))
+              }))));
+              console.error('JS FAULTS',JSON.stringify(faults));
+              throw err;
+            }
+            await page.waitForTimeout(120);
+            console.log('ROUTE',route,'panels',await page.locator('.panel[data-panel^="oc-"]').count());
+          };
+          try{
+            await open('pet');
+            if(await page.locator('.panel[data-panel^="oc-"]').count()<6)throw Error('Pet complete panels missing');
+            if(await page.locator('[data-oc-fail]').count()<3)throw Error('Pet guarantees controls missing');
+            await page.locator('[data-oc-field="pet.from"]').selectOption('40');
+            await page.locator('[data-oc-fail="1"][data-oc-val="2"]').click();
+            if(await page.locator('.oc-chip.on[data-oc-fail="1"][data-oc-val="2"]').count()!==1)throw Error('Pet guarantee did not update');
+            await page.screenshot({path:'/tmp/pet-parity.png',fullPage:true});
+            await open('mount');
+            if(await page.locator('.oc-bonus').count()!==1)throw Error('Mount aspects bonuses missing');
+            await page.locator('[data-oc-field="mount.from"]').selectOption('10');
+            console.log('MOUNT EVOS:',await page.locator('.panel[data-panel="oc-mount-lvl"] tbody tr').count());
+            await open('costume');
+            if(await page.locator('[data-oc-costume]').count()!==12)throw Error('Original costumes count should be 12');
+            await page.locator('[data-oc-all="yes"]').click();
+            if(await page.locator('.oc-costume.on').count()!==12)throw Error('Select all costumes broken');
+            await page.locator('[data-oc-costume="0"]').click();
+            if(await page.locator('.oc-costume.on').count()!==11)throw Error('Costume toggle failed');
+            await page.screenshot({path:'/tmp/costumes-parity.png',fullPage:true});
+            await open('skills');
+            if(await page.locator('[data-ocx-class]').count()!==4)throw Error('Four skill classes missing');
+            if(await page.locator('[data-ocx-skill]').count()!==6)throw Error('Class skills group missing');
+            if(await page.locator('.panel[data-panel="oc-skill-calc"] tbody tr').count()!==20)throw Error('Skill read rows incomplete');
+            await page.locator('[data-ocx-class="ninja"]').click();
+            await page.locator('[data-ocx-group="1"]').click();
+            if(await page.locator('[data-ocx-skill]').count()!==6)throw Error('Skill group two missing');
+            await page.locator('[data-ocx-check="skills.concentrated"]').check();
+            await page.screenshot({path:'/tmp/skills-parity.png',fullPage:true});
+            await open('passive');
+            if(await page.locator('[data-ocx-passive]').count()!==4)throw Error('Four passive skills missing');
+            await page.locator('[data-ocx-mode="craft"]').click();
+            await page.locator('[data-ocx-passive="2"]').click();
+            await page.locator('[data-ocx-set="passive.helper"]').selectOption('pages');
+            const helperMats=await page.locator('.panel[data-panel="oc-passive-materials"]').innerText();
+            if(!helperMats.includes('Pagina'))throw Error('Original passive support recipe not recalculated');
+            await page.locator('[data-ocx-set="passive.helper"]').selectOption('cit');
+            if(await page.locator('.panel[data-panel="oc-passive-effects"] tbody tr').count()<4)throw Error('Passive bonuses missing');
+            await page.screenshot({path:'/tmp/passive-parity.png',fullPage:true});
+            await open('prices');
+            if(await page.locator('[data-oc-price]').count()<20)throw Error('Price inputs missing');
+            const price=page.locator('[data-oc-price]').first();
+            await price.fill('500k');await price.press('Tab');
+            await page.locator('[data-ocx-price-action="copy"]').click();
+            if(!await page.locator('#ocx-prices-json').inputValue())throw Error('Prices copy not working');
+            await page.screenshot({path:'/tmp/prices-parity.png',fullPage:true});
+            await open('pet');
+            await page.locator('[data-oc-add="pet-lv"]').click();
+            await page.locator('.panel[data-panel="entries"]').waitFor({timeout:15000});
+            if(!page.url().includes('#planner'))throw Error('Planner not reached');
+            await page.goto(base+'#wiki',{waitUntil:'domcontentloaded'});
+            await page.locator('.vz-wiki .wk-search__input').waitFor({timeout:12000});
+            await page.goto(base+'#upgrade',{waitUntil:'domcontentloaded'});
+            await page.locator('.panel').first().waitFor({timeout:12000});
+            if(faults.length)throw Error('Runtime JS errors: '+faults.slice(0,10).join(' | '));
+            console.log('CALCULATOR BROWSER TEST PASSED');
+          }finally{await browser.close()}
+          JS
+      - name: Archive QA screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: calculator-parity-screenshots
+          path: /tmp/*-parity.png
+          if-no-files-found: ignore
