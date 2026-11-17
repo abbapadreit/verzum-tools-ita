@@ -42,9 +42,9 @@ function importedPage(p){
 function itemPage(p){
  const id=p.slice(5),name=itemNames[id],known=!!name;
  if(!/^[a-z0-9_-]{1,48}$/i.test(id))return null;
- const base=/^\d+$/.test(id)?String(Number(id)-Number(id)%10):id;
- const object=(RELEASE.catalog||[]).find(o=>String(o.id)===id||String(o.id)===base);
- const title=name||object?.name||('Oggetto '+id);
+ const object=(RELEASE.catalog||[]).find(o=>String(o.id)===id);
+ if(!known&&!object)return null;
+ const title=name||object.name;
  let body='<div class="wiki-item-main"><div class="wiki-item-icon">'+localIcon(id)+'</div><div><span class="wiki-kicker">SCHEDA OGGETTO</span><h3>'+E(title)+'</h3><p>Identificativo: '+E(id)+'</p></div></div>';
  if(object){
   body+='<dl class="wiki-details"><div><dt>Categoria</dt><dd>'+E(object.cat||'—')+'</dd></div><div><dt>Livelli di potenziamento</dt><dd>'+E((object.steps||[]).length)+'</dd></div></dl>';
