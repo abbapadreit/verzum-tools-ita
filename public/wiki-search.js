@@ -75,6 +75,24 @@ for(const [path,p] of Object.entries(window.VERZUM_WIKI_DATA||{})){
   });
  }
 }
+/* Accetta esclusivamente i nomi reali estratti dalle 81+ pagine originali,
+ * conservando ID e alias senza creare item immaginari.
+ */
+const mirrorIndex=window.VERZUM_WIKI_CRAWLED_INDEX||{};
+for(const record of mirrorIndex.items||[]){
+ if(!record||!record.id||!record.name)continue;
+ addItem(record.id,record.name,12,'Oggetti Wiki');
+ const entry=items.get(String(record.id));
+ if(entry)for(const alias of record.aliases||[])if(alias)entry.aliases.add(String(alias));
+}
+for(const record of mirrorIndex.pages||[]){
+ if(!record||!record.path||!record.title)continue;
+ addPage(record.path,record.title,record.group||'Wiki','');
+}
+/* Read original Italian item names from the official tooltip API. */
+for(const [id,tooltip] of Object.entries(window.VERZUM_WIKI_API_TIPS||{})){
+ if(tooltip&&tooltip.name&&String(tooltip.vnum)===String(id))addItem(id,tooltip.name,15,'Oggetti Wiki');
+}
 const records=[...items.values(),...pages.values()];
 const collator=new Intl.Collator('it',{sensitivity:'base',numeric:true});
 function score(rec,query,exact){
@@ -113,7 +131,8 @@ function search(q,exact=false,limit=Infinity){
 function imageFor(rec){
  if(rec.type==='page')return rec.icon||'';
  const id=rec.id;
- if(verifiedIconIds.has(id))return 'wiki-original/items/'+id+'.png';
+ if(verifiedIconIds.has(id)||window.VERZUM_WIKI_API_TIPS?.[id])return 'wiki-original/items/'+id+'.png';
+ if(/^\d+$/.test(id)&&mirrorIndex.items?.some(x=>x.id===id))return 'wiki-original/items/'+id+'.png';
  const icon=window.VERZUM_PNG_ICONS?.[id];
  if(typeof icon==='string'&&icon.startsWith('data:image/'))return icon;
  return '';
@@ -305,6 +324,10 @@ document.addEventListener('click',e=>{
 window.addEventListener('scroll',()=>{if(open&&owner)locate(owner);},true);
 window.addEventListener('resize',()=>{if(open&&owner)locate(owner)});
 window.addEventListener('hashchange',hideSearch);
+document.addEventListener('error',e=>{
+ const img=e.target;
+ if(img?.matches?.('.vz-search-icon,.vz-item-original')&&img.getAttribute('src')?.startsWith('wiki-original/items/'))img.hidden=true;
+},true);
 window.VERZUM_WIKI_SEARCH={search,records,items,pages,renderPage,renderItemPage,imageFor,searchRoute,viewSearch,hideSearch,exactCount:items.size,pageCount:pages.size};
 if((location.hash.startsWith('#wiki/search/')||location.hash.startsWith('#wiki/item/'))&&(state.route==='wiki'||state.route==='guide'))render();
 })();

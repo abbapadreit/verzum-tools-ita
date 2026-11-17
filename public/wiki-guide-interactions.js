@@ -9,12 +9,29 @@ const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const color=x=>/^[a-f0-9]{6}$/i.test(String(x||''))?'#'+x:'#c2c2c2';
 let tip=null,activeAnchor=null,pinned=false;
 const tooltipData=new Map(),ambiguous=new Set();
+const originalApiRequests=new Map();
+function fetchOriginalItemTip(anchor){
+ const id=String(anchor?.getAttribute?.('data-tip')||'');
+ if(!/^\d{1,9}$/.test(id)||window.VERZUM_WIKI_API_TIPS?.[id])return;
+ if(originalApiRequests.has(id))return;
+ const promise=fetch('/api/wiki/tip/'+id,{headers:{Accept:'application/json'}})
+  .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
+  .then(data=>{
+   if(!data?.ok||!data.tip||String(data.tip.vnum)!==id||!Array.isArray(data.tip.lines))return;
+   window.VERZUM_WIKI_API_TIPS=window.VERZUM_WIKI_API_TIPS||{};
+   window.VERZUM_WIKI_API_TIPS[id]=data.tip;
+   if(activeAnchor?.getAttribute('data-tip')===id)showTip(activeAnchor);
+  })
+  .catch(()=>{});
+ originalApiRequests.set(id,promise);
+}
+
 function selectClass(tab){
  const group=tab?.closest?.('[data-wk-class-tabs]');
  if(!group||!tab.matches('[role="tab"][data-tab]'))return false;
  const buttons=[...group.querySelectorAll(':scope > .wk-tabs__bar [role="tab"][data-tab]')];
  const panels=[...group.querySelectorAll(':scope > .wk-tabpanel[role="tabpanel"][data-panel]')];
- if(!buttons.includes(tab)||buttons.length!==4||panels.length!==4)return false;
+ if(!buttons.includes(tab)||!buttons.length||panels.length!==buttons.length)return false;
  buttons.forEach(b=>{
   const chosen=b===tab;
   b.classList.toggle('is-on',chosen);
@@ -30,11 +47,11 @@ function selectClass(tab){
  hideTip();return true;
 }
 host.addEventListener('click',e=>{
- const tab=e.target.closest('.vz-wiki .wk-vz--gear [role="tab"][data-tab]');
+ const tab=e.target.closest('.vz-wiki [data-wk-tabs] [role="tab"][data-tab]');
  if(tab){e.preventDefault();selectClass(tab);}
 });
 host.addEventListener('keydown',e=>{
- const tab=e.target.closest?.('.vz-wiki .wk-vz--gear [role="tab"][data-tab]');
+ const tab=e.target.closest?.('.vz-wiki [data-wk-tabs] [role="tab"][data-tab]');
  if(!tab||!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;
  const group=tab.closest('[data-wk-class-tabs]');
  const buttons=[...group.querySelectorAll(':scope > .wk-tabs__bar [role="tab"][data-tab]')];
@@ -53,15 +70,30 @@ function seed(){
 }
 function getOriginalBonusLines(a){
  let raw=a?.getAttribute?.('data-tip-full')||'';
- if(!raw)raw=tooltipData.get(a?.getAttribute?.('data-tip'))||'';
- if(!raw)return null;
+ const id=a?.getAttribute?.('data-tip');
+ if(!raw)raw=tooltipData.get(id)||'';
+ if(!raw)raw=window.VERZUM_WIKI_CRAWLED_TOOLTIPS?.[id]||'';
+ if(!raw){
+  const official=window.VERZUM_WIKI_API_TIPS?.[id]?.lines;
+  return Array.isArray(official)&&official.every(x=>typeof x.text==='string')?official:null;
+ }
+
  try{
+  // Static mirrored metadata remains HTML-escaped as in the original source.
+  if(raw.includes('&quot;')||raw.includes('&#39;')||raw.includes('&amp;')){
+   const decoder=document.createElement('textarea');
+   decoder.innerHTML=raw;
+   raw=decoder.value;
+  }
   const list=JSON.parse(raw);
   return Array.isArray(list)&&list.every(x=>x&&typeof x.text==='string')?list:null;
  }catch(e){return null}
 }
 function getIcon(a){
- const src=a.querySelector('img')?.getAttribute('src')||'';
+ const id=a.getAttribute('data-tip')||'';
+ const icon=a.querySelector('img')?.getAttribute('src')||'';
+ const authentic=window.VERZUM_WIKI_API_TIPS?.[id];
+ const src=icon||(authentic?.vnum&&String(authentic.vnum)===id?'wiki-original/items/'+id+'.png':'');
  if(!/^(wiki-original\/|https:\/\/images\.verzum\.to\/item\/\d+\.png$|data:image\/png;base64,)/.test(src))return '';
  return '<div class="wk-tip__icon"><img src="'+esc(src)+'" alt=""></div>';
 }
@@ -106,6 +138,7 @@ function showTip(a,e){
  if(!a||!a.closest('.vz-wiki .wk-page'))return;
  seed();
  const html=buildTip(a);if(!html){hideTip();return}
+ if(!getOriginalBonusLines(a))fetchOriginalItemTip(a);
  const node=ensureTip();
  if(activeAnchor!==a)activeAnchor?.removeAttribute('aria-describedby');
  activeAnchor=a;node.innerHTML=html;node.hidden=false;
