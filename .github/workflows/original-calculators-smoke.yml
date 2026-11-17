@@ -103,6 +103,9 @@ jobs:
               localStorage.setItem(key,JSON.stringify(existing));
               localStorage.setItem('verzum_calculator_reference_migration_v3','no');
             });
+            // La migrazione avviene all'avvio di una nuova sessione, non a caldo
+            // mentre la precedente pagina mantiene lo stato JavaScript in memoria.
+            await page.reload({waitUntil:'domcontentloaded'});
             frame=await open('pet');
             const migrated=await page.evaluate(()=>{
               const data=JSON.parse(localStorage.getItem('verzum_gilda_italiano_autonomo_v02'));
