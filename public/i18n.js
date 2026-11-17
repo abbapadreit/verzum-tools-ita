@@ -10,6 +10,8 @@
  const translations={
  "STRUMENTI DELLA GILDA":["GUILD TOOLS","UNELTELE BRESLEI","CÉHES ESZKÖZÖK"],
  "Potenziamenti":["Upgrades","Îmbunătățiri","Fejlesztés"],
+ "Guida 1–75":["Guide 1–75","Ghid 1–75","Útmutató 1–75"],
+ "Guida ai livelli 1–75":["Leveling guide 1–75","Ghid de niveluri 1–75","Szintlépési útmutató 1–75"],
  "Gaya":["Gaya","Gaya","Gaya"],
  "Pet":["Pet","Animal de companie","Kisállat"],
  "Cavalcature":["Mounts","Mounturi","Hátasok"],
