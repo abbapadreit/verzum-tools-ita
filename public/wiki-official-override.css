@@ -68,3 +68,19 @@
   .vz-wiki .wk-hero__links{min-width:0}
   .vz-wiki .wk-page{overflow-wrap:anywhere}
 }
+
+/* Drawer come nell'interfaccia ufficiale per tablet e smartphone */
+.vz-wiki .wk-drawer-btn{display:none}
+@media(max-width:1079px){
+ .vz-wiki .wiki__grid{display:grid;grid-template-columns:minmax(0,1fr)}
+ .vz-wiki .wk-drawer-btn{display:inline-flex;align-items:center;gap:8px;justify-self:start;height:38px;padding:0 14px;border:1px solid var(--gold-line);border-radius:6px;background:var(--glass);color:var(--muted);font:700 12.5px var(--f-ui);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+ .vz-wiki .wk-drawer-btn .ic-line{color:var(--gold)}
+ .vz-wiki .wiki-side{position:fixed;z-index:120;left:0;top:0;bottom:0;width:min(330px,88vw);max-height:none;overflow-y:auto;border-radius:0 6px 6px 0;transform:translate3d(-105%,0,0);visibility:hidden;transition:transform .26s cubic-bezier(.2,.7,.2,1)}
+ .vz-wiki.is-drawer .wiki-side{transform:none;visibility:visible}
+ .vz-wiki .wk-drawer-close{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid rgba(197,153,108,.35);border-radius:6px;background:transparent;color:var(--gold-hi)}
+ .vz-wiki.is-drawer .wk-backdrop:not([hidden]){display:block;position:fixed;inset:0;z-index:110;background:rgba(4,2,2,.7)}
+}
+@media(max-width:680px){
+ .vz-wiki .wiki__grid{display:grid;grid-template-columns:minmax(0,1fr)}
+ .vz-wiki .wiki-side{position:fixed;max-height:none;overflow-y:auto;margin-bottom:0}
+}
