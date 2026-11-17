@@ -30,8 +30,9 @@ function normalize(p){try{return decodeURI(p).replace(/^#?\/?/,'').replace(/\/{2
 function path(){const raw=location.hash.replace(/^#wiki\/?/,'');return normalize(raw);}
 function link(p,title,cls='wiki-entry'){return '<a class="'+cls+'" href="#wiki/'+encodeURI(p)+'">'+E(title)+'</a>'}
 function localIcon(id){
- const src=(window.VERZUM_PNG_ICONS||{})[id]||(/^\d+$/.test(id)?(window.VERZUM_PNG_ICONS||{})[String(Number(id)-Number(id)%10)]:'');
- return src?'<img src="'+src+'" width="46" height="46" loading="lazy" decoding="async" alt="">':'<span aria-hidden="true">◆</span>';
+ const exact=(window.VERZUM_PNG_ICONS||{})[id]||'';
+ const src=exact||'https://images.verzum.to/item/'+encodeURIComponent(id)+'.png';
+ return '<img data-official-item-icon="'+E(id)+'" src="'+E(src)+'" width="46" height="46" loading="lazy" decoding="async" alt=""><span class="wiki-icon-unavailable" hidden>Icona originale non disponibile</span>';
 }
 function importedPage(p){
  if(!Object.prototype.hasOwnProperty.call(imported,p))return null;
@@ -114,5 +115,14 @@ document.getElementById('panels')?.addEventListener('input',e=>{
  document.querySelectorAll('.wiki-section').forEach(n=>{n.hidden=!Array.from(n.querySelectorAll('.wiki-card')).some(c=>!c.hidden)});
 });
 if(location.hash==='#wiki'||location.hash.startsWith('#wiki/'))hashRoute();
+/* Un'immagine originale mancante non viene mai rimpiazzata con un'altra icona. */
+document.addEventListener('error',function(e){
+ const img=e.target;
+ if(img?.matches?.('img[data-official-item-icon]')){
+  img.hidden=true;
+  const alert=img.parentElement?.querySelector('.wiki-icon-unavailable');
+  if(alert)alert.hidden=false;
+ }
+},true);
 window.VERZUM_WIKI_INTERNAL={availablePages:Object.keys(pages).length,items:Object.keys(itemNames).length,importedPages:Object.keys(imported).length};
 })();
