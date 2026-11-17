@@ -31,7 +31,7 @@ function selectClass(tab){
  if(!group||!tab.matches('[role="tab"][data-tab]'))return false;
  const buttons=[...group.querySelectorAll(':scope > .wk-tabs__bar [role="tab"][data-tab]')];
  const panels=[...group.querySelectorAll(':scope > .wk-tabpanel[role="tabpanel"][data-panel]')];
- if(!buttons.includes(tab)||buttons.length!==4||panels.length!==4)return false;
+ if(!buttons.includes(tab)||!buttons.length||panels.length!==buttons.length)return false;
  buttons.forEach(b=>{
   const chosen=b===tab;
   b.classList.toggle('is-on',chosen);
@@ -47,11 +47,11 @@ function selectClass(tab){
  hideTip();return true;
 }
 host.addEventListener('click',e=>{
- const tab=e.target.closest('.vz-wiki .wk-vz--gear [role="tab"][data-tab]');
+ const tab=e.target.closest('.vz-wiki [data-wk-tabs] [role="tab"][data-tab]');
  if(tab){e.preventDefault();selectClass(tab);}
 });
 host.addEventListener('keydown',e=>{
- const tab=e.target.closest?.('.vz-wiki .wk-vz--gear [role="tab"][data-tab]');
+ const tab=e.target.closest?.('.vz-wiki [data-wk-tabs] [role="tab"][data-tab]');
  if(!tab||!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;
  const group=tab.closest('[data-wk-class-tabs]');
  const buttons=[...group.querySelectorAll(':scope > .wk-tabs__bar [role="tab"][data-tab]')];
