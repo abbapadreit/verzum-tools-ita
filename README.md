@@ -10,6 +10,14 @@ Sito web indipendente, in italiano, distribuibile con **Cloudflare Pages + GitHu
 - `docs/CLOUDFLARE.md` – istruzioni per collegare il repository a Cloudflare Pages.
 - `scripts/verifica.mjs` – test statico senza dipendenze esterne.
 
+## Hosting automatico
+
+- **Cloudflare Pages (Git):** https://verzum-tools-ita.pages.dev/
+- **Progetto:** `verzum-tools-ita`
+- **Sorgente:** `abbapadreit/verzum-tools-ita`, ramo `main`
+- **Build:** sito statico, nessun comando; directory di output `public`
+- Ogni aggiornamento a `main` attiva un nuovo deployment. Il vecchio sito `verzumtools.pages.dev` resta separato.
+
 ## Avvio locale
 
 Apri `public/index.html` nel browser, oppure avvia dalla cartella del repository un server HTTP locale: `python -m http.server 8080 --directory public`, poi visita `http://localhost:8080`.
