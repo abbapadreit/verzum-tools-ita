@@ -58,8 +58,9 @@ const href=(path)=>'#wiki'+(path?'/'+encodeURI(String(path).replace(/^\/+/,'')):
 const wikiLink=(path,label)=>'<a class="guide-wiki-link" href="'+href(path)+'">'+escapeHtml(label)+'</a>';
 function icon(id,compact=false){
  const label=items[id]||('Oggetto '+id),icons=window.VERZUM_PNG_ICONS||{},raw=String(id);
- const local=icons[raw]||(/^\d+$/.test(raw)?icons[String(Number(raw)-Number(raw)%10)]:'')||'';
- const thumb=local?'<img src="'+local+'" width="40" height="40" alt="" loading="lazy" decoding="async">':'<span class="wiki-icon-fallback">◆</span>';
+ const local=icons[raw]||'';
+ const original=local||'https://images.verzum.to/item/'+encodeURIComponent(raw)+'.png';
+ const thumb='<img data-official-item-icon="'+escapeHtml(raw)+'" src="'+escapeHtml(original)+'" width="40" height="40" alt="" loading="lazy" decoding="async"><span class="wiki-icon-unavailable" hidden>Icona originale non disponibile</span>';
  return '<a class="guide-item '+(compact?'compact':'')+'" href="'+href('item/'+id)+'" title="'+escapeHtml(label)+' · scheda interna" aria-label="'+escapeHtml(label)+'">'
  +'<span class="guide-item-thumb">'+thumb+'</span><span class="guide-item-label">'+escapeHtml(label)+'</span></a>';
 }
