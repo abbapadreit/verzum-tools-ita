@@ -5,6 +5,24 @@ const reference=window.VERZUM_WIKI_MARKUP;
 if(!reference||!reference.sidebar||!reference.home)return;
 const GUIDE='guides/vz_level_1_75';
 let guideHtml='',loadingGuide=false,loadError='';
+/* Cached exact HTML pages mirrored from the official Wiki. */
+const savedPages=new Map(),unavailablePages=new Set(),pendingPages=new Set();
+function loadWikiPage(path){
+ if(!path||path==='guides/vz_level_1_75'||path==='search'||path.startsWith('search/'))return;
+ if(savedPages.has(path)||unavailablePages.has(path)||pendingPages.has(path))return;
+ if(!/^[a-z0-9/_-]{1,220}$/i.test(path)||path.includes('..'))return;
+ pendingPages.add(path);
+ fetch('wiki-pages/'+path+'.html',{cache:'force-cache'}).then(async response=>{
+  if(!response.ok)throw new Error('HTTP '+response.status);
+  const html=await response.text();
+  if(!html.startsWith('<div class="wiki-main"')||!html.includes('class="wk-head"'))throw new Error('Invalid mirrored Wiki HTML');
+  savedPages.set(path,html);
+ }).catch(()=>unavailablePages.add(path)).finally(()=>{
+  pendingPages.delete(path);
+  if((state.route==='wiki'||state.route==='guide')&&getPath()===path)render();
+ });
+}
+
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
 const getPath=()=>{
  const hash=location.hash;
@@ -34,11 +52,20 @@ function missingPage(path){
 function output(){
  const path=getPath();
  const searchApi=window.VERZUM_WIKI_SEARCH;
- const main=path===''?reference.home:path===GUIDE?
-    (guideHtml||'<div class="wiki-main"><p class="wk-p">'+(loadError?'La guida originale non è disponibile in questa versione.':'Caricamento della guida originale…')+'</p></div>'):
-    path.startsWith('search/')||path==='search'?(searchApi?.renderPage(path)||missingPage(path)):
-    path.startsWith('item/')?(searchApi?.renderItemPage(path.slice(5))||missingPage(path)):
-    missingPage(path);
+ let main;
+ if(!path)main=reference.home;
+ else if(path===GUIDE)main=guideHtml||'<div class="wiki-main"><p class="wk-p">'+(loadError?'La guida originale non è disponibile in questa versione.':'Caricamento della guida originale…')+'</p></div>';
+ else if(path==='search'||path.startsWith('search/'))main=searchApi?.renderPage(path)||missingPage(path);
+ else{
+  // Always prefer the verbatim locally mirrored page, including original tables,
+  // item descriptions, category layouts and static elements. No synthetic pages.
+  main=savedPages.get(path);
+  if(!main){
+   loadWikiPage(path);
+   if(unavailablePages.has(path))main=path.startsWith('item/')?(searchApi?.renderItemPage(path.slice(5))||missingPage(path)):missingPage(path);
+   else main='<div class="wiki-main"><div class="wk-doc wk-page"><p class="wk-p">Caricamento della pagina originale…</p></div></div>';
+  }
+ }
  return '<div class="vz-wiki wiki"><div class="wiki__grid"><button class="wk-drawer-btn" type="button" data-wk-drawer aria-expanded="false" aria-controls="wiki-side"><svg class="ic-line" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><span>Categorie</span></button>'+sideFor(path)+main+'</div><div class="wk-backdrop" data-wk-drawer-close hidden></div></div>';
 }
 function officialPanels(){return [panel('wikiOfficial','Verzum Wiki',output(),12,'WIKI')]}
@@ -75,7 +102,7 @@ host?.addEventListener('click',e=>{
  const btn=e.target.closest('[data-wk-copy]');
  if(btn){
   e.preventDefault();
-  const url=new URL(location.pathname+location.search+'#wiki/'+GUIDE,location.origin).href;
+  const url=new URL(location.pathname+location.search+(getPath()?'#wiki/'+getPath():'#wiki'),location.origin).href;
   navigator.clipboard?.writeText(url).then(()=>{const node=btn.querySelector('span');if(node)node.textContent='Link copiato'}).catch(()=>{});
   return;
  }
