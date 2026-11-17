@@ -64,6 +64,16 @@ if(original.home)addPage('','Verzum Wiki','Wiki','');
 for(const [path,p] of Object.entries(window.VERZUM_WIKI_DATA||{})){
  if(!p||typeof p!=='object')continue;
  addPage(path,p.title||path,p.group||'Wiki','');
+ // L'indice accoglie anche i titoli item autentici nelle future pagine importate.
+ // Mai creare una scheda dal solo ID, senza un nome effettivamente presente nell'HTML.
+ if(typeof p.html==='string'&&p.html){
+  const wrapper=document.createElement('div');wrapper.innerHTML=p.html;
+  wrapper.querySelectorAll('a[href^="#wiki/item/"]').forEach(a=>{
+   const raw=a.getAttribute('href').slice(11);
+   const name=a.textContent.trim();
+   if(name&&safeId(raw))addItem(raw,name,9,p.group||'Oggetti');
+  });
+ }
 }
 const records=[...items.values(),...pages.values()];
 const collator=new Intl.Collator('it',{sensitivity:'base',numeric:true});
