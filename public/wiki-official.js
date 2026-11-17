@@ -16,6 +16,11 @@ const getPath=()=>{
 function sideFor(path){
  let markup=reference.sidebar;
  if(path)markup=markup.replace(/<details class="wk-cat">[\s\S]*?<\/details>/g,m=>m.includes('href="#wiki/'+path+'"')?m.replace('<details class="wk-cat">','<details class="wk-cat" open>'):m);
+ if(path.startsWith('search/')){
+  let q='';try{q=decodeURIComponent(path.slice(7))}catch(e){q=path.slice(7)}
+  markup=markup.replace('name="q" value=""','name="q" value="'+esc(q)+'"');
+ }
+ markup=markup.replace(/(<div class="wk-search__box">[\s\S]*?)(<\/div>)/,'$1<button type="button" data-vz-search-clear hidden aria-label="Cancella ricerca">×</button>$2');
  return markup;
 }
 function missingPage(path){
