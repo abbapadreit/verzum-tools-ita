@@ -89,7 +89,7 @@ function skillsMain(){
  '<div class="oc-scroll"><table><thead><tr><th>LIVELLO</th><th>LETTURE RIUSCITE</th><th>FALLIMENTI / PIETRE USATE</th><th>LETTURE</th><th>USATI</th></tr></thead><tbody>'+lines+'</tbody></table></div>'+
  '<p class="oc-note">Maestro: da 1 lettura a M1 a 10 letture a M10. Gran Maestro: ogni livello richiede una promozione con Pietra delle Anime. Le percentuali esatte non sono riportate dalla fonte.</p>';
  const eff=effectTable({t:d.skill.t,l:d.skill.l},'EFFETTO');
- return [cPanel('skill-pick','Scegli abilità',pick,4),cPanel('skill-calc',className(d.skill),main,8),
+ return [cPanel('skill-pick','Scegli abilità',titleRow('Scegli abilità')+pick,4),cPanel('skill-calc',className(d.skill),main,8),
  cPanel('skill-effects','Effetti abilità',titleRow('Effetti della skill')+eff,7),
  cPanel('skill-materials','Materiali necessari',materialTable(d.m,'Materiali necessari'),5)];
 }
@@ -134,7 +134,7 @@ function passiveMain(){
  '<div class="oc-scroll"><table><thead><tr><th>GRADO</th><th>LETTURE RIUSCITE</th><th>FALLIMENTI</th><th>LETTURE</th><th>USATI</th></tr></thead><tbody>'+rows+extras+'</tbody></table></div>'+
  '<p class="oc-note">Normale: una lettura riuscita per livello. Maestro: M1=1 fino a M10=10. Gran Maestro: G1=11 fino a G10=20. Attesa indicata nella fonte: 2 ore, al Gran Maestro 4 ore.</p>';
  const effect=(d.passive.t||[]).map(t=>'<div class="oc-eff-group">'+(t.cap?titleRow(t.cap.en||t.cap.ro):'')+effectTable({r:t.r,h:t.h,l:t.l},'BONUS')+'</div>').join('');
- return [cPanel('passive-pick','Scegli abilità',choose,4),cPanel('passive-calc',passiveLabels[d.index],calc,8),
+ return [cPanel('passive-pick','Scegli abilità',titleRow('Scegli abilità')+choose,4),cPanel('passive-calc',passiveLabels[d.index],calc,8),
  cPanel('passive-effects','Bonus',effect,7),cPanel('passive-materials','Materiali necessari',materialTable(d.m,'Materiali necessari'),5)];
 }
 function priceGroups(){
@@ -174,7 +174,7 @@ function pricesMain(){
  const shares='<p class="oc-note">I prezzi sono memorizzati localmente nel browser. Esporta o importa un listino JSON.</p>'+
  '<label class="oc-share-label">CONFIGURAZIONE PREZZI<textarea id="ocx-prices-json" rows="8" placeholder="Incolla un JSON con i nomi e i prezzi dei materiali"></textarea></label>'+
  '<div class="oc-actions"><button class="btn small" data-ocx-price-action="copy">COPIA</button><button class="btn small" data-ocx-price-action="import">IMPORTA</button><button class="btn small" data-ocx-price-action="clear">CANCELLA TUTTO</button></div>';
- return [cPanel('price-list','Prezzi materiali',list,7),cPanel('price-share','Salva / condividi',shares,5)];
+ return [cPanel('price-list','Prezzi materiali',titleRow('Prezzi materiali')+list,7),cPanel('price-share','Salva / condividi',titleRow('Salva / condividi')+shares,5)];
 }
 function planExtra(kind){
  let rec;
