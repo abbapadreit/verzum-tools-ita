@@ -1,0 +1,77 @@
+/* Ricerca VERZUM — stesso impianto visivo della tendina Wiki.
+ * Tutte le miniature provengono da asset originali per ID esatto.
+ */
+.vz-wiki .wk-search__box{position:relative}
+.vz-wiki .wk-search__box .wk-search__input{padding-right:67px}
+.vz-wiki .wk-search__box [data-vz-search-clear]{
+ position:absolute;right:35px;top:50%;transform:translateY(-50%);
+ z-index:1;width:24px;height:24px;border:0;background:none;color:#D3C2B0;
+ font:700 18px/24px "Rajdhani",sans-serif;cursor:pointer;text-align:center;padding:0;
+}
+.vz-wiki .wk-search__box [data-vz-search-clear]:hover{color:#F2DCA4}
+.vz-search-dropdown{
+ --sand:#D3C2B0;--gold:#C5996C;--gold-hi:#E3B98A;--gold-lt:#F2DCA4;--f-ui:"Rajdhani","Manrope",sans-serif;
+ position:fixed!important;z-index:10000;box-sizing:border-box;
+ overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;
+ background:rgba(20,6,6,.97)!important;backdrop-filter:blur(13px) saturate(1.1);
+ -webkit-backdrop-filter:blur(13px) saturate(1.1);
+ border:1px solid rgba(197,153,108,.48)!important;border-radius:6px;
+ box-shadow:0 17px 36px rgba(0,0,0,.82);padding:5px!important;color:#D3C2B0;
+ font:500 13px/1.4 "Rajdhani","Manrope",sans-serif;
+}
+.vz-search-dropdown[hidden]{display:none!important}
+.vz-search-dropdown .wk-drop__group{
+ font-size:11px;font-weight:800;letter-spacing:.15em;color:#C5996C;
+ text-transform:uppercase;padding:8px 9px 5px;border-bottom:1px solid rgba(197,153,108,.15);
+}
+.vz-search-dropdown .wk-drop__item{
+ min-height:36px;padding:4px 9px;display:flex;align-items:center;gap:9px;
+ text-decoration:none;color:#D3C2B0;border-radius:3px;
+ background:transparent;border:0;
+}
+.vz-search-dropdown .wk-drop__item:hover,
+.vz-search-dropdown .wk-drop__item[aria-selected="true"]{
+ background:rgba(109,57,39,.35)!important;color:#F2DCA4;
+}
+.vz-search-dropdown .wk-drop__item .vz-search-result-name{
+ flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+}
+.vz-search-dropdown .vz-search-icon,
+.vz-search-dropdown .vz-search-icon-empty{
+ display:block;flex:none;width:24px;height:24px;max-width:24px;max-height:24px;
+ object-fit:contain;image-rendering:auto;
+}
+.vz-search-dropdown .vz-search-all{
+ display:flex;justify-content:space-between;align-items:center;gap:10px;
+ color:#E3B98A;text-decoration:none;min-height:33px;
+ border-top:1px solid rgba(197,153,108,.25);padding:8px 10px 5px;
+ font:800 10px/1.3 "Rajdhani",sans-serif;letter-spacing:.13em;
+}
+.vz-search-dropdown .vz-search-all:hover{color:#F2DCA4}
+.vz-search-dropdown .vz-search-all span{font-size:11px;letter-spacing:0;color:#B7A08F}
+.vz-search-dropdown .vz-search-empty{padding:15px 11px;color:#B7A08F;font:500 13px "Rajdhani",sans-serif}
+.vz-wiki .vz-search-full{display:flex;flex-direction:column;gap:3px;margin-top:12px}
+.vz-wiki .vz-search-full .wk-drop__group{
+ font:800 12px/1.4 var(--f-ui);letter-spacing:.14em;color:var(--gold);padding:16px 3px 9px;
+ text-transform:uppercase;
+}
+.vz-wiki .vz-search-result{
+ display:flex;align-items:center;gap:12px;min-height:48px;padding:8px 12px;
+ border:1px solid rgba(197,153,108,.21);border-radius:5px;
+ background:rgba(20,6,6,.5);color:var(--sand);text-decoration:none;
+}
+.vz-wiki .vz-search-result:hover{border-color:rgba(227,185,138,.75);color:var(--gold-lt);background:rgba(64,26,22,.6)}
+.vz-wiki .vz-search-result-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.vz-wiki .vz-search-result small{margin-left:auto;color:var(--muted);white-space:nowrap}
+.vz-wiki .vz-search-result .vz-search-icon{width:32px;height:32px;flex:none;object-fit:contain}
+.vz-wiki .vz-search-result .vz-search-icon-empty{width:32px;height:32px;flex:none}
+.vz-wiki .vz-item-detail{display:flex;align-items:center;gap:20px;padding:16px;margin:16px 0 20px;border:1px solid rgba(197,153,108,.3);border-radius:6px}
+.vz-wiki .vz-item-original{max-height:90px;max-width:90px;object-fit:contain}
+.vz-wiki .vz-item-detail h2{margin:0 0 6px;color:var(--gold-lt);font-family:var(--f-display)}
+.vz-wiki .vz-item-detail p{margin:0;color:var(--muted)}
+@media(max-width:680px){
+ .vz-search-dropdown{font-size:14px}
+ .vz-search-dropdown .wk-drop__item{min-height:42px}
+ .vz-wiki .vz-search-result{gap:8px;padding:8px}
+ .vz-wiki .vz-search-result small{font-size:10px}
+}
