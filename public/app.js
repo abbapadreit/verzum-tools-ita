@@ -219,6 +219,7 @@ $('#main').classList.toggle('wiki-mode',route==='wiki'||route==='guide');$('#mai
  // Conserviamo lo stesso iframe e cambiamo soltanto la vista (hash interno).
  const nativeTarget=window.VERZUM_NATIVE_CALCULATORS?.routes?.[route];
  const existingFrame=document.querySelector('iframe.native-calculator-frame');
+ window.__nativeRouteDebug={route,nativeTarget,frame:!!existingFrame,editing:state.edit,bridge:!!window.VERZUM_NATIVE_CALCULATORS,frameData:existingFrame?.dataset?.nativeRoute||'',frameSrc:existingFrame?.getAttribute('src')||''};
  if(nativeTarget&&existingFrame&&!state.edit){
   if(existingFrame.dataset.nativeRoute!==route){
    existingFrame.dataset.nativeRoute=route;
