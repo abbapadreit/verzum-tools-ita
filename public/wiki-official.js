@@ -100,5 +100,6 @@ function searchWiki(scope){
  const first=anchors.find(a=>!a.hidden);
  if(first)location.hash=first.getAttribute('href');
 }
+if(state.route==='wiki'||state.route==='guide')render();
 window.VERZUM_WIKI_OFFICIAL={get loaded(){return !!guideHtml},guide:GUIDE,sidebarCategories:10};
 })();
