@@ -13,8 +13,7 @@ const defaults={pet:{from:1,to:105,typeFrom:1,typeTo:6,fails:{},skill:0,skillFro
  passive:{skill:0,from:0,to:40,failN:0,failM:0,mode:'buy',concentrated:false,exorcism:false},costumes:[]};
 let remembered={};
 try{remembered=JSON.parse(localStorage.getItem(PARITY_KEY)||'{}')||{}}catch(e){}
-const P={};for(const key of Object.keys(defaults))P[key]={...defaults[key],...(remembered[key]||{})};
-if(!Array.isArray(remembered.costumes))P.costumes=[...new Set(state.selectedCostumes||[])];
+const P={};for(const key of Object.keys(defaults))P[key]=Array.isArray(defaults[key])?(Array.isArray(remembered[key])?remembered[key]:[...new Set((state.selectedCostumes||[]).map(x=>Number(String(x).replace(/^skin-/,''))).filter(Number.isInteger))]):{...defaults[key],...(remembered[key]||{})};
 const saveP=()=>{try{localStorage.setItem(PARITY_KEY,JSON.stringify(P))}catch(e){}};
 const h=x=>esc(x);
 const names=state.reference.names||{};
