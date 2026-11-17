@@ -1,0 +1,1 @@
+window.VERZUM_RELEASE={};
