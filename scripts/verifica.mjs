@@ -5,7 +5,7 @@ import {runInNewContext} from 'node:vm';
 const base=new URL('../public/',import.meta.url);
 const read=p=>readFileSync(new URL(p,base),'utf8');
 const html=read('index.html'),app=read('app.js'),theme=read('theme-original.css'),guide=read('guide.js'),wiki=read('wiki.js'),official=read('wiki-official-guide.html'),originalHome=read('wiki-official-home.js');
-const files=['style.css','theme-original.css','wiki.css','wiki-official.css','wiki-official-override.css','wiki-search.js','wiki-search.css','wiki-guide-fixes.css','wiki-guide-interactions.js','wiki-official-home.js','wiki-official.js','wiki-official-guide.html','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','item-translations.js','i18n.js','assets/icon-index.js','assets/extra-icons.js','robots.txt','assets/sidebar-logo.svg',...['it','en','ro','hu'].map(s=>'assets/flags/'+s+'.svg'),...Array.from({length:9},(_,i)=>'assets/real-icons-'+String(i).padStart(2,'0')+'.js')];
+const files=['wiki-index.generated.js','wiki-tooltips.generated.js','wiki-mirror-utilities.css','style.css','theme-original.css','wiki.css','wiki-official.css','wiki-official-override.css','wiki-search.js','wiki-search.css','wiki-guide-fixes.css','wiki-guide-interactions.js','wiki-official-home.js','wiki-official.js','wiki-official-guide.html','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','item-translations.js','i18n.js','assets/icon-index.js','assets/extra-icons.js','robots.txt','assets/sidebar-logo.svg',...['it','en','ro','hu'].map(s=>'assets/flags/'+s+'.svg'),...Array.from({length:9},(_,i)=>'assets/real-icons-'+String(i).padStart(2,'0')+'.js')];
 for(const f of files){
  const u=new URL(f,base);assert.ok(existsSync(u),'Risorsa mancante: '+f);
  if(f.endsWith('.js'))execFileSync(process.execPath,['--check',u.pathname]);
@@ -139,4 +139,31 @@ for(let i=0;i<4;i++){
 const sampleRows=JSON.parse(originalTooltipAttrs.find(x=>x[1].includes('Corazza d&#39;Oro')||x[1].includes("Corazza d'Oro"))?.[1].replace(/&quot;/g,'"').replace(/&amp;/g,'&')||originalTooltipAttrs[0][1].replace(/&quot;/g,'"'));
 const example={getAttribute:k=>k==='data-tip-full'?JSON.stringify(sampleRows):''};
 assert.ok(guideApi.getOriginalBonusLines(example).length>=5,'Parsing bonus originale non riuscito');
+
+const mirror=JSON.parse(read('wiki-mirror-manifest.json'));
+const originalSections=Object.keys(mirror.pages||{});
+assert.ok(originalSections.length>=81,'La Wiki locale deve contenere le 81 pagine del menu');
+assert.equal(mirror.counts.primaryCompleted,81,'Migrazione delle 81 categorie incompleta');
+assert.ok(Object.keys(mirror.assets||{}).length>=749,'Immagini autentiche non trasferite');
+const metins=read('wiki-pages/metins/metin_low.html');
+const weapons=read('wiki-pages/equipment/weapons.html');
+assert.ok(metins.includes('Pietre Metin di campo (basse)'),'Pagina Metin originale mancante');
+assert.ok(metins.includes('href="#wiki/mob/8003"'),'Link alle pagine mob non locali');
+assert.ok(weapons.includes('Spada della Luna Piena'),'Tabella armi ufficiale assente');
+assert.ok(weapons.includes('wiki-original/items/290.png'),'Icona armi originale non locale');
+const mirrorIndex=JSON.parse(read('wiki-index.generated.js').split('window.VERZUM_WIKI_CRAWLED_INDEX=')[1].replace(/;\s*$/,''));
+const mirrorTooltip=JSON.parse(read('wiki-tooltips.generated.js').split('window.VERZUM_WIKI_CRAWLED_TOOLTIPS=')[1].replace(/;\s*$/,''));
+assert.ok(mirrorIndex.items.length>=1474,'Indice item originali non completo');
+assert.ok(mirrorIndex.pages.length>=81,'Le pagine importate non sono indicizzate');
+assert.ok(Object.keys(mirrorTooltip).length>=108,'Statistiche dei tooltip originali non disponibili');
+assert.ok(read('wiki-official.js').includes("fetch('wiki-pages/'+path+'.html'"),'Router delle pagine Wiki originali non collegato');
+assert.ok(html.includes('wiki-index.generated.js')&&html.includes('wiki-tooltips.generated.js'),'Dati originali Wiki non inclusi nel sito');
+assert.ok(html.includes('wiki-mirror-utilities.css'),'Stili di impaginazione originali non inclusi');
+assert.ok(read('wiki-guide-interactions.js').includes('VERZUM_WIKI_CRAWLED_TOOLTIPS'),'Tooltip non attivati nelle pagine importate');
+const importedWindow={...fakeWindow,VERZUM_WIKI_CRAWLED_INDEX:mirrorIndex};
+runInNewContext(searchSource,{window:importedWindow,document:fakeDocument,location:{hash:'#upgrade'},state:{route:'upgrade'},render(){}});
+assert.ok(importedWindow.VERZUM_WIKI_SEARCH.items.size>=1474,'La ricerca non usa tutti gli item importati');
+assert.ok(importedWindow.VERZUM_WIKI_SEARCH.pages.size>=81,'La ricerca non usa tutte le pagine importate');
+assert.ok(importedWindow.VERZUM_WIKI_SEARCH.search('metin').some(x=>x.type==='page'),'Ricerca delle pagine metin inattiva');
+
 console.log('OK: '+files.length+' risorse, 11 voci menu, 147 oggetti, 44 evoluzioni, ricerca live per item con icone autentiche, struttura Wiki originale, 16 PNG grafici e 40 icone item autentiche, lingue, responsive.');
