@@ -35,7 +35,19 @@ jobs:
           const base='http://127.0.0.1:8765/';
           const open=async route=>{
             await page.goto(base+'#'+route,{waitUntil:'domcontentloaded'});
-            await page.locator('.panel[data-panel^="oc-"]').first().waitFor({timeout:20000});
+            try{await page.locator('.panel[data-panel^="oc-"]').first().waitFor({timeout:6000})}
+            catch(err){
+              console.error('DIAGNOSTIC',JSON.stringify(await page.evaluate(()=>({
+                hash:location.hash,panels:document.querySelector('#panels')?.innerText.slice(0,800),
+                calculator:!!window.VERZUM_CALCULATOR_PARITY,
+                extended:!!window.VERZUM_CALCULATOR_EXT,
+                release:!!window.VERZUM_RELEASE?.reference?.sys?.pet,
+                skills:!!window.VERZUM_SKILL_REFERENCE,
+                scripts:[...document.scripts].map(x=>x.getAttribute('src')).filter(x=>x?.includes('calculator'))
+              }))));
+              console.error('JS FAULTS',JSON.stringify(faults));
+              throw err;
+            }
             await page.waitForTimeout(120);
             console.log('ROUTE',route,'panels',await page.locator('.panel[data-panel^="oc-"]').count());
           };
