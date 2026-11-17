@@ -6,6 +6,21 @@
 if(typeof sections==='undefined'||typeof state==='undefined'||typeof render!=='function')return;
 const nativeRoutes={upgrade:'crafting',gaya:'gaya',pet:'pet',mount:'mount',costume:'costume',skills:'skills',passive:'passive',planner:'planner',prices:'prices'};
 const validRoutes=new Set(Object.keys(nativeRoutes));
+/* Prima apertura: conserva i prezzi già inseriti nel precedente listino.
+   Solo associazioni item-ID verificabili, mai numeri stimati o sostituiti.
+   Se esiste già un listino originale dt_prices non lo sovrascriviamo. */
+try{
+ if(localStorage.getItem('dt_prices')===null){
+  const imported={};
+  for(const [name,value] of Object.entries(state.prices||{})){
+   const id=state.materialIds?.[name];
+   const cost=Number(value);
+   if(/^\\d+$/.test(String(id||''))&&Number.isFinite(cost)&&cost>0)imported[id]=cost;
+  }
+  if(Object.keys(imported).length)localStorage.setItem('dt_prices',JSON.stringify(imported));
+ }
+}catch(e){}
+
 const iframeContent=route=>'<iframe class="native-calculator-frame" title="Calcolatore VERZUM · '+route+'" loading="eager" src="calculator-reference.html#'+nativeRoutes[route]+'" data-native-route="'+route+'" allow="clipboard-write"></iframe>';
 for(const route of validRoutes){
  sections[route]=()=>[{key:'native-reference',span:12,title:'Calcolatore originale',tag:'VERZUM',content:iframeContent(route)}];
