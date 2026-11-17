@@ -1,7 +1,7 @@
 name: Calculator source parity browser test
 on:
   push:
-    branches: [calculator-parity-qa]
+    branches: [main, calculator-parity-qa]
     paths:
       - '.github/workflows/calculator-parity-smoke.yml'
       - 'public/calculator-parity.js'
