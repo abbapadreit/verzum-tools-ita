@@ -67,6 +67,35 @@ jobs:
             await page.goto(base+'#wiki/item/290',{waitUntil:'domcontentloaded'});
             await page.locator('.vz-wiki .wiki-main .wk-head').first().waitFor({timeout:25000});
             console.log('ITEM PAGE:',await page.locator('.vz-wiki .wiki-main .wk-head').first().innerText());
+            const pages=[
+              ['equipment/weapons','Spada'],['chests/chest_open_boss','Baule'],
+              ['items/item_upgrade','Oggetti'],['costumes/armor','Costumi'],
+              ['metins/metin_low','Metin'],['bosses/boss_beginner','Boss'],
+              ['dungeons/monkey','Scimmia'],['systems/pet','Pet'],
+              ['events/jinryong_event','Jinryong'],['mob/8003','Metin']
+            ];
+            for(const [slug,label] of pages){
+              await page.goto(base+'#wiki/'+slug,{waitUntil:'domcontentloaded'});
+              await page.waitForFunction(()=>document.querySelector('.vz-wiki .wiki-main .wk-head__title'),{timeout:18000});
+              const title=(await page.locator('.vz-wiki .wk-head__title').first().innerText()).trim();
+              if(!title||title.includes('non ancora')||title.includes('trasferita'))throw Error('Missing original Wiki page '+slug+' -> '+title);
+              console.log('REAL WIKI PAGE:',slug,':',title);
+            }
+            await page.goto(base+'#wiki',{waitUntil:'domcontentloaded'});
+            const q=page.locator('.vz-wiki .wk-search__input').first();
+            await q.waitFor({timeout:15000});
+            await q.fill('arte');
+            await page.locator('.vz-search-dropdown a[data-vz-result]').first().waitFor({timeout:12000});
+            const suggestions=await page.locator('.vz-search-dropdown a[data-vz-result]').allInnerTexts();
+            if(!suggestions.some(x=>x.includes('Arte della Guerra')))throw Error('Missing official artifact search suggestion for ARTE');
+            console.log('AUTOCOMPLETE:',suggestions.slice(0,4));
+            await page.goto(base+'#wiki/metins/metin_low',{waitUntil:'domcontentloaded'});
+            const model=page.locator('.vz-wiki .wk-model[data-model]').first();
+            await model.waitFor({timeout:15000});
+            await model.scrollIntoViewIfNeeded();
+            await page.waitForTimeout(3500);
+            const visual=await model.evaluate(el=>({state:el.className,rendered:!!el.querySelector('.wk-model__view'),frames:el.querySelectorAll('img').length}));
+            console.log('OFFICIAL 3D MODEL:',JSON.stringify(visual));
             if(jsErrors.length)throw Error('JS runtime errors: '+jsErrors.join(' | '));
             console.log('BROWSER SMOKE TEST PASSED');
           }finally{await browser.close()}
