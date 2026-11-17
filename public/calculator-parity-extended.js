@@ -230,4 +230,6 @@ sections.skills=skillsMain;
 sections.passive=passiveMain;
 sections.prices=pricesMain;
 window.VERZUM_CALCULATOR_EXT={skillData,passiveData,priceGroups,bookRecipe};
+/* app.js renders once before deferred modules override sections: refresh the active calculator. */
+if(['pet','mount','costume','skills','passive','prices'].includes(state.route))render();
 })();
