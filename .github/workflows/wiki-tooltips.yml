@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/mirror-wiki-tooltips.mjs'
+      - '.github/workflows/wiki-tooltips.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -20,6 +21,15 @@ jobs:
           node-version: '22'
       - name: Read original Italian item bonuses and PNG icons
         run: node scripts/mirror-wiki-tooltips.mjs
+      - name: Preserve verified archive as downloadable workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: official-wiki-tooltips-${{ github.run_id }}
+          path: |
+            public/wiki-item-tooltips.generated.js
+            public/wiki-item-tooltip-report.json
+            public/wiki-original/items/
+          retention-days: 14
       - name: Save genuine item data to repository
         run: |
           git config user.name "github-actions[bot]"
@@ -27,5 +37,7 @@ jobs:
           git add public/wiki-item-tooltips.generated.js public/wiki-item-tooltip-report.json public/wiki-original/items
           if ! git diff --cached --quiet; then
             git commit -m "Mirror original Italian VERZUM item bonuses and icons from official tooltip API"
-            git push origin HEAD:${{ github.ref_name }}
+            git fetch origin main
+            git rebase origin/main
+            git push origin HEAD:main
           fi
