@@ -205,6 +205,7 @@ $('#panels').addEventListener('change',e=>{const t=e.target;
  if(t.dataset.costume!==undefined){if(t.checked&&!state.selectedCostumes.includes(t.dataset.costume))state.selectedCostumes.push(t.dataset.costume);if(!t.checked)state.selectedCostumes=state.selectedCostumes.filter(x=>x!==t.dataset.costume);render();return}
  if(t.dataset.price!==undefined){state.prices[t.dataset.price]=Math.max(0,num(t.value));render();return}
  if(t.dataset.step!==undefined){const item=state.catalog.find(i=>i.id===state.activeItem);if(item){const s=item.steps[natural(t.dataset.step)];if(s){if(t.dataset.prop==='mat')s.mat=parseMat(t.value);else if(t.dataset.prop==='pct')s.pct=Math.max(0,Math.min(100,num(t.value)));else s.yang=Math.max(0,num(t.value))}}render();return}
+ if(t.dataset.set==='range.evolution'){state.range.evolution=!!t.checked;render();return}
  if(t.dataset.set){handleField(t.dataset.set,t.type==='checkbox'?t.checked:t.type==='number'?num(t.value):t.value);render();return}
 });
 window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(TITLES[h]){state.route=h;render()}});
