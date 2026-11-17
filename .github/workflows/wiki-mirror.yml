@@ -1,0 +1,48 @@
+name: Import VERZUM Wiki originals
+on:
+  push:
+    paths:
+      - '.github/workflows/wiki-mirror.yml'
+      - 'scripts/mirror-wiki.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: wiki-mirror-main
+  cancel-in-progress: false
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Import all 81 original sidebar pages first
+        run: node scripts/mirror-wiki.mjs --scope=primary --max-pages=600 --max-assets=6000 --max-minutes=10
+      - name: Save and publish the verified primary pages
+        shell: bash
+        run: |
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add public/wiki-pages public/wiki-original public/wiki-mirror-manifest.json public/wiki-index.generated.js public/wiki-tooltips.generated.js public/wiki-mirror-utilities.css
+          if ! git diff --cached --quiet; then
+            git commit -m "Mirror official VERZUM Wiki primary sections and original assets"
+            git push origin HEAD:main
+          fi
+      - name: Crawl linked item, mob and system pages
+        run: node scripts/mirror-wiki.mjs --scope=all --max-pages=4500 --max-assets=18000 --max-minutes=22
+      - name: Publish the extended Wiki mirror
+        shell: bash
+        run: |
+          git add public/wiki-pages public/wiki-original public/wiki-mirror-manifest.json public/wiki-index.generated.js public/wiki-tooltips.generated.js public/wiki-mirror-utilities.css
+          if ! git diff --cached --quiet; then
+            git commit -m "Mirror additional official VERZUM Wiki item, monster and guide pages"
+            git push origin HEAD:main
+          fi
