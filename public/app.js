@@ -44,7 +44,7 @@ state.filters=state.filters||{class:'all',category:'all'};
 state.range.fails=state.range.fails||{};
 state.edit=false;if(!TITLES[state.route])state.route='upgrade';
 const $=s=>document.querySelector(s);const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const parseYang=(v,d=0)=>{if(typeof v==='number')return Number.isFinite(v)?v:d;const t=String(v??'').trim();if(!t)return d;const m=t.match(/^(-?[\\d.,\\s]+?)\\s*(kkk|kk|k)?\\s*(?:yang)?$/i);if(!m)return d;let raw=m[1].replace(/\\s/g,'');const sep=m[2];if(raw.includes(','))raw=raw.replace(/\\./g,'').replace(',', '.');else if(!sep)raw=raw.replace(/\\.(?=\\d{3}(?:\\.|$))/g,'');else if((raw.match(/\\./g)||[]).length>1)raw=raw.replace(/\\./g,'');const n=Number(raw);return Number.isFinite(n)?n*(sep?{k:1000,kk:1000000,kkk:1000000000}[sep.toLowerCase()]:1):d};
+const parseYang=(v,d=0)=>{if(typeof v==='number')return Number.isFinite(v)?v:d;const t=String(v??'').trim();if(!t)return d;const m=t.match(/^(-?[\d.,\s]+?)\s*(kkk|kk|k)?\s*(?:yang)?$/i);if(!m)return d;let raw=m[1].replace(/\s/g,'');const sep=m[2];if(raw.includes(','))raw=raw.replace(/\./g,'').replace(',', '.');else if(!sep)raw=raw.replace(/\.(?=\d{3}(?:\.|$))/g,'');else if((raw.match(/\./g)||[]).length>1)raw=raw.replace(/\./g,'');const n=Number(raw);return Number.isFinite(n)?n*(sep?{k:1000,kk:1000000,kkk:1000000000}[sep.toLowerCase()]:1):d};
 const num=(v,d=0)=>parseYang(v,d);
 const natural=(v,min=0,max=1000000000)=>Math.min(max,Math.max(min,Math.trunc(num(v))));
 const yangExact=v=>new Intl.NumberFormat('it-IT',{maximumFractionDigits:0}).format(Math.round(num(v)))+' Yang';
