@@ -1,7 +1,7 @@
 name: Test faithful original calculator integration
 on:
   push:
-    branches: [main, fix-all-calculator-legacy-and-gaya, fix-scrollbar-fluidity-20261117]
+    branches: [main, fix-all-calculator-legacy-and-gaya, fix-scrollbar-fluidity-20261117, remove-redundant-upgrade-materials-20261117]
     paths:
       - '.github/workflows/original-calculators-smoke.yml'
       - 'public/calculator-reference.html'
@@ -83,6 +83,19 @@ jobs:
               throw Error('Weapons category did not expand');
             if(await frame.locator('#vz-accordion-weapons .it').count()<2)
               throw Error('Weapons category has no item details');
+            // La tabella dei materiali per singolo passaggio rimane, mentre
+            // il pannello duplicato in fondo ai Potenziamenti viene eliminato.
+            if(await frame.locator('#v-crafting .cell[data-k="mats"],#v-crafting .panel[data-k="mats"]').count()!==0)
+              throw Error('Redundant Materials needed panel is still present in upgrades');
+            await frame.locator('#v-crafting [data-id="270"]').first().click();
+            if(await frame.locator('#v-crafting .panel[data-k="calc"] .mats .mi').count()<8)
+              throw Error('Upgrade-step material icons disappeared after removing duplicate summary');
+            await frame.locator('#v-crafting [data-id="290"]').first().click();
+            if(await frame.locator('#v-crafting .panel[data-k="mats"]').count()!==0)
+              throw Error('Duplicate materials panel returned on Full Moon Sword');
+            await frame.locator('#v-crafting [data-id="270"]').first().click();
+            console.log('UPGRADE MATERIALS: STEP ICONS KEPT, REDUNDANT SUMMARY REMOVED');
+
             const translatedItems=await frame.locator('#vz-accordion-weapons .nm').allInnerTexts();
             if(!translatedItems.includes('Spada della Luna Piena'))
               throw Error('Italian game item names not loaded from verified catalogue');
