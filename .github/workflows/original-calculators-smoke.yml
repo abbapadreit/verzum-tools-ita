@@ -78,6 +78,11 @@ jobs:
               throw Error('Wrong Italian category names: '+JSON.stringify(names));
             if(await frame.locator('#v-crafting .vz-accordion-trigger[aria-expanded="true"]').count()!==0)
               throw Error('Category accordions must start closed');
+            await frame.locator('[data-vz-acc="weapons"]').click();
+            if(await frame.locator('[data-vz-acc="weapons"][aria-expanded="true"]').count()!==1)
+              throw Error('Weapons category did not expand');
+            if(await frame.locator('#vz-accordion-weapons .it').count()<2)
+              throw Error('Weapons category has no item details');
             // La tabella dei materiali per singolo passaggio rimane, mentre
             // il pannello duplicato in fondo ai Potenziamenti viene eliminato.
             if(await frame.locator('#v-crafting .cell[data-k="mats"],#v-crafting .panel[data-k="mats"]').count()!==0)
@@ -90,11 +95,7 @@ jobs:
               throw Error('Duplicate materials panel returned on Full Moon Sword');
             await frame.locator('#v-crafting [data-id="270"]').first().click();
             console.log('UPGRADE MATERIALS: STEP ICONS KEPT, REDUNDANT SUMMARY REMOVED');
-            await frame.locator('[data-vz-acc="weapons"]').click();
-            if(await frame.locator('[data-vz-acc="weapons"][aria-expanded="true"]').count()!==1)
-              throw Error('Weapons category did not expand');
-            if(await frame.locator('#vz-accordion-weapons .it').count()<2)
-              throw Error('Weapons category has no item details');
+
             const translatedItems=await frame.locator('#vz-accordion-weapons .nm').allInnerTexts();
             if(!translatedItems.includes('Spada della Luna Piena'))
               throw Error('Italian game item names not loaded from verified catalogue');
