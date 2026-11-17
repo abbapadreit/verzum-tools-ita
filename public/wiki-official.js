@@ -84,6 +84,11 @@ host?.addEventListener('click',e=>{
  if(open){e.preventDefault();inside.classList.add('is-drawer');open.setAttribute('aria-expanded','true');const bg=inside.querySelector('.wk-backdrop');if(bg)bg.hidden=false;return}
  if(close){e.preventDefault();inside.classList.remove('is-drawer');const bg=inside.querySelector('.wk-backdrop');if(bg)bg.hidden=true;inside.querySelector('[data-wk-drawer]')?.setAttribute('aria-expanded','false');return}
 });
+/* Retrocompatibilita: i vecchi link #guide aprono ora l'unica guida nella Wiki. */
+if(location.hash==='#guide'){
+ history.replaceState(null,'',location.pathname+location.search+'#wiki/'+GUIDE);
+ state.route='wiki';
+}
 if(state.route==='wiki'||state.route==='guide')render();
 window.VERZUM_WIKI_OFFICIAL={get loaded(){return !!guideHtml},guide:GUIDE,sidebarCategories:10};
 })();
