@@ -158,11 +158,11 @@ host.addEventListener('pointerover',e=>{
 host.addEventListener('pointermove',e=>{if(activeAnchor&&!pinned&&find(e)===activeAnchor)relocate(e)});
 host.addEventListener('pointerout',e=>{
  if(pinned)return;
- const a=find(e);if(a===activeAnchor&&!a.contains(e.relatedTarget))hideTip();
+ const a=find(e);if(a&&a===activeAnchor&&!a.contains(e.relatedTarget))hideTip();
 });
 host.addEventListener('focusin',e=>{const a=find(e);if(a)showTip(a)});
 host.addEventListener('focusout',e=>{
- const a=find(e);if(a===activeAnchor&&!a.contains(e.relatedTarget))hideTip();
+ const a=find(e);if(a&&a===activeAnchor&&!a.contains(e.relatedTarget))hideTip();
 });
 host.addEventListener('click',e=>{
  const a=find(e);
