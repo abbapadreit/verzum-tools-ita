@@ -43,6 +43,19 @@ jobs:
             await frame.locator('#v-'+expected[route]+'.view.on').waitFor({timeout:24000});
             const h=await frame.locator('#v-'+expected[route]+' .hero h1').innerText();
             const sections=await frame.locator('#v-'+expected[route]+' .panel').count();
+            await page.waitForFunction(()=>{
+              const f=document.querySelector('iframe.native-calculator-frame');
+              return f&&Number.parseFloat(f.style.height)>350;
+            },{timeout:12000}).catch(async()=>{
+              const inspect=await page.locator('iframe.native-calculator-frame').evaluate(el=>({
+                frameHeight:el.style.height,frameOrigin:el.contentWindow?.location?.origin,
+                source:el.contentWindow?.location?.href,
+                view:el.contentWindow?.document?.querySelector('main .view.on')?.id,
+                bodyHeight:el.contentWindow?.document?.body?.scrollHeight
+              }));
+              console.log('BRIDGE DIAGNOSTIC',JSON.stringify(inspect));
+              throw Error('Frame height synchronization timeout '+route);
+            });
             const height=Number((await page.locator('iframe.native-calculator-frame').getAttribute('style')||'').match(/height:\s*(\d+)px/)?.[1]||0);
             console.log('REFERENCE',route,'hero:',h,'panels:',sections,'height:',height);
             if(route!=='planner'&&sections===0)throw Error('Original section not rendered '+route);
