@@ -1,15 +1,16 @@
 import {readFileSync,existsSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import assert from 'node:assert/strict';
+import {runInNewContext} from 'node:vm';
 const base=new URL('../public/',import.meta.url);
 const read=p=>readFileSync(new URL(p,base),'utf8');
 const html=read('index.html'),app=read('app.js'),theme=read('theme-original.css'),guide=read('guide.js'),wiki=read('wiki.js'),official=read('wiki-official-guide.html'),originalHome=read('wiki-official-home.js');
-const files=['style.css','theme-original.css','wiki.css','wiki-official.css','wiki-official-override.css','wiki-official-home.js','wiki-official.js','wiki-official-guide.html','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','item-translations.js','i18n.js','assets/icon-index.js','assets/extra-icons.js','robots.txt','assets/sidebar-logo.svg',...['it','en','ro','hu'].map(s=>'assets/flags/'+s+'.svg'),...Array.from({length:9},(_,i)=>'assets/real-icons-'+String(i).padStart(2,'0')+'.js')];
+const files=['style.css','theme-original.css','wiki.css','wiki-official.css','wiki-official-override.css','wiki-search.js','wiki-search.css','wiki-official-home.js','wiki-official.js','wiki-official-guide.html','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','item-translations.js','i18n.js','assets/icon-index.js','assets/extra-icons.js','robots.txt','assets/sidebar-logo.svg',...['it','en','ro','hu'].map(s=>'assets/flags/'+s+'.svg'),...Array.from({length:9},(_,i)=>'assets/real-icons-'+String(i).padStart(2,'0')+'.js')];
 for(const f of files){
  const u=new URL(f,base);assert.ok(existsSync(u),'Risorsa mancante: '+f);
  if(f.endsWith('.js'))execFileSync(process.execPath,['--check',u.pathname]);
 }
-for(const link of ['style.css','theme-original.css','wiki.css','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','i18n.js','item-translations.js']){
+for(const link of ['style.css','theme-original.css','wiki.css','wiki-search.js','wiki-search.css','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','i18n.js','item-translations.js']){
  assert.ok(html.includes(link),'Manca collegamento HTML '+link);
 }
 for(const p of ['upgrade','gaya','pet','mount','costume','skills','passive','planner','prices','catalog','guide','wiki']){
@@ -58,4 +59,29 @@ assert.equal(new Set([...official.matchAll(/(?:wiki-original\/items\/|https:\/\/
 assert.ok(!/href="https:\/\/wiki\.verzum\.to\/it\//.test(official),'Link esterni non riscritti nella guida');
 assert.ok(html.includes('wiki-official.js')&&html.includes('wiki-official.css'),'Interfaccia originale Wiki non collegata');
 assert.ok(app.includes("classList.toggle('wiki-mode'"),'Modalità Wiki isolata non configurata');
-console.log('OK: '+files.length+' risorse, 12 sezioni, 147 oggetti, 44 evoluzioni, struttura Wiki originale, 16 PNG grafici e 40 icone item autentiche, lingue, responsive.');
+
+// Esegui veramente il motore di ricerca su dati autentici, senza DOM completo.
+const searchSource=read('wiki-search.js');
+const l10nSource=read('item-translations.js').split('window.VERZUM_ITEM_L10N=')[1];
+const translations=JSON.parse(l10nSource.slice(0,l10nSource.indexOf('};')+1));
+const fakeWindow={
+ VERZUM_RELEASE:dat,VERZUM_ITEM_L10N:translations,VERZUM_WIKI_MARKUP:{sidebar:'',home:''},
+ VERZUM_PNG_ICONS:{'50301':'data:image/png;base64,dGVzdA==','50302':'data:image/png;base64,dGVzdA=='},
+ addEventListener(){}
+};
+const fakeDocument={
+ createElement(){return {innerHTML:'',querySelectorAll(){return []}}},
+ getElementById(){return null},addEventListener(){}
+};
+runInNewContext(searchSource,{window:fakeWindow,document:fakeDocument,location:{hash:'#upgrade'},state:{route:'upgrade'},render(){}});
+const find=fakeWindow.VERZUM_WIKI_SEARCH;
+assert.ok(find.exactCount>=200,'Indice Wiki item incompleto');
+assert.deepEqual(Array.from(find.search('arte',false,8).slice(0,2),x=>String(x.id)),['50301','50302'],'Ricerca ARTE deve includere i due libri originali');
+assert.equal(find.search('50301',true)[0].title,'Arte della Guerra Sun-zi','Ricerca esatta ID item');
+assert.ok(find.imageFor(find.search('arte')[0]).startsWith('data:image/png'),'Ricerca senza icona originale');
+assert.ok(find.search('spada').length>=7,'Ricerca parziale armi');
+assert.ok(find.search('gaya').length>=4,'Ricerca Gaya');
+assert.ok(find.renderPage('search/arte').includes('#wiki/item/50301'),'Pagina risultati con link interno');
+assert.ok(find.renderItemPage('50301').includes('Arte della Guerra Sun-zi'),'Scheda item interna non disponibile');
+assert.ok(!searchSource.includes('https://wiki.verzum.to/item/'),'La ricerca non deve mandare al sito esterno');
+console.log('OK: '+files.length+' risorse, 12 sezioni, 147 oggetti, 44 evoluzioni, ricerca live per item con icone autentiche, struttura Wiki originale, 16 PNG grafici e 40 icone item autentiche, lingue, responsive.');
