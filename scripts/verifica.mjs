@@ -5,15 +5,15 @@ import {runInNewContext} from 'node:vm';
 const base=new URL('../public/',import.meta.url);
 const read=p=>readFileSync(new URL(p,base),'utf8');
 const html=read('index.html'),app=read('app.js'),theme=read('theme-original.css'),guide=read('guide.js'),wiki=read('wiki.js'),official=read('wiki-official-guide.html'),originalHome=read('wiki-official-home.js');
-const files=['style.css','theme-original.css','wiki.css','wiki-official.css','wiki-official-override.css','wiki-search.js','wiki-search.css','wiki-official-home.js','wiki-official.js','wiki-official-guide.html','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','item-translations.js','i18n.js','assets/icon-index.js','assets/extra-icons.js','robots.txt','assets/sidebar-logo.svg',...['it','en','ro','hu'].map(s=>'assets/flags/'+s+'.svg'),...Array.from({length:9},(_,i)=>'assets/real-icons-'+String(i).padStart(2,'0')+'.js')];
+const files=['style.css','theme-original.css','wiki.css','wiki-official.css','wiki-official-override.css','wiki-search.js','wiki-search.css','wiki-guide-fixes.css','wiki-guide-interactions.js','wiki-official-home.js','wiki-official.js','wiki-official-guide.html','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','item-translations.js','i18n.js','assets/icon-index.js','assets/extra-icons.js','robots.txt','assets/sidebar-logo.svg',...['it','en','ro','hu'].map(s=>'assets/flags/'+s+'.svg'),...Array.from({length:9},(_,i)=>'assets/real-icons-'+String(i).padStart(2,'0')+'.js')];
 for(const f of files){
  const u=new URL(f,base);assert.ok(existsSync(u),'Risorsa mancante: '+f);
  if(f.endsWith('.js'))execFileSync(process.execPath,['--check',u.pathname]);
 }
-for(const link of ['style.css','theme-original.css','wiki.css','wiki-search.js','wiki-search.css','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','i18n.js','item-translations.js']){
+for(const link of ['style.css','theme-original.css','wiki.css','wiki-search.js','wiki-search.css','wiki-guide-fixes.css','wiki-guide-interactions.js','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','i18n.js','item-translations.js']){
  assert.ok(html.includes(link),'Manca collegamento HTML '+link);
 }
-for(const p of ['upgrade','gaya','pet','mount','costume','skills','passive','planner','prices','catalog','guide','wiki']){
+for(const p of ['upgrade','gaya','pet','mount','costume','skills','passive','planner','prices','catalog','wiki']){
  assert.ok(html.includes('data-nav="'+p+'"'),'Manca sezione '+p);
 }
 const dat=JSON.parse(read('release.js').split('window.VERZUM_RELEASE=')[1].trim().replace(/;$/,''));
@@ -84,4 +84,59 @@ assert.ok(find.search('gaya').length>=4,'Ricerca Gaya');
 assert.ok(find.renderPage('search/arte').includes('#wiki/item/50301'),'Pagina risultati con link interno');
 assert.ok(find.renderItemPage('50301').includes('Arte della Guerra Sun-zi'),'Scheda item interna non disponibile');
 assert.ok(!searchSource.includes('https://wiki.verzum.to/item/'),'La ricerca non deve mandare al sito esterno');
-console.log('OK: '+files.length+' risorse, 12 sezioni, 147 oggetti, 44 evoluzioni, ricerca live per item con icone autentiche, struttura Wiki originale, 16 PNG grafici e 40 icone item autentiche, lingue, responsive.');
+
+// Collaudo mirato all'identita' della guida 1-75 e ai suoi tooltip.
+assert.ok(!html.includes('data-nav="guide"'),'La guida compare ancora due volte nella sidebar');
+assert.ok(html.includes('data-nav="wiki"'),'Menu Wiki non presente');
+const geo=read('wiki-guide-fixes.css');
+const events=read('wiki-guide-interactions.js');
+const originalSection=official.slice(official.indexOf('id="s4"'),official.indexOf('id="s5"'));
+assert.ok(originalSection.length>100000,'Sorgente originale della sezione equipaggiamento incompleto');
+assert.equal((originalSection.match(/class="wk-tabpanel/g)||[]).length,4,'Devono esserci quattro classi');
+assert.equal((originalSection.match(/class="wk-panels"/g)||[]).length,4,'Un gruppo di pannelli per ciascuna classe');
+assert.equal((originalSection.match(/class="wk-panel"/g)||[]).length,8,'Esattamente due pannelli per classe');
+assert.ok(geo.includes('.wkpos-8-6{left:8px;top:6px}'),'Coordinate originali spada errate');
+assert.ok(geo.includes('.wkpos-64-138{left:64px;top:138px}'),'Coordinate accessori non ricostruite');
+assert.ok(geo.includes('.wkbox-32-96{width:32px;height:96px}'),'Dimensioni slot originale arma errate');
+assert.ok(geo.includes('.wk-tabpanel:not(.is-on){display:none!important}'),'Classe inattiva non nascosta');
+assert.ok(geo.includes('justify-content:center'),'Pannelli della classe non centrati');
+assert.ok(events.includes('data-tip-full'),'Fonte dei bonus originali non disponibile');
+assert.ok(events.includes('aria-selected'),'Selettore classi inaccessibile');
+assert.ok(read('wiki-official.js').includes("location.hash==='#guide'"),'Vecchio collegamento Guida non reindirizzato');
+const originalTooltipAttrs=[...official.matchAll(/data-tip-full="([^"]+)"/g)];
+assert.ok(originalTooltipAttrs.length>=70,'Bonus tooltip della guida non presenti');
+const expectedColors=new Set();
+for(const match of originalTooltipAttrs){
+ const raw=match[1].replace(/&quot;/g,'"').replace(/&amp;/g,'&').replace(/&#39;/g,"'");
+ const rows=JSON.parse(raw);
+ assert.ok(Array.isArray(rows)&&rows.every(x=>typeof x.text==='string'),'Bonus originale illeggibile');
+ rows.forEach(x=>expectedColors.add(x.color));
+}
+assert.ok(expectedColors.has('FFC800')&&expectedColors.has('B0DFB4'),'Colori bonus ufficiali non presenti');
+// Prova della selezione interattiva di ogni classe, senza browser.
+const guideEvents={};
+const fakeHost={addEventListener(n,cb){guideEvents[n]=cb}};
+const dummyDoc={getElementById:id=>id==='panels'?fakeHost:null,addEventListener(){}};
+const fakeWindowGuide={addEventListener(){}};
+runInNewContext(events,{window:fakeWindowGuide,document:dummyDoc});
+const guideApi=fakeWindowGuide.VERZUM_WIKI_GUIDE_INTERACTIONS;
+assert.ok(guideApi&&typeof guideApi.selectClass==='function','Tab controller non inizializzato');
+const classes=Array.from({length:4},(_,i)=>{
+ const classes=new Set();
+ return {dataset:{tab:String(i)},classList:{toggle(x,on){if(on)classes.add(x);else classes.delete(x)},contains:x=>classes.has(x)},
+  setAttribute(){},tabIndex:0, matches(){return true},focus(){},closest(){return group}};
+});
+const panels=Array.from({length:4},(_,i)=>{
+ const classes=new Set();
+ return {dataset:{panel:String(i)},hidden:false,classList:{toggle(x,on){if(on)classes.add(x);else classes.delete(x)},contains:x=>classes.has(x)},setAttribute(){}};
+});
+const group={querySelectorAll(selector){return selector.includes('wk-tabpanel')?panels:classes}};
+for(let i=0;i<4;i++){
+ assert.ok(guideApi.selectClass(classes[i]),'Selezione classe '+i+' non eseguita');
+ assert.equal(panels.filter(p=>!p.hidden).length,1,'Piu di una classe visibile');
+ assert.ok(!panels[i].hidden,'Classe selezionata '+i+' nascosta');
+}
+const sampleRows=JSON.parse(originalTooltipAttrs.find(x=>x[1].includes('Corazza d&#39;Oro')||x[1].includes("Corazza d'Oro"))?.[1].replace(/&quot;/g,'"').replace(/&amp;/g,'&')||originalTooltipAttrs[0][1].replace(/&quot;/g,'"'));
+const example={getAttribute:k=>k==='data-tip-full'?JSON.stringify(sampleRows):''};
+assert.ok(guideApi.getOriginalBonusLines(example).length>=5,'Parsing bonus originale non riuscito');
+console.log('OK: '+files.length+' risorse, 11 voci menu, 147 oggetti, 44 evoluzioni, ricerca live per item con icone autentiche, struttura Wiki originale, 16 PNG grafici e 40 icone item autentiche, lingue, responsive.');
