@@ -130,6 +130,34 @@ jobs:
             console.log('NATIVE ORIGINAL CALCULATORS ALL PASS');
           }finally{await browser.close()}
           JS
+      - name: Test published Cloudflare version in Chrome
+        if: github.ref_name == 'main'
+        shell: bash
+        run: |
+          node --input-type=module <<'JS'
+          import {chromium} from 'playwright-core';
+          const browser=await chromium.launch({headless:true,executablePath:'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
+          const page=await browser.newPage({viewport:{width:1440,height:960}});
+          const errors=[];
+          page.on('pageerror',e=>errors.push(e.message));
+          const base='https://verzum-tools-ita.pages.dev/';
+          try{
+            for(const route of ['gaya','pet','mount','costume','skills','passive','prices','upgrade','planner']){
+              await page.goto(base+'#'+route,{waitUntil:'domcontentloaded',timeout:35000});
+              const actual=route==='upgrade'?'crafting':route;
+              const frame=page.frameLocator('iframe.native-calculator-frame');
+              await frame.locator('#v-'+actual+'.view.on').waitFor({timeout:25000});
+              const originalTitle=(await frame.locator('#v-'+actual+' .hero h1').innerText()).trim();
+              const src=await page.locator('iframe.native-calculator-frame').getAttribute('src');
+              if(!originalTitle||src!=='calculator-reference.html#'+actual)throw Error('Published route does not load original calculator: '+route);
+              console.log('CLOUDFLARE LIVE',route,originalTitle);
+            }
+            await page.goto(base+'#wiki',{waitUntil:'domcontentloaded'});
+            await page.locator('.vz-wiki .wk-search__input').waitFor({timeout:22000});
+            if(errors.length)throw Error('Live browser errors: '+errors.slice(0,5).join(' | '));
+            console.log('ALL NINE PRODUCTION CALCULATORS AND WIKI VERIFIED');
+          }finally{await browser.close()}
+          JS
       - name: Save visual verification screenshots
         if: always()
         uses: actions/upload-artifact@v4
