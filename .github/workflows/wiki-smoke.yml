@@ -34,7 +34,8 @@ jobs:
           import {chromium} from 'playwright-core';
           const browser=await chromium.launch({headless:true,executablePath:'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
           const page=await browser.newPage({viewport:{width:1420,height:910}});
-          page.on('pageerror',e=>console.error('BROWSER JS ERROR',e.message));
+          const jsErrors=[];
+          page.on('pageerror',e=>{jsErrors.push(e.message); console.error('BROWSER JS ERROR',e.message)});
           const base='https://verzum-tools-ita.pages.dev/';
           try{
             await page.goto(base+'#wiki/metins/metin_low',{waitUntil:'domcontentloaded'});
@@ -47,6 +48,8 @@ jobs:
             console.log('PROXY BONUS 25040:',JSON.stringify(proxy));
             await page.waitForFunction(()=>document.querySelector('.vz-wiki-original-tip:not([hidden]) .wk-tip__line')!==null,{timeout:12000});
             console.log('AFTER ASYNC BONUS:',(await page.locator('.vz-wiki-original-tip:not([hidden])').innerText()).slice(0,500));
+            const tipText=await page.locator('.vz-wiki-original-tip:not([hidden])').innerText();
+            if(!tipText.includes('Elimina il rischio'))throw Error('Original item bonuses not loaded from API');
             await page.goto(base+'#wiki/guides/vz_level_1_75',{waitUntil:'domcontentloaded'});
             const panel='.vz-wiki .wk-vz--gear .wk-tabpanel.is-on';
             await page.locator(panel+' .wk-panel').first().waitFor({timeout:30000});
@@ -64,6 +67,7 @@ jobs:
             await page.goto(base+'#wiki/item/290',{waitUntil:'domcontentloaded'});
             await page.locator('.vz-wiki .wiki-main .wk-head').first().waitFor({timeout:25000});
             console.log('ITEM PAGE:',await page.locator('.vz-wiki .wiki-main .wk-head').first().innerText());
+            if(jsErrors.length)throw Error('JS runtime errors: '+jsErrors.join(' | '));
             console.log('BROWSER SMOKE TEST PASSED');
           }finally{await browser.close()}
           JS
