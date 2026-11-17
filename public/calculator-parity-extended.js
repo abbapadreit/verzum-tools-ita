@@ -9,6 +9,7 @@ const {P,saveP,icon,badge,matsIcons,materialTable,totalMat,added,merge,matName,p
 const skillLevel=['M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','G1','G2','G3','G4','G5','G6','G7','G8','G9','G10','P'];
 const classLabels={warrior:'Guerriero',ninja:'Ninja',sura:'Sura',shaman:'Sciamano'};
 const passiveLabels=['Comando','Guerriero coraggioso','Guerriero del Dio Drago','Campione dei dungeon'];
+if(!P.passive.helper)P.passive.helper='buy';
 const bookRecipe={
  M:[['100006',1],['100010',35]],
  G:[['100007',1],['100010',50],['71001',1],['71094',1]],
@@ -114,8 +115,16 @@ function passiveData(){
  const nm=(groups[0].reads+(k.concentrated?0:groups[0].fail))+(groups[1].reads+(k.concentrated?0:groups[1].fail));
  const ccN=(k.concentrated?nm:0)+groups[2].reads;
  const exN=k.exorcism&&totalReads>1?totalReads-1:0;
- if(ccN)added(m,passive.cc,ccN);
- if(exN)added(m,passive.ex,exN);
+ const helperAdd=(id,quantity)=>{
+   if(!quantity)return;
+   if(!['50350','50351'].includes(id)||!['pages','n25','cit'].includes(k.helper)){added(m,id,quantity);return}
+   if(k.helper==='pages'){added(m,'100010',75*quantity);return}
+   const normal=id==='50350'?'71094':'71001';
+   if(k.helper==='n25'){added(m,normal,quantity);added(m,'100010',25*quantity)}
+   if(k.helper==='cit'){added(m,normal,quantity);added(m,'100042',quantity)}
+ };
+ helperAdd(passive.cc,ccN);
+ helperAdd(passive.ex,exN);
  return {index,passive,from,to,m,records,totalReads,wait:k.exorcism?0:wait,ccN,exN};
 }
 function passiveMain(){
@@ -125,6 +134,9 @@ function passiveMain(){
  const lv=Array.from({length:41},(_,i)=>PLV(i));
  const ctr=selectLevels('passive',d.from,d.to,lv)+
  '<label>LIBRI<div class="oc-seg"><button data-ocx-mode="buy" class="'+(k.mode!=='craft'?'on':'')+'">Acquistati</button><button data-ocx-mode="craft" class="'+(k.mode==='craft'?'on':'')+'">Creati</button></div></label>'+
+ (d.passive.cc==='50350'?'<label>SUPPORTI<select data-ocx-set="passive.helper">'+[
+ ['buy','Acquistati'],['pages','75 pagine'],['n25','Normale + 25 pagine'],['cit','Normale + Citrino']
+ ].map(x=>'<option value="'+x[0]+'"'+(k.helper===x[0]?' selected':'')+'>'+x[1]+'</option>').join('')+'</select></label>':'')+
  '<label class="oc-checkbox"><input type="checkbox" data-ocx-check="passive.concentrated" '+(k.concentrated?'checked':'')+'> Lettura concentrata</label>'+
  '<label class="oc-checkbox"><input type="checkbox" data-ocx-check="passive.exorcism" '+(k.exorcism?'checked':'')+'> Papiro (senza attesa)</label>'+addButton('ocx-passive');
  const rows=d.records.map(({g,fail,tries})=>'<tr><td class="oc-gold">'+h(g.label)+'</td><td class="oc-num">'+nfmt(g.reads)+'</td><td><input class="oc-shortnum" type="number" min="0" data-ocx-passive-fail="'+g.key+'" value="'+fail+'"'+(k.concentrated||g.key==='G'?' disabled':'')+'></td><td class="oc-gold oc-num">'+nfmt(tries)+'</td><td>'+matsIcons(k.mode==='craft'?bookRecipe[g.recipe].map(([id,q])=>[id,q*tries]):[[g.book,tries]])+'</td></tr>').join('');
@@ -188,7 +200,7 @@ function planExtra(kind){
 function setParam(path,value){
  const [type,key]=path.split('.');
  if(!P[type]||!(key in P[type]))return;
- if(['class','mode'].includes(key))P[type][key]=value;
+ if(['class','mode','helper'].includes(key))P[type][key]=value;
  else if(['concentrated','exorcism'].includes(key))P[type][key]=!!value;
  else P[type][key]=Math.max(0,Number(value)||0);
  if(P[type].to<=P[type].from)P[type].to=P[type].from+1;
