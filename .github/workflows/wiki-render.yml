@@ -1,0 +1,28 @@
+name: Mirror official VERZUM model viewer runtime
+on:
+  push:
+    branches: [wiki-display-integration]
+    paths: ['.github/workflows/wiki-render.yml']
+permissions:
+  contents: write
+jobs:
+  render-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/mirror-wiki-viewer.mjs
+      - name: Commit original viewer modules
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/wiki-render
+          if ! git diff --cached --quiet; then
+            git commit -m "Install original Wiki model turntable and isolated page lifecycle"
+            git push origin HEAD:wiki-display-integration
+          fi
