@@ -1,0 +1,22 @@
+name: Wiki connectivity check
+on:
+  push:
+    paths:
+      - '.github/workflows/wiki-connectivity.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Probe official wiki and images
+        shell: bash
+        run: |
+          for path in https://wiki.verzum.to/it/ https://wiki.verzum.to/it/metins/metin_low https://images.verzum.to/item/50301.png; do
+            echo "::group::$path"
+            curl -L -sS -A 'Mozilla/5.0' --connect-timeout 12 --max-time 20 -o /tmp/verzum-response -w 'HTTP=%{http_code} bytes=%{size_download} type=%{content_type}\n' "$path" || true
+            head -c 120 /tmp/verzum-response | strings | head -2 || true
+            echo "::endgroup::"
+          done
