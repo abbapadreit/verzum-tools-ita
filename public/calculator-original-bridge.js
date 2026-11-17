@@ -32,11 +32,23 @@ function fixEmbeddedScroll(frame){
  if(!frame)return;
  try{
   const doc=frame.contentDocument;
-  if(!doc?.head||doc.getElementById('verzum-no-nested-scroll'))return;
-  const style=doc.createElement('style');
-  style.id='verzum-no-nested-scroll';
-  style.textContent='html{overflow-y:hidden!important;scrollbar-width:none!important;-ms-overflow-style:none!important}body{scrollbar-width:none!important}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}';
-  doc.head.appendChild(style);
+  if(!doc?.head||!doc.body)return;
+  if(!doc.getElementById('verzum-no-nested-scroll')){
+   const style=doc.createElement('style');
+   style.id='verzum-no-nested-scroll';
+   style.textContent='html{overflow-y:hidden!important;scrollbar-width:none!important;-ms-overflow-style:none!important}body{scrollbar-width:none!important}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}';
+   doc.head.appendChild(style);
+  }
+  if(!doc.getElementById('verzum-accordion-style')){
+   const link=doc.createElement('link');
+   link.id='verzum-accordion-style';link.rel='stylesheet';link.href='calculator-accordion-it.css';
+   doc.head.appendChild(link);
+  }
+  if(!doc.getElementById('verzum-accordion-script')){
+   const script=doc.createElement('script');
+   script.id='verzum-accordion-script';script.src='calculator-accordion-it.js';script.defer=true;
+   doc.body.appendChild(script);
+  }
  }catch(_){/* Il frame va modificato soltanto se ospitato dalla stessa origine. */}
 }
 document.addEventListener('load',event=>{
