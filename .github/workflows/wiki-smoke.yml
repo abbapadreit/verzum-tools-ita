@@ -1,0 +1,27 @@
+name: Smoke test published VERZUM Wiki
+on:
+  push:
+    branches: [wiki-runtime-smoke]
+    paths: ['.github/workflows/wiki-smoke.yml']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Test live Wiki routes and tooltip proxy
+        shell: bash
+        run: |
+          set -u
+          BASE=https://verzum-tools-ita.pages.dev
+          for route in '/#wiki/metins/metin_low' '/wiki-pages/metins/metin_low.html' '/wiki-pages/item/290.html' '/wiki-item-tooltips.generated.js' '/wiki-render/wiki-model.js' '/api/wiki/tip/50301'; do
+            echo "::group::$route"
+            curl --retry 1 --max-time 25 -LsS -w '\nHTTP=%{http_code} TYPE=%{content_type} BYTES=%{size_download}\n' "$BASE$route" -o /tmp/wiki-asset
+            head -c 125 /tmp/wiki-asset | strings | head -3
+            echo "::endgroup::"
+          done
+          echo "BROWSER DETECTION"
+          command -v google-chrome || true
+          command -v chromium || true
+          command -v chromium-browser || true
