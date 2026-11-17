@@ -1,0 +1,118 @@
+/* Guida VERZUM 1–75 — ripristino delle utility geometriche presenti
+   nel markup della Wiki originale. Nessuna icona o bonus artificiale. */
+/* Ogni classe è ancorata ai valori pixel riportati nel nome dalla Wiki. */
+.vz-wiki .wkmt-4{margin-top:4px}
+.vz-wiki .wkmt-8{margin-top:8px}
+.vz-wiki .wkc-e3c17c{color:#e3c17c}
+.vz-wiki .wkmt-10{margin-top:10px}
+.vz-wiki .wkw-100{width:100%}
+.vz-wiki .wkmnw-318{min-width:318px}
+.vz-wiki .wkw-10_29{width:10.29%}
+.vz-wiki .wkw-89_71{width:89.71%}
+.vz-wiki .wkc-d8c3a0{color:#d8c3a0}
+.vz-wiki .wkmt-12{margin-top:12px}
+.vz-wiki .wkmnw-323{min-width:323px}
+.vz-wiki .wkw-8_58{width:8.58%}
+.vz-wiki .wkw-58_83{width:58.83%}
+.vz-wiki .wkw-32_59{width:32.59%}
+.vz-wiki .wk-panel__cell.wkpos-8-6{left:8px;top:6px}
+.vz-wiki .wk-panel__cell.wkbox-32-96{width:32px;height:96px}
+.vz-wiki .wk-panel__cell.wkpos-44-38{left:44px;top:38px}
+.vz-wiki .wk-panel__cell.wkbox-32-64{width:32px;height:64px}
+.vz-wiki .wk-panel__cell.wkpos-44-6{left:44px;top:6px}
+.vz-wiki .wk-panel__cell.wkbox-32-32{width:32px;height:32px}
+.vz-wiki .wk-panel__cell.wkpos-80-38{left:80px;top:38px}
+.vz-wiki .wk-panel__cell.wkpos-80-70{left:80px;top:70px}
+.vz-wiki .wk-panel__cell.wkpos-120-38{left:120px;top:38px}
+.vz-wiki .wk-panel__cell.wkpos-120-70{left:120px;top:70px}
+.vz-wiki .wk-panel__cell.wkpos-44-149{left:44px;top:149px}
+.vz-wiki .wk-panel__cell.wkpos-80-6{left:80px;top:6px}
+.vz-wiki .wk-panel__cell.wkpos-14-18{left:14px;top:18px}
+.vz-wiki .wk-panel__cell.wkpos-64-18{left:64px;top:18px}
+.vz-wiki .wk-panel__cell.wkpos-114-18{left:114px;top:18px}
+.vz-wiki .wk-panel__cell.wkpos-14-78{left:14px;top:78px}
+.vz-wiki .wk-panel__cell.wkpos-64-78{left:64px;top:78px}
+.vz-wiki .wk-panel__cell.wkpos-114-78{left:114px;top:78px}
+.vz-wiki .wk-panel__cell.wkpos-14-138{left:14px;top:138px}
+.vz-wiki .wk-panel__cell.wkpos-64-138{left:64px;top:138px}
+.vz-wiki .wk-panel__cell.wkpos-114-138{left:114px;top:138px}
+.vz-wiki .wkmnw-292{min-width:292px}
+.vz-wiki .wkw-22_3{width:22.3%}
+.vz-wiki .wkw-77_7{width:77.7%}
+.vz-wiki .wkw-41_17{width:41.17%}
+.vz-wiki .wkmnw-339{min-width:339px}
+.vz-wiki .wkw-13_72{width:13.72%}
+.vz-wiki .wkw-45_11{width:45.11%}
+.vz-wiki .wkmnw-329{min-width:329px}
+.vz-wiki .wkw-34_31{width:34.31%}
+.vz-wiki .wkw-39_97{width:39.97%}
+.vz-wiki .wkw-17_15{width:17.15%}
+
+/* Esclusivamente due pannelli della classe attiva, centrati come nella Wiki. */
+#main.wiki-mode .vz-wiki .wk-vz--gear .wk-tabpanel:not(.is-on){display:none!important}
+#main.wiki-mode .vz-wiki .wk-vz--gear .wk-tabpanel.is-on{display:block!important}
+#main.wiki-mode .vz-wiki .wk-vz--gear .wk-tabpanel[hidden]{display:none!important}
+#main.wiki-mode .vz-wiki .wk-vz--gear .wk-panels{
+ display:flex;justify-content:center;align-items:flex-start;flex-wrap:wrap;gap:12px;
+ width:100%;margin-inline:auto;
+}
+#main.wiki-mode .vz-wiki .wk-vz--gear .wk-panel{
+ position:relative;flex:0 0 161px;width:161px;height:189px;
+ margin:0!important;overflow:visible!important;box-sizing:border-box;
+}
+#main.wiki-mode .vz-wiki .wk-vz--gear .wk-panel__art{
+ position:absolute;inset:0;display:block;width:100%;height:100%;
+ max-width:none;object-fit:fill;pointer-events:none;
+}
+#main.wiki-mode .vz-wiki .wk-vz--gear .wk-panel__cell{
+ position:absolute;display:flex;align-items:center;justify-content:center;
+ margin:0!important;padding:0!important;z-index:1;
+}
+#main.wiki-mode .vz-wiki .wk-panel__cell .wk-ic{
+ display:flex;align-items:center;justify-content:center;
+ width:100%;height:100%;margin:0;text-decoration:none;
+}
+#main.wiki-mode .vz-wiki .wk-panel__cell .wk-ic__img{
+ display:block;width:auto;height:auto;max-width:100%;max-height:100%;
+ object-fit:contain;
+}
+#main.wiki-mode .vz-wiki .wk-tabs__bar--classes{
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+ gap:6px;max-width:430px;margin:0 auto 10px;
+}
+#main.wiki-mode .vz-wiki .wk-vz--gear{max-width:100%;min-width:0}
+#main.wiki-mode .vz-wiki .wk-tip-holder{display:none}
+@media(max-width:530px){
+ #main.wiki-mode .vz-wiki .wk-tabs__bar--classes{gap:4px}
+ #main.wiki-mode .vz-wiki .wk-tabs__bar--classes .wk-tab{font-size:10px;padding:7px 2px;min-width:0}
+}
+ 
+/* Tooltip con i contenuti e i colori originali dei bonus, fuori dalle aree con overflow. */
+.vz-wiki-original-tip{
+ position:fixed!important;inset:auto;z-index:2147480000;box-sizing:border-box;
+ width:max-content;min-width:220px;max-width:min(330px,calc(100vw - 16px));
+ max-height:calc(100vh - 16px);overflow:auto;
+ border:1px solid rgba(197,153,108,.65);
+ border-radius:6px;background:rgba(12,5,4,.97);
+ color:#d3c2b0;text-align:center;
+ font:400 13px/1.45 "Manrope",sans-serif;
+ padding:12px 13px;
+ box-shadow:0 15px 45px rgba(0,0,0,.85);
+ pointer-events:none;overscroll-behavior:contain;
+}
+.vz-wiki-original-tip[hidden]{display:none!important}
+.vz-wiki-original-tip .wk-tip__icon{display:flex;justify-content:center;align-items:center;margin-bottom:7px}
+.vz-wiki-original-tip .wk-tip__icon img{display:block;max-height:96px;max-width:96px;width:auto;height:auto;object-fit:contain}
+.vz-wiki-original-tip .wk-tip__name{
+ font-family:"Rajdhani","Manrope",sans-serif;font-weight:700;
+ font-size:17px;line-height:1.25;color:#ffc800;margin-bottom:6px;
+}
+.vz-wiki-original-tip .wk-tip__line{
+ display:block;line-height:1.45;text-align:center;white-space:normal;
+ overflow-wrap:break-word;
+}
+.vz-wiki-original-tip .wk-tip__line[role="note"]{font-size:12px}
+#main.wiki-mode .vz-wiki .wk-ic:focus-visible{
+ outline:2px solid #e3b98a;outline-offset:2px;
+}
+@media(prefers-reduced-motion:reduce){.vz-wiki-original-tip{animation:none!important}}
