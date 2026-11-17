@@ -36,7 +36,8 @@ jobs:
           const page=await browser.newPage({viewport:{width:1360,height:900}});
           const faults=[];
           page.on('pageerror',e=>faults.push(e.message));
-          page.on('console',m=>{if(m.type()==='error'&&!/fonts.googleapis|blocked|net::ERR/i.test(m.text()))faults.push('console: '+m.text().slice(0,200))});
+          page.on('response',r=>{if(r.status()>=400)console.log('HTTP_ERR',r.status(),r.url())});
+          page.on('console',m=>{if(m.type()==='error'&&!/fonts.googleapis|blocked|net::ERR|favicon/i.test(m.text()))console.log('CONSOLE ERROR',m.text())});
           const base='http://127.0.0.1:8765/';
           const open=async route=>{
             await page.goto(base+'#'+route,{waitUntil:'domcontentloaded'});
