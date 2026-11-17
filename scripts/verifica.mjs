@@ -5,7 +5,7 @@ import {runInNewContext} from 'node:vm';
 const base=new URL('../public/',import.meta.url);
 const read=p=>readFileSync(new URL(p,base),'utf8');
 const html=read('index.html'),app=read('app.js'),theme=read('theme-original.css'),guide=read('guide.js'),wiki=read('wiki.js'),official=read('wiki-official-guide.html'),originalHome=read('wiki-official-home.js');
-const files=['wiki-index.generated.js','wiki-tooltips.generated.js','wiki-mirror-utilities.css','style.css','theme-original.css','wiki.css','wiki-official.css','wiki-official-override.css','wiki-search.js','wiki-search.css','wiki-guide-fixes.css','wiki-guide-interactions.js','wiki-official-home.js','wiki-official.js','wiki-official-guide.html','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','item-translations.js','i18n.js','assets/icon-index.js','assets/extra-icons.js','robots.txt','assets/sidebar-logo.svg',...['it','en','ro','hu'].map(s=>'assets/flags/'+s+'.svg'),...Array.from({length:9},(_,i)=>'assets/real-icons-'+String(i).padStart(2,'0')+'.js')];
+const files=['wiki-index.generated.js','wiki-tooltips.generated.js','wiki-item-tooltips.generated.js','wiki-mirror-utilities.css','style.css','theme-original.css','wiki.css','wiki-official.css','wiki-official-override.css','wiki-search.js','wiki-search.css','wiki-guide-fixes.css','wiki-guide-interactions.js','wiki-official-home.js','wiki-official.js','wiki-official-guide.html','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','item-translations.js','i18n.js','assets/icon-index.js','assets/extra-icons.js','robots.txt','assets/sidebar-logo.svg',...['it','en','ro','hu'].map(s=>'assets/flags/'+s+'.svg'),...Array.from({length:9},(_,i)=>'assets/real-icons-'+String(i).padStart(2,'0')+'.js')];
 for(const f of files){
  const u=new URL(f,base);assert.ok(existsSync(u),'Risorsa mancante: '+f);
  if(f.endsWith('.js'))execFileSync(process.execPath,['--check',u.pathname]);
@@ -165,5 +165,19 @@ runInNewContext(searchSource,{window:importedWindow,document:fakeDocument,locati
 assert.ok(importedWindow.VERZUM_WIKI_SEARCH.items.size>=1474,'La ricerca non usa tutti gli item importati');
 assert.ok(importedWindow.VERZUM_WIKI_SEARCH.pages.size>=81,'La ricerca non usa tutte le pagine importate');
 assert.ok(importedWindow.VERZUM_WIKI_SEARCH.search('metin').some(x=>x.type==='page'),'Ricerca delle pagine metin inattiva');
+
+
+const apiData=JSON.parse(read('wiki-item-tooltips.generated.js').split('window.VERZUM_WIKI_API_TIPS=')[1].replace(/;\s*$/,''));
+assert.ok(Object.keys(apiData).length>=850,'Archivio dei tooltip italiani originali incompleto');
+for(const id of ['50301','290','3219','100138']){
+ assert.ok(apiData[id]&&Array.isArray(apiData[id].lines)&&apiData[id].lines.length>1,'Bonus ufficiali mancanti per item '+id);
+ assert.equal(String(apiData[id].vnum),id,'ID non originale nel tooltip '+id);
+}
+assert.ok(html.includes('wiki-item-tooltips.generated.js'),'Archivio API tooltip non incluso');
+assert.ok(html.includes('wiki-render/bootstrap.js'),'Visualizzatore autentico mostri non incluso');
+assert.ok(existsSync(new URL('wiki-render/wiki-model.js',base)),'Modulo originale modello Wiki mancante');
+assert.ok(existsSync(new URL('wiki-render/turntable.js',base)),'Visualizzatore turntable originale mancante');
+assert.ok(read('wiki-official.js').includes('data-viewer="https://render.verzum.to"'),'Endpoint originale modelli non configurato');
+assert.ok(read('wiki-guide-interactions.js').includes("fetch('/api/wiki/tip/'"),'Fallback autenticato item non collegato');
 
 console.log('OK: '+files.length+' risorse, 11 voci menu, 147 oggetti, 44 evoluzioni, ricerca live per item con icone autentiche, struttura Wiki originale, 16 PNG grafici e 40 icone item autentiche, lingue, responsive.');
