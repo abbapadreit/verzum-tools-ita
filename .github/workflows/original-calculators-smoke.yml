@@ -1,7 +1,7 @@
 name: Test faithful original calculator integration
 on:
   push:
-    branches: [fix-all-calculator-legacy-and-gaya]
+    branches: [main, fix-all-calculator-legacy-and-gaya]
     paths:
       - '.github/workflows/original-calculators-smoke.yml'
       - 'public/calculator-reference.html'
