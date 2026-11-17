@@ -28,6 +28,18 @@ const clone=x=>JSON.parse(JSON.stringify(x));
 let state=clone(initial);try{const saved=JSON.parse(localStorage.getItem(STORAGE)||localStorage.getItem('verzum_gilda_italiano_autonomo_v01')||'null');if(saved&&typeof saved==='object'){for(const key of Object.keys(initial))if(saved[key]!==undefined)state[key]=saved[key];}}catch(e){}
 if(RELEASE.catalog&&Array.isArray(RELEASE.catalog)&&state.dataSource==='demo'){state.catalog=RELEASE.catalog;state.activeItem=RELEASE.catalog[0]?.id||'';state.dataSource='importato';state.reference=RELEASE.reference||{};state.materialIds=RELEASE.materialIds||{};for(const k of ['gaya','pet','mount','costumes','skills','passive'])if(RELEASE[k])state[k]=RELEASE[k];}
 if(RELEASE.prices&&state.dataSource!=='demo')state.prices={...RELEASE.prices,...state.prices};
+/* Migrazione non distruttiva: abilita le nuove schede Gaya e costumi anche sui browser che avevano salvato v0.3. */
+if(RELEASE.version==='0.4.0'&&state.dataSource!=='demo'){
+ const changed=localStorage.getItem('verzum_gilda_seed_v04')!=='yes';
+ if(changed){
+   if(RELEASE.gaya&&(!state.gaya?.offers||state.gaya.offers.length<RELEASE.gaya.offers.length))state.gaya=clone(RELEASE.gaya);
+   if(RELEASE.costumes&&(!state.costumes||state.costumes.length<RELEASE.costumes.length))state.costumes=clone(RELEASE.costumes);
+   if(RELEASE.reference?.sys&&!state.reference?.sys)state.reference=RELEASE.reference;
+   if(RELEASE.materialIds&&!Object.keys(state.materialIds||{}).length)state.materialIds=RELEASE.materialIds;
+   try{localStorage.setItem('verzum_gilda_seed_v04','yes')}catch(e){}
+ }
+}
+
 state.filters=state.filters||{class:'all',category:'all'};
 state.range.fails=state.range.fails||{};
 state.edit=false;if(!TITLES[state.route])state.route='upgrade';
