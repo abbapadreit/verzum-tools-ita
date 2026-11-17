@@ -82,6 +82,7 @@ jobs:
             await frame.locator('#v-gaya').evaluate((token)=>{window.__routeIdentity=token},persistence);
             await page.locator('#navigation [data-nav="pet"]').click();
             await frame.locator('#v-pet.view.on').waitFor({timeout:14000});
+            console.log('DEBUG NAV',JSON.stringify(await page.evaluate(()=>({debug:window.__nativeRouteDebug,src:document.querySelector('iframe')?.getAttribute('src'),frameRoute:document.querySelector('iframe')?.dataset?.nativeRoute,outerHash:location.hash}))));
             if(await frame.locator('#v-pet').evaluate(()=>window.__routeIdentity)!==persistence)
               throw Error('Calculator iframe reloaded on Gaya to Pet navigation');
             await page.locator('#navigation [data-nav="gaya"]').click();
