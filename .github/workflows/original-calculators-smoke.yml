@@ -204,8 +204,12 @@ jobs:
               const frame=page.frameLocator('iframe.native-calculator-frame');
               await frame.locator('#v-'+actual+'.view.on').waitFor({timeout:25000});
               const originalTitle=(await frame.locator('#v-'+actual+' .hero h1').innerText()).trim();
-              const src=await page.locator('iframe.native-calculator-frame').getAttribute('src');
-              if(!originalTitle||src!=='calculator-reference.html#'+actual)throw Error('Published route does not load original calculator: '+route);
+              // Con l'ottimizzazione la src iniziale rimane immutata:
+              // la vista cambia tramite hash nel documento dell'iframe conservato.
+              const actualHash=await page.locator('iframe.native-calculator-frame').evaluate(el=>el.contentWindow.location.hash);
+              const frameSrc=await page.locator('iframe.native-calculator-frame').getAttribute('src');
+              if(!originalTitle||!frameSrc.startsWith('calculator-reference.html#')||actualHash!=='#'+actual)
+                throw Error('Published route does not load original calculator: '+route+' (hash '+actualHash+')');
               console.log('CLOUDFLARE LIVE',route,originalTitle);
             }
             await page.goto(base+'#wiki',{waitUntil:'domcontentloaded'});
