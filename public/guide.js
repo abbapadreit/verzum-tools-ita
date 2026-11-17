@@ -70,7 +70,7 @@ const titleBlock=(heading,sub)=>'<div class="guide-block-title"><h3>'+heading+'<
 function guidePanels(){
  const active=levelSteps.find(x=>x.id===state.guideLevelRange)||levelSteps[0];
  const cls=equipment[state.guideClass]?state.guideClass:'Guerriero';
- const top='<div class="guide-source-line"><span class="guide-source-mark">VERZUM 1–75</span>'+wikiLink('guides/vz_level_1_75','Consulta la guida completa sulla Wiki ufficiale')+'</div>'
+ const top='<div class="guide-source-line"><span class="guide-source-mark">VERZUM 1–75</span>'+wikiLink('guides/vz_level_1_75','Guida ufficiale 1–75')+wikiLink('','Apri tutta la Wiki VERZUM')+'</div>'
  +'<p class="guide-lede">Un percorso visivo per scegliere l’equipaggiamento, pianificare i potenziamenti e riconoscere gli oggetti da utilizzare. Seleziona la fascia di livello o la tua classe.</p>';
  const levels='<div class="guide-levels" role="group" aria-label="Fasce di livello">'+levelSteps.map(x=>'<button type="button" class="filter-chip '+(x.id===active.id?'active':'')+'" data-guide-level="'+x.id+'">'+x.id+'</button>').join('')+'</div>'
  +'<div class="guide-feature"><div><span class="pill">Livelli '+active.id+'</span><h3>'+escapeHtml(active.title)+'</h3><p>'+escapeHtml(active.p)+'</p><div class="guide-chips">'+active.chips.map(x=>'<span>'+escapeHtml(x)+'</span>').join('')+'</div>'+wikiLink(active.link,'Approfondisci sulla Wiki')+'</div>'+(active.item.length?grid(active.item):'')+'</div>';
