@@ -156,7 +156,7 @@ function catalogPanels(){const item=state.catalog.find(x=>x.id===state.activeIte
  return [panel('dataEditor','Modifica livelli e materiali',editor,8,'CONFIGURAZIONE'),panel('dataAdmin','Gestione oggetti e backup',newItem,4,'DATI')];}
 const sections={upgrade:upgradePanels,gaya:gayaPanels,pet:petPanels,mount:mountPanels,costume:costumePanels,skills:skillsPanels,passive:passivePanels,planner:plannerPanels,prices:pricesPanels,catalog:catalogPanels};
 function layoutsFor(route,panels){if(!state.layout[route])state.layout[route]={};const l=state.layout[route];for(const p of panels)if(!l[p.key])l[p.key]={order:Object.keys(l).length,span:p.span,hidden:false};return l;}
-function render(){let route=state.route;const ts=TITLES[route];$('#section-label').textContent=ts[0];$('#page-title').textContent=ts[1];$('#page-subtitle').textContent=ts[2];$('#plan-count').textContent=state.planner.length;
+function render(){let route=state.route;if(TITLES[route]&&location.hash!==('#'+route))history.replaceState({route},'',location.pathname+location.search+'#'+route);const ts=TITLES[route];$('#section-label').textContent=ts[0];$('#page-title').textContent=ts[1];$('#page-subtitle').textContent=ts[2];$('#plan-count').textContent=state.planner.length;
  document.querySelectorAll('[data-nav]').forEach(b=>{b.classList.toggle('selected',b.dataset.nav===route);b.setAttribute('aria-current',b.dataset.nav===route?'page':'false')});const panels=sections[route]();const layout=layoutsFor(route,panels);
  const n=document.querySelector('.notice');if(n){n.innerHTML=state.dataSource==='demo'?'<span>ⓘ</span><div><strong>Dati di esempio.</strong> Le percentuali e i prezzi iniziali sono dimostrativi. Importa dati verificati prima di usare i calcoli per decisioni di gioco.</div>':'<span>ⓘ</span><div><strong>Catalogo di riferimento (147 oggetti).</strong> Immagini PNG importate dal pacchetto fornito. Le percentuali e i materiali devono ancora essere verificati per VERZUM; i prezzi sono da impostare.</div>';}
 $('#main').classList.toggle('editing',state.edit);$('#customize').textContent=state.edit?'✓ Fine personalizzazione':'✥ Personalizza';$('#edit-toolbar').hidden=!state.edit;
@@ -184,7 +184,7 @@ function doAction(action){const g=state.gaya;switch(action){case 'add-price':{co
  case 'export-site':exportSiteZip();return;
  case 'reset-demo':if(!confirm('Ripristinare i dati iniziali? Questa operazione elimina configurazioni e pianificatore salvati.'))return;state=clone(initial);state.filters={class:'all',category:'all'};break;
  }render()}
-$('#navigation').addEventListener('click',e=>{const b=e.target.closest('[data-nav]');if(b){state.route=b.dataset.nav;state.edit=false;render();window.scrollTo({top:0,behavior:'instant'})}});
+$('#navigation').addEventListener('click',e=>{const b=e.target.closest('[data-nav]');if(!b||!TITLES[b.dataset.nav])return;state.route=b.dataset.nav;state.edit=false;if(location.hash!==('#'+state.route))history.pushState({route:state.route},'',location.pathname+location.search+'#'+state.route);render();window.scrollTo({top:0,behavior:'instant'})});
 $('#customize').addEventListener('click',()=>{state.edit=!state.edit;render()});$('#finish-edit').addEventListener('click',()=>{state.edit=false;render()});$('#reset-layout').addEventListener('click',()=>{delete state.layout[state.route];render()});$('#backup').addEventListener('click',()=>downloadJSON('verzum-gilda-configurazione.json',state));
 $('#panels').addEventListener('click',e=>{const el=e.target.closest('[data-item],[data-filter-class],[data-filter-category],[data-scenario],[data-fail-choice],[data-add-plan],[data-delete-plan],[data-action],[data-layout],[data-delete-price]');if(!el)return;
  if(el.dataset.filterClass!==undefined){state.filters.class=el.dataset.filterClass;render();return}
@@ -217,6 +217,8 @@ $('#panels').addEventListener('change',e=>{const t=e.target;
  if(t.dataset.set==='range.evolution'){state.range.evolution=!!t.checked;render();return}
  if(t.dataset.set){handleField(t.dataset.set,t.type==='checkbox'?t.checked:t.type==='number'?num(t.value):t.value);render();return}
 });
-window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(TITLES[h]){state.route=h;render()}});
+function restoreRouteFromUrl(){const id=decodeURIComponent(location.hash.slice(1));if(TITLES[id]&&id!==state.route){state.route=id;state.edit=false;render();window.scrollTo({top:0,behavior:'instant'})}}
+window.addEventListener('hashchange',restoreRouteFromUrl);
+window.addEventListener('popstate',restoreRouteFromUrl);
 if(TITLES[location.hash.slice(1)])state.route=location.hash.slice(1);
 render();
