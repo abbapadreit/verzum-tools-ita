@@ -27,3 +27,7 @@
 .wiki-article-bottom{display:flex;gap:24px;flex-wrap:wrap;border-top:1px solid rgba(197,153,108,.25);margin-top:30px;padding-top:20px}
 .wiki-card[hidden],.wiki-section[hidden]{display:none!important}
 @media(max-width:780px){.wiki-item-main{gap:12px}.wiki-item-main h3{font-size:1.2rem}.wiki-crumb{padding:12px 14px 0}}
+
+/* Senza simboli inventati: ogni icona conserva il proprio rapporto e ID originale. */
+.wiki-icon-unavailable:not([hidden]){display:block;font-size:.58rem;line-height:1.2;color:#c7b1a0;text-align:center;overflow-wrap:break-word}
+.wiki-item-icon img[hidden],.guide-item-thumb img[hidden]{display:none!important}
