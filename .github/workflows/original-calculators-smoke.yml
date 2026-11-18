@@ -125,25 +125,9 @@ jobs:
             await frame.locator('#cFrom').selectOption('2');
             if(await matrix.locator('thead th.vz-matrix-level').count()!==10)
               throw Error('Full Wiki grid must not depend on the cost range dropdown');
-            await frame.locator('#v-crafting').evaluate(()=>{
-              window.__hoverTrace=[];
-              for(const type of ['pointerover','pointerout','scroll']){
-               document.addEventListener(type,event=>{
-                if(window.__hoverTrace.length<60)window.__hoverTrace.push({
-                  type,target:event.target?.id||event.target?.className?.toString?.().slice(0,100),
-                  related:event.relatedTarget?.className?.toString?.().slice(0,60)
-                });
-               },true);
-              }
-            });
+            // Effettivo spostamento del puntatore anche quando era già sull'oggetto.
             await frame.locator('#vz-accordion-weapons .it[data-id="290"]').scrollIntoViewIfNeeded();
-            await frame.locator('#vz-accordion-weapons .it[data-id="290"]').hover();
-            const hoverState=await frame.locator('#vz-accordion-weapons .it[data-id="290"]').evaluate(el=>{
-              const rect=el.getBoundingClientRect(),tip=document.getElementById('vz-upgrade-wiki-tip');
-              return {rect:rect.toJSON(),elementAtPoint:document.elementFromPoint(rect.left+rect.width/2,rect.top+rect.height/2)?.className,
-               tipHidden:tip?.hidden,tipHTML:tip?.innerText?.slice(0,100),trace:window.__hoverTrace};
-            });
-            console.log('HOVER_MATRIX_DIAGNOSTIC',JSON.stringify(hoverState));
+            await frame.locator('#vz-accordion-weapons .it[data-id="290"]').hover({position:{x:12,y:12}});
             await frame.locator('.vz-upgrade-wiki-tip').waitFor({state:'visible',timeout:7000});
             if(!(await frame.locator('.vz-upgrade-wiki-tip').innerText()).includes('Spada della Luna Piena+0'))
               throw Error('Wiki tooltip missing from item list');
