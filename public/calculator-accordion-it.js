@@ -153,7 +153,7 @@ tx=function(value){
  const mapped=IT[k]||ro[k]||(typeof TR!=='undefined'&&TR[k]&&en[TR[k].en])||null;
  if(mapped)return s.replace(k,mapped);
  for(const row of extraPatterns)if(row[0].test(k))return s.replace(k,k.replace(row[0],row[1]));
- return s;
+ return window.VERZUM_NATIVE_IT_DYNAMIC?.(s)||s;
 };
 
 const nativeSetLang=setLang;
