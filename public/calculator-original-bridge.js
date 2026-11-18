@@ -4,7 +4,7 @@
 (function(){
 'use strict';
 if(typeof sections==='undefined'||typeof state==='undefined'||typeof render!=='function')return;
-const nativeRoutes={upgrade:'crafting',gaya:'gaya',pet:'pet',mount:'mount',costume:'costume',skills:'skills',passive:'passive',planner:'planner',prices:'prices'};
+const nativeRoutes={upgrade:'crafting',gaya:'gaya',pet:'pet',mount:'mount',costume:'costume',skills:'skills',passive:'passive',prices:'prices'};
 const validRoutes=new Set(Object.keys(nativeRoutes));
 /* Prima apertura: conserva i prezzi già inseriti nel precedente listino.
    Solo associazioni item-ID verificabili, mai numeri stimati o sostituiti.
@@ -44,6 +44,11 @@ function fixEmbeddedScroll(frame){
    link.id='verzum-accordion-style';link.rel='stylesheet';link.href='calculator-accordion-it.css';
    doc.head.appendChild(link);
   }
+  if(!doc.getElementById('verzum-plan-bridge-script')){
+   const plan=document.createElement('script');
+   plan.id='verzum-plan-bridge-script';plan.src='calculator-plan-bridge.js';
+   doc.body.appendChild(plan);
+  }
   if(!doc.getElementById('verzum-accordion-script')){
    const script=doc.createElement('script');
    script.id='verzum-accordion-script';script.src='calculator-accordion-it.js';script.defer=true;
@@ -57,6 +62,28 @@ document.addEventListener('load',event=>{
 const initialFrame=activeFrame();
 if(initialFrame&&initialFrame.contentDocument?.readyState==='complete')fixEmbeddedScroll(initialFrame);
 
+function validPlannerEntry(raw){
+ if(!raw||typeof raw!=='object'||typeof raw.name!=='string'||!raw.name.trim()||raw.name.length>160)return null;
+ const materials={},materialIds={};
+ if(raw.materials&&typeof raw.materials==='object'&&!Array.isArray(raw.materials)){
+  for(const [name,qty] of Object.entries(raw.materials)){
+   const value=Number(qty);
+   if(!name||name.length>100||!Number.isFinite(value)||value<=0||value>1e9)continue;
+   materials[name]=value;
+  }
+ }
+ if(raw.materialIds&&typeof raw.materialIds==='object'&&!Array.isArray(raw.materialIds)){
+  for(const [id,qty] of Object.entries(raw.materialIds)){
+   if(!/^[a-z0-9_]{1,50}$/i.test(id))continue;
+   const value=Number(qty);
+   if(Number.isFinite(value)&&value>0&&value<=1e9)materialIds[id]=value;
+  }
+ }
+ const amount=Number(raw.yang);
+ return {name:raw.name.trim(),source:String(raw.source||'Calcolatore').slice(0,100),
+  materials,materialIds,yang:Number.isFinite(amount)?Math.max(0,amount):0,
+  notes:String(raw.notes||'').slice(0,1000),created:new Date().toLocaleDateString('it-IT')};
+}
 let lastFrame=null;
 window.addEventListener('message',event=>{
  if(event.origin!==location.origin)return;
@@ -66,9 +93,34 @@ window.addEventListener('message',event=>{
  if(data.type==='verzum-reference-height'){
   const height=Number(data.height);
   if(Number.isFinite(height)&&height>=300&&height<=80000)iframe.style.height=Math.ceil(height)+'px';
+ }else if(data.type==='verzum-reference-change-language'){
+  if(['it','en','ro','hu'].includes(data.language))window.VERZUM_LOCALE?.change(data.language);
+  }else if(data.type==='verzum-reference-add-plan'){
+  const entry=validPlannerEntry(data.plan);
+  if(!entry)return;
+  state.planner.push(entry);
+  state.route='planner';
+  history.pushState({route:'planner'},'',location.pathname+location.search+'#planner');
+  render();
+  toast('Progetto aggiunto al pianificatore con i dati del calcolatore');
+  }else if(data.type==='verzum-reference-import-legacy-plan'){
+  const marker='verzum_native_planner_migrated_v2';
+  if(localStorage.getItem(marker)==='1')return;
+  const list=Array.isArray(data.plans)?data.plans.slice(0,200):[];
+  let imported=0;
+  for(const raw of list){
+    const entry=validPlannerEntry(raw);
+    if(!entry)continue;
+    entry.source='Calcolatore originale · Archivio storico';
+    if(state.planner.some(x=>x.name===entry.name&&x.source===entry.source))continue;
+    state.planner.push(entry);imported++;
+  }
+  try{localStorage.setItem(marker,'1')}catch(_){}
+  if(imported){save();const count=document.getElementById('plan-count');if(count)count.textContent=state.planner.length;
+   if(state.route==='planner')render();}
  }else if(data.type==='verzum-reference-route'){
-  const target=Object.entries(nativeRoutes).find(([route,id])=>id===data.route)?.[0];
-  if(!target||!validRoutes.has(target)||target===state.route)return;
+  const target=data.route==='planner'?'planner':Object.entries(nativeRoutes).find(([route,id])=>id===data.route)?.[0];
+  if(!target||(target!=='planner'&&!validRoutes.has(target))||target===state.route)return;
   state.route=target;
   history.pushState({route:target},'',location.pathname+location.search+'#'+target);
   render();

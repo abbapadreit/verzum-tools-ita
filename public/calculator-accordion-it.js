@@ -153,15 +153,16 @@ tx=function(value){
  const mapped=IT[k]||ro[k]||(typeof TR!=='undefined'&&TR[k]&&en[TR[k].en])||null;
  if(mapped)return s.replace(k,mapped);
  for(const row of extraPatterns)if(row[0].test(k))return s.replace(k,k.replace(row[0],row[1]));
- return s;
+ return window.VERZUM_NATIVE_IT_DYNAMIC?.(s)||s;
 };
 
 const nativeSetLang=setLang;
 setLang=function(next){
- if(next!=='it'){nativeSetLang(next);rFilters();rTiles();return}
+ if(next==='en'||next==='ro'||next==='hu'){nativeSetLang(next);rFilters();rTiles();return}
+ if(next!=='it')return;
  LANG='it';LOC='it-IT';
  try{localStorage.setItem('dt_lang','it')}catch(_){}
- document.documentElement.lang='it';
+ document.documentElement.lang=next;
  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang==='it'));
  route();
  trNode(document.body);
@@ -238,9 +239,26 @@ if(typeof NL!=='undefined')NL.it={
 };
 window.addEventListener('message',e=>{
  if(e.origin!==location.origin||e.source!==parent)return;
- if(e.data?.type==='verzum-parent-language'&&['it','ro'].includes(e.data.language))
+ if(e.data?.type==='verzum-parent-language'&&['it','en','ro','hu'].includes(e.data.language)&&LANG!==e.data.language)
   setLang(e.data.language);
 });
+/* Le quattro lingue hanno gli stessi controlli e le rispettive bandierine. */
+const nativeFlags=document.querySelector('.lang');
+if(nativeFlags){
+ if(!nativeFlags.querySelector('[data-lang="it"]')){
+  const btn=document.createElement('button');
+  btn.type='button';btn.dataset.lang='it';btn.textContent='IT';btn.title='Italiano';
+  nativeFlags.prepend(btn);
+ }
+ for(const btn of nativeFlags.querySelectorAll('button[data-lang]')){
+  const lang=btn.dataset.lang;
+  if(!['it','en','ro','hu'].includes(lang)||btn.querySelector('img'))continue;
+  const flag=document.createElement('img');
+  flag.src='assets/flags/'+lang+'.svg';flag.alt='';flag.width=22;flag.height=14;
+  flag.loading='lazy';btn.prepend(flag);
+  btn.setAttribute('aria-label',({it:'Italiano',en:'English',ro:'Română',hu:'Magyar'})[lang]);
+ }
+}
 rFilters();
 setLang(window.parent?.VERZUM_LOCALE?.lang||'it');
 // L'estensione arriva dopo il caricamento delle fisarmoniche e riutilizza
@@ -253,4 +271,20 @@ if(!document.getElementById('verzum-upgrade-stats-script')){
  const script=document.createElement('script');script.id='verzum-upgrade-stats-script';
  script.src='calculator-upgrade-stats.js';script.defer=true;document.body.appendChild(script);
 }
+
+/* Espone il dizionario IT al filtro dinamico dell'iframe. */
+window.VERZUM_NATIVE_IT_DICTIONARY=IT;
+for(const href of ['calculator-upgrade-compare.css']){
+ if(!document.querySelector('link[href="'+href+'"]')){const link=document.createElement('link');link.rel='stylesheet';link.href=href;document.head.appendChild(link)}
+}
+for(const src of ['calculator-italian-complete.js','calculator-upgrade-compare.js','calculator-locale-cleanup.js']){
+ if(!document.querySelector('script[src="'+src+'"]')){const script=document.createElement('script');script.src=src;script.async=false;document.body.appendChild(script)}
+}
+
+/* La scelta della lingua nell'iframe aggiorna anche le bandiere del sito principale. */
+document.addEventListener('click',e=>{
+ const b=e.target.closest('.lang button[data-lang]');
+ if(!b||!['it','en','ro','hu'].includes(b.dataset.lang))return;
+ try{parent.postMessage({type:'verzum-reference-change-language',language:b.dataset.lang},location.origin)}catch(_){}
+},true);
 })();

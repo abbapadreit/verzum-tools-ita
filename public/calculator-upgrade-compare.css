@@ -1,0 +1,15 @@
+#v-crafting .vzw-upgrade-compare{margin:12px;border:1px solid #715039;border-radius:8px;background:#21100e;color:#ead2b0;overflow:hidden}
+#v-crafting .vzw-compare-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px;background:#352018}
+#v-crafting .vzw-compare-top strong{display:block;color:#e8c99b;font:700 17px Rajdhani,sans-serif}
+#v-crafting .vzw-compare-top small{color:#bda48f;font:12px Rajdhani,sans-serif}
+#v-crafting .vzw-compare-selects{display:flex;gap:8px}
+#v-crafting .vzw-compare-selects label{color:#c6a785;font:600 12px Rajdhani,sans-serif}
+#v-crafting .vzw-compare-selects select{margin-left:6px;padding:5px 22px 5px 6px;border:1px solid #896347;border-radius:4px;background:#140909;color:#f4d6a6}
+#v-crafting .vzw-compare-scroll{overflow-x:auto}
+#v-crafting .vzw-upgrade-compare table{border-collapse:collapse;width:100%;font:13px Rajdhani,sans-serif}
+#v-crafting .vzw-upgrade-compare th,#v-crafting .vzw-upgrade-compare td{border-bottom:1px solid #4f3129;padding:8px 10px;text-align:left}
+#v-crafting .vzw-upgrade-compare th{color:#e2c398}#v-crafting .vzw-upgrade-compare td{color:#a8d0a2}
+#v-crafting .vzw-upgrade-compare .vzw-change{font-weight:700;color:#e8c18e}
+#v-crafting .vzw-upgrade-compare p{font:11px/1.45 Manrope,Arial,sans-serif;padding:8px 12px;color:#bda799;margin:0}
+#v-crafting .vz-upgrade-matrix-table td.vzw-comparing,#v-crafting .vz-upgrade-matrix-table th.vzw-comparing{background:#513323!important}
+@media(max-width:620px){#v-crafting .vzw-upgrade-compare{margin:8px}#v-crafting .vzw-compare-top{align-items:stretch}#v-crafting .vzw-compare-selects{justify-content:space-between}}
