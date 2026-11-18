@@ -61,7 +61,7 @@ function recommended(page,kind){
  if(kind==='gear'){
   scope=[...(page?.querySelectorAll('section')||[])].find(s=>s.querySelector('.wk-vzhead')?.textContent.includes('Equipaggiamento consigliato'));
   const code=classes[profile.class],btn=scope?.querySelector('[data-class="'+code+'"]');
-  const panel=btn?.getAttribute('aria-controls')?scope.querySelector('#'+CSS.escape(btn.getAttribute('aria-controls'))):null;
+  const panel=btn?.getAttribute('aria-controls')?scope.querySelector('[id="'+btn.getAttribute('aria-controls')+'"]'):null;
   scope=panel||scope?.querySelector('.wk-tabpanel[data-panel="'+(['warrior','ninja','sura','shaman'].indexOf(code))+'"]');
  }else if(kind==='alchemy')scope=page?.querySelector('.wk-alch');
  else if(kind==='consumables')scope=[...(page?.querySelectorAll('section')||[])].find(s=>s.querySelector('.wk-vzhead')?.textContent.includes('Consumabili'));
@@ -78,7 +78,7 @@ function recommended(page,kind){
 }
 function recommendedSkills(page,keyword){
  const section=[...(page?.querySelectorAll('section')||[])].find(s=>s.querySelector('.wk-vzhead')?.textContent.includes('Abilità consigliate'));
- const table=[...(section?.querySelectorAll('table')||[])].find(t=>t.querySelector('thead')?.textContent.includes(keyword));
+ const table=[...(section?.querySelectorAll('table')||[])].find(t=>t.querySelector('thead')?.textContent.replace(/[’]/g,"'").includes(keyword.replace(/[’]/g,"'")));
  return [...(table?.querySelectorAll('tbody tr')||[])].map(tr=>{
   const cells=tr.querySelectorAll('td');
   if(cells.length<2)return null;
@@ -281,7 +281,7 @@ function farmingUI(){
  '<div class="vzw-metrics">'+
  metric('DPS consigliato Wiki',info?.dps?fmt(info.dps):'—')+
  metric('Livello accesso',info?.access||'—')+
- metric('Reddito stimato run',profit?fmt(profit.profit)+' Yang':'—')+
+ metric('Utile netto delle run',profit?fmt(profit.profit)+' Yang':'—')+
  metric('Reddito stimato / ora',profit?.profitPerHour!==null&&profit?.profitPerHour!==undefined?fmt(profit.profitPerHour)+' Yang':'—')+
  (eligible===null?'':metric('Accesso personaggio',eligible?'Compatibile':'Non compatibile'))+'</div>'+
  '<p class="vzw-small">Redditività basata solo sui valori inseriti dall’utente. La Wiki non garantisce drop, durata o guadagni.</p>'+
