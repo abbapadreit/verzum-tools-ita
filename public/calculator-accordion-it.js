@@ -158,7 +158,7 @@ tx=function(value){
 
 const nativeSetLang=setLang;
 setLang=function(next){
- if(next!=='it'){nativeSetLang(next);rFilters();rTiles();return}
+ if(next!=='it'){nativeSetLang(next==='hu'?'en':next);rFilters();rTiles();return}
  LANG='it';LOC='it-IT';
  try{localStorage.setItem('dt_lang','it')}catch(_){}
  document.documentElement.lang='it';
@@ -252,5 +252,14 @@ if(!document.getElementById('verzum-upgrade-stats-style')){
 if(!document.getElementById('verzum-upgrade-stats-script')){
  const script=document.createElement('script');script.id='verzum-upgrade-stats-script';
  script.src='calculator-upgrade-stats.js';script.defer=true;document.body.appendChild(script);
+}
+
+/* Espone il dizionario IT al filtro dinamico dell'iframe. */
+window.VERZUM_NATIVE_IT_DICTIONARY=IT;
+for(const href of ['calculator-upgrade-compare.css']){
+ if(!document.querySelector('link[href="'+href+'"]')){const link=document.createElement('link');link.rel='stylesheet';link.href=href;document.head.appendChild(link)}
+}
+for(const src of ['calculator-upgrade-compare.js','calculator-locale-cleanup.js']){
+ if(!document.querySelector('script[src="'+src+'"]')){const script=document.createElement('script');script.src=src;document.body.appendChild(script)}
 }
 })();
