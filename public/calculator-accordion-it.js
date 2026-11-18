@@ -260,8 +260,8 @@ window.VERZUM_NATIVE_IT_DICTIONARY=IT;
 for(const href of ['calculator-upgrade-compare.css']){
  if(!document.querySelector('link[href="'+href+'"]')){const link=document.createElement('link');link.rel='stylesheet';link.href=href;document.head.appendChild(link)}
 }
-for(const src of ['calculator-upgrade-compare.js','calculator-locale-cleanup.js']){
- if(!document.querySelector('script[src="'+src+'"]')){const script=document.createElement('script');script.src=src;document.body.appendChild(script)}
+for(const src of ['calculator-italian-complete.js','calculator-upgrade-compare.js','calculator-locale-cleanup.js']){
+ if(!document.querySelector('script[src="'+src+'"]')){const script=document.createElement('script');script.src=src;script.async=false;document.body.appendChild(script)}
 }
 
 /* La scelta della lingua nell'iframe aggiorna anche le bandiere del sito principale. */
