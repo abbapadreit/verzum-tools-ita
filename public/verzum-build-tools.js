@@ -7,9 +7,9 @@ if(!host||!core||window.VERZUM_BUILD_TOOLS)return;
 const KEY='verzum_pvm_build_v2',OLD='verzum_pvm_build_v1',guidePath='wiki/guides/vz_level_1_75';
 const classes={Guerriero:'warrior',Ninja:'ninja',Sura:'sura',Sciamano:'shaman'};
 const supports={pet:'Pet',mount:'Cavalcatura',buff:'Buff',alchemy:'Alchimia',talisman:'Talismano',premium:'Equipaggiamento premium'};
-const dungeonPaths=['monkey','orc','esoteric','spider','demon_tower','azrael','razador','nemere'];
-const dungeonNames={monkey:'Scimmie',orc:'Orchi',esoteric:'Esoterici',spider:'Ragni',demon_tower:'Torre dei Demoni',azrael:'Azrael',razador:'Razador',nemere:'Nemere'};
-const bossDungeon={'5163':'monkey','694':'orc','792':'esoteric','2092':'spider','1093':'demon_tower','2598':'azrael','6091':'razador','6191':'nemere'};
+const dungeonPaths=['monkey','orc','esoteric','spider','demon_tower','azrael','dragon','triad','gnoll','triton','razador','nemere'];
+const dungeonNames={monkey:'Scimmie',orc:'Orchi',esoteric:'Esoterici',spider:'Ragni',demon_tower:'Torre dei Demoni',azrael:'Azrael',dragon:'Drago',triad:'Morte Blu',gnoll:'Gnoll',triton:'Tritone',razador:'Razador',nemere:'Nemere'};
+const bossDungeon={'5163':'monkey','694':'orc','792':'esoteric','2092':'spider','1093':'demon_tower','2598':'azrael','1095':'triad','2493':'dragon','100010':'gnoll','100011':'triton','6091':'razador','6191':'nemere'};
 const cache=new Map(),pending=new Set(),missing=new Set();
 const defaults=()=>({name:'Personaggio principale',class:'Guerriero',level:55,measuredDps:0,
  bonuses:{},supports:{pet:false,mount:false,buff:false,alchemy:false,talisman:false,premium:false},
@@ -231,7 +231,9 @@ function bossUI(page,r){
  metric('Equipaggiamento consigliato presente',gear.length?equipped+' / '+gear.length:'Nessun elenco')+'</div>'+
  (mob&&tpl?'<p class="vzw-small">Equipaggiamento e bonus ricavati dalla scheda dungeon correlata: <a href="#wiki/'+esc('dungeons/'+bossDungeon[current.mobId])+'">'+esc(dungeonNames[bossDungeon[current.mobId]])+'</a>.</p>':'')+
  (mob&&!tpl&&bossDungeon[current.mobId]?'<p class="vzw-small">Caricamento delle raccomandazioni dalla pagina dungeon corrispondente…</p>':'')+
- '<h3>Bonus totali consigliati</h3>'+bonusesUi(goals)+
+ (mob&&tpl&&window.VERZUM_BOSS_RECOMMENDATIONS?
+ window.VERZUM_BOSS_RECOMMENDATIONS.render(tpl,profile.class,current.title,'wiki/dungeons/'+bossDungeon[current.mobId]):'')+
+  '<h3>Bonus totali consigliati</h3>'+bonusesUi(goals)+
  '<details class="vzw-details" open><summary>Equipaggiamento per '+esc(profile.class)+' <small>'+gear.length+' oggetti della Wiki</small></summary>'+ownedUi(gear,'gear')+'</details>'+
  '<details class="vzw-details"><summary>Alchimia consigliata <small>'+alchemy.length+' pietre della Wiki</small></summary>'+ownedUi(alchemy,'alchemy')+'</details>'+
  '<details class="vzw-details"><summary>Consumabili e potenziamenti <small>'+consumables.length+' oggetti della Wiki</small></summary>'+ownedUi(consumables,'consumables')+'</details>'+
@@ -449,6 +451,10 @@ host.addEventListener('change',e=>{
  actionChange(el);
 });
 host.addEventListener('click',e=>{
+ const cls=e.target.closest('[data-vzw-class]');
+ if(cls&&cls.closest('[data-vzw-scope="boss"]')&&Object.prototype.hasOwnProperty.call(classes,cls.dataset.vzwClass)){
+  e.preventDefault();profile.class=cls.dataset.vzwClass;persist();refresh();return;
+ }
  const button=e.target.closest('[data-vzw-plan],[data-vzw-export],[data-vzw-import]');
  if(!button)return;
  if(button.hasAttribute('data-vzw-export')){
