@@ -4,7 +4,7 @@
 (function(){
 'use strict';
 if(typeof sections==='undefined'||typeof state==='undefined'||typeof render!=='function')return;
-const nativeRoutes={upgrade:'crafting',gaya:'gaya',pet:'pet',mount:'mount',costume:'costume',skills:'skills',passive:'passive',planner:'planner',prices:'prices'};
+const nativeRoutes={upgrade:'crafting',gaya:'gaya',pet:'pet',mount:'mount',costume:'costume',skills:'skills',passive:'passive',prices:'prices'};
 const validRoutes=new Set(Object.keys(nativeRoutes));
 /* Prima apertura: conserva i prezzi già inseriti nel precedente listino.
    Solo associazioni item-ID verificabili, mai numeri stimati o sostituiti.
@@ -44,6 +44,11 @@ function fixEmbeddedScroll(frame){
    link.id='verzum-accordion-style';link.rel='stylesheet';link.href='calculator-accordion-it.css';
    doc.head.appendChild(link);
   }
+  if(!doc.getElementById('verzum-plan-bridge-script')){
+   const plan=document.createElement('script');
+   plan.id='verzum-plan-bridge-script';plan.src='calculator-plan-bridge.js';
+   doc.body.appendChild(plan);
+  }
   if(!doc.getElementById('verzum-accordion-script')){
    const script=doc.createElement('script');
    script.id='verzum-accordion-script';script.src='calculator-accordion-it.js';script.defer=true;
@@ -66,9 +71,20 @@ window.addEventListener('message',event=>{
  if(data.type==='verzum-reference-height'){
   const height=Number(data.height);
   if(Number.isFinite(height)&&height>=300&&height<=80000)iframe.style.height=Math.ceil(height)+'px';
+ }else if(data.type==='verzum-reference-add-plan'){
+  const raw=data.plan;
+  if(!raw||typeof raw!=='object'||typeof raw.name!=='string'||raw.name.length>160)return;
+  const materials={};
+  if(raw.materials&&typeof raw.materials==='object'&&!Array.isArray(raw.materials))
+   for(const [name,q] of Object.entries(raw.materials))
+    if(name.length<100&&Number.isFinite(Number(q))&&Number(q)>0)materials[name]=Math.min(Number(q),1e9);
+  state.planner.push({name:raw.name,source:String(raw.source||'Calcolatore').slice(0,100),
+   materials,yang:Number.isFinite(Number(raw.yang))?Math.max(0,Number(raw.yang)):0,
+   notes:String(raw.notes||'').slice(0,1000),created:new Date().toLocaleDateString('it-IT')});
+  state.route='planner';history.pushState({route:'planner'},'',location.pathname+location.search+'#planner');render();
  }else if(data.type==='verzum-reference-route'){
-  const target=Object.entries(nativeRoutes).find(([route,id])=>id===data.route)?.[0];
-  if(!target||!validRoutes.has(target)||target===state.route)return;
+  const target=data.route==='planner'?'planner':Object.entries(nativeRoutes).find(([route,id])=>id===data.route)?.[0];
+  if(!target||(target!=='planner'&&!validRoutes.has(target))||target===state.route)return;
   state.route=target;
   history.pushState({route:target},'',location.pathname+location.search+'#'+target);
   render();
