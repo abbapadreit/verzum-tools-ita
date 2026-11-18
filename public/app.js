@@ -201,7 +201,7 @@ function plannerPanels(){
  items.forEach(i=>Object.entries(i.materials||{}).forEach(([k,q])=>addM(material,k,q)));
  const list=items.length?table(['Progetto','Yang','Materiali (al prezzo attuale)','Azioni'],items.map((p,i)=>
   `<tr><td><b>${esc(p.name)}</b><br><small class="muted">${esc(p.source)} · ${esc(p.created||'')}</small>${p.notes?'<br><small class="muted">'+esc(p.notes)+'</small>':''}</td>
-  <td>${cash(p.yang)}</td><td>${cash(priceTotal(p.materials||{}))}</td><td><button class="btn danger small" data-delete-plan="${i}">Elimina</button></td></tr>`)):'<div class="empty">Il pianificatore è vuoto. Aggiungi un obiettivo oppure importa i risultati disponibili dai calcolatori.</div>';
+  <td><input class="control" style="max-width:118px" data-plan-yang="${i}" value="${esc(cash(p.yang))}" aria-label="Yang previsti per ${esc(p.name)}"></td><td><input class="control" style="max-width:230px" data-plan-mats="${i}" value="${esc(Object.entries(p.materials||{}).map(([n,q])=>n+':'+q).join(', '))}" placeholder="Materiale:quantità" aria-label="Materiali per ${esc(p.name)}"><small class="muted">Valore: ${cash(priceTotal(p.materials||{}))}</small></td><td><button class="btn danger small" data-delete-plan="${i}">Elimina</button></td></tr>`)):'<div class="empty">Il pianificatore è vuoto. Aggiungi un obiettivo oppure importa i risultati disponibili dai calcolatori.</div>';
  const manual=`<div class="divider"></div><h3>Aggiungi un obiettivo</h3>
   <p class="hint">Le attività aggiunte dalla Wiki possono non avere ancora costi verificati. Puoi inserire manualmente Yang e materiali senza inventare valori.</p>
   <div class="field-grid"><label class="field">Titolo attività<input id="vzw-plan-name" class="control" maxlength="160" placeholder="Es. Portare arma a +9"></label>
@@ -311,6 +311,8 @@ $('#panels').addEventListener('change',e=>{const t=e.target;
  if(t.dataset.selectItem!==undefined){state.activeItem=t.value;render();return}
  if(t.dataset.costume!==undefined){if(t.checked&&!state.selectedCostumes.includes(t.dataset.costume))state.selectedCostumes.push(t.dataset.costume);if(!t.checked)state.selectedCostumes=state.selectedCostumes.filter(x=>x!==t.dataset.costume);render();return}
  if(t.dataset.price!==undefined){state.prices[t.dataset.price]=Math.max(0,num(t.value));render();return}
+ if(t.dataset.planYang!==undefined){const p=state.planner[natural(t.dataset.planYang)];if(p){p.yang=Math.max(0,num(t.value));render()}return}
+ if(t.dataset.planMats!==undefined){const p=state.planner[natural(t.dataset.planMats)];if(p){p.materials=parseMat(t.value);render()}return}
  if(t.dataset.step!==undefined){const item=state.catalog.find(i=>i.id===state.activeItem);if(item){const s=item.steps[natural(t.dataset.step)];if(s){if(t.dataset.prop==='mat')s.mat=parseMat(t.value);else if(t.dataset.prop==='pct')s.pct=Math.max(0,Math.min(100,num(t.value)));else s.yang=Math.max(0,num(t.value))}}render();return}
  if(t.dataset.set==='range.evolution'){state.range.evolution=!!t.checked;render();return}
  if(t.dataset.set){handleField(t.dataset.set,t.type==='checkbox'?t.checked:t.type==='number'?num(t.value):t.value);render();return}
