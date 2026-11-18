@@ -231,8 +231,9 @@ function bossUI(page,r){
  metric('Equipaggiamento consigliato presente',gear.length?equipped+' / '+gear.length:'Nessun elenco')+'</div>'+
  (mob&&tpl?'<p class="vzw-small">Equipaggiamento e bonus ricavati dalla scheda dungeon correlata: <a href="#wiki/'+esc('dungeons/'+bossDungeon[current.mobId])+'">'+esc(dungeonNames[bossDungeon[current.mobId]])+'</a>.</p>':'')+
  (mob&&!tpl&&bossDungeon[current.mobId]?'<p class="vzw-small">Caricamento delle raccomandazioni dalla pagina dungeon corrispondente…</p>':'')+
- (mob&&tpl&&window.VERZUM_BOSS_RECOMMENDATIONS?
- window.VERZUM_BOSS_RECOMMENDATIONS.render(tpl,profile.class,current.title,'wiki/dungeons/'+bossDungeon[current.mobId]):'')+
+ (mob&&window.VERZUM_BOSS_RECOMMENDATIONS?
+  (tpl?window.VERZUM_BOSS_RECOMMENDATIONS.render(tpl,profile.class,current.title,'wiki/dungeons/'+bossDungeon[current.mobId]):
+   window.VERZUM_BOSS_RECOMMENDATIONS.renderGeneric(page,profile.class,current.title,profile)):'')+
   '<h3>Bonus totali consigliati</h3>'+bonusesUi(goals)+
  '<details class="vzw-details" open><summary>Equipaggiamento per '+esc(profile.class)+' <small>'+gear.length+' oggetti della Wiki</small></summary>'+ownedUi(gear,'gear')+'</details>'+
  '<details class="vzw-details"><summary>Alchimia consigliata <small>'+alchemy.length+' pietre della Wiki</small></summary>'+ownedUi(alchemy,'alchemy')+'</details>'+
@@ -348,7 +349,7 @@ function renderInto(){
    if(marker)marker.insertAdjacentHTML('beforebegin',html);
    else page.insertAdjacentHTML('beforeend',html);
   }
- }else if(route==='wiki/bosses/boss_dungeon'){
+ }else if(route.startsWith('wiki/bosses/boss_')){
   page.querySelectorAll('article.wk-row').forEach(row=>{
    if(row.querySelector('.vzw-shortcut'))return;
    const link=row.querySelector('a.wk-namebar__name[href^="#wiki/mob/"]');
@@ -367,7 +368,7 @@ function refresh(){
 }
 function isRelevant(){
  const r=url();
- return r==='build'||r===guidePath||r==='wiki/bosses/boss_dungeon'||r.startsWith('wiki/dungeons/')||r.startsWith('wiki/mob/');
+ return r==='build'||r===guidePath||r.startsWith('wiki/bosses/boss_')||r.startsWith('wiki/dungeons/')||r.startsWith('wiki/mob/');
 }
 let isRendering=false;
 function mount(){
@@ -378,7 +379,7 @@ function mount(){
   if(r==='build'){if(!host.querySelector('[data-vzw-scope="dashboard"]'))renderInto();return}
   const page=host.querySelector('.vz-wiki .wk-page');
   if(!page)return;
-  if(r==='wiki/bosses/boss_dungeon'||!page.querySelector('[data-vzw-scope]'))renderInto();
+  if(r.startsWith('wiki/bosses/boss_')||!page.querySelector('[data-vzw-scope]'))renderInto();
  }finally{isRendering=false}
 }
 function actionChange(el){
