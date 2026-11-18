@@ -60,8 +60,8 @@ function ensureTip(){
 function tooltipHTML(id){
  const rec=tipRecord(id);
  if(!rec)return '';
- const base=byId[String(Number(id)-Math.max(0,Number(id)%10))];
- const src=typeof ICONS!=='undefined'&&(ICONS[id]||ICONS[String(Number(id)-Number(id)%10)])||'';
+ const item=Object.values(byId).find(entry=>Number(id)>=Number(entry.id)&&Number(id)<=Number(entry.id)+entry.max);
+ const src=typeof ICONS!=='undefined'&&(ICONS[id]||(item&&ICONS[item.id]))||'';
  let html='<div class="vz-upgrade-tip-icon">'+(src?'<img src="'+esc(src)+'" alt="">':'')+'</div>';
  for(const line of rec.lines){
   if(!line||typeof line.text!=='string')continue;
@@ -212,6 +212,11 @@ function enhance(){
 }
 rCraft=function(...args){hide();const out=nativeRcraft.apply(this,args);enhance();return out};
 enhance();
+// I grossi dizionari della Wiki possono terminare dopo che l'iframe e' montato.
+// Il caricamento è una tantum, senza polling né richieste aggiuntive per 147 oggetti.
+if(!window.parent?.VERZUM_WIKI_API_TIPS?.[String(DATA.items[0]?.id)]){
+ window.parent?.addEventListener('load',()=>{if(document.querySelector('#v-crafting .vz-stat-cell'))rCraft()},{once:true});
+}
 window.VERZUM_UPGRADE_WIKI_STATS={
  exactTipId,
  get coveredItems(){return DATA.items.filter(item=>Array.from({length:item.max+1},(_,lv)=>exactTipId(item,lv)).every(Boolean)).length},
