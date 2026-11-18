@@ -208,35 +208,54 @@
  const originals=new WeakMap();
  const origAttr=new WeakMap();
  let scheduled=false,observer;
- function label(text){
-   const s=String(text).trim();if(!s)return null;
-   if(table[s]?.[current])return table[s][current];
-   const itemId=window.VERZUM_RELEASE?.catalog?.find?.(x=>x.name===s)?.id;
-   const i18n=window.VERZUM_ITEM_L10N?.[current];
-   if(itemId&&i18n?.[itemId])return i18n[itemId];
-   const ids=window.VERZUM_RELEASE?.materialIds||{};
-   const mid=ids[s];
-   const mats=window.VERZUM_MATERIAL_L10N?.[current];
-   if(mid&&mats?.[mid])return mats[mid];
-   let m=s.match(/^Cerca tra (\d+) oggetti\.\.\.$/);
-   if(m)return ({en:`Search ${m[1]} items...`,ro:`Caută în ${m[1]} obiecte...`,hu:`Keresés ${m[1]} tárgy között...`})[current];
-   m=s.match(/^(\d+) oggetti · (\d+) icone importate$/);
-   if(m)return ({en:`${m[1]} items · ${m[2]} imported icons`,ro:`${m[1]} obiecte · ${m[2]} pictograme importate`,hu:`${m[1]} tárgy · ${m[2]} importált ikon`})[current];
-   m=s.match(/^(\d+) fallimenti$/);
-   if(m)return m[1]+' '+(table.fallimenti?.[current]||'fallimenti');
-   m=s.match(/^([^·]+) · Lv\. (\d+) · (\+0 \/ \+\d+)$/);
-   if(m){const kind=table[m[1].trim()]?.[current]||m[1].trim();return `${kind} · Lv. ${m[2]} · ${m[3]}`}
+ const reverseLang=()=>({en:window.VERZUM_EN_TO_IT||{},ro:window.VERZUM_RO_TO_IT||{},hu:window.VERZUM_HU_TO_IT||{}});
+ function normalized(text){
+   const value=String(text||'').trim();
+   if(table[value])return value;
+   for(const dict of Object.values(reverseLang())){
+     const it=dict[value];if(it&&table[it])return it;
+   }
+   return value;
+ }
+ function translatedItemName(raw,lang){
+   const names=window.VERZUM_ITEM_L10N||{};
+   const catalog=window.VERZUM_RELEASE?.catalog||[];
+   if(!Array.isArray(catalog))return null;
+   for(const item of catalog){
+     const id=String(item.id||''),it=String(item.name||'');
+     if(!it)continue;
+     const candidates=[it,...['en','ro','hu'].map(code=>names[code]?.[id]).filter(Boolean)];
+     if(candidates.includes(raw))return lang==='it'?it:names[lang]?.[id]||it;
+   }
+   return null;
+ }
+ function label(raw){
+   const text=String(raw||'').trim();if(!text)return null;
+   const it=normalized(text);
+   if(current==='it')return it!==text?it:(translatedItemName(text,'it')||null);
+   if(table[it]?.[current])return table[it][current];
+   const name=translatedItemName(text,current);if(name)return name;
+   const patterns=[
+     [/^Cerca tra (\d+) oggetti\.\.\.$/,{en:'Search $1 items...',ro:'Caută în $1 obiecte...',hu:'Keresés $1 tárgy között...'}],
+     [/^(\d+) oggetti · (\d+) icone importate$/,{en:'$1 items · $2 imported icons',ro:'$1 obiecte · $2 pictograme importate',hu:'$1 tárgy · $2 importált ikon'}],
+     [/^(\d+) fallimenti$/,{en:'$1 failures',ro:'$1 eșecuri',hu:'$1 sikertelen próba'}]
+   ];
+   for(const [pattern,options] of patterns){if(pattern.test(it))return it.replace(pattern,options[current])}
    return null;
  }
  function translateText(node){
    const p=node.parentElement;
-   if(!p||p.closest('script,style,svg,textarea,code,.lang-switch'))return;
-   let orig=originals.get(node);if(orig===undefined){orig=node.nodeValue;originals.set(node,orig)}
-   const trim=orig.trim();
-   if(!trim)return;
-   const converted=current==='it'?null:label(trim);
-   const target=converted===null?orig:orig.replace(trim,converted);
-   if(node.nodeValue!==target)node.nodeValue=target;
+   if(!p||p.closest('script,style,svg,textarea,code,.lang-switch,[data-no-translate]'))return;
+   let state=originals.get(node);
+   if(!state||node.nodeValue!==state.last){
+     state={base:node.nodeValue,last:node.nodeValue};
+     originals.set(node,state);
+   }
+   const text=state.base.trim();if(!text)return;
+   const result=label(text);
+   const next=result===null?state.base:state.base.replace(text,result);
+   if(node.nodeValue!==next)node.nodeValue=next;
+   state.last=next;
  }
  function renderLanguages(){
    for(const selector of ['.sidebar-languages','.header-languages']){
@@ -250,12 +269,12 @@
    const root=document.querySelector('.app')||document.body;
    const walk=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
    let node;while((node=walk.nextNode()))translateText(node);
-   root.querySelectorAll('input[placeholder],textarea[placeholder],button[aria-label],input[aria-label]').forEach(el=>{
-      let old=origAttr.get(el);
-      if(!old){old={placeholder:el.getAttribute('placeholder'),aria:el.getAttribute('aria-label')};origAttr.set(el,old)}
-      for(const [attr,value] of [['placeholder',old.placeholder],['aria-label',old.aria]]){
+   root.querySelectorAll('input[placeholder],textarea[placeholder],[aria-label],[title]').forEach(el=>{
+      let original=origAttr.get(el);
+      if(!original){original={};for(const k of ['placeholder','aria-label','title'])original[k]=el.getAttribute(k);origAttr.set(el,original)}
+      for(const [attr,value] of Object.entries(original)){
        if(value===null)continue;
-       const next=current==='it'?value:(label(value)||value);
+       const next=label(value)||value;
        if(el.getAttribute(attr)!==next)el.setAttribute(attr,next);
       }
    });
@@ -286,6 +305,8 @@
    const toggleBtn=document.querySelector('#menu-toggle');if(toggleBtn)toggleBtn.setAttribute('aria-expanded','false');
   }
  });
- window.VERZUM_LOCALE={get lang(){return current},change(id){if(langs.some(l=>l.id===id)){current=id;localStorage.setItem('verzum_lang',id);renderLanguages();schedule();syncNativeLocale();}}};
+ window.VERZUM_LOCALE={get lang(){return current},change(id){if(langs.some(l=>l.id===id)){current=id;localStorage.setItem('verzum_lang',id);renderLanguages();schedule();syncNativeLocale();}},get translations(){return table},normalized};
+ document.addEventListener('load',e=>{if(e.target?.matches?.('iframe.native-calculator-frame'))syncNativeLocale()},true);
+ window.addEventListener('hashchange',()=>{schedule();syncNativeLocale()});
  schedule();
 })();
