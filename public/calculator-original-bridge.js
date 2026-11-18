@@ -71,7 +71,9 @@ window.addEventListener('message',event=>{
  if(data.type==='verzum-reference-height'){
   const height=Number(data.height);
   if(Number.isFinite(height)&&height>=300&&height<=80000)iframe.style.height=Math.ceil(height)+'px';
- }else if(data.type==='verzum-reference-add-plan'){
+ }else if(data.type==='verzum-reference-change-language'){
+  if(['it','en','ro','hu'].includes(data.language))window.VERZUM_LOCALE?.change(data.language);
+  }else if(data.type==='verzum-reference-add-plan'){
   const raw=data.plan;
   if(!raw||typeof raw!=='object'||typeof raw.name!=='string'||raw.name.length>160)return;
   const materials={};
