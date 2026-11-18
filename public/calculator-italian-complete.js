@@ -102,5 +102,41 @@ if(typeof TRL!=='undefined'){
  const uncovered=TRL.filter(([source])=>!map[source]);
  window.VERZUM_IT_TRANSLATION_AUDIT={total:TRL.length,covered:TRL.length-uncovered.length,missing:uncovered.map(([text])=>text)};
 }
+/* Prefissi dinamici originali con numeri: bonus, classi e messaggi.
+   Sono sostituzioni circoscritte, non un traduttore parola per parola. */
+const nativeFragments=[
+ ['Tare împotriva Pietrelor metin','Forte contro pietre Metin'],
+ ['Tare împotriva monştrilor','Forte contro mostri'],
+ ['Puterea împotriva șefilor','Forza contro boss'],
+ ['Șansă de drop extra de lingou','Probabilità di drop lingotto extra'],
+ ['Atac cu arma/magic','Attacco fisico/magico'],
+ ['Putere în temnițe','Forza nei dungeon'],
+ ['Tare împotriva semi-oamenilor','Forte contro mezziuomini'],
+ ['Bonus pentru atac critic','Bonus danno critico'],
+ ['Tare împotriva tuturor elementelor','Forte contro tutti gli elementi'],
+ ['Şansă la lovituri pătrunzătoare','Probabilità di colpo trafiggente'],
+ ['Șanse de lovitură critică','Probabilità di colpo critico'],
+ ['Șansa de a bloca un atac corporal','Possibilità di bloccare un attacco corpo a corpo'],
+ ['Apărare împotriva semi-oamenilor','Difesa contro mezziuomini'],
+ ['Toate clasele','Tutte le classi'],
+ ['Războinic','Guerriero'],['Șaman','Sciamano'],
+ ['Nv. ','Liv. '],['evoluție','evoluzione'],['Evoluție','Evoluzione'],
+ ['eșecuri','fallimenti'],['Mount: ','Cavalcatura: ']
+].sort((a,b)=>b[0].length-a[0].length);
+window.VERZUM_NATIVE_IT_DYNAMIC=function(source){
+ const s=String(source||''),trimmed=s.trim();
+ for(const [ro,it] of nativeFragments){
+  if(!trimmed.startsWith(ro))continue;
+  if(trimmed.length>ro.length&&!/\s|[+%:,.()]/.test(trimmed[ro.length]))continue;
+  return s.replace(trimmed,it+trimmed.slice(ro.length));
+ }
+ return s;
+};
+if(typeof extraPatterns!=='undefined'){
+ extraPatterns.push(
+ [/^1 Gaya = (.+?) \+ (.+?) \+ (.+?) yang\. Completează .*$/i,'1 Gaya = $1 + $2 + $3 Yang. Inserisci i prezzi dei materiali per conoscere il costo effettivo e confrontare le offerte.'],
+ [/^din (\d+) \(nv\. (.+)\)$/i,'di $1 (livello $2)']
+ );
+}
 if(parent?.VERZUM_LOCALE?.lang==='it'&&typeof setLang==='function')setLang('it');
 })();
