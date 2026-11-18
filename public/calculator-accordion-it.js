@@ -243,4 +243,14 @@ window.addEventListener('message',e=>{
 });
 rFilters();
 setLang(window.parent?.VERZUM_LOCALE?.lang||'it');
+// L'estensione arriva dopo il caricamento delle fisarmoniche e riutilizza
+// i tooltip ufficiali della Wiki già disponibili nel documento principale.
+if(!document.getElementById('verzum-upgrade-stats-style')){
+ const css=document.createElement('link');css.id='verzum-upgrade-stats-style';
+ css.rel='stylesheet';css.href='calculator-upgrade-stats.css';document.head.appendChild(css);
+}
+if(!document.getElementById('verzum-upgrade-stats-script')){
+ const script=document.createElement('script');script.id='verzum-upgrade-stats-script';
+ script.src='calculator-upgrade-stats.js';script.defer=true;document.body.appendChild(script);
+}
 })();
