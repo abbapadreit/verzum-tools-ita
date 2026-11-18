@@ -2,10 +2,11 @@
 (function installI18n(){
  "use strict";
  const langs=[
-  {id:"it",code:"IT",label:"Italiano"},
-  {id:"en",code:"EN",label:"English"},
-  {id:"ro",code:"RO",label:"Română"},
-  {id:"hu",code:"HU",label:"Magyar"}
+  {id:"it",code:"IT",label:"Italiano",flag:"🇮🇹"},
+  {id:"en",code:"EN",label:"English",flag:"🇬🇧"},
+  {id:"ro",code:"RO",label:"Română",flag:"🇷🇴"},
+  {id:"hu",code:"HU",label:"Magyar",flag:"🇭🇺"},
+  ...(window.VERZUM_WORLD_L10N?.languages||[])
  ];
  const translations={
  "STRUMENTI DELLA GILDA":["GUILD TOOLS","UNELTELE BRESLEI","CÉHES ESZKÖZÖK"],
@@ -196,7 +197,7 @@
  window.VERZUM_EN_TO_IT=Object.fromEntries(Object.entries(translations).map(([it,values])=>[values[0],it]));
  function syncNativeLocale(){
    const frame=document.querySelector('iframe.native-calculator-frame');
-   if(frame?.contentWindow)frame.contentWindow.postMessage({type:'verzum-parent-language',language:current},location.origin);
+   if(frame?.contentWindow)frame.contentWindow.postMessage({type:'verzum-parent-language',language:['it','en','ro','hu'].includes(current)?current:'en'},location.origin);
  }
 
  let current=localStorage.getItem('verzum_lang')||'it';
@@ -209,6 +210,7 @@
  function label(text){
    const s=String(text).trim();if(!s)return null;
    if(table[s]?.[current])return table[s][current];
+   if(window.VERZUM_WORLD_L10N?.translations?.[s]?.[current])return window.VERZUM_WORLD_L10N.translations[s][current];
    const itemId=window.VERZUM_RELEASE?.catalog?.find?.(x=>x.name===s)?.id;
    const i18n=window.VERZUM_ITEM_L10N?.[current];
    if(itemId&&i18n?.[itemId])return i18n[itemId];
@@ -237,10 +239,20 @@
    if(node.nodeValue!==target)node.nodeValue=target;
  }
  function renderLanguages(){
-   for(const selector of ['.sidebar-languages','.header-languages']){
-    const element=document.querySelector(selector);if(!element)continue;
-    element.innerHTML='<div class="lang-switch" role="group" aria-label="Lingua">'+langs.map(l=>`<button type="button" class="lang-btn" data-set-lang="${l.id}" aria-label="${l.label}" aria-pressed="${l.id===current}"><img src="assets/flags/${l.id}.svg" alt="" width="23" height="15">${l.code}</button>`).join('')+'</div>';
-   }
+   const element=document.querySelector('.sidebar-languages');
+   if(!element)return;
+   const complete=new Set(['it','en','ro','hu']);
+   const groups=[
+    ['Lingue attuali',langs.filter(l=>complete.has(l.id))],
+    ['Europa',langs.filter(l=>!complete.has(l.id)&&!['ar','zh','ja','ko','hi','id'].includes(l.id))],
+    ['Mondo',langs.filter(l=>['ar','zh','ja','ko','hi','id'].includes(l.id))]
+   ];
+   const options=groups.map(([title,items])=>'<optgroup label="'+title+'">'+items.map(l=>
+    '<option value="'+l.id+'"'+(l.id===current?' selected':'')+'>'+l.flag+' '+l.label+(l.partial?' · beta':'')+'</option>').join('')+'</optgroup>').join('');
+   const partial=!complete.has(current);
+   element.innerHTML='<div class="lang-switch lang-dropdown"><label for="vz-language-select"><span class="vz-lang-icon" aria-hidden="true">🌐</span> Lingua / Language</label>'+
+    '<select id="vz-language-select" aria-label="Lingua del sito e del Planner">'+options+'</select>'+
+    '<small class="vz-language-status" aria-live="polite">'+(partial?'Traduzione parziale: navigazione e termini principali. Wiki e calcolatori in lingua originale/inglese.':'Interfaccia disponibile. Le schede originali della Wiki rimangono in italiano.')+'</small></div>';
  }
  function translate(){
    observer?.disconnect();
@@ -269,11 +281,7 @@
  observer=new MutationObserver(schedule);
  observer.observe(root,{childList:true,characterData:true,subtree:true});
  document.addEventListener('click',e=>{
-  const button=e.target.closest('button[data-set-lang]');
-  if(button){
-   e.preventDefault();current=button.dataset.setLang;localStorage.setItem('verzum_lang',current);
-   renderLanguages();schedule();syncNativeLocale();
-  }
+
   const toggle=e.target.closest('#menu-toggle');
   if(toggle){
    const side=document.querySelector('.sidebar');const isOpen=side.classList.toggle('menu-open');
@@ -284,6 +292,17 @@
    const toggleBtn=document.querySelector('#menu-toggle');if(toggleBtn)toggleBtn.setAttribute('aria-expanded','false');
   }
  });
- window.VERZUM_LOCALE={get lang(){return current},change(id){if(langs.some(l=>l.id===id)){current=id;localStorage.setItem('verzum_lang',id);renderLanguages();schedule();syncNativeLocale();}}};
+ function setLanguage(id){
+   if(!langs.some(l=>l.id===id))return;
+   current=id;
+   try{localStorage.setItem('verzum_lang',id)}catch(_){}
+   renderLanguages();schedule();syncNativeLocale();
+   window.dispatchEvent(new CustomEvent('verzum:language-change',{detail:{lang:id,partial:!['it','en','ro','hu'].includes(id)}}));
+ }
+ document.addEventListener('change',e=>{
+   if(e.target?.id==='vz-language-select')setLanguage(e.target.value);
+ });
+
+ window.VERZUM_LOCALE={get lang(){return current},change:setLanguage,t(s){return current==='it'?s:(label(s)||s)},get available(){return langs.map(l=>({...l}))},get partial(){return !['it','en','ro','hu'].includes(current)}};
  schedule();
 })();
