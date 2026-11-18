@@ -196,8 +196,24 @@ function skillsPanels(){const p=state.skills,c=skillsCalc();const controls=field
 function passiveCalc(){const p=state.passive,levels=Math.max(0,natural(p.to)-natural(p.from)),reads=levels*natural(p.successPerLevel,1)+natural(p.failReads),materials={};addM(materials,p.book,reads);addM(materials,p.pages,reads*natural(p.pagesPerBook));return {name:p.name,reads,wait:p.exorcism?0:Math.max(0,reads-1)*num(p.waitingHours),materials,yang:0,total:priceTotal(materials)}}
 function passivePanels(){const p=state.passive,c=passiveCalc();return [panel('passiveConfig','Configurazione passiva',fieldset(field('Passiva','passive.name',p.name,'text')+field('Indice iniziale','passive.from',p.from,'number',1)+field('Indice finale','passive.to',p.to,'number',1)+field('Letture riuscite per livello','passive.successPerLevel',p.successPerLevel,'number',1)+field('Fallimenti previsti','passive.failReads',p.failReads)+field('Pagine per libro','passive.pagesPerBook',p.pagesPerBook)+field('Attesa fra letture (ore)','passive.waitingHours',p.waitingHours)+sel('Libro passiva','passive.book',Object.keys(state.prices),p.book)+sel('Pagine','passive.pages',Object.keys(state.prices),p.pages))+check('Annulla attesa con pergamena','passive.exorcism',p.exorcism),6),panel('passiveRes','Materiali e tempo',kpis([['Letture',count(c.reads)],['Tempo attesa',count(c.wait)+' ore'],['Costo totale',cash(c.total)]])+materialsTable(c.materials)+addPlanBtn('passive'),6)];}
 function currentCalc(section){switch(section){case 'upgrade':return upgradeCalc();case 'gaya':return {...gayaCalc(),name:'Produzione Gaya',yang:num(state.gaya.npc)*natural(state.gaya.quantity)};case 'pet':return petCalc();case 'mount':return {...mountCalc(),name:'Cavalcatura'};case 'costume':return costumeCalc();case 'skills':return skillsCalc();case 'passive':return passiveCalc();default:return null}}
-function plannerPanels(){const items=state.planner,material={},yang=items.reduce((v,i)=>v+num(i.yang),0);items.forEach(i=>Object.entries(i.materials||{}).forEach(([k,q])=>addM(material,k,q)));const list=items.length?table(['Progetto','Yang','Materiali (al prezzo attuale)','Azioni'],items.map((p,i)=>`<tr><td><b>${esc(p.name)}</b><br><small class="muted">${esc(p.source)} · ${esc(p.created||'')}</small></td><td>${cash(p.yang)}</td><td>${cash(priceTotal(p.materials||{}))}</td><td><button class="btn danger small" data-delete-plan="${i}">Elimina</button></td></tr>`)):'<div class="empty">Il pianificatore è vuoto. Aggiungi risultati dai calcolatori.</div>';
- return [panel('entries','Elenco attività',list+`<div class="footer-actions"><button class="btn small outline" data-action="copy-planner">Copia riepilogo</button><button class="btn small danger" data-action="clear-planner">Svuota pianificatore</button></div>`,8,'PROGETTI'),panel('allCosts','Totale complessivo',kpis([['Progetti',count(items.length)],['Yang NPC',cash(yang)],['Valore materiali',cash(priceTotal(material))],['Totale',cash(yang+priceTotal(material))]])+materialsTable(material),4,'SOMMA')];}
+function plannerPanels(){
+ const items=state.planner,material={},yang=items.reduce((v,i)=>v+num(i.yang),0);
+ items.forEach(i=>Object.entries(i.materials||{}).forEach(([k,q])=>addM(material,k,q)));
+ const list=items.length?table(['Progetto','Yang','Materiali (al prezzo attuale)','Azioni'],items.map((p,i)=>
+  `<tr><td><b>${esc(p.name)}</b><br><small class="muted">${esc(p.source)} · ${esc(p.created||'')}</small>${p.notes?'<br><small class="muted">'+esc(p.notes)+'</small>':''}</td>
+  <td>${cash(p.yang)}</td><td>${cash(priceTotal(p.materials||{}))}</td><td><button class="btn danger small" data-delete-plan="${i}">Elimina</button></td></tr>`)):'<div class="empty">Il pianificatore è vuoto. Aggiungi un obiettivo oppure importa i risultati disponibili dai calcolatori.</div>';
+ const manual=`<div class="divider"></div><h3>Aggiungi un obiettivo</h3>
+  <p class="hint">Le attività aggiunte dalla Wiki possono non avere ancora costi verificati. Puoi inserire manualmente Yang e materiali senza inventare valori.</p>
+  <div class="field-grid"><label class="field">Titolo attività<input id="vzw-plan-name" class="control" maxlength="160" placeholder="Es. Portare arma a +9"></label>
+  <label class="field">Yang previsti<input id="vzw-plan-yang" class="control" type="text" inputmode="decimal" placeholder="Es. 1,2kk"></label></div>
+  <label class="field">Materiali (Nome:quantità, ...)<textarea id="vzw-plan-mats" rows="2" placeholder="Es. Pietra:3, Minerale:5"></textarea></label>
+  <button class="btn small" data-action="add-manual-plan">+ Aggiungi attività</button>`;
+ return [panel('entries','Elenco attività',list+manual+`<div class="footer-actions">
+  <button class="btn small outline" data-action="copy-planner">Copia riepilogo</button>
+  <button class="btn small outline" data-action="export-planner">Esporta JSON</button>
+  <button class="btn small danger" data-action="clear-planner">Svuota pianificatore</button></div>`,8,'PROGETTI'),
+  panel('allCosts','Totale complessivo',kpis([['Progetti',count(items.length)],['Yang NPC',cash(yang)],['Valore materiali',cash(priceTotal(material))],['Totale',cash(yang+priceTotal(material))]])+materialsTable(material),4,'SOMMA')];
+}
 function pricesPanels(){const entries=Object.entries(state.prices).sort((a,b)=>a[0].localeCompare(b[0],'it'));
  const example='<p class="hint">Notazione Yang: <b>k</b> = 1.000 · <b>kk</b> = 1.000.000 · <b>kkk</b> = 1.000.000.000. Esempio: <b>1,15kk = 1.150.000 Yang</b>. I calcoli usano sempre il valore numerico completo.</p>';
  const list=table(['Materiale','Prezzo unitario (Yang)','Azioni'],entries.map(([n,p])=>`<tr><td>${esc(n)}</td><td><input class="control" style="max-width:160px" type="text" inputmode="decimal" spellcheck="false" placeholder="Es. 1,15kk" title="${esc(yangExact(p))}" data-price="${esc(n)}" value="${esc(cash(p))}"></td><td><button class="btn small danger" data-delete-price="${esc(n)}">Rimuovi</button></td></tr>`));
@@ -249,6 +265,14 @@ function doAction(action){const g=state.gaya;switch(action){case 'add-price':{co
  case 'delete-item':{if(!confirm('Eliminare questo oggetto?'))return;state.catalog=state.catalog.filter(x=>x.id!==state.activeItem);state.activeItem=state.catalog[0]?.id||'';break}
  case 'add-offer':{if(!ephemeral.offer.name.trim()){toast('Indica il nome dell’offerta');return}g.offers.push(clone(ephemeral.offer));ephemeral.offer={name:'',gaya:10,market:0};break}
  case 'costumes-all':state.selectedCostumes=state.costumes.map(x=>x.id);break;case 'costumes-clear':state.selectedCostumes=[];break;
+ case 'add-manual-plan':{
+  const name=String(document.getElementById('vzw-plan-name')?.value||'').trim();
+  if(!name){toast('Inserisci un titolo per l’attività');return}
+  const mats=parseMat(String(document.getElementById('vzw-plan-mats')?.value||''));
+  const rawYang=document.getElementById('vzw-plan-yang')?.value||'0';
+  state.planner.push({name:name.slice(0,160),source:'Obiettivo manuale',yang:Math.max(0,num(rawYang)),materials:mats,created:new Date().toLocaleDateString('it-IT')});
+  break}
+ case 'export-planner':downloadJSON('verzum-pianificatore.json',state.planner);return;
  case 'clear-planner':if(!confirm('Svuotare il pianificatore?'))return;state.planner=[];break;
  case 'copy-planner':{const m={},lines=state.planner.map(x=>{Object.entries(x.materials||{}).forEach(([k,v])=>addM(m,k,v));return `• ${x.name} · ${x.source}`});copy(`PIANIFICATORE GILDA\n${lines.join('\n')}\n\nMATERIALI\n${Object.entries(m).map(([k,v])=>`${k}: ${v}`).join('\n')}`);return}
  case 'copy-prices':copy(JSON.stringify(state.prices,null,2));return;
