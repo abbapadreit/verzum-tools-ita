@@ -262,6 +262,20 @@
      [/^Preparazione (.+)$/,{en:'Preparation $1',ro:'Pregătire $1',hu:'Felkészülés $1'}]
    ];
    for(const [pattern,options] of uiPatterns)if(pattern.test(it))return it.replace(pattern,options[current]);
+   const bossPatterns=[
+     [/^Equipaggiamento, alchimia e abilità per (.+)$/,{en:'Equipment, alchemy and skills for $1',ro:'Echipament, alchimie și abilități pentru $1',hu:'Felszerelés, alkímia és képességek: $1'}],
+     [/^Preparazione per (.+)$/,{en:'Preparation for $1',ro:'Pregătire pentru $1',hu:'Felkészülés: $1'}],
+     [/^La guida 1–75 non copre il livello (\d+) di questo boss\.$/,{en:'The 1–75 guide does not cover this boss at level $1.',ro:'Ghidul 1–75 nu acoperă acest boss de nivel $1.',hu:'Az 1–75-ös útmutató nem fedi le ezt a $1. szintű főnököt.'}]
+   ];
+   for(const [pattern,options] of bossPatterns)if(pattern.test(it))return it.replace(pattern,options[current]);
+   const bossClass=it.match(/^(Equipaggiamento consigliato|Equipaggiamento|Abilità principali) · (Guerriero|Ninja|Sura|Sciamano)$/);
+   if(bossClass){
+     const title=({en:{'Equipaggiamento consigliato':'Recommended equipment','Equipaggiamento':'Equipment','Abilità principali':'Main skills'},
+       ro:{'Equipaggiamento consigliato':'Echipament recomandat','Equipaggiamento':'Echipament','Abilità principali':'Abilități principale'},
+       hu:{'Equipaggiamento consigliato':'Ajánlott felszerelés','Equipaggiamento':'Felszerelés','Abilità principali':'Fő képességek'}})[current][bossClass[1]];
+     return title+' · '+(table[bossClass[2]]?.[current]||bossClass[2]);
+   }
+
    const equipment=it.match(/^Equipaggiamento per (Guerriero|Ninja|Sura|Sciamano)$/);
    if(equipment){
      const name=table[equipment[1]]?.[current]||equipment[1];
