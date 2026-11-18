@@ -19,7 +19,7 @@ const bossIds=new Set([
  '100122','100123','6051','6151','5163','694','792','2092','1093','2598',
  '1095','2493','100010','100011','6091','6191'
 ]);
-const templates=new Map(),requests=new Map();
+const templates=new Map(),requests=new Map(),unavailable=new Set();
 const rootId='vz-wiki-boss-preparation';
 let chosenClass='Guerriero',scheduled=false;
 try{const saved=localStorage.getItem('vz_wiki_boss_class');if(API.classes[saved])chosenClass=saved}catch(_){}
@@ -45,12 +45,12 @@ function parse(response){
 }
 function ensureDungeon(id){
  const dungeon=linkedDungeon[id];
- if(!dungeon||templates.has(dungeon)||requests.has(dungeon))return;
+ if(!dungeon||templates.has(dungeon)||requests.has(dungeon)||unavailable.has(dungeon))return;
  // Cache revalidation prevents stale Pages deployments and browser-cached data.
  const promise=fetch('wiki-pages/dungeons/'+dungeon+'.html',{cache:'no-cache'})
   .then(parse)
   .then(node=>{templates.set(dungeon,node)})
-  .catch(error=>{console.warn('[VERZUM Boss] Impossibile caricare dungeon',dungeon,error)})
+  .catch(error=>{unavailable.add(dungeon);console.warn('[VERZUM Boss] Impossibile caricare dungeon',dungeon,error)})
   .finally(()=>{requests.delete(dungeon);schedule()});
  requests.set(dungeon,promise);
 }
@@ -64,7 +64,7 @@ function mountFor(id,page){
  }
  if(slot.dataset.vzbFor!==id){slot.dataset.vzbFor=id;slot.innerHTML='';}
  const dungeon=linkedDungeon[id],source=template(id),name=title(page);
- const key=[id,chosenClass,source?'ready':dungeon?'loading':'generic'].join(':');
+ const key=[id,chosenClass,source?'ready':dungeon&&!unavailable.has(dungeon)?'loading':'generic'].join(':');
  if(slot.dataset.vzbKey===key)return;
  slot.dataset.vzbKey=key;
  if(dungeon&&!source){
