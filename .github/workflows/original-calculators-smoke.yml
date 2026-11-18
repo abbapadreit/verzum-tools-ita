@@ -1,7 +1,7 @@
 name: Test faithful original calculator integration
 on:
   push:
-    branches: [main, fix-all-calculator-legacy-and-gaya, fix-scrollbar-fluidity-20261117, remove-redundant-upgrade-materials-20261117 , feat-upgrade-item-tooltips-official-stats-20261118]
+    branches: [main, fix-all-calculator-legacy-and-gaya, fix-scrollbar-fluidity-20261117, remove-redundant-upgrade-materials-20261117 , feat-upgrade-item-tooltips-official-stats-20261118, feat-wiki-style-upgrade-matrix-20261118]
     paths:
       - '.github/workflows/original-calculators-smoke.yml'
       - 'public/calculator-reference.html'
@@ -99,53 +99,70 @@ jobs:
             console.log('UPGRADE MATERIALS: STEP ICONS KEPT, REDUNDANT SUMMARY REMOVED');
 
 
-            // Tutti i 147 equipaggiamenti devono avere dati originali ad ogni upgrade.
-            await frame.locator('#v-crafting .vz-stat-cell').first().waitFor({timeout:15000});
+            // Griglia come Wiki: tutti i valori da +0 a +9 (talismani: +25)
+            // simultaneamente sotto il nome dell'oggetto, senza dropdown.
+            await frame.locator('#v-crafting .vz-upgrade-matrix-table').waitFor({timeout:15000});
             const coverage=await frame.locator('#v-crafting').evaluate(()=>({
               covered:window.VERZUM_UPGRADE_WIKI_STATS?.coveredItems,
               total:window.VERZUM_UPGRADE_WIKI_STATS?.itemCount,
               source:!!window.parent.VERZUM_WIKI_API_TIPS?.['290']
             }));
             if(coverage.covered!==147||coverage.total!==147||!coverage.source)
-              throw Error('Incomplete verified Wiki upgrade bonus coverage: '+JSON.stringify(coverage));
-            const values=frame.locator('#v-crafting .vz-upgrade-with-stats');
+              throw Error('Incomplete source coverage: '+JSON.stringify(coverage));
+            const matrix=frame.locator('#v-crafting .vz-upgrade-matrix-table');
             await frame.locator('#vz-accordion-weapons .it[data-id="290"]').click();
-            if(await values.locator('th.vz-stat-head').count()!==1)
-              throw Error('New official-values column not present');
-            if(!(await frame.locator('#v-crafting .vz-stat-base').innerText()).includes('Attacco 57–73'))
-              throw Error('Luna Piena +0 must show sourced base attack value');
-            const cells=values.locator('td.vz-stat-cell');
-            if(await cells.count()!==9)throw Error('Luna Piena should have 9 per-upgrade bonus cells');
-            if(!(await cells.first().innerText()).includes('Attacco 63–79'))
-              throw Error('Luna Piena +1 attack must come from Wiki exact source');
-            if(!(await cells.last().innerText()).includes('Attacco 127–143'))
-              throw Error('Luna Piena +9 attack must come from Wiki exact source');
+            if(await frame.locator('#v-crafting .ihead + .vz-upgrade-matrix').count()!==1)
+              throw Error('Wiki matrix must be placed directly below item title');
+            if(await matrix.locator('thead th.vz-matrix-level').count()!==10)
+              throw Error('Luna Piena must display all +0 to +9 columns');
+            const attack=matrix.locator('tbody tr').filter({hasText:"Valore d'attacco"});
+            if((await attack.locator('td').first().innerText()).trim()!=='57–73'||
+               (await attack.locator('td').last().innerText()).trim()!=='127–143')
+              throw Error('Luna Piena +0 to +9 incorrect from Wiki');
+            if(await frame.locator('#v-crafting .vz-stat-cell,#v-crafting .vz-stat-base').count()!==0)
+              throw Error('Previous per-step bonus column/summary must be removed');
+            // La selezione di un intervallo riguarda solo i COSTI, non i valori Wiki.
+            await frame.locator('#cFrom').selectOption('2');
+            if(await matrix.locator('thead th.vz-matrix-level').count()!==10)
+              throw Error('Full Wiki grid must not depend on the cost range dropdown');
             await frame.locator('#vz-accordion-weapons .it[data-id="290"]').hover();
             await frame.locator('.vz-upgrade-wiki-tip').waitFor({state:'visible',timeout:7000});
             if(!(await frame.locator('.vz-upgrade-wiki-tip').innerText()).includes('Spada della Luna Piena+0'))
-              throw Error('Wiki tooltip missing from left item list');
+              throw Error('Wiki tooltip missing from item list');
             await frame.locator('#v-crafting .ihead').hover();
-            if(!(await frame.locator('.vz-upgrade-wiki-tip').innerText()).includes('Spada della Luna Piena+0'))
-              throw Error('Wiki tooltip missing from selected item header');
-            await cells.last().hover();
+            if(!(await frame.locator('.vz-upgrade-wiki-tip').innerText()).includes('Spada della Luna Piena+2'))
+              throw Error('Wiki tooltip missing from selected item');
+            await matrix.locator('thead th.vz-matrix-level').last().hover();
             if(!(await frame.locator('.vz-upgrade-wiki-tip').innerText()).includes('Spada della Luna Piena+9'))
-              throw Error('Wiki tooltip missing from upgrade rows');
+              throw Error('Wiki tooltip missing from matrix +9');
             await frame.locator('#vz-accordion-weapons .it[data-id="140"]').click();
-            if(!(await frame.locator('#v-crafting .vz-stat-base').innerText()).includes('Attacco 100–140'))
-              throw Error('Battle Sword base attack bonus does not match Wiki');
+            if((await matrix.locator('tbody tr').filter({hasText:"Valore d'attacco"}).locator('td').first().innerText()).trim()!=='100–140')
+              throw Error('Battle Sword +0 attack not from Wiki');
             await frame.locator('#v-crafting [data-vz-acc="weapons"]').click();
             await frame.locator('#v-crafting [data-vz-acc="armor"]').click();
             await frame.locator('#vz-accordion-armor .it[data-id="11200"]').click();
-            if(!(await frame.locator('#v-crafting .vz-stat-base').innerText()).includes('Difesa 12'))
-              throw Error('Armour defence stat missing in official-values column');
+            const def=matrix.locator('tbody tr').filter({hasText:'Difesa'});
+            if((await def.locator('td').first().innerText()).trim()!=='12'||
+               (await def.locator('td').last().innerText()).trim()!=='66')
+              throw Error('Armour defence +0 to +9 not from Wiki');
             await frame.locator('#v-crafting [data-vz-acc="armor"]').click();
             await frame.locator('#v-crafting [data-vz-acc="talisman"]').click();
             await frame.locator('#vz-accordion-talisman .it[data-id="9600"]').click();
-            if(!(await frame.locator('#v-crafting .vz-stat-base').innerText()).includes('Forza contro Fuoco +1%'))
-              throw Error('Talisman effect missing in official-values column');
+            if(await matrix.locator('thead th.vz-matrix-level').count()!==26)
+              throw Error('Fire talisman needs all 26 columns (+0 to +25)');
+            if(!(await matrix.locator('tbody tr').filter({hasText:'Forza contro Fuoco'}).innerText()).includes('25%'))
+              throw Error('Talisman +25 values not populated from Wiki');
+            const scroll=frame.locator('#v-crafting .vz-upgrade-matrix-scroll');
+            await scroll.evaluate(el=>el.scrollLeft=0);
+            await frame.locator('#v-crafting [data-vz-matrix-move="1"]').click();
+            await frame.locator('#v-crafting').evaluate(async()=>{
+              await new Promise(resolve=>setTimeout(resolve,350));
+            });
+            if(await scroll.evaluate(el=>el.scrollLeft)<=0)
+              throw Error('Talisman horizontal navigation arrows must scroll the grid');
             await frame.locator('#v-crafting [data-vz-acc="talisman"]').click();
             await frame.locator('#v-crafting [data-vz-acc="weapons"]').click();
-            console.log('OFFICIAL WIKI STATS: 147/147, HOVER LIST & SELECTED & UPGRADE LEVELS, WEAPON ARMOR TALISMAN');
+            console.log('WIKI-LIKE MATRIX: 147/147, +0 TO +9 / +25, HOVER, ARMOUR, TALISMANS AND SCROLL PASS');
             const translatedItems=await frame.locator('#vz-accordion-weapons .nm').allInnerTexts();
             if(!translatedItems.includes('Spada della Luna Piena'))
               throw Error('Italian game item names not loaded from verified catalogue');
