@@ -32,7 +32,8 @@ function headValue(page,label){
 function parseGameNumber(value){
  const m=String(value||'').toLowerCase().replace(/\s/g,'').match(/^([\d.,]+)(kkk|kk|k)?$/);
  if(!m)return 0;
- const n=Number(m[1].replace(',','.'));
+ const amount=m[1].replace(/^([0-9]{1,3}(?:\.[0-9]{3})+)(?=,|$)/,group=>group.replace(/\./g,''));
+ const n=Number(amount.replace(',','.'));
  return Number.isFinite(n)?n*({k:1e3,kk:1e6,kkk:1e9}[m[2]]||1):0;
 }
 function pageInfo(page,r){
