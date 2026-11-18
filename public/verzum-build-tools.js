@@ -10,6 +10,7 @@ const supports={pet:'Pet',mount:'Cavalcatura',buff:'Buff',alchemy:'Alchimia',tal
 const dungeonPaths=['monkey','orc','esoteric','spider','demon_tower','azrael','dragon','triad','gnoll','triton','razador','nemere'];
 const dungeonNames={monkey:'Scimmie',orc:'Orchi',esoteric:'Esoterici',spider:'Ragni',demon_tower:'Torre dei Demoni',azrael:'Azrael',dragon:'Drago',triad:'Morte Blu',gnoll:'Gnoll',triton:'Tritone',razador:'Razador',nemere:'Nemere'};
 const bossDungeon={'5163':'monkey','694':'orc','792':'esoteric','2092':'spider','1093':'demon_tower','2598':'azrael','1095':'triad','2493':'dragon','100010':'gnoll','100011':'triton','6091':'razador','6191':'nemere'};
+const bossIds=new Set(["191","192","193","194","491","492","493","494","531","532","533","534","591","691","2191","791","1304","1901","2091","2206","2306","2307","4700","2492","3090","3190","3290","3291","3391","3490","3590","3591","3595","3690","3691","3790","3890","3891","3091","3390","3491","3791","2597","2495","21837","100122","100123","6051","6151","5163","694","792","2092","1093","2598","1095","2493","100010","100011","6091","6191"]);
 const cache=new Map(),pending=new Set(),missing=new Set();
 const defaults=()=>({name:'Personaggio principale',class:'Guerriero',level:55,measuredDps:0,
  bonuses:{},supports:{pet:false,mount:false,buff:false,alchemy:false,talisman:false,premium:false},
@@ -341,7 +342,7 @@ function renderInto(){
  const old=page.querySelector('[data-vzw-scope]');
  let html='';
  if(route===guidePath){html=guideUI(page);ensureDungeon(profile.farming.dungeon)}
- else if(route.startsWith('wiki/dungeons/')||route.startsWith('wiki/mob/'))html=bossUI(page,route);
+ else if(route.startsWith('wiki/dungeons/')||(route.startsWith('wiki/mob/')&&bossIds.has(route.split('/')[2])))html=bossUI(page,route);
  if(html){
   if(old)old.outerHTML=html;
   else{
@@ -368,7 +369,7 @@ function refresh(){
 }
 function isRelevant(){
  const r=url();
- return r==='build'||r===guidePath||r.startsWith('wiki/bosses/boss_')||r.startsWith('wiki/dungeons/')||r.startsWith('wiki/mob/');
+ return r==='build'||r===guidePath||r.startsWith('wiki/bosses/boss_')||r.startsWith('wiki/dungeons/')||(r.startsWith('wiki/mob/')&&bossIds.has(r.split('/')[2]));
 }
 let isRendering=false;
 function mount(){
