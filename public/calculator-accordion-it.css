@@ -42,3 +42,8 @@
  #v-crafting .vz-accordion-trigger{min-height:48px;font-size:16px}
  #v-crafting .vz-accordion-symbol{width:29px;height:29px}
 }
+/* Selettore lingua completo anche dentro l'iframe. */
+.lang{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.lang button[data-lang]{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:30px}
+.lang button[data-lang] img{display:inline-block;width:22px;height:14px;object-fit:cover;border-radius:2px;flex:none}
+@media(max-width:640px){.lang button[data-lang]{padding:5px 7px;min-width:49px}}
