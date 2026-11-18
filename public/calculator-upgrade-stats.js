@@ -128,7 +128,13 @@ document.addEventListener('pointerover',e=>{
  if(a?.id&&hovered!==a.node)show(a.node,a.id,e);
 },true);
 document.addEventListener('pointermove',e=>{
- if(hovered&&targetForEvent(e)?.node===hovered)positionTip(e);
+ if(e.pointerType==='touch')return;
+ const target=targetForEvent(e);
+ if(!target?.id){if(hovered)hide();return}
+ // Dopo il click, la selezione o un aggiornamento del pannello il puntatore
+ // puo' restare sullo stesso elemento. Riattiva il tooltip anche al movimento.
+ if(!hovered||hovered!==target.node){show(target.node,target.id,e);return}
+ positionTip(e);
 },true);
 document.addEventListener('pointerout',e=>{
  const a=targetForEvent(e);
@@ -144,61 +150,122 @@ document.addEventListener('focusout',e=>{
 document.addEventListener('keydown',e=>{if(e.key==='Escape')hide()});
 document.addEventListener('click',hide,true);
 window.addEventListener('hashchange',hide);
-window.addEventListener('scroll',hide,true);
+window.addEventListener('scroll',()=>{
+ if(!hovered||!tipNode||tipNode.hidden)return;
+ // Uno scroll interno o l'auto-scroll del browser non devono spegnere il tooltip
+ // mentre il puntatore si trova ancora sull'oggetto.
+ const rect=hovered.getBoundingClientRect();
+ if(rect.bottom<0||rect.top>innerHeight){hide();return}
+ positionTip();
+},true);
 
 const nativeRcraft=rCraft;
-function enhance(){
- const view=document.querySelector('#v-crafting');
- if(!view)return;
- const table=view.querySelector('.panel[data-k="calc"] .tw table');
- const selected=byId[String(S.sel)];
- if(!table||!selected||table.dataset.vzWikiStats==='1')return;
- const ths=[...table.querySelectorAll('tr:first-child th')];
- const pos=ths.findIndex(th=>/Materiale|Materials/i.test(th.textContent));
- if(pos<0)return;
- table.dataset.vzWikiStats='1';
- table.classList.add('vz-upgrade-with-stats');
- const head=document.createElement('th');
- head.className='vz-stat-head';head.textContent='Valori oggetto';
- ths[pos].before(head);
- const rows=[...table.querySelectorAll('tr')].slice(1);
- rows.forEach((row,index)=>{
-  const cells=[...row.children];
-  if(row.classList.contains('tot')){
-   const cell=row.querySelector('td[colspan]');
-   if(cell)cell.colSpan=Number(cell.colSpan)+1;
-   return;
-  }
-  if(cells.length<5||index>=selected.s.length+1)return;
-  const level=Number(S.from)+index+1;
-  const evo=selected.evo&&level>selected.max;
-  let id=exactTipId(selected,level);
-  if(evo)id=null;
-  const td=document.createElement('td');td.className='vz-stat-cell';
-  if(id){
-   td.dataset.vzWikiTip=id;td.tabIndex=0;
-   td.setAttribute('aria-label',(tipRecord(id)?.name||'')+': '+statLines(tipRecord(id)).map(l=>l.text).join('; '));
-   td.innerHTML='<span class="vz-stat-level">+'+level+'</span>'+statHTML(id,true);
-  }else{
-   td.innerHTML='<span class="vz-stat-missing">Non disponibile nella Wiki</span>';
-  }
-  const originalMaterial=cells[pos];
-  if(originalMaterial)originalMaterial.before(td);
- });
- const wrapper=table.closest('.tw');
- if(wrapper){
-  const base=exactTipId(selected,S.from);
-  if(base){
-   const start=document.createElement('div');
-   start.className='vz-stat-base';
-   start.dataset.vzWikiTip=base;
-   start.tabIndex=0;
-   start.innerHTML='<strong>Valori di partenza · +'+S.from+'</strong><span>'+statHTML(base,true)+'</span>';
-   wrapper.before(start);
+
+/* Tabella orizzontale come nella Wiki: TUTTI i livelli, indipendentemente
+   dai menu del calcolatore costi. Non inferire mai valori mancanti. */
+function normalizeStatLabel(label){
+ return String(label||'').trim()
+  .replace(/^[+-]?\d+(?:[.,]\d+)?\s*%?\s+(?:di\s+)?/,'')
+  .replace(/\s*[+-]?\d+(?:[.,]\d+)?\s*%?\.?\s*$/,'')
+  .replace(/\s+$/,'').replace(/[.:]+$/,'').trim();
+}
+function parseLineValue(raw,kind){
+ const text=String(raw||'');
+ if(kind==='physical')return text.replace(/^Valore d.attacco\s*/i,'').replace(/\s+-\s+/g,'–').trim();
+ if(kind==='magical')return text.replace(/^Valore attacco magico\s*/i,'').replace(/\s+-\s+/g,'–').trim();
+ if(kind==='defence')return text.replace(/^Difesa\s*/i,'').trim();
+ const suffix=text.match(/([+-]?\d+(?:[.,]\d+)?\s*%?)\.?\s*$/);
+ if(suffix)return suffix[1].replace(/\s+/g,'');
+ const prefix=text.match(/^([+-]?\d+(?:[.,]\d+)?\s*%?)/);
+ return prefix?prefix[1].replace(/\s+/g,''):text;
+}
+function sourceAt(item,level){
+ const id=exactTipId(item,level);
+ return id?tipRecord(id):null;
+}
+function sourceStat(rec,key){
+ if(!rec)return null;
+ if(key==='physical')return rec.lines.find(l=>l.kind==='attack'&&/^Valore d.attacco\b/i.test(l.text||''))?.text??null;
+ if(key==='magical')return rec.lines.find(l=>l.kind==='attack'&&/^Valore attacco magico\b/i.test(l.text||''))?.text??null;
+ if(key==='defence')return rec.lines.find(l=>l.kind==='defence'&&/^Difesa\b/i.test(l.text||''))?.text??null;
+ const apply=rec.applies?.find(a=>String(a.apply)===key.slice(6));
+ return apply?.text??null;
+}
+function matrixRows(records){
+ const descriptors=[
+  ['physical',"Valore d'attacco"],
+  ['magical','Attacco magico'],
+  ['defence','Difesa']
+ ];
+ const used=new Set();
+ for(const record of records){
+  if(!record)continue;
+  for(const a of record.applies||[]){
+   const k='apply:'+a.apply;
+   if(used.has(k))continue;
+   used.add(k);
+   descriptors.push([k,normalizeStatLabel(a.text)||'Bonus '+a.apply]);
   }
  }
- // La colonna aggiunta riceve piu' spazio, senza alterare larghezze
- // personalizzate già memorizzate dall'utente.
+ return descriptors.filter(([key])=>records.some(rec=>sourceStat(rec,key)!=null));
+}
+function makeMatrix(item){
+ const total=item.max;
+ const records=Array.from({length:total+1},(_,level)=>sourceAt(item,level));
+ const rows=matrixRows(records);
+ let html='<section class="vz-upgrade-matrix" aria-label="Valori originali della Wiki da +0 a +'+total+'">';
+ html+='<div class="vz-upgrade-matrix-bar"><div><strong>Valori dei potenziamenti</strong><small>Statistiche ufficiali della Wiki · da +0 a +'+total+'</small></div>';
+ html+='<div class="vz-upgrade-matrix-actions"><button type="button" data-vz-matrix-move="-1" title="Scorri i livelli a sinistra" aria-label="Scorri i livelli a sinistra">‹</button><button type="button" data-vz-matrix-move="1" title="Scorri i livelli a destra" aria-label="Scorri i livelli a destra">›</button></div></div>';
+ html+='<div class="vz-upgrade-matrix-scroll" tabindex="0" role="region" aria-label="Tabella dei valori di potenziamento, scorrimento orizzontale">';
+ html+='<table class="vz-upgrade-matrix-table"><thead><tr><th scope="col" class="vz-matrix-sticky">Statistica</th>';
+ for(let lv=0;lv<=total;lv++){
+  const id=exactTipId(item,lv);
+  html+='<th scope="col" class="vz-matrix-level"'+(id?' data-vz-wiki-tip="'+esc(id)+'" tabindex="0" aria-label="'+esc((records[lv]?.name||'')+' - dettagli')+'"':'')+'>+'+lv+'</th>';
+ }
+ html+='</tr></thead><tbody>';
+ if(!rows.length)html+='<tr><th scope="row" class="vz-matrix-sticky">Statistiche Wiki</th><td colspan="'+(total+1)+'">Nessun valore disponibile nell’archivio Wiki</td></tr>';
+ for(const [key,label] of rows){
+  html+='<tr><th scope="row" class="vz-matrix-sticky" title="'+esc(label)+'">'+esc(label)+'</th>';
+  for(let lv=0;lv<=total;lv++){
+   const raw=sourceStat(records[lv],key),id=exactTipId(item,lv);
+   const v=raw!=null?parseLineValue(raw,key):'—';
+   html+='<td class="vz-matrix-value"'+(id?' data-vz-wiki-tip="'+esc(id)+'" tabindex="0" aria-label="'+esc(label+' a +'+lv+': '+(raw??'dato non presente'))+'"':'')+'>';
+   html+=esc(v)+'</td>';
+  }
+  html+='</tr>';
+ }
+ // Costi e percentuali come nel riferimento della Wiki.
+ // Sono letti dai dati reali del calcolatore, non ricalcolati.
+ for(const [label,k] of [['Costo Yang','yang'],['Potenz. %','pct']]){
+  html+='<tr class="vz-matrix-cost"><th scope="row" class="vz-matrix-sticky">'+label+'</th><td>—</td>';
+  for(let lv=1;lv<=total;lv++){
+   const step=item.s[lv-1],value=step?.[k];
+   html+='<td>'+(typeof value==='number'?(k==='yang'?esc(fmt(value)):esc(value+'%')):'—')+'</td>';
+  }
+  html+='</tr>';
+ }
+ html+='</tbody></table></div>';
+ html+='<p class="vz-matrix-hint">'+(total>9?'Scorri orizzontalmente o usa le frecce per consultare tutti i 26 livelli.':'Passa il mouse su un livello o un valore per vedere la scheda completa.')+'</p>';
+ html+='</section>';
+ return html;
+}
+function enhance(){
+ const view=document.querySelector('#v-crafting');
+ const item=byId[String(S.sel)];
+ const main=view?.querySelector('.panel[data-k="calc"]');
+ const header=main?.querySelector('.ihead');
+ if(!view||!main||!header||!item||main.querySelector('.vz-upgrade-matrix'))return;
+ header.insertAdjacentHTML('afterend',makeMatrix(item));
+ // I menu originali Da/Fino restano esclusivamente per calcolare i costi;
+ // la tabella di sopra mostra SEMPRE tutti i livelli contemporaneamente.
+ const selectors=main.querySelector('.ctl');
+ if(selectors&&!selectors.querySelector('.vz-cost-range-label')){
+  const title=document.createElement('span');
+  title.className='vz-cost-range-label';
+  title.textContent='Intervallo per il calcolo dei costi';
+  selectors.prepend(title);
+ }
+ // Allarga il pannello soltanto se l'utente non ha impostato la larghezza.
  try{
   const prefs=typeof LAY!=='undefined'?LAY.crafting?.w:{};
   const side=view.querySelector('.cell[data-k="side"]');
@@ -210,16 +277,25 @@ function enhance(){
   }
  }catch(_){}
 }
+document.addEventListener('click',e=>{
+ const b=e.target.closest?.('#v-crafting [data-vz-matrix-move]');
+ if(!b)return;
+ e.preventDefault();
+ const sc=b.closest('.vz-upgrade-matrix')?.querySelector('.vz-upgrade-matrix-scroll');
+ if(sc)sc.scrollBy({left:Number(b.dataset.vzMatrixMove)*Math.max(300,sc.clientWidth*.8),behavior:'smooth'});
+},true);
 rCraft=function(...args){hide();const out=nativeRcraft.apply(this,args);enhance();return out};
 enhance();
 // I grossi dizionari della Wiki possono terminare dopo che l'iframe e' montato.
 // Il caricamento è una tantum, senza polling né richieste aggiuntive per 147 oggetti.
 if(!window.parent?.VERZUM_WIKI_API_TIPS?.[String(DATA.items[0]?.id)]){
- window.parent?.addEventListener('load',()=>{if(document.querySelector('#v-crafting .vz-stat-cell'))rCraft()},{once:true});
+ window.parent?.addEventListener('load',()=>{if(document.querySelector('#v-crafting .vz-upgrade-matrix'))rCraft()},{once:true});
 }
 window.VERZUM_UPGRADE_WIKI_STATS={
  exactTipId,
  get coveredItems(){return DATA.items.filter(item=>Array.from({length:item.max+1},(_,lv)=>exactTipId(item,lv)).every(Boolean)).length},
- get itemCount(){return DATA.items.length}
+ get itemCount(){return DATA.items.length},
+ get currentMatrixLevels(){return document.querySelectorAll('#v-crafting .vz-matrix-level').length},
+ get currentMatrixRows(){return document.querySelectorAll('#v-crafting .vz-upgrade-matrix-table tbody tr').length}
 };
 })();
