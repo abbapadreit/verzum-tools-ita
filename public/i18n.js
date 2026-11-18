@@ -194,6 +194,8 @@
  // Le categorie plurali della schermata Potenziamenti sono gestite separatamente.
  window.VERZUM_RO_TO_IT=Object.fromEntries(Object.entries(translations).map(([it,values])=>[values[1],it]));
  window.VERZUM_EN_TO_IT=Object.fromEntries(Object.entries(translations).map(([it,values])=>[values[0],it]));
+ window.VERZUM_HU_TO_IT=Object.fromEntries(Object.entries(translations).map(([it,values])=>[values[2],it]));
+ window.VERZUM_TRANSLATIONS=table;
  function syncNativeLocale(){
    const frame=document.querySelector('iframe.native-calculator-frame');
    if(frame?.contentWindow)frame.contentWindow.postMessage({type:'verzum-parent-language',language:current},location.origin);
