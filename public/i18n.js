@@ -248,6 +248,25 @@
      [/^(\d+) fallimenti$/,{en:'$1 failures',ro:'$1 eșecuri',hu:'$1 sikertelen próba'}]
    ];
    for(const [pattern,options] of patterns){if(pattern.test(it))return it.replace(pattern,options[current])}
+   const uiPatterns=[
+     [/^Preparazione: (.+)$/,{en:'Preparation: $1',ro:'Pregătire: $1',hu:'Felkészülés: $1'}],
+     [/^Livelli (\d+[-–]\d+|\d+)$/,{en:'Levels $1',ro:'Niveluri $1',hu:'Szintek $1'}],
+     [/^Mancano ([\d.,]+%?)$/,{en:'Missing $1',ro:'Lipsesc $1',hu:'Hiányzik $1'}],
+     [/^(\d+) di (\d+) elementi selezionati$/,{en:'$1 of $2 selected items',ro:'$1 din $2 obiecte selectate',hu:'$1 / $2 kijelölt tárgy'}],
+     [/^(\d+) \/ (\d+) tappe$/,{en:'$1 / $2 milestones',ro:'$1 / $2 etape',hu:'$1 / $2 mérföldkő'}],
+     [/^(\d+) oggetti della Wiki$/,{en:'$1 Wiki items',ro:'$1 obiecte Wiki',hu:'$1 Wiki-tárgy'}],
+     [/^(\d+) pietre della Wiki$/,{en:'$1 Wiki stones',ro:'$1 pietre Wiki',hu:'$1 Wiki-kő'}],
+     [/^(\d+) consigli Wiki$/,{en:'$1 Wiki recommendations',ro:'$1 recomandări Wiki',hu:'$1 Wiki-ajánlás'}],
+     [/^(\d+) configurazioni$/,{en:'$1 configurations',ro:'$1 configurații',hu:'$1 konfiguráció'}],
+     [/^Apri dungeon (.+)$/,{en:'Open dungeon $1',ro:'Deschide temnița $1',hu:'Kazamata megnyitása: $1'}],
+     [/^Preparazione (.+)$/,{en:'Preparation $1',ro:'Pregătire $1',hu:'Felkészülés $1'}]
+   ];
+   for(const [pattern,options] of uiPatterns)if(pattern.test(it))return it.replace(pattern,options[current]);
+   const equipment=it.match(/^Equipaggiamento per (Guerriero|Ninja|Sura|Sciamano)$/);
+   if(equipment){
+     const name=table[equipment[1]]?.[current]||equipment[1];
+     return ({en:'Equipment for ',ro:'Echipament pentru ',hu:'Ajánlott felszerelés: '})[current]+name;
+   }
    return null;
  }
  function translateText(node){
