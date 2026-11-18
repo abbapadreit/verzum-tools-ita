@@ -69,5 +69,33 @@ function render(source,cls,name,href){
   '<p class="vzw-advice-source"><a href="#'+esc(href)+'">Apri la scheda dungeon con i dati originali</a> · I valori consigliati della Wiki non garantiscono il successo contro il boss.</p>'+
  '</section>';
 }
-window.VERZUM_BOSS_RECOMMENDATIONS=Object.freeze({render,classes:CLASSES});
+function renderGeneric(source,cls,title,profile){
+ const current=CLASSES[cls]?cls:'Guerriero';
+ const level=Number(String(source?.querySelector('.wk-namebar__lv')?.textContent||'').match(/\d+/)?.[0]||0);
+ const lowLevel=level>0&&level<=75;
+ const supports=profile?.supports||{},notes=profile?.supportNotes||{};
+ const card=(title,detail,link,label)=>{
+  return '<div class="vzw-generic-card"><h4>'+esc(title)+'</h4><p>'+detail+'</p>'+
+   (link?'<a href="'+esc(link)+'">'+esc(label)+'</a>':'')+'</div>';
+ };
+ const reference=lowLevel?
+  '<a href="#wiki/guides/vz_level_1_75">Guida ai livelli 1–75</a>':
+  '<span>La guida 1–75 non copre il livello '+(level||'non disponibile')+' di questo boss.</span>';
+ return '<section class="vzw-boss-advice vzw-boss-advice--generic" aria-label="Preparazione personale boss">'+
+  '<div class="vzw-advice-heading"><span class="vzw-overline">VERZUM WIKI · PIANO PERSONALE</span>'+
+  '<h3>Preparazione per '+esc(title)+'</h3>'+
+  '<p>La Wiki non contiene una scheda dungeon con equipaggiamento specifico per questo boss. Qui puoi organizzare la tua build, senza associare al boss valori non documentati.</p></div>'+
+  '<div class="vzw-class-tabs" role="group" aria-label="Seleziona la classe">'+
+  Object.keys(CLASSES).map(key=>'<button type="button" data-vzw-class="'+esc(key)+'" aria-pressed="'+String(current===key)+'"'+(current===key?' class="is-selected"':'')+'>'+esc(key)+'</button>').join('')+'</div>'+
+  '<div class="vzw-generic-grid">'+
+  card('Equipaggiamento · '+current,'Nessun set specifico verificato. Consulta la progressione equipaggiamento della Wiki e segna gli oggetti nel tuo profilo.',lowLevel?'#wiki/guides/vz_level_1_75':'#build','Apri guida e profilo')+
+  card('Alchimia',supports.alchemy?'Configurazione attiva nel tuo profilo: '+esc(notes.alchemy||'dettagli da indicare'):'Non ancora segnata nel profilo. Nessuna pietra imposta senza fonte.','#build','Gestisci il profilo')+
+  card('Abilità principali e passive','Per '+esc(current)+' imposta i livelli effettivi delle abilità e i materiali necessari. La scheda non riporta gradi consigliati specifici.','#skills','Calcolatore abilità')+
+  card('Buffi, Pet e cavalcatura','Indica i tuoi supporti e livelli nel profilo. I bonus non vengono automaticamente sommati al danno.','#build','Imposta i supporti')+
+  card('Booster e consumabili','Nessuna lista specifica verificata per questo boss. Pianifica le spese e consulta la guida.','#prices','Prezzi materiali')+
+  '</div><p class="vzw-advice-source">Fonte: scheda del boss, senza suggerimenti ufficiali di equipaggiamento. '+reference+'</p>'+
+  '</section>';
+}
+
+window.VERZUM_BOSS_RECOMMENDATIONS=Object.freeze({render,renderGeneric,classes:CLASSES});
 })();
