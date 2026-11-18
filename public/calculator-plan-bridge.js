@@ -4,10 +4,10 @@
 if(window.__verzumPlanBridge)return;window.__verzumPlanBridge=true;
 const labels={crafting:'Potenziamenti',gaya:'Gaya',pet:'Pet',mount:'Cavalcature',costume:'Costumi pet',skills:'Abilità',passive:'Abilità passive'};
 document.addEventListener('click',e=>{
- const button=e.target.closest('button,[role="button"]');
+ const button=e.target.closest('button,a,[role="button"]');
  if(!button)return;
  const text=String(button.textContent||'').trim().replace(/\s+/g,' ');
- if(!/^\+\s*(?:Pianificatore|Planificator|Planner)\b/i.test(text))return;
+ if(!/^(?:\+\s*(?:Pianificatore|Planificator|Planner)|Add to planner|Adaugă în planificator)\b/i.test(text))return;
  const route=location.hash.replace(/^#/,'');
  if(!labels[route])return;
  // Il Planner dell'iframe non condivideva lo stato con la pagina principale.
