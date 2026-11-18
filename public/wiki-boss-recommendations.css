@@ -44,3 +44,12 @@
 .vzw-boss-advice .vzw-generic-card p{font-size:12px;color:#d4bfa9;margin:0 0 11px;line-height:1.6}
 .vzw-boss-advice .vzw-generic-card a{color:#f2ca92;text-decoration:underline;text-underline-offset:3px;font-size:12px}
 @media(max-width:720px){.vzw-boss-advice .vzw-generic-grid{grid-template-columns:1fr}}
+
+/* Production stand-alone entrypoint: boss links and loading state. */
+.vz-wiki .vzw-overline{display:inline-block;color:#c79c6c;font:700 11px Rajdhani,Arial,sans-serif;letter-spacing:.11em;text-transform:uppercase}
+.vz-wiki .vzw-small{color:#cab9a4;font:500 12px/1.55 Manrope,Arial,sans-serif}
+.vz-wiki .vzw-shortcut{display:inline-flex;align-items:center;margin-left:auto;padding:5px 10px;background:#43251e;border:1px solid #8d6847;border-radius:5px;color:#f0d2a4;font:700 11px Rajdhani,Arial,sans-serif;text-decoration:none;white-space:nowrap}
+.vz-wiki .vzw-shortcut:hover{background:#66402c;color:#fff5dc}
+.vz-wiki .vzw-shortcut:focus-visible{outline:2px solid #e8bf82;outline-offset:2px}
+.vz-wiki #vz-wiki-boss-preparation{max-width:100%;min-width:0}
+@media(max-width:520px){.vz-wiki .vzw-shortcut{margin-left:0;margin-top:4px;white-space:normal}}
