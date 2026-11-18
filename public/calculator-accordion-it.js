@@ -158,10 +158,11 @@ tx=function(value){
 
 const nativeSetLang=setLang;
 setLang=function(next){
- if(next!=='it'){nativeSetLang(next==='hu'?'en':next);rFilters();rTiles();return}
+ if(next==='en'||next==='ro'){nativeSetLang(next);rFilters();rTiles();return}
+ if(next!=='it'&&next!=='hu')return;
  LANG='it';LOC='it-IT';
  try{localStorage.setItem('dt_lang','it')}catch(_){}
- document.documentElement.lang='it';
+ document.documentElement.lang=next;
  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang==='it'));
  route();
  trNode(document.body);
@@ -238,7 +239,7 @@ if(typeof NL!=='undefined')NL.it={
 };
 window.addEventListener('message',e=>{
  if(e.origin!==location.origin||e.source!==parent)return;
- if(e.data?.type==='verzum-parent-language'&&['it','ro'].includes(e.data.language))
+ if(e.data?.type==='verzum-parent-language'&&['it','en','ro','hu'].includes(e.data.language))
   setLang(e.data.language);
 });
 rFilters();
@@ -262,4 +263,11 @@ for(const href of ['calculator-upgrade-compare.css']){
 for(const src of ['calculator-upgrade-compare.js','calculator-locale-cleanup.js']){
  if(!document.querySelector('script[src="'+src+'"]')){const script=document.createElement('script');script.src=src;document.body.appendChild(script)}
 }
+
+/* La scelta della lingua nell'iframe aggiorna anche le bandiere del sito principale. */
+document.addEventListener('click',e=>{
+ const b=e.target.closest('.lang button[data-lang]');
+ if(!b||!['it','en','ro','hu'].includes(b.dataset.lang))return;
+ try{parent.postMessage({type:'verzum-reference-change-language',language:b.dataset.lang},location.origin)}catch(_){}
+},true);
 })();
