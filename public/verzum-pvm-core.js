@@ -51,7 +51,7 @@ function farming({runs,lootPerRun,expensesPerRun,ticketPerRun,minutesPerRun}){
  const n=safe(runs,0,10000),loot=safe(lootPerRun,0),spent=safe(expensesPerRun,0),ticket=safe(ticketPerRun,0),minutes=safe(minutesPerRun,0);
  if([n,loot,spent,ticket,minutes].some(x=>x===null))return null;
  const profit=(loot-spent-ticket)*n;
- return {runs:n,revenue:loot*n,costs:(spent+ticket)*n,profit,profitPerHour:minutes>0?profit/(n*minutes/60):null};
+ return {runs:n,revenue:loot*n,costs:(spent+ticket)*n,profit,profitPerHour:minutes>0&&n>0?profit/(n*minutes/60):null};
 }
 global.VERZUM_PVM_CORE=Object.freeze({number,safe,compare,goals,levelEligible,observedDps,eta,scenario,farming});
 })(window);
