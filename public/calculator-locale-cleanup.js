@@ -44,6 +44,9 @@ function italian(source){
 function translate(source){
  const s=String(source||'').trim();if(!s)return s;
  const it=italian(s);
+ // Omografi: «Materiale» è anche il plurale rumeno. Evita false correzioni
+ // quando il testo è già esattamente nella lingua richiesta.
+ if(lang!=='it'&&dictionary()[s]&&reverse()[lang]?.[s])return s;
  if(lang==='it')return it;
  const translated=dictionary()[it]?.[lang];
  if(translated)return translated;
