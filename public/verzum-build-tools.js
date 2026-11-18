@@ -82,7 +82,7 @@ function recommended(page,kind){
 }
 function recommendedSkills(page,keyword){
  const section=[...(page?.querySelectorAll('section')||[])].find(s=>canonicalWiki(s.querySelector('.wk-vzhead')?.textContent).includes('Abilità consigliate'));
- const table=[...(section?.querySelectorAll('table')||[])].find(t=>canonicalWiki(t.querySelector('thead')?.textContent).includes(canonicalWiki(keyword)));
+ const table=[...(section?.querySelectorAll('table')||[])].find(t=>[...t.querySelectorAll('thead th')].some(th=>canonicalWiki(th.textContent).includes(canonicalWiki(keyword))));
  return [...(table?.querySelectorAll('tbody tr')||[])].map(tr=>{
   const cells=tr.querySelectorAll('td');
   if(cells.length<2)return null;
