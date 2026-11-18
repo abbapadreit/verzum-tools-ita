@@ -1,0 +1,55 @@
+/* VERZUM Boss build guides: preserve the real Wiki equipment/alchemy images and typography. */
+.vzw-boss-advice{border:1px solid #88623e;border-radius:9px;background:linear-gradient(160deg,#2b1511 0%,#160909 100%);padding:19px;margin:20px 0 22px;box-shadow:0 3px 20px #0004;color:#dcc7ad}
+.vzw-advice-heading h3{font:700 clamp(18px,2vw,25px) Rajdhani,Arial,sans-serif;margin:4px 0 8px;color:#f0cf9e}
+.vzw-advice-heading p{font-size:13px;line-height:1.5;color:#cab5a0}
+.vzw-class-tabs{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin:15px 0 18px}
+.vzw-class-tabs button{min-width:110px;flex:0 1 130px;padding:9px 11px;background:#1d0e0d;border:1px solid #604332;border-radius:6px;color:#c4ab90;font:700 13px Rajdhani,Arial,sans-serif;letter-spacing:.08em;cursor:pointer}
+.vzw-class-tabs button.is-selected,.vzw-class-tabs button[aria-pressed=true]{background:linear-gradient(#5c3828,#3b241d);color:#f7d9a3;border-color:#b68b5b}
+.vzw-class-tabs button:hover{background:#4a2c21;color:#fff}
+.vzw-class-tabs button:focus-visible{outline:2px solid #efca84;outline-offset:3px}
+.vzw-advice-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.85fr);gap:13px;align-items:start}
+.vzw-advice-part{border-top:1px solid #553b2d;padding:15px 0;margin-top:10px;min-width:0}
+.vzw-advice-grid .vzw-advice-part{border:1px solid #4a2d23;border-radius:7px;padding:13px;background:#1b0d0b;margin-top:0}
+.vzw-advice-part h4,.vzw-skill-card h4{font:700 17px Rajdhani,Arial,sans-serif;color:#eac699;margin:0 0 10px}
+.vzw-advice-part p{line-height:1.5}
+.vzw-boss-advice .vzw-gear-boards{overflow-x:auto;max-width:100%;padding:6px 2px}
+.vzw-boss-advice .vzw-gear-boards .wk-panels{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:flex-start}
+.vzw-boss-advice .vzw-gear-boards .wk-panel{flex:none;max-width:100%}
+.vzw-boss-advice .vzw-gear-boards .wk-panel__art{max-width:100%;height:auto}
+.vzw-boss-advice .vzw-alchemy-row{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;padding:7px 0}
+.vzw-boss-advice .vzw-alchemy-row .wk-alch__row{display:flex;flex-wrap:wrap;justify-content:center;gap:3px}
+.vzw-boss-advice .vzw-alchemy-row .wk-alch__cell{min-width:43px;display:flex;align-items:center;justify-content:center}
+.vzw-boss-advice .vzw-source-table,.vzw-boss-advice .vzw-consumable-table,.vzw-boss-advice .vzw-bonus-source{overflow-x:auto;max-width:100%}
+.vzw-boss-advice .wk-table{width:100%;max-width:100%;min-width:320px;font-size:12px}
+.vzw-boss-advice .wk-table th,.vzw-boss-advice .wk-table td{padding:8px 9px;vertical-align:middle}
+.vzw-boss-advice .wk-table .wk-skillic{width:26px;height:26px;vertical-align:middle}
+.vzw-boss-advice .vzw-skill-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.vzw-boss-advice .vzw-skill-card{border:1px solid #432a21;border-radius:6px;padding:11px;min-width:0;background:#1a0b0a}
+.vzw-boss-advice .vzw-skill-card h4{font-size:15px}
+.vzw-boss-advice .vzw-advice-source{font-size:12px;color:#bea78a;margin:13px 0 0}
+.vzw-boss-advice .vzw-advice-source a{color:#efd0a0;text-decoration:underline;text-underline-offset:3px}
+.vzw-boss-advice .vzw-advice-source a:focus-visible{outline:2px solid #e9bf78}
+@media(max-width:900px){.vzw-advice-grid,.vzw-boss-advice .vzw-skill-grid{grid-template-columns:1fr}}
+@media(max-width:520px){
+ .vzw-boss-advice{padding:12px;margin:14px 0}
+ .vzw-class-tabs button{min-width:calc(50% - 6px);flex:1 0 calc(50% - 6px)}
+ .vzw-boss-advice .wk-table{font-size:11px}
+ .vzw-boss-advice .vzw-advice-grid .vzw-advice-part{padding:10px}
+}
+
+/* Boss senza una scheda dungeon: preparazione personale esplicita, senza dati inventati. */
+.vzw-boss-advice .vzw-generic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0}
+.vzw-boss-advice .vzw-generic-card{background:#1a0c0b;border:1px solid #53372a;padding:14px;border-radius:7px;min-width:0}
+.vzw-boss-advice .vzw-generic-card h4{font:700 17px Rajdhani,Arial,sans-serif;color:#f0cc9b;margin:0 0 8px}
+.vzw-boss-advice .vzw-generic-card p{font-size:12px;color:#d4bfa9;margin:0 0 11px;line-height:1.6}
+.vzw-boss-advice .vzw-generic-card a{color:#f2ca92;text-decoration:underline;text-underline-offset:3px;font-size:12px}
+@media(max-width:720px){.vzw-boss-advice .vzw-generic-grid{grid-template-columns:1fr}}
+
+/* Production stand-alone entrypoint: boss links and loading state. */
+.vz-wiki .vzw-overline{display:inline-block;color:#c79c6c;font:700 11px Rajdhani,Arial,sans-serif;letter-spacing:.11em;text-transform:uppercase}
+.vz-wiki .vzw-small{color:#cab9a4;font:500 12px/1.55 Manrope,Arial,sans-serif}
+.vz-wiki .vzw-shortcut{display:inline-flex;align-items:center;margin-left:auto;padding:5px 10px;background:#43251e;border:1px solid #8d6847;border-radius:5px;color:#f0d2a4;font:700 11px Rajdhani,Arial,sans-serif;text-decoration:none;white-space:nowrap}
+.vz-wiki .vzw-shortcut:hover{background:#66402c;color:#fff5dc}
+.vz-wiki .vzw-shortcut:focus-visible{outline:2px solid #e8bf82;outline-offset:2px}
+.vz-wiki #vz-wiki-boss-preparation{max-width:100%;min-width:0}
+@media(max-width:520px){.vz-wiki .vzw-shortcut{margin-left:0;margin-top:4px;white-space:normal}}
