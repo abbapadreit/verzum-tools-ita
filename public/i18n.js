@@ -232,6 +232,7 @@
  function label(raw){
    const text=String(raw||'').trim();if(!text)return null;
    const it=normalized(text);
+   if(current!=='it'&&table[text]&&reverseLang()[current]?.[text])return text;
    if(current==='it')return it!==text?it:(translatedItemName(text,'it')||null);
    if(table[it]?.[current])return table[it][current];
    const name=translatedItemName(text,current);if(name)return name;
@@ -271,11 +272,14 @@
    let node;while((node=walk.nextNode()))translateText(node);
    root.querySelectorAll('input[placeholder],textarea[placeholder],[aria-label],[title]').forEach(el=>{
       let original=origAttr.get(el);
-      if(!original){original={};for(const k of ['placeholder','aria-label','title'])original[k]=el.getAttribute(k);origAttr.set(el,original)}
-      for(const [attr,value] of Object.entries(original)){
-       if(value===null)continue;
-       const next=label(value)||value;
-       if(el.getAttribute(attr)!==next)el.setAttribute(attr,next);
+      if(!original){original={base:{},last:{}};for(const k of ['placeholder','aria-label','title'])original.base[k]=original.last[k]=el.getAttribute(k);origAttr.set(el,original)}
+      for(const [attr,value] of Object.entries(original.base)){
+       const observed=el.getAttribute(attr);
+       if(observed!==original.last[attr])original.base[attr]=observed;
+       if(original.base[attr]===null){original.last[attr]=null;continue}
+       const next=label(original.base[attr])||original.base[attr];
+       if(observed!==next)el.setAttribute(attr,next);
+       original.last[attr]=next;
       }
    });
    document.querySelectorAll('.lang-btn').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.setLang===current)));
