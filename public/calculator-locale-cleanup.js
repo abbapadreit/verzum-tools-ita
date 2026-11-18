@@ -21,16 +21,21 @@ const patterns=[
 const reverse=()=>({en:parent.VERZUM_EN_TO_IT||{},ro:parent.VERZUM_RO_TO_IT||{},hu:parent.VERZUM_HU_TO_IT||{}});
 const dictionary=()=>parent.VERZUM_TRANSLATIONS||{};
 const official=()=>parent.VERZUM_RELEASE?.catalog||[];
+let catalogSeen=null,nameIndex=new Map();
 function itemTranslation(source,destination){
  const names=parent.VERZUM_ITEM_L10N||{},catalog=official();
  if(!Array.isArray(catalog))return null;
- for(const item of catalog){
-  const id=String(item.id||''),italian=item.name||'';
-  const options=[italian,...['en','ro','hu'].map(code=>names[code]?.[id]).filter(Boolean)];
-  if(!options.includes(source))continue;
-  return destination==='it'?italian:(names[destination]?.[id]||italian);
+ if(catalog!==catalogSeen){
+  catalogSeen=catalog;nameIndex=new Map();
+  for(const item of catalog){
+   const id=String(item.id||''),italian=item.name||'';
+   if(!italian)continue;
+   for(const label of [italian,...['en','ro','hu'].map(code=>names[code]?.[id]).filter(Boolean)])
+    nameIndex.set(label,{italian,id});
+  }
  }
- return null;
+ const match=nameIndex.get(source);if(!match)return null;
+ return destination==='it'?match.italian:(names[destination]?.[match.id]||match.italian);
 }
 function italian(source){
  const table=dictionary();
