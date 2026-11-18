@@ -158,8 +158,8 @@ tx=function(value){
 
 const nativeSetLang=setLang;
 setLang=function(next){
- if(next==='en'||next==='ro'){nativeSetLang(next);rFilters();rTiles();return}
- if(next!=='it'&&next!=='hu')return;
+ if(next==='en'||next==='ro'||next==='hu'){nativeSetLang(next);rFilters();rTiles();return}
+ if(next!=='it')return;
  LANG='it';LOC='it-IT';
  try{localStorage.setItem('dt_lang','it')}catch(_){}
  document.documentElement.lang=next;
