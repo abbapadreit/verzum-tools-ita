@@ -239,7 +239,7 @@ if(typeof NL!=='undefined')NL.it={
 };
 window.addEventListener('message',e=>{
  if(e.origin!==location.origin||e.source!==parent)return;
- if(e.data?.type==='verzum-parent-language'&&['it','en','ro','hu'].includes(e.data.language))
+ if(e.data?.type==='verzum-parent-language'&&['it','en','ro','hu'].includes(e.data.language)&&LANG!==e.data.language)
   setLang(e.data.language);
 });
 /* Le quattro lingue hanno gli stessi controlli e le rispettive bandierine. */
