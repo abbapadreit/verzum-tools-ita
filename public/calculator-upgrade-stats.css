@@ -1,0 +1,56 @@
+/* Valori ufficiali (+0 → +9 e oltre) e tooltip della Wiki nei Potenziamenti. */
+#v-crafting .vz-upgrade-with-stats{width:100%;min-width:825px}
+#v-crafting .vz-upgrade-with-stats .vz-stat-head{min-width:155px;text-align:left}
+#v-crafting .vz-upgrade-with-stats .vz-stat-cell{
+ min-width:155px;padding:7px 8px!important;vertical-align:middle;
+ cursor:help;transition:background .12s;
+}
+#v-crafting .vz-stat-cell:hover,#v-crafting .vz-stat-cell:focus-visible,
+#v-crafting .vz-stat-base:hover,#v-crafting .vz-stat-base:focus-visible{
+ background:rgba(197,153,108,.13);outline:none
+}
+#v-crafting .vz-stat-cell .vz-stat-level{
+ display:inline-block;margin-bottom:3px;padding:1px 5px;border-radius:4px;
+ background:rgba(182,130,79,.20);color:#eed49d;font:700 11px 'Rajdhani',sans-serif
+}
+#v-crafting .vz-stat-line{display:block;line-height:1.32;font-size:12px;overflow-wrap:anywhere}
+#v-crafting .vz-stat-more,#v-crafting .vz-stat-missing{
+ display:block;font-size:11px;line-height:1.3;color:#b4a198
+}
+#v-crafting .vz-stat-base{
+ display:flex;align-items:center;flex-wrap:wrap;gap:10px;
+ margin:8px 0;padding:8px 10px;border:1px solid rgba(197,153,108,.22);
+ border-radius:7px;background:rgba(25,8,8,.52);cursor:help;
+}
+#v-crafting .vz-stat-base strong{
+ color:#e7c993;white-space:nowrap;font:700 12px 'Rajdhani',sans-serif;
+ text-transform:uppercase;letter-spacing:.4px
+}
+#v-crafting .vz-stat-base>span{display:flex;flex-wrap:wrap;gap:5px 12px}
+#v-crafting .vz-stat-base .vz-stat-line{display:inline;color:#8ab98e}
+#v-crafting .vz-stat-base .vz-stat-more{display:inline}
+#v-crafting .ihead,#v-crafting .it[data-id]{cursor:help}
+#v-crafting .panel[data-k=calc]>.tw{overflow-x:auto!important;scrollbar-width:none}
+#v-crafting .panel[data-k=calc]>.tw::-webkit-scrollbar{display:none}
+.vz-upgrade-wiki-tip{
+ position:fixed;z-index:2147483646;pointer-events:none;
+ width:max-content;min-width:235px;max-width:min(350px,95vw);
+ padding:15px 17px;border:1px solid #7c583c;border-radius:8px;
+ background:rgba(17,5,5,.98);box-shadow:0 12px 33px rgba(0,0,0,.73);
+ color:#c2c2c2;text-align:center;font:14px/1.42 'Manrope',sans-serif;
+ overflow-wrap:anywhere;
+}
+.vz-upgrade-wiki-tip[hidden]{display:none!important}
+.vz-upgrade-tip-icon{display:flex;justify-content:center;margin-bottom:6px}
+.vz-upgrade-tip-icon img{width:42px;height:42px;object-fit:contain;image-rendering:auto}
+.vz-upgrade-tip-title{font-weight:800;font-size:15px;margin-bottom:9px}
+.vz-upgrade-tip-line{margin-top:3px;font-size:13px}
+.vz-upgrade-tip-attack,.vz-upgrade-tip-defence,.vz-upgrade-tip-apply{color:#8ab98e}
+#v-crafting .vz-upgrade-with-stats th{white-space:normal}
+@media(max-width:1020px){
+ #v-crafting .vz-upgrade-with-stats{min-width:910px}
+ #v-crafting .panel[data-k=calc]>.tw{overflow-x:auto!important}
+}
+@media(prefers-reduced-motion:reduce){
+ #v-crafting .vz-stat-cell{transition:none}
+}
