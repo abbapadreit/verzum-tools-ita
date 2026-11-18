@@ -1,0 +1,41 @@
+/* VERZUM PvM workbench — consistent with existing dark/red/gold Wiki. */
+.vzw-panel{margin:22px 0;padding:22px;border:1px solid #775139;border-radius:11px;background:linear-gradient(145deg,#20100f,#120909);color:#dfcfb6;font-family:Manrope,Arial,sans-serif}
+.vzw-head{display:flex;justify-content:space-between;align-items:start;gap:12px;flex-wrap:wrap}
+.vzw-head h2{margin:4px 0 8px;font-family:Rajdhani,Arial,sans-serif;color:#efd0a2;font-size:25px;line-height:1.15}
+.vzw-overline{color:#b68c62;font:700 11px Rajdhani,sans-serif;letter-spacing:1.5px}
+.vzw-chip{background:#40231d;border:1px solid #86613a;color:#eacc9d;padding:5px 9px;border-radius:50px;font-size:11px}
+.vzw-panel p{color:#c9b9a9;line-height:1.55;margin:8px 0 15px}
+.vzw-panel h3{color:#ead0ae;margin:18px 0 10px;font:700 18px Rajdhani,sans-serif}
+.vzw-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.vzw-grid label,.vzw-target-input label{display:flex;flex-direction:column;gap:5px;color:#c3a88d;font-size:12px}
+.vzw-grid input,.vzw-grid select,.vzw-target-input input{min-width:0;width:100%;box-sizing:border-box;border:1px solid #805a42;border-radius:5px;padding:10px;color:#f5dfbb;background:#170b0c;font:inherit}
+.vzw-grid input:focus,.vzw-grid select:focus,.vzw-target-input input:focus{outline:2px solid #bd905a;outline-offset:1px}
+.vzw-supports{display:flex;flex-wrap:wrap;gap:9px 16px;margin:17px 0;color:#d7c0a5}
+.vzw-supports label{font-size:12px;display:flex;gap:6px;align-items:center;cursor:pointer}
+.vzw-supports input,.vzw-tasks input{accent-color:#b78049}
+.vzw-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:15px 0}
+.vzw-metrics>div{border:1px solid #56372b;border-radius:7px;padding:12px;background:#271513;min-width:0}
+.vzw-metrics small{display:block;color:#baa087;font-size:11px;margin-bottom:5px}
+.vzw-metrics strong{color:#efd7ac;font:700 22px Rajdhani,sans-serif;overflow-wrap:anywhere}
+.vzw-targets{display:grid;gap:10px}
+.vzw-target{border:1px solid #4b2a24;border-radius:7px;background:#1c0e0e;padding:11px}
+.vzw-target-top,.vzw-target-input{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.vzw-target-top{font-size:12px;margin-bottom:8px}
+.vzw-target-top b{color:#e1c6a2}
+.vzw-target-top span{color:#ac987f;text-align:right}
+.vzw-target-input label{max-width:150px}
+.vzw-target-input input{padding:7px;margin-top:3px}
+.vzw-gap{font:600 12px Rajdhani,sans-serif;color:#edc390}
+.vzw-track{height:5px;border-radius:6px;background:#422720;margin-top:10px;overflow:hidden}
+.vzw-track span{display:block;background:#9c7d52;height:100%;border-radius:6px}
+.vzw-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.vzw-actions a,.vzw-actions button,.vzw-shortcut{display:inline-flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid #97734d;border-radius:6px;padding:8px 12px;background:#48291e;color:#f3d7a6;text-decoration:none;font:700 12px Rajdhani,Arial,sans-serif}
+.vzw-actions a:hover,.vzw-actions button:hover,.vzw-shortcut:hover{background:#67402e;color:#fff1cb}
+.vzw-panel .vzw-small{color:#af9d91;font-size:11px;margin:10px 0 0}
+.vzw-tasks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:16px 0}
+.vzw-task{display:flex;align-items:start;gap:9px;border:1px solid #584030;padding:12px;border-radius:7px;cursor:pointer;background:#241412}
+.vzw-task b,.vzw-task small{display:block}
+.vzw-task b{color:#e4bf8b;font-size:13px}
+.vzw-task small{color:#c1b2a2;font-size:11px;margin-top:5px}
+.vzw-shortcut{margin-left:auto;padding:4px 8px;font-size:11px}
+@media(max-width:650px){.vzw-panel{padding:15px}.vzw-grid,.vzw-metrics,.vzw-tasks{grid-template-columns:1fr}.vzw-target-top{align-items:start;flex-direction:column;gap:3px}.vzw-head h2{font-size:21px}}
