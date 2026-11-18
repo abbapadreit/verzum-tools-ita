@@ -242,6 +242,23 @@ window.addEventListener('message',e=>{
  if(e.data?.type==='verzum-parent-language'&&['it','en','ro','hu'].includes(e.data.language))
   setLang(e.data.language);
 });
+/* Le quattro lingue hanno gli stessi controlli e le rispettive bandierine. */
+const nativeFlags=document.querySelector('.lang');
+if(nativeFlags){
+ if(!nativeFlags.querySelector('[data-lang="it"]')){
+  const btn=document.createElement('button');
+  btn.type='button';btn.dataset.lang='it';btn.textContent='IT';btn.title='Italiano';
+  nativeFlags.prepend(btn);
+ }
+ for(const btn of nativeFlags.querySelectorAll('button[data-lang]')){
+  const lang=btn.dataset.lang;
+  if(!['it','en','ro','hu'].includes(lang)||btn.querySelector('img'))continue;
+  const flag=document.createElement('img');
+  flag.src='assets/flags/'+lang+'.svg';flag.alt='';flag.width=22;flag.height=14;
+  flag.loading='lazy';btn.prepend(flag);
+  btn.setAttribute('aria-label',({it:'Italiano',en:'English',ro:'Română',hu:'Magyar'})[lang]);
+ }
+}
 rFilters();
 setLang(window.parent?.VERZUM_LOCALE?.lang||'it');
 // L'estensione arriva dopo il caricamento delle fisarmoniche e riutilizza
