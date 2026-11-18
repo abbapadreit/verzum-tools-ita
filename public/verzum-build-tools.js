@@ -14,7 +14,7 @@ const cache=new Map(),pending=new Set(),missing=new Set();
 const defaults=()=>({name:'Personaggio principale',class:'Guerriero',level:55,measuredDps:0,
  bonuses:{},supports:{pet:false,mount:false,buff:false,alchemy:false,talisman:false,premium:false},
  supportNotes:{},owned:{},tasks:{},damage:{normal:0,critical:0,criticalRate:0,hitsPerSecond:0,uptime:100},
- scenarios:{baseline:0,optimized:0},farming:{dungeon:'spider',runs:1,lootPerRun:0,expensesPerRun:0,ticketPerRun:0,minutesPerRun:0}});
+ scenarios:{baseline:0,optimized:0},farmingByDungeon:{},farming:{dungeon:'spider',runs:1,lootPerRun:0,expensesPerRun:0,ticketPerRun:0,minutesPerRun:0}});
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const str=(value,length=120)=>String(value??'').slice(0,length);
 const fmt=n=>Number.isFinite(n)?new Intl.NumberFormat('it-IT',{maximumFractionDigits:1}).format(n):'—';
@@ -24,7 +24,7 @@ function load(){
  const p=defaults();
  if(raw&&typeof raw==='object'){
   for(const k of ['name','class','level','measuredDps'])if(raw[k]!=null)p[k]=raw[k];
-  for(const k of ['bonuses','supports','supportNotes','owned','tasks','damage','scenarios','farming'])
+  for(const k of ['bonuses','supports','supportNotes','owned','tasks','damage','scenarios','farmingByDungeon','farming'])
    if(raw[k]&&typeof raw[k]==='object'&&!Array.isArray(raw[k]))p[k]={...p[k],...raw[k]};
  }
  if(!classes[p.class])p.class='Guerriero';
@@ -273,6 +273,15 @@ function guideUI(page){
 function farmingUI(){
  const f=profile.farming,id=dungeonPaths.includes(f.dungeon)?f.dungeon:'spider',info=cache.get(id)?.info;
  const profit=core.farming(f),eligible=info?core.levelEligible(profile.level,info.access):null;
+ const saved=Object.entries(profile.farmingByDungeon).filter(([key])=>dungeonPaths.includes(key));
+ const comparisons=saved.length?'<details class="vzw-details"><summary>Confronta i dungeon salvati <small>'+saved.length+' configurazioni</small></summary>'+
+ '<div class="vzw-compare-scroll"><table><thead><tr><th>Dungeon</th><th>Run</th><th>Utile netto</th><th>Yang / ora</th></tr></thead><tbody>'+
+ saved.map(([key,values])=>{
+  const p=core.farming(values);
+  return '<tr><th><a href="#wiki/dungeons/'+key+'">'+esc(dungeonNames[key])+'</a></th>'+
+   '<td>'+fmt(p?.runs||0)+'</td><td>'+fmt(p?.profit||0)+'</td><td>'+fmt(p?.profitPerHour)+'</td></tr>';
+ }).join('')+'</tbody></table></div>'+
+ '<p class="vzw-small">Classifica descrittiva: dipende dai tuoi dati, non da drop previsti dal server.</p></details>':'';
  return '<div class="vzw-farm"><div class="vzw-grid"><label>Dungeon<select data-vzw-farming="dungeon">'+dungeonPaths.map(x=>
   '<option value="'+x+'"'+(id===x?' selected':'')+'>'+esc(dungeonNames[x])+'</option>').join('')+'</select></label>'+
  [['runs','Run pianificate'],['minutesPerRun','Minuti per run'],['lootPerRun','Yang ottenuti per run (stima personale)'],
@@ -285,6 +294,7 @@ function farmingUI(){
  metric('Reddito stimato / ora',profit?.profitPerHour!==null&&profit?.profitPerHour!==undefined?fmt(profit.profitPerHour)+' Yang':'—')+
  (eligible===null?'':metric('Accesso personaggio',eligible?'Compatibile':'Non compatibile'))+'</div>'+
  '<p class="vzw-small">Redditività basata solo sui valori inseriti dall’utente. La Wiki non garantisce drop, durata o guadagni.</p>'+
+ comparisons+
  '<div class="vzw-actions"><a href="#wiki/dungeons/'+id+'">Apri dungeon '+esc(dungeonNames[id])+'</a>'+
  '<button type="button" data-vzw-plan="farming">Aggiungi farming al Planner</button></div></div>';
 }
@@ -379,7 +389,15 @@ function actionChange(el){
  if(k.vzwGearLevel)profile.owned[k.vzwGearLevel]={...(profile.owned[k.vzwGearLevel]||{}),level:Number(el.value)||0};
  if(k.vzwDamage)profile.damage[k.vzwDamage]=core.safe(el.value,0)||0;
  if(k.vzwScenario)profile.scenarios[k.vzwScenario]=core.safe(el.value,0)||0;
- if(k.vzwFarming)profile.farming[k.vzwFarming]=k.vzwFarming==='dungeon'?el.value:(core.safe(el.value,0)||0);
+ if(k.vzwFarming){
+  const previous=profile.farming.dungeon;
+  if(k.vzwFarming==='dungeon'&&dungeonPaths.includes(el.value)){
+   profile.farmingByDungeon[previous]={...profile.farming};
+   const stored=profile.farmingByDungeon[el.value];
+   profile.farming={...defaults().farming,...(stored||{}),dungeon:el.value};
+  }else if(k.vzwFarming!=='dungeon')profile.farming[k.vzwFarming]=core.safe(el.value,0)||0;
+  profile.farmingByDungeon[profile.farming.dungeon]={...profile.farming};
+ }
  if(k.vzwTask!==undefined)profile.tasks[k.vzwTask]=el.checked;
  persist();
  if(k.vzwFarming==='dungeon')ensureDungeon(el.value);
@@ -417,7 +435,7 @@ host.addEventListener('change',e=>{
    const parsed=JSON.parse(str);if(!parsed||typeof parsed!=='object'||Array.isArray(parsed))return;
    if(!classes[parsed.class]||typeof parsed.name!=='string')return;
    profile={...defaults(),...parsed};
-   for(const k of ['bonuses','supports','supportNotes','owned','tasks','damage','scenarios','farming'])
+   for(const k of ['bonuses','supports','supportNotes','owned','tasks','damage','scenarios','farmingByDungeon','farming'])
     if(!profile[k]||typeof profile[k]!=='object'||Array.isArray(profile[k]))profile[k]=defaults()[k];
    persist();refresh();
   }catch(_){}});
