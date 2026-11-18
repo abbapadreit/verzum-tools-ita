@@ -128,7 +128,13 @@ document.addEventListener('pointerover',e=>{
  if(a?.id&&hovered!==a.node)show(a.node,a.id,e);
 },true);
 document.addEventListener('pointermove',e=>{
- if(hovered&&targetForEvent(e)?.node===hovered)positionTip(e);
+ if(e.pointerType==='touch')return;
+ const target=targetForEvent(e);
+ if(!target?.id){if(hovered)hide();return}
+ // Dopo il click, la selezione o un aggiornamento del pannello il puntatore
+ // puo' restare sullo stesso elemento. Riattiva il tooltip anche al movimento.
+ if(!hovered||hovered!==target.node){show(target.node,target.id,e);return}
+ positionTip(e);
 },true);
 document.addEventListener('pointerout',e=>{
  const a=targetForEvent(e);
