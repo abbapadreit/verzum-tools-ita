@@ -35,6 +35,10 @@ let profile=load();
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(profile))}catch(_){}
  document.dispatchEvent(new CustomEvent('verzum:pvm-profile-updated',{detail:{level:profile.level,class:profile.class}}));
 }
+function canonicalWiki(text){
+ const original=String(text||'').trim().replace(/[’]/g,"'");
+ return (window.VERZUM_LOCALE?.normalized?.(original)||original).replace(/[’]/g,"'");
+}
 function readTitle(page){
  return page?.closest('.wiki-main')?.querySelector('.wk-head__title')?.textContent.trim()
   ||page?.querySelector('.wk-namebar__name')?.textContent.trim()
@@ -42,15 +46,15 @@ function readTitle(page){
 }
 function readInfo(page,label){
  const row=[...(page?.querySelectorAll('.wk-dginfo__row')||[])].find(el=>
-  el.querySelector('.wk-dginfo__k')?.textContent.trim().toLowerCase()===label.toLowerCase());
+  canonicalWiki(el.querySelector('.wk-dginfo__k')?.textContent).toLowerCase()===canonicalWiki(label).toLowerCase());
  return row?.querySelector('.wk-dginfo__v')?.textContent.trim()||'';
 }
 function bonusGoals(page){
  const section=[...(page?.querySelectorAll('section')||[])].find(s=>
-  s.querySelector('.wk-vzhead')?.textContent.trim()==='Bonus totali consigliati');
+  canonicalWiki(s.querySelector('.wk-vzhead')?.textContent)==='Bonus totali consigliati');
  return [...(section?.querySelectorAll('tbody tr')||[])].map(tr=>{
   const cells=tr.querySelectorAll('td');if(cells.length<2)return null;
-  const name=cells[0].textContent.trim(),label=cells[1].textContent.trim();
+  const name=canonicalWiki(cells[0].textContent),label=cells[1].textContent.trim();
   const match=label.match(/([+]?\d[\d.,]*)\s*(%)?\.?\s*$/);
   const number=match?core.number(match[1].replace(/\.$/,'')):null;
   return name&&number!==null?{name,target:number,unit:match[2]?'%':'',label}:null;
@@ -59,12 +63,12 @@ function bonusGoals(page){
 function recommended(page,kind){
  let scope=null;
  if(kind==='gear'){
-  scope=[...(page?.querySelectorAll('section')||[])].find(s=>s.querySelector('.wk-vzhead')?.textContent.includes('Equipaggiamento consigliato'));
+  scope=[...(page?.querySelectorAll('section')||[])].find(s=>canonicalWiki(s.querySelector('.wk-vzhead')?.textContent).includes('Equipaggiamento consigliato'));
   const code=classes[profile.class],btn=scope?.querySelector('[data-class="'+code+'"]');
   const panel=btn?.getAttribute('aria-controls')?scope.querySelector('[id="'+btn.getAttribute('aria-controls')+'"]'):null;
   scope=panel||scope?.querySelector('.wk-tabpanel[data-panel="'+(['warrior','ninja','sura','shaman'].indexOf(code))+'"]');
  }else if(kind==='alchemy')scope=page?.querySelector('.wk-alch');
- else if(kind==='consumables')scope=[...(page?.querySelectorAll('section')||[])].find(s=>s.querySelector('.wk-vzhead')?.textContent.includes('Consumabili'));
+ else if(kind==='consumables')scope=[...(page?.querySelectorAll('section')||[])].find(s=>canonicalWiki(s.querySelector('.wk-vzhead')?.textContent).includes('Consumabili'));
  const seen=new Set();
  return [...(scope?.querySelectorAll('a.wk-ic[href^="#wiki/item/"]')||[])].map(a=>{
   const id=a.getAttribute('href').split('/').pop();
@@ -77,8 +81,8 @@ function recommended(page,kind){
  }).filter(Boolean);
 }
 function recommendedSkills(page,keyword){
- const section=[...(page?.querySelectorAll('section')||[])].find(s=>s.querySelector('.wk-vzhead')?.textContent.includes('Abilità consigliate'));
- const table=[...(section?.querySelectorAll('table')||[])].find(t=>t.querySelector('thead')?.textContent.replace(/[’]/g,"'").includes(keyword.replace(/[’]/g,"'")));
+ const section=[...(page?.querySelectorAll('section')||[])].find(s=>canonicalWiki(s.querySelector('.wk-vzhead')?.textContent).includes('Abilità consigliate'));
+ const table=[...(section?.querySelectorAll('table')||[])].find(t=>canonicalWiki(t.querySelector('thead')?.textContent).includes(canonicalWiki(keyword)));
  return [...(table?.querySelectorAll('tbody tr')||[])].map(tr=>{
   const cells=tr.querySelectorAll('td');
   if(cells.length<2)return null;
