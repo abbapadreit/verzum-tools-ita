@@ -217,17 +217,23 @@
    }
    return value;
  }
+ let catalogSeen=null,itemIndex=new Map();
  function translatedItemName(raw,lang){
-   const names=window.VERZUM_ITEM_L10N||{};
    const catalog=window.VERZUM_RELEASE?.catalog||[];
    if(!Array.isArray(catalog))return null;
-   for(const item of catalog){
-     const id=String(item.id||''),it=String(item.name||'');
-     if(!it)continue;
-     const candidates=[it,...['en','ro','hu'].map(code=>names[code]?.[id]).filter(Boolean)];
-     if(candidates.includes(raw))return lang==='it'?it:names[lang]?.[id]||it;
+   if(catalog!==catalogSeen){
+     catalogSeen=catalog;itemIndex=new Map();
+     const names=window.VERZUM_ITEM_L10N||{};
+     for(const item of catalog){
+       const id=String(item.id||''),italian=String(item.name||'');
+       if(!italian)continue;
+       const entries=[italian,...['en','ro','hu'].map(code=>names[code]?.[id]).filter(Boolean)];
+       for(const label of entries)itemIndex.set(label,{italian,id});
+     }
    }
-   return null;
+   const item=itemIndex.get(raw);if(!item)return null;
+   if(lang==='it')return item.italian;
+   return window.VERZUM_ITEM_L10N?.[lang]?.[item.id]||item.italian;
  }
  function label(raw){
    const text=String(raw||'').trim();if(!text)return null;
