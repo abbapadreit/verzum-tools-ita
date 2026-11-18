@@ -77,7 +77,7 @@ async function loadGuide(){
  if(guideHtml||loadingGuide)return;
  loadingGuide=true;
  try{
-  const r=await fetch('wiki-official-guide.html',{cache:'force-cache'});
+  const r=await fetch('wiki-official-guide.html?v=20261118-1',{cache:'no-cache'});
   if(!r.ok)throw new Error('HTTP '+r.status);
   const html=await r.text();
   if(!html.includes('class="wk-hero ')||!html.includes('id="s9"'))throw new Error('Guida incompleta');
