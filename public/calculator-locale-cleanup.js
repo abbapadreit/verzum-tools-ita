@@ -39,6 +39,8 @@ function italian(source){
  for(const code of ['ro','en','hu']){const value=dict[code][source];if(value&&table[value])return value}
  const native=window.VERZUM_NATIVE_IT_DICTIONARY||{};
  if(typeof native[source]==='string')return native[source];
+ const dynamic=window.VERZUM_NATIVE_IT_DYNAMIC?.(source);
+ if(dynamic&&dynamic!==source)return dynamic;
  return itemTranslation(source,'it')||source;
 }
 function translate(source){
