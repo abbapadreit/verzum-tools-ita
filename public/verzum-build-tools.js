@@ -52,7 +52,7 @@ function bonusGoals(page){
   const cells=tr.querySelectorAll('td');if(cells.length<2)return null;
   const name=cells[0].textContent.trim(),label=cells[1].textContent.trim();
   const match=label.match(/([+]?\d[\d.,]*)\s*(%)?\.?\s*$/);
-  const number=match?core.number(match[1]):null;
+  const number=match?core.number(match[1].replace(/\.$/,'')):null;
   return name&&number!==null?{name,target:number,unit:match[2]?'%':'',label}:null;
  }).filter(Boolean);
 }
@@ -156,6 +156,7 @@ function ownedUi(items,kind){
 }
 function skillsUi(page){
  const categories=[
+  ['Abilità del personaggio',profile.class+' · Abilità del personaggio'],
   ['Buff','Abilità di Buffi'],
   ['Pet','Abilità dell’animale'],
   ['Cavalcatura','Abilità della cavalcatura'],
