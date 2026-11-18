@@ -127,7 +127,7 @@ window.VERZUM_NATIVE_IT_DYNAMIC=function(source){
  const s=String(source||''),trimmed=s.trim();
  for(const [ro,it] of nativeFragments){
   if(!trimmed.startsWith(ro))continue;
-  if(trimmed.length>ro.length&&!/\s|[+%:,.()]/.test(trimmed[ro.length]))continue;
+  if(trimmed.length>ro.length&&!ro.endsWith(' ')&&!/\s|[+%:,.()]/.test(trimmed[ro.length]))continue;
   return s.replace(trimmed,it+trimmed.slice(ro.length));
  }
  return s;
