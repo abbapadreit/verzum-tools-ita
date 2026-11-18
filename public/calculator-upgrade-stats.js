@@ -144,7 +144,14 @@ document.addEventListener('focusout',e=>{
 document.addEventListener('keydown',e=>{if(e.key==='Escape')hide()});
 document.addEventListener('click',hide,true);
 window.addEventListener('hashchange',hide);
-window.addEventListener('scroll',hide,true);
+window.addEventListener('scroll',()=>{
+ if(!hovered||!tipNode||tipNode.hidden)return;
+ // Uno scroll interno o l'auto-scroll del browser non devono spegnere il tooltip
+ // mentre il puntatore si trova ancora sull'oggetto.
+ const rect=hovered.getBoundingClientRect();
+ if(rect.bottom<0||rect.top>innerHeight){hide();return}
+ positionTip();
+},true);
 
 const nativeRcraft=rCraft;
 
