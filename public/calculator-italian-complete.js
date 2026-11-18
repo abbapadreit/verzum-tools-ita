@@ -15,7 +15,7 @@ const exact=[
 ["Fiecare încercare consumă un glob. Eșecurile se adună, iar când ajungi la numărul din coloana „Pity”, următoarea încercare reușește sigur.","Ogni tentativo consuma una sfera. I fallimenti si accumulano e, raggiunto il numero indicato nella colonna «Garanzia», il tentativo successivo riesce."],
 ["Bonus","Bonus"],
 ["Bifează costumele pe care vrei să le deblochezi. Bonusul fiecăruia e pasiv și rămâne pe personaj pentru totdeauna, chiar dacă nu îl porți.","Seleziona i costumi da sbloccare. Il bonus di ciascuno è passivo e rimane sul personaggio anche quando il costume non è indossato."],
-["Ce","Elemento"],
+["Ce","Cosa"],
 ["Apărare împotriva semi-oamenilor","Difesa contro mezziuomini"],
 ["Putere elementală","Potenza elementale"],
 ["Daune critice","Danni critici"],
