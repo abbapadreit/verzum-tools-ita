@@ -5,7 +5,7 @@ import {runInNewContext} from 'node:vm';
 const base=new URL('../public/',import.meta.url);
 const read=p=>readFileSync(new URL(p,base),'utf8');
 const html=read('index.html'),app=read('app.js'),theme=read('theme-original.css'),guide=read('guide.js'),wiki=read('wiki.js'),official=read('wiki-official-guide.html'),originalHome=read('wiki-official-home.js');
-const files=['wiki-index.generated.js','wiki-tooltips.generated.js','wiki-item-tooltips.generated.js','wiki-mirror-utilities.css','style.css','theme-original.css','wiki.css','wiki-official.css','wiki-official-override.css','wiki-search.js','wiki-search.css','wiki-guide-fixes.css','wiki-guide-interactions.js','wiki-official-home.js','wiki-official.js','wiki-official-guide.html','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','item-translations.js','i18n.js','i18n-world.js','planner-easy.js','sidebar.js','ux-mobile-planner.css','assets/icon-index.js','assets/extra-icons.js','robots.txt','assets/sidebar-logo.svg',...['it','en','ro','hu'].map(s=>'assets/flags/'+s+'.svg'),...Array.from({length:9},(_,i)=>'assets/real-icons-'+String(i).padStart(2,'0')+'.js')];
+const files=['wiki-index.generated.js','wiki-tooltips.generated.js','wiki-item-tooltips.generated.js','wiki-mirror-utilities.css','style.css','theme-original.css','wiki.css','wiki-official.css','wiki-official-override.css','wiki-search.js','wiki-search.css','wiki-guide-fixes.css','wiki-guide-interactions.js','wiki-official-home.js','wiki-official.js','wiki-official-guide.html','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','item-translations.js','calculator-wiki-it-terms.js','calculator-wiki-it-fix.js','i18n.js','i18n-world.js','planner-easy.js','sidebar.js','ux-mobile-planner.css','assets/icon-index.js','assets/extra-icons.js','robots.txt','assets/sidebar-logo.svg',...['it','en','ro','hu'].map(s=>'assets/flags/'+s+'.svg'),...Array.from({length:9},(_,i)=>'assets/real-icons-'+String(i).padStart(2,'0')+'.js')];
 for(const f of files){
  const u=new URL(f,base);assert.ok(existsSync(u),'Risorsa mancante: '+f);
  if(f.endsWith('.js'))execFileSync(process.execPath,['--check',u.pathname]);
@@ -183,4 +183,5 @@ assert.ok(existsSync(new URL('wiki-render/turntable.js',base)),'Visualizzatore t
 assert.ok(read('wiki-official.js').includes('data-viewer="https://render.verzum.to"'),'Endpoint originale modelli non configurato');
 assert.ok(read('wiki-guide-interactions.js').includes("fetch('/api/wiki/tip/'"),'Fallback autenticato item non collegato');
 
+execFileSync(process.execPath,['--test','tests/wiki-italian-terminology.test.cjs'],{stdio:'inherit'});
 console.log('OK: '+files.length+' risorse, 11 voci menu, 147 oggetti, 44 evoluzioni, ricerca live per item con icone autentiche, struttura Wiki originale, 16 PNG grafici e 40 icone item autentiche, lingue, responsive.');
