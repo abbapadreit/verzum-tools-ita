@@ -113,6 +113,17 @@ window.VERZUM_WIKI_IT_TERMS={
     "232221": "Pesce dei boss (Permanente)"
   },
   "statLabels": {
+    "Tare împotriva monștrilor": "Forza contro i mostri",
+    "Tare împotriva monştrilor": "Forza contro i mostri",
+    "Tare împotriva Pietrelor metin": "Forza contro le pietre Metin",
+    "Forță împotriva pietrelor metin": "Forza contro le pietre Metin",
+    "Șansă de drop extra de lingou": "Probabilità di ottenere lingotti extra",
+    "Șansa de drop extra de lingou": "Probabilità di ottenere lingotti extra",
+    "Putere împotriva șefilor": "Forza contro i boss",
+    "Putere împotriva şefilor": "Forza contro i boss",
+    "Șansă critică": "Probabilità di colpo critico",
+    "Șansă de pătrundere": "Probabilità di colpi trafiggenti",
+    "Tare împotriva semi-oamenilor": "Forza contro i mezziuomini",
     "Timp de așteptare": "Tempo di ricarica",
     "Total Valoarea atacului": "Valore d'attacco totale",
     "Valoarea atacului": "Valore d'attacco",
