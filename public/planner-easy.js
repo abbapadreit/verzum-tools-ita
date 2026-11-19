@@ -172,7 +172,7 @@ function saveForm(form){
  const item={...(old||{}),uid:old?.uid||id(),name:raw.name,kind:Object.hasOwn(KINDS,raw.kind)?raw.kind:'custom',
   source:old?.source||'Planner',yang:raw.yang,notes:raw.notes,materials,materialIds,
   created:old?.created||new Date().toLocaleDateString('it-IT'),done:!!old?.done};
- delete item.legacyKey;
+ // Preserve legacyKey when an imported project is edited; otherwise old dt_plan would re-import it.
  if(old)Object.assign(old,item);else state.planner.unshift(item);
  open=false;editing=null;draft=null;render();applyFilter();
 }
@@ -184,9 +184,17 @@ function safeEntry(row){
    if(name.length<=100&&name.trim()&&number(q)>0&&number(q)<=1e9)materials[name]=number(q);
   }
  }
+ const materialIds={};const available=row.materialIds;
+ if(available&&typeof available==='object'&&!Array.isArray(available)){
+  for(const [key,value] of Object.entries(available).slice(0,100)){
+   if(!/^[a-z0-9_]{1,50}$/i.test(key))continue;
+   const qty=number(value);
+   if(qty>0&&qty<=1e9&&materials[nameOf(key)]===qty)materialIds[key]=qty;
+  }
+ }
  return {uid:id(),name:row.name.trim().slice(0,160),kind:Object.hasOwn(KINDS,row.kind)?row.kind:'custom',
  source:String(row.source||'Archivio importato').slice(0,100),yang:n(row.yang),notes:String(row.notes||'').slice(0,1200),
- materials,materialIds:{},created:String(row.created||new Date().toLocaleDateString('it-IT')).slice(0,40),done:!!row.done};
+ materials,materialIds,created:String(row.created||new Date().toLocaleDateString('it-IT')).slice(0,40),done:!!row.done};
 }
 function importJSON(file){
  if(!file||file.size>1024*1024)return;
