@@ -6,9 +6,8 @@ const browser=await chromium.launch({headless:true,executablePath:'/usr/bin/goog
 const page=await browser.newPage({viewport:{width:1440,height:900}});
 const routes={upgrade:'crafting',gaya:'gaya',pet:'pet',mount:'mount',costume:'costume',skills:'skills',passive:'passive',prices:'prices'};
 try{
- await page.goto('http://127.0.0.1:8765/#costume',{waitUntil:'domcontentloaded',timeout:30000});
  for(const [route,viewId] of Object.entries(routes)){
-  if(route!=='costume')await page.evaluate(id=>{location.hash='#'+id},route);
+  await page.goto('http://127.0.0.1:8765/#'+route,{waitUntil:'domcontentloaded',timeout:30000});
   await page.waitForFunction(({route,viewId})=>{
    const f=document.querySelector('iframe.native-calculator-frame');
    return f?.dataset.nativeRoute===route &&
