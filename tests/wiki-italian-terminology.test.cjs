@@ -37,6 +37,16 @@ test('All 41 unique skills and passive stat captions have an Italian equivalent'
  assert.equal(labels.size,41);
  for(const label of labels)assert.ok(t.statLabels[label],label);
 });
+test('All 7 pet and 6 mount skills match VERZUM Wiki section titles',()=>{
+ for(const [kind,file] of [['pet','pet.html'],['mount','mount.html']]){
+  const html=read('wiki-pages/systems/'+file);
+  const expected=[...html.matchAll(/<h[23][^>]*>([\s\S]*?)<\/h[23]>/g)]
+    .map(x=>x[1].replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim())
+    .filter(name=>/^5\.\d+\s/.test(name)).map(name=>name.replace(/^5\.\d+\s*/,''));
+  assert.deepEqual(Array.from(t[kind+'SkillNames']),expected);
+  assert.equal(expected.length,kind==='pet'?7:6);
+ }
+});
 test('Only parent source registry is used and no calculator formula was altered',()=>{
  const bridge=read('calculator-original-bridge.js'),index=read('index.html'),patch=read('calculator-wiki-it-fix.js');
  assert.ok(bridge.includes('calculator-wiki-it-fix.js'));
