@@ -55,6 +55,11 @@ tx=function(value){
  if(!trim)return str;
  const exact=TERMS.uiLabels[trim]||TERMS.statLabels[trim]||originals[trim];
  if(exact)return str.replace(trim,exact);
+ let corrected=str;
+ for(const [original,italian] of Object.entries(TERMS.uiLabels)){
+  if(original.length>=23&&original!==italian&&corrected.includes(original))corrected=corrected.split(original).join(italian);
+ }
+ if(corrected!==str)return corrected;
  let next=oldTx(str);
  const sub=[
   [/^(\d+) citiri în total$/,'$1 letture totali'],
