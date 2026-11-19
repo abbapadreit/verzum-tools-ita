@@ -250,9 +250,23 @@
    const options=groups.map(([title,items])=>'<optgroup label="'+title+'">'+items.map(l=>
     '<option value="'+l.id+'"'+(l.id===current?' selected':'')+'>'+l.flag+' '+l.label+(l.partial?' · beta':'')+'</option>').join('')+'</optgroup>').join('');
    const partial=!complete.has(current);
+   const guidance={
+    it:['Interfaccia disponibile. Le pagine originali della Wiki sono ancora in italiano.','Traduzione parziale: menu e Planner. Gli articoli Wiki non sono ancora tradotti integralmente.'],
+    en:['Interface available. Original Wiki articles remain in Italian.','Partial translation: navigation and Planner. Wiki articles are not yet fully translated.'],
+    ro:['Interfață disponibilă. Articolele originale Wiki rămân în italiană.','Traducere parțială: meniu și planificator. Articolele Wiki nu sunt încă traduse integral.'],
+    hu:['A felület elérhető. Az eredeti Wiki-cikkek továbbra is olaszul vannak.','Részleges fordítás: menü és tervező. A Wiki-cikkek még nincsenek teljesen lefordítva.'],
+    de:['Die Oberfläche ist verfügbar. Originale Wiki-Artikel bleiben auf Italienisch.','Teilweise übersetzt: Navigation und Planer. Wiki-Artikel sind noch nicht vollständig übersetzt.'],
+    fr:['Interface disponible. Les articles originaux du Wiki restent en italien.','Traduction partielle : navigation et planificateur. Les articles du Wiki ne sont pas entièrement traduits.'],
+    es:['Interfaz disponible. Los artículos originales de la Wiki siguen en italiano.','Traducción parcial: navegación y planificador. Los artículos de la Wiki aún no están completamente traducidos.'],
+    pt:['Interface disponível. Os artigos originais da Wiki continuam em italiano.','Tradução parcial: navegação e planeador. Os artigos da Wiki ainda não estão totalmente traduzidos.'],
+    'pt-br':['Interface disponível. Os artigos originais da Wiki permanecem em italiano.','Tradução parcial: navegação e planejador. Os artigos da Wiki ainda não estão totalmente traduzidos.'],
+    tr:['Arayüz kullanılabilir. Orijinal Wiki makaleleri hâlâ İtalyancadır.','Kısmi çeviri: gezinme ve planlayıcı. Wiki makaleleri henüz tamamen çevrilmedi.'],
+    nl:['Interface beschikbaar. Originele Wiki-artikelen blijven Italiaans.','Gedeeltelijke vertaling: navigatie en planner. Wiki-artikelen zijn nog niet volledig vertaald.']
+   };
+   const status=(guidance[current]||guidance[current.split('-')[0]]||guidance.en)[partial?1:0];
    element.innerHTML='<div class="lang-switch lang-dropdown"><label for="vz-language-select"><span class="vz-lang-icon" aria-hidden="true">🌐</span> Lingua / Language</label>'+
     '<select id="vz-language-select" aria-label="Lingua del sito e del Planner">'+options+'</select>'+
-    '<small class="vz-language-status" aria-live="polite">'+(partial?'Traduzione parziale: navigazione e termini principali. Wiki e calcolatori in lingua originale/inglese.':'Interfaccia disponibile. Le schede originali della Wiki rimangono in italiano.')+'</small></div>';
+    '<small class="vz-language-status" aria-live="polite">'+status+'</small></div>';
  }
  function translate(){
    observer?.disconnect();
