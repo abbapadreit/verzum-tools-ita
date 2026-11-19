@@ -43,7 +43,7 @@ function extractSystemSkills(html,count){
  const names=[],bonuses=[];
  for(let i=1;i<=count;i++){
   const match=html.match(new RegExp('5\\.'+i+' ([^<]+)<\\/h3>([\\s\\S]{0,550})'));
-  const bonus=match?.[2].match(/<span class="wk-bonus">([^<]+)<\/span>/);
+  const bonus=match?.[2].match(/<span class="(?:wk-bonus|wkc-8ab98e)">([^<]+)<\/span>/);
   if(!match||!bonus)throw Error('Missing canonical Wiki pet/mount skill #'+i);
   names.push(decode(match[1]));bonuses.push(decode(bonus[1]));
  }
