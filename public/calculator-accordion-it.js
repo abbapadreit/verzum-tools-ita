@@ -238,11 +238,12 @@ if(typeof NL!=='undefined')NL.it={
 };
 window.addEventListener('message',e=>{
  if(e.origin!==location.origin||e.source!==parent)return;
- if(e.data?.type==='verzum-parent-language'&&['it','ro'].includes(e.data.language))
+ if(e.data?.type==='verzum-parent-language'&&['it','en','ro','hu'].includes(e.data.language)&&LANG!==e.data.language)
   setLang(e.data.language);
 });
 rFilters();
-setLang(window.parent?.VERZUM_LOCALE?.lang||'it');
+const initialParentLanguage=window.parent?.VERZUM_LOCALE?.lang||localStorage.getItem('verzum_lang')||'it';
+setLang(['it','en','ro','hu'].includes(initialParentLanguage)?initialParentLanguage:'en');
 // L'estensione arriva dopo il caricamento delle fisarmoniche e riutilizza
 // i tooltip ufficiali della Wiki già disponibili nel documento principale.
 if(!document.getElementById('verzum-upgrade-stats-style')){
