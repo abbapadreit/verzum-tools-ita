@@ -1,0 +1,30 @@
+name: Wiki calculator Italian localization regression
+on:
+  pull_request:
+    paths:
+      - 'public/calculator-wiki-it-fix.js'
+      - 'public/calculator-wiki-it-terms.js'
+      - 'tests/calculator-localization-coverage.test.cjs'
+      - 'tests/calculator-localization-browser.mjs'
+      - '.github/workflows/calculator-localization.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'public/calculator-wiki-it-fix.js'
+      - 'public/calculator-wiki-it-terms.js'
+      - 'tests/calculator-localization-coverage.test.cjs'
+      - 'tests/calculator-localization-browser.mjs'
+jobs:
+  node-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/wiki-italian-terminology.test.cjs tests/calculator-localization-coverage.test.cjs
+      - name: Run browser checks in every calculator
+        run: |
+          python3 -m http.server 8765 --directory public >/tmp/verzum-i18n-http.log 2>&1 &
+          npm install --no-save --silent playwright-core@latest
+          node tests/calculator-localization-browser.mjs
