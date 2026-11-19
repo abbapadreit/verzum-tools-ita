@@ -322,6 +322,22 @@ if(typeof SKD!=='undefined'){
  }
 }
 
+
+if(typeof SYS!=='undefined'){
+ for(const [kind,verified] of [['pet',wikiLexicon.petSkills],['mount',wikiLexicon.mountSkills]]){
+  const native=SYS[kind]?.skills;
+  if(!verified||!Array.isArray(native)||native.length!==verified.names?.length)continue;
+  native.forEach((skill,i)=>{
+   if(verified.names[i])skill.n=verified.names[i];
+   if(verified.bonuses[i])skill.b=verified.bonuses[i];
+  });
+ }
+ const costumes=wikiLexicon.petCostumes;
+ if(Array.isArray(costumes)&&Array.isArray(SYS.pet?.asp)&&costumes.length===SYS.pet.asp.length){
+  SYS.pet.asp.forEach((skin,i)=>{skin.n=costumes[i].name;skin.b=costumes[i].bonus});
+ }
+}
+
 const italianNames=Object.assign({},matNames,catalogNames,window.parent?.VERZUM_ITEM_L10N?.it||{},wikiItems,extraNames);
 if(typeof NL!=='undefined')NL.it={
  i:italianNames,m:Object.assign({},matNames,wikiItems),
