@@ -5,12 +5,12 @@ import {runInNewContext} from 'node:vm';
 const base=new URL('../public/',import.meta.url);
 const read=p=>readFileSync(new URL(p,base),'utf8');
 const html=read('index.html'),app=read('app.js'),theme=read('theme-original.css'),guide=read('guide.js'),wiki=read('wiki.js'),official=read('wiki-official-guide.html'),originalHome=read('wiki-official-home.js');
-const files=['wiki-index.generated.js','wiki-tooltips.generated.js','wiki-item-tooltips.generated.js','wiki-mirror-utilities.css','style.css','theme-original.css','wiki.css','wiki-official.css','wiki-official-override.css','wiki-search.js','wiki-search.css','wiki-guide-fixes.css','wiki-guide-interactions.js','wiki-official-home.js','wiki-official.js','wiki-official-guide.html','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','item-translations.js','i18n.js','assets/icon-index.js','assets/extra-icons.js','robots.txt','assets/sidebar-logo.svg',...['it','en','ro','hu'].map(s=>'assets/flags/'+s+'.svg'),...Array.from({length:9},(_,i)=>'assets/real-icons-'+String(i).padStart(2,'0')+'.js')];
+const files=['wiki-index.generated.js','wiki-tooltips.generated.js','wiki-item-tooltips.generated.js','wiki-mirror-utilities.css','style.css','theme-original.css','wiki.css','wiki-official.css','wiki-official-override.css','wiki-search.js','wiki-search.css','wiki-guide-fixes.css','wiki-guide-interactions.js','wiki-official-home.js','wiki-official.js','wiki-official-guide.html','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','item-translations.js','i18n.js','i18n-world.js','planner-easy.js','sidebar.js','ux-mobile-planner.css','assets/icon-index.js','assets/extra-icons.js','robots.txt','assets/sidebar-logo.svg',...['it','en','ro','hu'].map(s=>'assets/flags/'+s+'.svg'),...Array.from({length:9},(_,i)=>'assets/real-icons-'+String(i).padStart(2,'0')+'.js')];
 for(const f of files){
  const u=new URL(f,base);assert.ok(existsSync(u),'Risorsa mancante: '+f);
  if(f.endsWith('.js'))execFileSync(process.execPath,['--check',u.pathname]);
 }
-for(const link of ['style.css','theme-original.css','wiki.css','wiki-search.js','wiki-search.css','wiki-guide-fixes.css','wiki-guide-interactions.js','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','i18n.js','item-translations.js']){
+for(const link of ['style.css','theme-original.css','wiki.css','wiki-search.js','wiki-search.css','wiki-guide-fixes.css','wiki-guide-interactions.js','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','i18n.js','i18n-world.js','planner-easy.js','ux-mobile-planner.css','item-translations.js']){
  assert.ok(html.includes(link),'Manca collegamento HTML '+link);
 }
 for(const p of ['upgrade','gaya','pet','mount','costume','skills','passive','planner','prices','catalog','wiki']){
@@ -33,7 +33,10 @@ assert.ok(dat.reference.sys.mount.skills.length>0,'Abilita mount');
 assert.ok(dat.reference.sys.pet.skills.length>0,'Abilita pet');
 assert.ok(Object.keys(dat.prices).length>=60,'Materiali con prezzo impostabile');
 for(const c of ['#0A0303','#2A0C0C','#8E3437','#C5996C','#F2DCA4']) assert.ok(theme.includes(c),'Colore mancante: '+c);
-assert.ok(html.includes('class="sidebar-languages"')&&html.includes('class="header-languages"'),'Selettori lingue');
+assert.ok(html.includes('class="sidebar-languages"')&&!html.includes('class="header-languages"')&&read('i18n.js').includes('vz-language-select'),'Selettore lingue solo nella sidebar');
+assert.ok(html.includes('id="mobile-brand-logo"')&&html.includes('id="menu-toggle"')&&html.includes('id="sidebar-backdrop"'),'Sidebar mobile e logo mancanti');
+assert.ok(!read('calculator-original-bridge.js').includes("planner:'planner'"),'Planner ancora nel vecchio iframe');
+assert.ok(html.includes('planner-easy.js')&&html.includes('ux-mobile-planner.css'),'Nuovo Planner o drawer non collegati');
 assert.ok(html.includes('menu-toggle'),'Menu mobile');
 assert.ok(!html.includes('class="notice"')&&!html.includes('side-footer'),'Avvisi pubblici non rimossi');
 assert.ok(app.includes('range.evolution'),'Evoluzione non collegata');
