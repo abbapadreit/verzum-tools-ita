@@ -51,6 +51,18 @@ function fixEmbeddedScroll(frame){
    link.id='verzum-accordion-style';link.rel='stylesheet';link.href='calculator-accordion-it.css';
    doc.head.appendChild(link);
   }
+  if(frame.dataset.nativeRoute==='passive'){
+   if(!doc.getElementById('verzum-passive-wiki-style')){
+    const css=doc.createElement('link');
+    css.id='verzum-passive-wiki-style';css.rel='stylesheet';css.href='calculator-passive-wiki-tree.css?v=20261119-1';
+    doc.head.appendChild(css);
+   }
+   if(!doc.getElementById('verzum-passive-wiki-script')){
+    const script=doc.createElement('script');
+    script.id='verzum-passive-wiki-script';script.src='calculator-passive-wiki-tree.js?v=20261119-1';
+    doc.body.appendChild(script);
+   }
+  }
   if(!doc.getElementById('verzum-parent-only-languages')){
    const style=doc.createElement('style');
    style.id='verzum-parent-only-languages';
