@@ -35,6 +35,13 @@ function syncEmbeddedLanguage(frame){
 
 /* L'iframe è same-origin. Disattiviamo il suo scroll interno, non quello della pagina.
    La dimensione del frame viene già sincronizzata da verzum-reference-height. */
+function installItalianWikiTerms(doc){
+ if(doc.getElementById('verzum-wiki-italian-skill-fix'))return;
+ const source=doc.createElement('script');
+ source.id='verzum-wiki-italian-skill-fix';
+ source.src='calculator-wiki-it-fix.js?v=20261119-3';
+ doc.body.appendChild(source);
+}
 function fixEmbeddedScroll(frame){
  if(!frame)return;
  try{
@@ -72,9 +79,9 @@ function fixEmbeddedScroll(frame){
   if(!doc.getElementById('verzum-accordion-script')){
    const script=doc.createElement('script');
    script.id='verzum-accordion-script';script.src='calculator-accordion-it.js';script.defer=true;
-   script.onload=()=>syncEmbeddedLanguage(frame);
+   script.onload=()=>{syncEmbeddedLanguage(frame);installItalianWikiTerms(doc)};
    doc.body.appendChild(script);
-  }else{syncEmbeddedLanguage(frame)}
+  }else{syncEmbeddedLanguage(frame);if(doc.defaultView?.__verzumCategoryAccordion)installItalianWikiTerms(doc)}
  }catch(_){/* Il frame va modificato soltanto se ospitato dalla stessa origine. */}
 }
 document.addEventListener('load',event=>{
