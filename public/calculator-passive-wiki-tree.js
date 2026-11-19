@@ -42,7 +42,7 @@ function parse(source){
  const bookSection=nextUntil(header),tables=bookSection.flatMap(node=>[...node.querySelectorAll('table')]);
  const bookRows=[...(tables[0]?.querySelectorAll('tbody tr')||[])];
  const skillIcons=new Map();
- const chapter=bonuses.nextElementSibling;
+ const chapter=nextUntil(bonuses).find(node=>node.classList?.contains('wk-dyn'));
  for(const p of chapter?.querySelectorAll('p')||[]){
   const image=p.querySelector('img[src*="/skill/"]'),label=p.querySelector('.wk-z-lb');
   if(image&&label)skillIcons.set(tidy(label.textContent),image.getAttribute('src'));
@@ -159,7 +159,12 @@ function schedule(){
 function mount(){
  if(location.hash!=='#passive'||!VIEW.classList.contains('on'))return;
  ensure();
- if(VIEW.querySelector('#vz-passive-wiki-tree'))return;
+ const existing=VIEW.querySelector('#vz-passive-wiki-tree-anchor');
+ if(existing){
+  if(model&&!existing.querySelector('#vz-passive-wiki-tree'))existing.innerHTML=renderMarkup();
+  else if(loadError&&!existing.querySelector('#vz-passive-wiki-tree'))existing.innerHTML='<div class="vz-passive-root">Impossibile caricare la Wiki. Il calcolatore originale rimane disponibile.</div>';
+  return;
+ }
  const anchor=VIEW.querySelector('.hero');
  if(!anchor)return;
  const node=document.createElement('div');
