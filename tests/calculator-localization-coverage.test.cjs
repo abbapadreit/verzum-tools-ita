@@ -23,6 +23,10 @@ test('Bonus in costume: cediglia, diacritici e percentuali hanno etichette itali
  assert.equal(frame.tx('Tare împotriva Pietrelor metin +2%'),'Forza contro le pietre Metin +2%');
  assert.equal(frame.tx('Șansă de drop extra de lingou +5%'),'Probabilità di ottenere lingotti extra +5%');
  assert.equal(frame.tx('Omoară'),'Sconfiggi');
+ assert.equal(frame.tx('Puterea împotriva șefilor +2%'),'Forza contro i boss +2%');
+ assert.equal(frame.tx('Atac cu arma/magic +3%'),'Attacco fisico e magico +3%');
+ assert.equal(frame.NL.it.m['100010'],'Gnoll Guardia Suprema (Dungeon)');
+ assert.equal(frame.NL.it.i['100010'],'Pagina del Libro delle Abilità');
  assert.ok(frame.window.VERZUM_IT_WIKI_SKILL_FIX.auditAll);
  assert.ok(frame.window.VERZUM_IT_WIKI_SKILL_FIX.repair);
 });
@@ -39,6 +43,15 @@ test('I nomi italiani dei libri e i dati del calcolatore rimangono separati dall
  assert.ok(!patch.includes('function rCost('));
  assert.ok(!patch.includes('function rCrafting('));
  assert.ok(!patch.includes('function calc('));
+});
+test('I dodici boss delle missioni Costumi pet hanno ID e nomi della Wiki italiana',()=>{
+ const html=load('wiki-pages/bosses/boss_dungeon.html');
+ assert.equal(Object.keys(terms.wikiBossNames).length,12);
+ for(const [id,name] of Object.entries(terms.wikiBossNames)){
+  assert.ok(html.includes('href="#wiki/mob/'+id+'"'),id+' absent from Wiki');
+  assert.ok(html.includes('aria-label="'+name+'"'),name+' absent from Wiki');
+ }
+ assert.notEqual(terms.wikiBossNames['100010'],terms.wikiItemNames['100010']);
 });
 test('Le altre lingue non ricevono automaticamente etichette italiane',()=>{
  const frame={
