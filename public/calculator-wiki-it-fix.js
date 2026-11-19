@@ -46,7 +46,9 @@ for(let i=0;i<(SKD.PAS||[]).length;i++){
   table.l.it=table.r.map(row=>TERMS.statLabels[String(row[0]||'')]||String(row[0]||''));
  }
 }
-NL.it=Object.assign({},NL.it||{},{i:itemNames,m:Object.assign({},NL.it?.m||{},TERMS.wikiItemNames)});
+/* Il namespace m indica i MOSTRI, non i materiali. Diversi ID sono condivisi:
+   100010 e un boss Gnoll ma anche una pagina dei libri nel catalogo oggetti. */
+NL.it=Object.assign({},NL.it||{},{i:itemNames,m:Object.assign({},TERMS.wikiBossNames||{})});
 const originals={
  "Libro di Abilità":"Libro abilità",
  "Pergamentul Exorcizării":"Papiro dell'esorcismo",
