@@ -8,6 +8,12 @@ const TERMS=window.parent?.VERZUM_WIKI_IT_TERMS||window.VERZUM_WIKI_IT_TERMS;
 if(!TERMS)return;
 window.VERZUM_IT_WIKI_SKILL_FIX=true;
 const fixLog={skills:0,books:0,stats:0,passives:0,items:0};
+const originalHours=hrs;
+hrs=function(total){
+ if(LANG!=='it')return originalHours(total);
+ const h=Math.max(0,Number(total)||0),days=Math.floor(h/24),rest=h%24;
+ return [days?days+' '+(days===1?'giorno':'giorni'):'',rest?rest+' '+(rest===1?'ora':'ore'):''].filter(Boolean).join(' ')||'0 ore';
+};
 const itemNames=Object.assign({},NL.it?.i||{});
 for(const [id,name] of Object.entries(TERMS.wikiItemNames)){
  if(!id||!name)continue;
