@@ -221,6 +221,7 @@ tx=function(value){
 
 const nativeSetLang=setLang;
 setLang=function(next){
+ useWikiSystemLabels(next);
  if(next!=='it'){nativeSetLang(next);rFilters();rTiles();return}
  LANG='it';LOC='it-IT';
  try{localStorage.setItem('dt_lang','it')}catch(_){}
@@ -333,23 +334,39 @@ if(typeof SKD!=='undefined'){
 }
 
 
+const preservedSystemNames={};
 if(typeof SYS!=='undefined'){
- for(const [kind,verified] of [['pet',wikiLexicon.petSkills],['mount',wikiLexicon.mountSkills]]){
-  const native=SYS[kind]?.skills;
-  if(!verified||!Array.isArray(native)||native.length!==verified.names?.length)continue;
-  native.forEach((skill,i)=>{
-   if(verified.names[i])skill.n=verified.names[i];
-   if(verified.bonuses[i])skill.b=verified.bonuses[i];
+ for(const type of ['pet','mount']){
+  preservedSystemNames[type]=Array.isArray(SYS[type]?.skills)?SYS[type].skills.map(s=>({n:s.n,b:s.b})):[];
+ }
+ preservedSystemNames.costumes=Array.isArray(SYS.pet?.asp)?SYS.pet.asp.map(s=>({n:s.n,b:s.b})):[];
+ preservedSystemNames.mountBonus=Array.isArray(SYS.mount?.bon)?SYS.mount.bon.map(row=>row.slice()):[];
+}
+function useWikiSystemLabels(language){
+ if(typeof SYS==='undefined')return;
+ const italian=language==='it';
+ for(const [type,official] of [['pet',wikiLexicon.petSkills],['mount',wikiLexicon.mountSkills]]){
+  const skills=SYS[type]?.skills,previous=preservedSystemNames[type]||[];
+  if(!Array.isArray(skills)||skills.length!==previous.length)continue;
+  skills.forEach((skill,i)=>{
+   skill.n=italian&&official?.names?.[i]?official.names[i]:previous[i].n;
+   skill.b=italian&&official?.bonuses?.[i]?official.bonuses[i]:previous[i].b;
   });
  }
- // Source: VERZUM Wiki italiana, Sistema cavalcature, «4.1 I tre bonus».
- if(Array.isArray(SYS.mount?.bon)&&SYS.mount.bon.length===3){
-  const bonusIT=['Forza contro le pietre di metin','Forza contro tutti gli elementi','Bonus di attacco critico'];
-  SYS.mount.bon.forEach((row,i)=>{row[0]='Evoluzione '+(i+1);row[1]=bonusIT[i]});
+ const bonusRows=SYS.mount?.bon;
+ if(Array.isArray(bonusRows)&&bonusRows.length===3){
+  const labels=['Forza contro le pietre di metin','Forza contro tutti gli elementi','Bonus di attacco critico'];
+  bonusRows.forEach((row,i)=>{
+   row[0]=italian?'Evoluzione '+(i+1):preservedSystemNames.mountBonus[i]?.[0];
+   row[1]=italian?labels[i]:preservedSystemNames.mountBonus[i]?.[1];
+  });
  }
- const costumes=wikiLexicon.petCostumes;
- if(Array.isArray(costumes)&&Array.isArray(SYS.pet?.asp)&&costumes.length===SYS.pet.asp.length){
-  SYS.pet.asp.forEach((skin,i)=>{skin.n=costumes[i].name;skin.b=costumes[i].bonus});
+ const costumes=SYS.pet?.asp;
+ if(Array.isArray(costumes)&&costumes.length===preservedSystemNames.costumes.length){
+  costumes.forEach((skin,i)=>{
+   skin.n=italian&&wikiLexicon.petCostumes?.[i]?.name?wikiLexicon.petCostumes[i].name:preservedSystemNames.costumes[i].n;
+   skin.b=italian&&wikiLexicon.petCostumes?.[i]?.bonus?wikiLexicon.petCostumes[i].bonus:preservedSystemNames.costumes[i].b;
+  });
  }
 }
 
