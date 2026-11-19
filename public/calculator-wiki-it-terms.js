@@ -112,7 +112,23 @@ window.VERZUM_WIKI_IT_TERMS={
     "232214": "Pesce dei Metin (Permanente)",
     "232221": "Pesce dei boss (Permanente)"
   },
+  "wikiBossNames": {
+      "694": "Orco di pietra maledetto",
+      "792": "Spirito Capobanda Oscuro",
+      "1093": "Morte personificata",
+      "1095": "Morte Blu",
+      "2092": "Baronessa Ragno",
+      "2493": "Beran-Setaou",
+      "2598": "Azrael",
+      "5163": "Lord Scimmia",
+      "6091": "Razador",
+      "6191": "Nemere",
+      "100010": "Gnoll Guardia Suprema (Dungeon)",
+      "100011": "Tritone (Dungeon)"
+  },
   "statLabels": {
+    "Puterea împotriva șefilor": "Forza contro i boss",
+    "Atac cu arma/magic": "Attacco fisico e magico",
     "Tare împotriva monștrilor": "Forza contro i mostri",
     "Tare împotriva monştrilor": "Forza contro i mostri",
     "Tare împotriva Pietrelor metin": "Forza contro le pietre Metin",
