@@ -282,15 +282,7 @@
  observer.observe(root,{childList:true,characterData:true,subtree:true});
  document.addEventListener('click',e=>{
 
-  const toggle=e.target.closest('#menu-toggle');
-  if(toggle){
-   const side=document.querySelector('.sidebar');const isOpen=side.classList.toggle('menu-open');
-   toggle.setAttribute('aria-expanded',String(isOpen));toggle.setAttribute('aria-label',isOpen?'Chiudi menu':'Apri menu');
-  }
-  if(e.target.closest('#navigation [data-nav]')&&window.matchMedia('(max-width:780px)').matches){
-   document.querySelector('.sidebar')?.classList.remove('menu-open');
-   const toggleBtn=document.querySelector('#menu-toggle');if(toggleBtn)toggleBtn.setAttribute('aria-expanded','false');
-  }
+
  });
  function setLanguage(id){
    if(!langs.some(l=>l.id===id))return;
