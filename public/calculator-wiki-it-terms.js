@@ -148,12 +148,15 @@ window.VERZUM_WIKI_IT_TERMS={
     "Max. PV": "Max. HP",
     "Max. PM": "Max. MP",
     "Durata Skill": "Durata abilità",
-    "Tare împotriva Pietrelor metin": "Forza contro le pietre Metin",
+    "Tare împotriva Pietrelor metin": "Forza contro le pietre di metin",
     "Paguba medie": "Danni medi",
     "Paguba Abilităţii": "Danni abilità",
     "Șansa de a avea o dublă cădere de piatră metin": "Possibilità di doppio drop delle pietre Metin",
     "Putere în temnițe": "Forza nei dungeon",
-    "Șansa de a scăpa de un șef dublu": "Possibilità di doppio drop dei boss"
+    "Șansa de a scăpa de un șef dublu": "Possibilità di doppio drop dei boss",
+    "Tare împotriva tuturor elementelor": "Forza contro tutti gli elementi",
+    "Bonus pentru atac critic": "Bonus di attacco critico",
+    "Putere elementală": "Potenza elementale"
   },
   "uiLabels": {
     "Abilitățile clasei": "Abilità delle classi",
@@ -236,7 +239,13 @@ window.VERZUM_WIKI_IT_TERMS={
     "Tip": "Tipo",
     "Comenzi": "Comandi",
     "Preț": "Prezzo",
-    "Preț / buc": "Prezzo unitario"
+    "Preț / buc": "Prezzo unitario",
+    "Tare împotriva Pietrelor metin": "Forza contro le pietre di metin",
+    "Tare împotriva tuturor elementelor": "Forza contro tutti gli elementi",
+    "Bonus pentru atac critic": "Bonus di attacco critico",
+    "Putere elementală": "Potenza elementale",
+    "la fiecare eșec plătești din nou yang-ul și materialele pasului, iar itemul rămâne la nivelul la care era.": "A ogni fallimento devi spendere nuovamente gli Yang e i materiali del passaggio, mentre l'oggetto resta al livello attuale.",
+    "wiki-ul Verzum nu dă un pity (reușită garantată) pentru fierar, de aceea alegi tu câte eșecuri să iei în calcul. Pity există doar la tipul petului (vezi calculatorul Pet).": "La Wiki VERZUM non indica una garanzia di successo per il fabbro: scegli tu quanti fallimenti considerare. Il sistema di garanzia è previsto soltanto per il tipo di pet (vedi il calcolatore Pet)."
   },
   "source": {
     "warrior": "VERZUM Wiki it/systems/skills",
