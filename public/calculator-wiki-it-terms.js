@@ -245,12 +245,40 @@ window.VERZUM_WIKI_IT_TERMS={
     "Bonus pentru atac critic": "Bonus di attacco critico",
     "Putere elementală": "Potenza elementale",
     "la fiecare eșec plătești din nou yang-ul și materialele pasului, iar itemul rămâne la nivelul la care era.": "A ogni fallimento devi spendere nuovamente gli Yang e i materiali del passaggio, mentre l'oggetto resta al livello attuale.",
-    "wiki-ul Verzum nu dă un pity (reușită garantată) pentru fierar, de aceea alegi tu câte eșecuri să iei în calcul. Pity există doar la tipul petului (vezi calculatorul Pet).": "La Wiki VERZUM non indica una garanzia di successo per il fabbro: scegli tu quanti fallimenti considerare. Il sistema di garanzia è previsto soltanto per il tipo di pet (vedi il calcolatore Pet)."
+    "wiki-ul Verzum nu dă un pity (reușită garantată) pentru fierar, de aceea alegi tu câte eșecuri să iei în calcul. Pity există doar la tipul petului (vezi calculatorul Pet).": "La Wiki VERZUM non indica una garanzia di successo per il fabbro: scegli tu quanti fallimenti considerare. Il sistema di garanzia è previsto soltanto per il tipo di pet (vedi il calcolatore Pet).",
+    "Putere împotriva monștrilor": "Forza contro i mostri",
+    "Șansă critică": "Probabilità critica",
+    "Putere împotriva Metinelor": "Forza contro i Metin",
+    "Putere împotriva semioamenilor": "Forza contro i semiumani",
+    "Blocare corp la corp": "Blocco in mischia",
+    "Putere împotriva lui Razador și Nemere": "Forza contro Razador e Nemere",
+    "Putere magică și corp la corp": "Potenza magica e in mischia",
+    "Șansă de penetrare": "Probabilità di penetrazione",
+    "Putere împotriva boșilor": "Forza contro i boss",
+    "Apărare împotriva semi-oamenilor": "Difesa contro i semiumani",
+    "Daune critice": "Danno critico"
   },
   "source": {
     "warrior": "VERZUM Wiki it/systems/skills",
     "ninja": "Metin2 IT Wiki Ninja/Abilità — verification for VERZUM pending",
     "sura": "Metin2 IT Wiki Sura/Abilità — verification for VERZUM pending",
     "shaman": "Metin2 IT Wiki Shamano/Abilità — verification for VERZUM pending"
-  }
+  },
+  "petSkillNames": [
+    "Forza contro i mostri",
+    "Probabilità critica",
+    "Forza contro i Metin",
+    "Forza contro i semiumani",
+    "Blocco in mischia",
+    "Forza contro Razador e Nemere",
+    "Potenza magica e in mischia"
+  ],
+  "mountSkillNames": [
+    "Forza contro i mostri",
+    "Probabilità di penetrazione",
+    "Forza contro i boss",
+    "Difesa contro i semiumani",
+    "Potenza elementale",
+    "Danno critico"
+  ]
 };
