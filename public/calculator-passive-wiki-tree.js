@@ -59,8 +59,8 @@ function parse(source){
     grades:cells.slice(1,4).map((cell,i)=>{
      const item=collectItem(cell.querySelector('a[href^="#wiki/item/"]'));
      return item?{...item,grade:['M','G','P'][i]}:null;
-    }).filter(Boolean)}.sort((a,b)=>skillNames.indexOf(a.name)-skillNames.indexOf(b.name));
- });
+    }).filter(Boolean)};
+ }).sort((a,b)=>skillNames.indexOf(a.name)-skillNames.indexOf(b.name));
  const sourceRecipe=nextUntil(creation);
  const allItems=itemsFrom([...bookSection,...sourceRecipe,...nextUntil(setHeading)]);
  const helpItems=allItems.filter(x=>['50350','50351','71094','71001','100010','100006','100007','100008','50513','70102','100042'].includes(x.id));
