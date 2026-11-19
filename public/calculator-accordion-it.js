@@ -286,9 +286,45 @@ const materialNames=Object.fromEntries(Object.entries(parentRelease.materialIds|
  .map(([name,id])=>[String(id),name]));
 const matNames=Object.assign({},parentRelease.reference?.names||{},materialNames,
  window.parent?.VERZUM_MATERIAL_L10N?.it||{});
-const italianNames=Object.assign({},matNames,catalogNames,window.parent?.VERZUM_ITEM_L10N?.it||{});
+// Official IT names by stable item ID. Source: Italian VERZUM Wiki item pages.
+// The pseudo book IDs (sb_class_index) do not have independent Wiki item pages:
+// label them descriptively with the *verified* Wiki skill name.
+const wikiLexicon=window.parent?.VERZUM_WIKI_ITALIAN_LEXICON||{};
+const wikiItems=wikiLexicon.items||{};
+const extraNames={};
+if(typeof SKD!=='undefined'){
+ for(const [cls,officialSkills] of Object.entries(wikiLexicon.skills||{})){
+  const native=SKD.SK?.[cls];
+  if(!Array.isArray(native)||native.length!==officialSkills.length)continue;
+  native.forEach((skill,index)=>{
+   const name=officialSkills[index];
+   skill.n.it=name;
+   extraNames['sk_'+cls+'_'+index]=name;
+   extraNames['sb_'+cls+'_'+index]='Libro abilità: '+name;
+   const effects=wikiLexicon.effects?.[cls]?.[index];
+   if(Array.isArray(effects)&&effects.length===skill.t.length){
+    skill.l.it=effects.slice();
+   }
+  });
+ }
+ const officialPassive=wikiLexicon.passive||[];
+ if(Array.isArray(SKD.PAS)&&SKD.PAS.length===officialPassive.length){
+  SKD.PAS.forEach((skill,index)=>{
+   skill.n.it=officialPassive[index];
+   const expected=wikiLexicon.passiveEffects?.[index];
+   if(Array.isArray(expected)&&expected.length===skill.t.length){
+    skill.t.forEach((table,tableIndex)=>{
+     const labels=expected[tableIndex];
+     if(Array.isArray(labels)&&labels.length===table.r.length)table.l.it=labels.slice();
+    });
+   }
+  });
+ }
+}
+
+const italianNames=Object.assign({},matNames,catalogNames,window.parent?.VERZUM_ITEM_L10N?.it||{},wikiItems,extraNames);
 if(typeof NL!=='undefined')NL.it={
- i:italianNames,m:matNames,
+ i:italianNames,m:Object.assign({},matNames,wikiItems),
  a:(parentRelease.costumes||[]).map(item=>item.name)
 };
 window.addEventListener('message',e=>{
