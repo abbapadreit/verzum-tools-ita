@@ -1,3 +1,4 @@
+import './genera-wiki-italiano.mjs';
 import {readFileSync,existsSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import assert from 'node:assert/strict';
@@ -5,17 +6,22 @@ import {runInNewContext} from 'node:vm';
 const base=new URL('../public/',import.meta.url);
 const read=p=>readFileSync(new URL(p,base),'utf8');
 const html=read('index.html'),app=read('app.js'),theme=read('theme-original.css'),guide=read('guide.js'),wiki=read('wiki.js'),official=read('wiki-official-guide.html'),originalHome=read('wiki-official-home.js');
-const files=['wiki-index.generated.js','wiki-tooltips.generated.js','wiki-item-tooltips.generated.js','wiki-mirror-utilities.css','style.css','theme-original.css','wiki.css','wiki-official.css','wiki-official-override.css','wiki-search.js','wiki-search.css','wiki-guide-fixes.css','wiki-guide-interactions.js','wiki-official-home.js','wiki-official.js','wiki-official-guide.html','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','item-translations.js','i18n.js','i18n-world.js','planner-easy.js','sidebar.js','ux-mobile-planner.css','assets/icon-index.js','assets/extra-icons.js','robots.txt','assets/sidebar-logo.svg',...['it','en','ro','hu'].map(s=>'assets/flags/'+s+'.svg'),...Array.from({length:9},(_,i)=>'assets/real-icons-'+String(i).padStart(2,'0')+'.js')];
+const files=['wiki-index.generated.js','wiki-tooltips.generated.js','wiki-item-tooltips.generated.js','wiki-mirror-utilities.css','style.css','theme-original.css','wiki.css','wiki-official.css','wiki-official-override.css','wiki-search.js','wiki-search.css','wiki-guide-fixes.css','wiki-guide-interactions.js','wiki-official-home.js','wiki-official.js','wiki-official-guide.html','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','item-translations.js','wiki-italian-lexicon.generated.js','i18n.js','i18n-world.js','planner-easy.js','sidebar.js','ux-mobile-planner.css','assets/icon-index.js','assets/extra-icons.js','robots.txt','assets/sidebar-logo.svg',...['it','en','ro','hu'].map(s=>'assets/flags/'+s+'.svg'),...Array.from({length:9},(_,i)=>'assets/real-icons-'+String(i).padStart(2,'0')+'.js')];
 for(const f of files){
  const u=new URL(f,base);assert.ok(existsSync(u),'Risorsa mancante: '+f);
  if(f.endsWith('.js'))execFileSync(process.execPath,['--check',u.pathname]);
 }
-for(const link of ['style.css','theme-original.css','wiki.css','wiki-search.js','wiki-search.css','wiki-guide-fixes.css','wiki-guide-interactions.js','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','i18n.js','i18n-world.js','planner-easy.js','ux-mobile-planner.css','item-translations.js']){
+for(const link of ['style.css','theme-original.css','wiki.css','wiki-search.js','wiki-search.css','wiki-guide-fixes.css','wiki-guide-interactions.js','guide.js','wiki.js','wiki-data.generated.js','app.js','advanced.js','release.js','wiki-italian-lexicon.generated.js','i18n.js','i18n-world.js','planner-easy.js','ux-mobile-planner.css','item-translations.js']){
  assert.ok(html.includes(link),'Manca collegamento HTML '+link);
 }
 for(const p of ['upgrade','gaya','pet','mount','costume','skills','passive','planner','prices','catalog','wiki']){
  assert.ok(html.includes('data-nav="'+p+'"'),'Manca sezione '+p);
 }
+const wikiItalian=JSON.parse(read('wiki-italian-lexicon.generated.js').split('window.VERZUM_WIKI_ITALIAN_LEXICON=')[1].trim().replace(/;$/,''));
+assert.ok(Object.keys(wikiItalian.items).length>=400,'Catalogo nomi ufficiali item della Wiki troppo piccolo');
+assert.ok(Object.values(wikiItalian.skills).every(arr=>arr.length===12),'Il dizionario abilità deve contenere 12 skill per classe');
+assert.equal(wikiItalian.skills.ninja[0],'Tranello','Il Ninja deve usare il nome italiano dalla Wiki');
+assert.equal(wikiItalian.items['50513'],'Pietra delle Anime','Nome canonico Pietra delle Anime');
 const dat=JSON.parse(read('release.js').split('window.VERZUM_RELEASE=')[1].trim().replace(/;$/,''));
 assert.equal(dat.catalog.length,147,'catalogo oggetti');
 assert.equal(new Set(dat.catalog.map(i=>i.id)).size,147,'ID oggetti unici');
