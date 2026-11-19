@@ -6,7 +6,6 @@ on:
       - 'public/calculator-wiki-it-terms.js'
       - 'tests/calculator-localization-coverage.test.cjs'
       - 'tests/calculator-localization-browser.mjs'
-      - 'tests/calculator-localization-browser.mjs'
       - '.github/workflows/calculator-localization.yml'
   push:
     branches: [main]
@@ -14,6 +13,7 @@ on:
       - 'public/calculator-wiki-it-fix.js'
       - 'public/calculator-wiki-it-terms.js'
       - 'tests/calculator-localization-coverage.test.cjs'
+      - 'tests/calculator-localization-browser.mjs'
 jobs:
   node-tests:
     runs-on: ubuntu-latest
