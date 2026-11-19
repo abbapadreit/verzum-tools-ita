@@ -4,7 +4,7 @@
 (function(){
 'use strict';
 if(typeof sections==='undefined'||typeof state==='undefined'||typeof render!=='function')return;
-const nativeRoutes={upgrade:'crafting',gaya:'gaya',pet:'pet',mount:'mount',costume:'costume',skills:'skills',passive:'passive',planner:'planner',prices:'prices'};
+const nativeRoutes={upgrade:'crafting',gaya:'gaya',pet:'pet',mount:'mount',costume:'costume',skills:'skills',passive:'passive',prices:'prices'};
 const validRoutes=new Set(Object.keys(nativeRoutes));
 /* Prima apertura: conserva i prezzi già inseriti nel precedente listino.
    Solo associazioni item-ID verificabili, mai numeri stimati o sostituiti.
@@ -67,8 +67,8 @@ window.addEventListener('message',event=>{
   const height=Number(data.height);
   if(Number.isFinite(height)&&height>=300&&height<=80000)iframe.style.height=Math.ceil(height)+'px';
  }else if(data.type==='verzum-reference-route'){
-  const target=Object.entries(nativeRoutes).find(([route,id])=>id===data.route)?.[0];
-  if(!target||!validRoutes.has(target)||target===state.route)return;
+  const target=data.route==='planner'?'planner':Object.entries(nativeRoutes).find(([route,id])=>id===data.route)?.[0];
+  if(!target||(target!=='planner'&&!validRoutes.has(target))||target===state.route)return;
   state.route=target;
   history.pushState({route:target},'',location.pathname+location.search+'#'+target);
   render();
