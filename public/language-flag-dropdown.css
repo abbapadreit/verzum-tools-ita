@@ -1,0 +1,18 @@
+/* Real SVG flag picker: independent of OS emoji support. */
+.vz-country-native-select{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;clip-path:inset(50%)!important;overflow:hidden!important}
+.vz-country-picker{position:relative;width:100%;font-family:Manrope,Arial,sans-serif}
+.vz-country-trigger{display:flex;align-items:center;gap:11px;width:100%;min-height:49px;border:1px solid #b28a54;border-radius:9px;background:#1b0b0b;color:#f8dfb6;text-align:left;padding:9px 11px;cursor:pointer;font:700 13px Manrope,Arial,sans-serif}
+.vz-country-trigger[aria-expanded=true],.vz-country-trigger:hover{border-color:#efd19c;background:#24110d}
+.vz-country-trigger:focus-visible,.vz-country-option:focus-visible,.vz-country-search:focus-visible{outline:2px solid #f5d29b;outline-offset:2px}
+.vz-country-flag{display:block;flex:0 0 29px;width:29px;height:22px;object-fit:cover;border:1px solid #a39179;border-radius:3px;box-shadow:0 1px 3px #0009;background:#220f0c}
+.vz-country-name{flex:1;min-width:0;overflow-wrap:anywhere}
+.vz-country-chevron{margin-left:auto;font-size:21px;color:#edc89a}
+.vz-country-options{display:block;position:relative;z-index:6;max-height:min(370px,47vh);overflow:auto;overscroll-behavior:contain;border:1px solid #956439;border-radius:8px;margin-top:4px;padding:5px;background:#180a09;box-shadow:0 11px 22px #0007;scrollbar-color:#8d5b37 #1a0908}
+.vz-country-options[hidden],.vz-country-group[hidden],.vz-country-option[hidden]{display:none!important}
+.vz-country-search{display:block;position:sticky;top:0;z-index:7;width:100%;box-sizing:border-box;min-height:37px;padding:8px 10px;margin-bottom:6px;background:#2a1510;border:1px solid #885c37;border-radius:5px;color:#ffe1b5}
+.vz-country-group-name{font:700 12px Rajdhani,Arial,sans-serif;color:#efbd82;letter-spacing:.07em;text-transform:uppercase;padding:9px 9px 5px}
+.vz-country-option{display:flex;align-items:center;gap:9px;width:100%;min-height:39px;box-sizing:border-box;border:0;border-radius:5px;color:#e8c4a4;background:transparent;padding:6px 9px;text-align:left;cursor:pointer;font:600 12px Manrope,Arial,sans-serif}
+.vz-country-option:hover,.vz-country-option:focus-visible{background:#4d281c;color:#ffdfab}
+.vz-country-option[aria-selected=true]{background:#694026;color:#fff3d5}
+.vz-country-beta{color:#c7a58d;font-size:10px;margin-left:auto}
+@media(max-width:780px){.vz-country-options{max-height:min(390px,52dvh)}.vz-country-trigger{min-height:48px}.vz-country-option{min-height:42px}}

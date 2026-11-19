@@ -1,0 +1,72 @@
+/* Wiki passive visual skill tree: 4 calculated skills plus complete local wiki bonus sets. */
+#v-passive .vz-passive-root{font-family:Manrope,Arial,sans-serif;margin:18px 0;padding:18px;color:#e8cbaa;background:linear-gradient(135deg,#2b1611,#180b09);border:1px solid #816044;border-radius:11px;box-shadow:0 8px 24px #0003}
+#v-passive .vz-passive-hero{display:flex;gap:15px;align-items:center;padding-bottom:14px;border-bottom:1px solid #674530}
+#v-passive .vz-passive-cover{width:110px;height:92px;object-fit:contain;flex:none}
+#v-passive .vz-passive-hero h2{color:#f6d5a1;font:700 24px Rajdhani,Arial,sans-serif;margin:4px 0 7px}
+#v-passive .vz-passive-eyebrow{font:700 10px Rajdhani,Arial,sans-serif;letter-spacing:.13em;color:#be9163}
+#v-passive .vz-passive-hero p{color:#d2b8a0;font-size:12px;line-height:1.55;margin:0 0 7px}
+#v-passive .vz-passive-root a{color:#e7be88;text-decoration:none}
+#v-passive .vz-passive-root a:hover{text-decoration:underline;color:#ffe7bb}
+#v-passive .vz-passive-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:15px 0}
+#v-passive .vz-passive-tabs button{min-width:0;min-height:42px;background:#200e0b;color:#c9ae95;border:1px solid #604331;border-radius:6px;cursor:pointer;padding:7px 8px;font:700 12px Rajdhani,Arial,sans-serif}
+#v-passive .vz-passive-tabs button.is-active{border-color:#c29b63;background:#54321f;color:#ffe3af}
+#v-passive :is(.vz-passive-tabs button,.vz-passive-skill,.vz-passive-check input,.vz-passive-item,.vz-passive-check a):focus-visible{outline:2px solid #eec482;outline-offset:2px}
+#v-passive .vz-passive-content{min-height:175px}
+#v-passive .vz-passive-tree-intro strong{font:700 18px Rajdhani,Arial,sans-serif;color:#f1c990}
+#v-passive .vz-passive-tree-intro p,#v-passive .vz-passive-branch p{font:500 12px/1.55 Manrope,Arial,sans-serif;color:#d0b79b}
+#v-passive .vz-passive-skill-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:13px 0 19px}
+#v-passive .vz-passive-skill{display:flex;flex-direction:column;align-items:center;gap:9px;min-width:0;padding:11px 5px;border:1px solid #664531;border-radius:8px;background:#20100d;color:#dfc3a3;text-align:center;cursor:pointer;font:700 12px Rajdhani,Arial,sans-serif}
+#v-passive .vz-passive-skill.is-selected{background:#463021;color:#ffe1ac;border-color:#d4a970}
+#v-passive .vz-passive-icon{display:inline-block;width:36px;height:36px;flex:none;object-fit:contain;border-radius:3px}
+#v-passive .vz-passive-no-image{display:flex;align-items:center;justify-content:center;border:1px dashed #91643a;color:#b18450}
+#v-passive .vz-passive-branch{padding:14px;border:1px solid #684735;border-radius:8px;background:#1b0a09}
+#v-passive .vz-passive-branch h4{display:flex;gap:8px;align-items:center;margin:0 0 6px;color:#f0d1a0;font:700 18px Rajdhani,Arial,sans-serif}
+#v-passive .vz-passive-book-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:14px 0}
+#v-passive .vz-passive-book{border:1px solid #53382a;border-radius:7px;padding:10px;background:#2a1711}
+#v-passive .vz-passive-grade{display:block;margin:0 0 8px;color:#f8cf91;font:700 13px Rajdhani,Arial,sans-serif}
+#v-passive .vz-passive-item{display:flex;align-items:center;gap:9px;min-width:0;padding:4px 3px;color:#ead2b1;font:600 11px/1.4 Manrope,Arial,sans-serif}
+#v-passive .vz-passive-item span{overflow-wrap:anywhere}
+#v-passive .vz-passive-item small{display:block;color:#b99a76;font-size:10px}
+#v-passive .vz-passive-item-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:13px 0}
+#v-passive .vz-passive-item-grid>.vz-passive-item{border:1px solid #624536;border-radius:7px;padding:8px;background:#25120f}
+#v-passive .vz-passive-caption{font-size:11px!important;color:#bfa48b!important}
+#v-passive .vz-passive-source-details{border:1px solid #684732;background:#1b0c09;border-radius:7px;margin:13px 0;padding:10px}
+#v-passive .vz-passive-source-details summary{cursor:pointer;color:#e3bc8b;font:700 13px Rajdhani,Arial,sans-serif}
+#v-passive .vz-passive-wiki-table{overflow:auto;max-height:620px;scrollbar-color:#815839 #22120f;margin-top:12px}
+#v-passive .vz-passive-wiki-table table{min-width:460px;border-collapse:collapse;margin:8px 0 15px;width:100%;font:500 11px/1.45 Manrope,Arial,sans-serif}
+#v-passive .vz-passive-wiki-table :is(th,td){border:1px solid #593f30;padding:7px 8px;color:#e2caab}
+#v-passive .vz-passive-wiki-table th{background:#38251c;color:#eac799}
+#v-passive .vz-passive-wiki-table img{max-width:34px;max-height:34px;object-fit:contain;vertical-align:middle}
+#v-passive .vz-passive-wiki-table .wk-inimg{width:24px;height:24px}
+#v-passive .vz-passive-wiki-table .wk-bonus{color:#a8c99d}
+#v-passive .vz-passive-wiki-table .wk-tbl{overflow-x:auto}
+#v-passive .vz-passive-wiki-table .wk-tbl--hscroll{overflow-x:auto}
+#v-passive .vz-passive-set{border:1px solid #654331;border-radius:8px;background:#1c0d0a;padding:14px;margin-bottom:12px}
+#v-passive .vz-passive-set-head{display:flex;gap:8px;align-items:start;justify-content:space-between;margin-bottom:12px}
+#v-passive .vz-passive-set-head h4{color:#f1c78f;font:700 20px Rajdhani,Arial,sans-serif;margin:0 0 7px}
+#v-passive .vz-passive-set-head p{color:#cbb298;margin:0;font-size:11px;line-height:1.5}
+#v-passive .vz-passive-set-head>strong{flex:0 1 160px;font:700 12px Rajdhani,Arial,sans-serif;color:#e0c9a8;text-align:right}
+#v-passive .vz-passive-check-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#v-passive .vz-passive-check{display:flex;align-items:center;gap:7px;min-width:0;border:1px solid #54372b;border-radius:6px;padding:9px;background:#28150f;color:#ddc4a7;font:600 11px/1.4 Manrope,Arial,sans-serif;cursor:pointer}
+#v-passive .vz-passive-check.checked{border-color:#7d9b59;background:#1d2918}
+#v-passive .vz-passive-check input{accent-color:#8cbb73;flex:none}
+#v-passive .vz-passive-check span{min-width:0;overflow-wrap:anywhere;flex:1}
+#v-passive .vz-passive-check a{font:700 10px Rajdhani,Arial,sans-serif;color:#d9b88c;margin-left:auto}
+#v-passive .vz-passive-bonus{background:#2b2016;border-left:3px solid #ac8650;margin-top:12px;padding:10px;font:600 12px/1.6 Manrope,Arial,sans-serif;color:#bcd4a5}
+#v-passive .vz-passive-bonus b{color:#ebcda0}
+#v-passive .vz-passive-footer{padding-top:14px;margin-top:16px;border-top:1px solid #674631;color:#b69b7d;font:500 11px/1.6 Manrope,Arial,sans-serif}
+@media(max-width:900px){
+ #v-passive .vz-passive-item-grid,#v-passive .vz-passive-check-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #v-passive .vz-passive-book-flow{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+ #v-passive .vz-passive-root{padding:10px}
+ #v-passive .vz-passive-hero{align-items:flex-start}
+ #v-passive .vz-passive-cover{width:65px;height:65px}
+ #v-passive .vz-passive-hero h2{font-size:19px}
+ #v-passive .vz-passive-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #v-passive .vz-passive-skill-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #v-passive .vz-passive-item-grid,#v-passive .vz-passive-check-grid{grid-template-columns:1fr}
+ #v-passive .vz-passive-set-head{display:block}
+ #v-passive .vz-passive-set-head>strong{display:block;text-align:left;margin-top:6px}
+}
