@@ -190,7 +190,8 @@ VIEW.addEventListener('click',e=>{
  if(skill){
   selectedSkill=Number(skill.dataset.vzPassiveSkill)||0;
   const original=VIEW.querySelector('[data-pi="'+selectedSkill+'"]');
-  if(original){original.click();schedule()}else redraw();
+  if(original)original.click();
+  redraw();schedule();
  }
 });
 VIEW.addEventListener('change',e=>{
