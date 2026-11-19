@@ -1,0 +1,31 @@
+/* Build IT names from the verified VERZUM Wiki, not automatic translation. */
+import{readdirSync,readFileSync,writeFileSync}from'node:fs';
+import{join,resolve}from'node:path';
+import{fileURLToPath}from'node:url';
+const dir=resolve(fileURLToPath(new URL('../public/',import.meta.url)));
+const read=p=>readFileSync(join(dir,p),'utf8');
+const decode=s=>String(s||'').replace(/&#(x[0-9a-f]+|\d+);/gi,(_,v)=>String.fromCodePoint(v.toLowerCase().startsWith('x')?parseInt(v.slice(1),16):+v))
+.replace(/&(amp|lt|gt|quot|apos|nbsp|egrave|Egrave|agrave|Agrave|ograve|igrave|ugrave|eacute|Eacute|rsquo|lsquo|ldquo|rdquo);/g,(_,k)=>({amp:'&',lt:'<',gt:'>',quot:'"',apos:"'",nbsp:' ',egrave:'è',Egrave:'È',agrave:'à',Agrave:'À',ograve:'ò',igrave:'ì',ugrave:'ù',eacute:'é',Eacute:'É',rsquo:'’',lsquo:'‘',ldquo:'“',rdquo:'”'})[k])
+.replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
+const items={};let readCount=0,skipped=0;
+for(const filename of readdirSync(join(dir,'wiki-pages/item'))){
+ if(!/^\d+\.html$/.test(filename))continue;
+ readCount++;
+ const html=read('wiki-pages/item/'+filename);
+ const match=html.match(/<span\b[^>]*class="[^"]*\bwk-namebar__name\b[^"]*"[^>]*>([\s\S]*?)<\/span>/i);
+ const name=match?decode(match[1]):'';
+ if(!name||name.length>180){skipped++;continue}
+ items[filename.slice(0,-5)]=name;
+}
+const skills={
+ warrior:[...read('wiki-pages/systems/skills.html').matchAll(/<span class="wk-z-lb[^"]*">([^<]+)<\/span>/g)].map(m=>decode(m[1])),
+ ninja:['Tranello','Attacco lampo','Vortice del pugnale','Camuffamento','Nuvola velenosa','Veleno insidioso','Tiro ripetuto','Pioggia di frecce','Freccia di fuoco','Passo piumato','Freccia avvelenata','Colpo sfavillante'],
+ sura:['Schiocco di dita','Vortice del drago','Lama incantata','Paura','Armatura incantata','Annullamento magia','Colpo oscuro','Colpo di fiamma','Spirito della fiamma','Protezione oscura','Colpo degli spiriti','Pietra oscura'],
+ shaman:['Talismano volante','Tiro del drago','Ruggito del drago','Benedizione','Riflessione','Aiuto del drago','Lancio di lampi','Evocare i lampi','Artiglio di lampo','Cura','Rapidità','Attacco+']
+};
+const passive=[...read('wiki-pages/systems/passive_skills.html').matchAll(/<span class="wk-z-lb[^"]*">([^<]+)<\/span>/g)].map(m=>decode(m[1]));
+if(readCount<400||Object.keys(items).length<400||Object.values(skills).some(x=>x.length!==12)||passive.length!==4)throw Error('Wiki corpus incomplete');
+for(const id of ['50301','50341','50342','50350','50351','50513','71001','71094'])if(!items[id])throw Error('Missing Wiki item '+id);
+const corpus={items,skills,passive,source:'Italian VERZUM Wiki (mirror; Ninja/Sura/Shaman class pages verified 2026-11-19)',pagesIndexed:readCount};
+writeFileSync(join(dir,'wiki-italian-lexicon.generated.js'),'/* Generated from official Italian VERZUM Wiki. Do not manually translate item names. */\nwindow.VERZUM_WIKI_ITALIAN_LEXICON='+JSON.stringify(corpus)+';\n');
+console.log('Wiki IT names',Object.keys(items).length,'from',readCount,'pages; 48 class skills; 4 passives; skipped',skipped);
