@@ -9,6 +9,12 @@ const WIKI='wiki-pages/systems/passive_skills.html',SAVE='verzum_passive_wiki_tr
 const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const tidy=s=>String(s||'').replace(/\s+/g,' ').trim();
 const skillNames=['Guida','Guerriero coraggioso','Guerriero del Dio Drago','Campione dei sotterranei'];
+const officialSkillIcons={
+ 'Guida':'wiki-original/img/ui/skill/common/support/tongsol.png',
+ 'Guerriero coraggioso':'wiki-original/img/ui/skill/common/support/chultong.png',
+ 'Guerriero del Dio Drago':'wiki-original/img/ui/skill/common/support/jeunghyul.png',
+ 'Campione dei sotterranei':'wiki-original/img/ui/skill/common/guild/him.png'
+};
 const tabs={skills:'Abilità e libri',recipe:'Creazione e aiuti',sets:'Bonus set',consumables:'Pozioni e pesci'};
 const store=()=>{try{const x=JSON.parse(localStorage.getItem(SAVE)||'{}');return x&&typeof x==='object'&&!Array.isArray(x)?x:{}}catch(_){return{}}};
 let owned=store(),activeTab='skills',selectedSkill=0,model=null,pending=null,loadError=false;
@@ -49,11 +55,11 @@ function parse(source){
  }
  const books=bookRows.map((tr,index)=>{
   const cells=[...tr.querySelectorAll('td')];
-  return {index,name:tidy(cells[0]?.textContent),icon:skillIcons.get(tidy(cells[0]?.textContent))||'',
+  return {index,name:tidy(cells[0]?.textContent),icon:skillIcons.get(tidy(cells[0]?.textContent))||officialSkillIcons[tidy(cells[0]?.textContent)]||'',
     grades:cells.slice(1,4).map((cell,i)=>{
      const item=collectItem(cell.querySelector('a[href^="#wiki/item/"]'));
      return item?{...item,grade:['M','G','P'][i]}:null;
-    }).filter(Boolean)};
+    }).filter(Boolean)}.sort((a,b)=>skillNames.indexOf(a.name)-skillNames.indexOf(b.name));
  });
  const sourceRecipe=nextUntil(creation);
  const allItems=itemsFrom([...bookSection,...sourceRecipe,...nextUntil(setHeading)]);
